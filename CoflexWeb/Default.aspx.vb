@@ -6,13 +6,8 @@ Public Class _Default
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
-
         Dim response = CoflexWebServices.doPostRequest(CoflexWebServices.LOGIN, "grant_type=password&username=luis.ibarra0992@gmail.com&password=a")
 
-        Me.response.InnerText = response
-
-        Dim serializer As New JavaScriptSerializer
-        Dim jsonMsg = serializer.Serialize(response)
 
 
     End Sub
