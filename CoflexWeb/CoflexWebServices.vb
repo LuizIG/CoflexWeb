@@ -7,7 +7,8 @@ Namespace CoflexWeb.Services.Wev
         Private Const SERVER_HOST As String = "http://62.151.178.139/CoflexAPI/"
 
         Public Const LOGIN As String = "Token"
-
+        Public Const REGISTER As String = "api/Account/Register"
+        Public Const ROLES As String = "api/Roles"
 
         ''' <summary>
         ''' Controla las peticiones POST
@@ -21,6 +22,22 @@ Namespace CoflexWeb.Services.Wev
             Return getData(request)
         End Function
 
+        Public Function doGetRequest(url As String, Optional ByVal contentType As String = "application/json") As String
+            Dim request = createRequest(SERVER_HOST & url, "GET", contentType)
+            Return getData(request)
+        End Function
+
+        Public Function doDeleteRequest(url As String, Optional ByVal contentType As String = "application/json") As String
+            Dim request = createRequest(SERVER_HOST & url, "DELETE", contentType)
+            Return getData(request)
+        End Function
+
+
+        Public Function doPutRequest(url As String, data As String, Optional ByVal contentType As String = "application/json") As String
+            Dim request = createRequest(SERVER_HOST & url, "PUT", contentType)
+            sendData(request, data)
+            Return getData(request)
+        End Function
 
         Private Function createRequest(ByVal url As String, ByVal method As String, Optional ByVal contentType As String = "application/json") As WebRequest
             Dim request As WebRequest = WebRequest.Create(url)
