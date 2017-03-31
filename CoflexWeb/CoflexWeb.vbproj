@@ -163,6 +163,7 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="Account\Login.aspx" />
+    <Content Include="Account\Register.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -170,6 +171,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Default.aspx" />
+    <Content Include="Estimaciones\Estimacion.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -220,6 +222,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\Register.aspx.vb">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="App_Code\JsonObject.vb" />
     <Compile Include="Account\Login.aspx.vb">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -241,6 +247,13 @@
     <Compile Include="Default.aspx.vb">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Estimaciones\Estimacion.aspx.designer.vb">
+      <DependentUpon>Estimacion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Estimaciones\Estimacion.aspx.vb">
+      <DependentUpon>Estimacion.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
