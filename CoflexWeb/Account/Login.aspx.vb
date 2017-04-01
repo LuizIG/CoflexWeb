@@ -1,5 +1,9 @@
-﻿Partial Public Class Account_Login
-    Inherits Page
+﻿Imports System
+Imports System.Collections.Generic
+Imports CoflexWeb.CoflexWeb.Services.Wev
+
+Public Class Account_Login
+    Inherits System.Web.UI.Page
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         'RegisterHyperLink.NavigateUrl = "Register"
         'OpenAuthLogin.ReturnUrl = Request.QueryString("ReturnUrl")
@@ -20,6 +24,10 @@
 
 
         'MsgBox(response)
+
+        ''MsgBox(Me.UserName.Text)
+
+        Dim response = CoflexWebServices.doPostRequest(CoflexWebServices.LOGIN, "grant_type=password&username=luis.ibarra0992@gmail.com&password=a")
 
 
     End Sub

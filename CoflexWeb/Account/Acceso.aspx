@@ -1,8 +1,5 @@
-﻿<%@ Page Title="Log in" Language="VB" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="Login.aspx.vb" Inherits="CoflexWeb.Account_Login" Async="true" %>
-
-<%--<%@ Register Src="~/Account/OpenAuthProviders.ascx" TagPrefix="uc" TagName="OpenAuthProviders" %>--%>
-
-<asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="Acceso.aspx.vb" Inherits="CoflexWeb.Acceso" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%--<%: Title %>.--%></h2>
 
     <div class="row">
@@ -59,4 +56,3 @@
         </div>--%>
     </div>
 </asp:Content>
-
