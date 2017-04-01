@@ -64,16 +64,14 @@ Namespace CoflexWeb.Services.Web
                 reader.Close()
                 dataStream.Close()
                 response.Close()
-
-
+                If (responseFromServer Is Nothing Or String.Compare(responseFromServer, "") = 0) Then
+                    responseFromServer = "{}"
+                End If
                 Dim responseStatus = "{" _
                     & """statusCode"":" & CType(response, HttpWebResponse).StatusCode & "," _
                     & """errorMessage"":""""," _
                     & """detail"":" & responseFromServer _
                     & "}"
-
-
-
                 Return responseStatus
             Catch ex As WebException
                 Dim resp = New StreamReader(ex.Response.GetResponseStream()).ReadToEnd()
