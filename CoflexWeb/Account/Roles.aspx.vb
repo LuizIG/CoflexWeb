@@ -19,6 +19,8 @@ Public Class Roles
         Dim role As New JObject
         role.Add("Name", Name)
 
+        Dim access_token = Session("access_token")
+
         Dim response = CoflexWebServices.doPostRequest(CoflexWebServices.ROLES, role.ToString)
 
         Dim o = JObject.Parse(response)

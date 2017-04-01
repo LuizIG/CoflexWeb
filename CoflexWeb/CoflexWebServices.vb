@@ -13,33 +13,36 @@ Namespace CoflexWeb.Services.Web
         Public Const REGISTER As String = "api/Account/Register"
         Public Const ROLES As String = "api/Roles"
 
-        Public Function doPostRequest(url As String, data As String, Optional ByVal contentType As String = "application/json") As String
+        Public Function doPostRequest(url As String, data As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As String
             Dim request = createRequest(SERVER_HOST & url, "POST", contentType)
             sendData(request, data)
             Return getData(request)
         End Function
 
-        Public Function doGetRequest(url As String, Optional ByVal contentType As String = "application/json") As String
+        Public Function doGetRequest(url As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As String
             Dim request = createRequest(SERVER_HOST & url, "GET", contentType)
             Return getData(request)
         End Function
 
-        Public Function doDeleteRequest(url As String, Optional ByVal contentType As String = "application/json") As String
+        Public Function doDeleteRequest(url As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As String
             Dim request = createRequest(SERVER_HOST & url, "DELETE", contentType)
             Return getData(request)
         End Function
 
 
-        Public Function doPutRequest(url As String, data As String, Optional ByVal contentType As String = "application/json") As String
+        Public Function doPutRequest(url As String, data As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As String
             Dim request = createRequest(SERVER_HOST & url, "PUT", contentType)
             sendData(request, data)
             Return getData(request)
         End Function
 
-        Private Function createRequest(ByVal url As String, ByVal method As String, Optional ByVal contentType As String = "application/json") As WebRequest
+        Private Function createRequest(ByVal url As String, ByVal method As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As WebRequest
             Dim request As WebRequest = WebRequest.Create(url)
             request.Method = method
             request.ContentType = contentType
+            If Not Strings.StrComp(token, "") = 0 Then
+                request.Headers.Add("Authorization", "bearer " & token)
+            End If
             Return request
         End Function
 
