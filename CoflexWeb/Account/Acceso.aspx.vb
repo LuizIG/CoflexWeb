@@ -15,9 +15,27 @@ Public Class Acceso
     End Sub
 
     Protected Sub LogIn(sender As Object, e As EventArgs)
-        MsgBox(Me.UserName.Text)
 
-        Dim response = CoflexWebServices.doPostRequest(CoflexWebServices.LOGIN, "grant_type=password&username=luis.ibarra0992@gmail.com&password=a")
+        Dim Consulta = CoflexWebServices.doPostRequest(CoflexWebServices.LOGIN, "grant_type=password&username=" & Me.UserName.Text & "&password=" & Me.Password.Text)
+        ''Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ROLES)
+        Dim o = JObject.Parse(Consulta)
+        Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+
+        If (statusCode >= 200 And statusCode < 400) Then
+
+            Dim detail = o.GetValue("detail").Value(Of JObject)
+            Session("access_token") = detail.GetValue("access_token").Value(Of String)
+            Session("expire") = False
+            Response.Redirect("~/Default.aspx")
+        Else
+            Session.Abandon()
+            Session("expire") = True
+            Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
+            Me.FailureText.Text = errorMessage
+        End If
+
+
+        Session("myInformation") = "somevalue"
 
         ''Dim jsonString = "{""Name"":""Aghilas"",""Company"":""....."",""Entered"":""2012-03-16T00:03:33.245-10:00""}"
 
@@ -28,12 +46,6 @@ Public Class Acceso
         'Dim company As String = jsona.Company
         'Dim entered As DateTime = json.Entered
         'MsgBox(company)
-
-        Dim json As String = "{""Name"":""Aghilas"",""Company"":""....."",""Entered"":""2012-03-16T00:03:33.245-10:00""}"
-
-        Dim m As LogInUser = JsonConvert.DeserializeObject(Of LogInUser)(json)
-
-        Dim name As String = m.Name
 
     End Sub
 End Class
