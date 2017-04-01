@@ -4,7 +4,7 @@ Imports System.Net
 Imports System.Reflection
 Imports Newtonsoft.Json.Linq
 
-Namespace CoflexWeb.Services.Wev
+Namespace CoflexWeb.Services.Web
     Public Module CoflexWebServices
 
         Private Const SERVER_HOST As String = "http://62.151.178.139/CoflexAPI/"
