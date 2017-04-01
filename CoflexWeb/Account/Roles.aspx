@@ -3,11 +3,6 @@
 
     <div id="response" runat="server"></div>
 
-    <asp:GridView ID="GridRoles" runat="server">
-        <Columns>
-            <asp:BoundField HeaderText="Id" Visible="False" />
-            <asp:BoundField HeaderText="Rol" />
-        </Columns>
-    </asp:GridView>
+    <asp:GridView ID="GridRoles" runat="server"></asp:GridView>
 
 </asp:Content>
