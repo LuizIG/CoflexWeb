@@ -5,6 +5,12 @@ Imports System
 Imports System.Linq
 Imports System.Web
 Imports System.Web.UI
+Imports CoflexWeb.CoflexWeb.Services.Web
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
+Imports System.Dynamic
+Imports System.Dynamic.ExpandoObject
+
 
 Public Partial Class Account_Register
     Inherits Page
@@ -18,5 +24,11 @@ Public Partial Class Account_Register
         'Else
         '    ErrorMessage.Text = result.Errors.FirstOrDefault()
         'End If
+
+        Dim role As New JObject
+        role.Add("Email", Me.UserName.Text)
+        role.Add("Email", Me.UserName.Text)
+        role.Add("Email", Me.UserName.Text)
+
     End Sub
 End Class
