@@ -26,9 +26,6 @@ Public Partial Class Account_Register
         'End If
 
         Dim role As New JObject
-        role.Add("Email", Me.UserName.Text)
-        role.Add("Email", Me.UserName.Text)
-        role.Add("Email", Me.UserName.Text)
 
     End Sub
 End Class

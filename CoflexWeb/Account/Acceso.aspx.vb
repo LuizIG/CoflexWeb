@@ -35,7 +35,7 @@ Public Class Acceso
         End If
 
 
-        Session("myInformation") = "somevalue"
+        MsgBox(Session("access_token"))
 
         ''Dim jsonString = "{""Name"":""Aghilas"",""Company"":""....."",""Entered"":""2012-03-16T00:03:33.245-10:00""}"
 

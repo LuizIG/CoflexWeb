@@ -21,11 +21,15 @@ Public Class Registro
     Protected Sub CreateUser_Click(sender As Object, e As EventArgs)
         Dim role As New JObject
         role.Add("Email", Me.UserName.Text)
-        role.Add("Password", Me.UserName.Text)
-        role.Add("ConfirmPassword", Me.UserName.Text)
-        role.Add("Name", Me.UserName.Text)
-        role.Add("PaternalSurname", Me.UserName.Text)
-        role.Add("MaternalSurname", Me.UserName.Text)
+        role.Add("Password", Me.Password.Text)
+        role.Add("ConfirmPassword", Me.ConfirmPassword.Text)
+        role.Add("Name", Me.Name.Text)
+        role.Add("PaternalSurname", Me.LastName.Text)
+        role.Add("MaternalSurname", Me.MotherSurname.Text)
         role.Add("Roles", "[{""Name"" : ""Administrador""}]")
+
+
+        ''CoflexWebServices.doPostRequest()
+
     End Sub
 End Class

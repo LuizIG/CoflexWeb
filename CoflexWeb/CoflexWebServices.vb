@@ -11,6 +11,7 @@ Namespace CoflexWeb.Services.Web
 
         Public Const LOGIN As String = "Token"
         Public Const REGISTER As String = "api/Account/Register"
+        Public Const CHANGEPASSWORD As String = "api/Account/Register"
         Public Const ROLES As String = "api/Roles"
 
         Public Function doPostRequest(url As String, data As String, Optional ByVal contentType As String = "application/json") As String
