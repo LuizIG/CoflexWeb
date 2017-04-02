@@ -24,7 +24,8 @@ Public Class Acceso
         If (statusCode >= 200 And statusCode < 400) Then
 
             Dim detail = o.GetValue("detail").Value(Of JObject)
-            Session("access_token") = detail.GetValue("access_token").Value(Of String)
+            Dim accessToken = detail.GetValue("access_token").Value(Of String)
+            Session("access_token") = accessToken
             Session("expire") = False
             Response.Redirect("~/Default.aspx")
         Else

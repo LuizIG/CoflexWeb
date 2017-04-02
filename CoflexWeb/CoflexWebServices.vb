@@ -7,32 +7,34 @@ Imports Newtonsoft.Json.Linq
 Namespace CoflexWeb.Services.Web
     Public Module CoflexWebServices
 
-        Private Const SERVER_HOST As String = "http://62.151.178.139/CoflexAPI/"
+        'Private Const SERVER_HOST As String = "http://62.151.178.139/CoflexAPI/"
+        Private Const SERVER_HOST As String = "http://localhost/"
 
         Public Const LOGIN As String = "Token"
         Public Const REGISTER As String = "api/Account/Register"
         Public Const CHANGEPASSWORD As String = "api/Account/Register"
         Public Const ROLES As String = "api/Roles"
+        Public Const USERS As String = "api/Account"
 
         Public Function doPostRequest(url As String, data As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As String
-            Dim request = createRequest(SERVER_HOST & url, "POST", contentType)
+            Dim request = createRequest(SERVER_HOST & url, "POST", contentType, token)
             sendData(request, data)
             Return getData(request)
         End Function
 
         Public Function doGetRequest(url As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As String
-            Dim request = createRequest(SERVER_HOST & url, "GET", contentType)
+            Dim request = createRequest(SERVER_HOST & url, "GET", contentType, token)
             Return getData(request)
         End Function
 
         Public Function doDeleteRequest(url As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As String
-            Dim request = createRequest(SERVER_HOST & url, "DELETE", contentType)
+            Dim request = createRequest(SERVER_HOST & url, "DELETE", contentType, token)
             Return getData(request)
         End Function
 
 
         Public Function doPutRequest(url As String, data As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As String
-            Dim request = createRequest(SERVER_HOST & url, "PUT", contentType)
+            Dim request = createRequest(SERVER_HOST & url, "PUT", contentType, token)
             sendData(request, data)
             Return getData(request)
         End Function
@@ -41,6 +43,7 @@ Namespace CoflexWeb.Services.Web
             Dim request As WebRequest = WebRequest.Create(url)
             request.Method = method
             request.ContentType = contentType
+
             If Not Strings.StrComp(token, "") = 0 Then
                 request.Headers.Add("Authorization", "bearer " & token)
             End If
@@ -93,9 +96,23 @@ Namespace CoflexWeb.Services.Web
                 Else
                 End If
 
+                Dim errorJSON = JObject.Parse(resp)
+                Dim ErrorString As String = ""
+                Try
+                    ErrorString = errorJSON.GetValue("error_description").Value(Of String)
+                Catch e As Exception
+
+                End Try
+
+                Try
+                    ErrorString = errorJSON.GetValue("Message").Value(Of String)
+                Catch e As Exception
+
+                End Try
+
                 Dim responseStatus = "{" _
                     & """statusCode"":" & StatusCode & "," _
-                    & """errorMessage"":""Error""," _
+                    & """errorMessage"":""" & ErrorString & """," _
                     & """detail"":" & resp _
                     & "}"
                 Return responseStatus

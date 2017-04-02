@@ -34,7 +34,7 @@ Public Class Roles
     End Sub
 
     Private Sub GetRolesList()
-        Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ROLES)
+        Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ROLES, Session("access_token"))
         Dim o = JObject.Parse(jsonResponse)
         Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
         If (statusCode >= 200 And statusCode < 400) Then
@@ -42,11 +42,6 @@ Public Class Roles
             Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
             Me.GridRoles.DataSource = Table
             Me.GridRoles.DataBind()
-            Me.GridRoles.Columns(0).Visible = False
-
-
-
-
         Else
             Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
             Me.response.InnerText = errorMessage
