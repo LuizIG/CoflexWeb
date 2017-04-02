@@ -44,7 +44,7 @@ Public Class Roles
             Me.GridRoles.DataBind()
             Me.GridRoles.Columns(0).Visible = False
 
-            Me.GridRoles.AutoGenerateEditButton
+
 
 
         Else
