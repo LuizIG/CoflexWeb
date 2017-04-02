@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="Registro.aspx.vb" Inherits="CoflexWeb.Registro" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-       <h2><%--<%: Title %>.--%></h2>
+    <h2><%--<%: Title %>.--%></h2>
     <p class="text-danger">
         <asp:Literal runat="server" ID="ErrorMessage" />
     </p>
@@ -52,13 +53,29 @@
                     CssClass="text-danger" ErrorMessage="The user name field is required." />
             </div>
         </div>
-         <div class="form-group">
+        <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="MotherSurname" CssClass="col-md-2 control-label">Apellido Materno</asp:Label>
-            <div class="col-md-10">
+            <div class="col-md-10" style="left: 0px; top: 0px">
                 <asp:TextBox runat="server" ID="MotherSurname" CssClass="form-control" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="MotherSurname"
                     CssClass="text-danger" ErrorMessage="The user name field is required." />
             </div>
+        </div>
+        <div class="form-group">
+            <asp:Label runat="server" AssociatedControlID="GridRoles" CssClass="col-md-2 control-label">Roles</asp:Label>
+            <div class="col-md-offset-2 col-md-10">
+                <asp:GridView ID="GridRoles" BorderColor="White" runat="server" ShowHeader="false" AutoGenerateColumns="false">
+                    <Columns>
+                        <asp:TemplateField HeaderText="Select">
+                            <ItemTemplate>
+                                <asp:CheckBox ID="chkSelect" runat="server" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="Name" HeaderText="" />
+                    </Columns>
+                </asp:GridView>
+            </div>
+
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

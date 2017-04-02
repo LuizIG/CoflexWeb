@@ -15,7 +15,18 @@ Public Class Registro
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
+        Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ROLES)
+        Dim o = JObject.Parse(jsonResponse)
+        Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+        If (statusCode >= 200 And statusCode < 400) Then
+            Dim detail = o.GetValue("detail").Value(Of JArray)
+            Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+            Me.GridRoles.DataSource = Table
+            Me.GridRoles.DataBind()
+            'Else
+            '    Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
+            '    Me.Response.InnerText = errorMessage
+        End If
     End Sub
 
     Protected Sub CreateUser_Click(sender As Object, e As EventArgs)
@@ -23,7 +34,18 @@ Public Class Registro
         Dim Roles As New JArray
         Dim Rol As New JObject
 
-        Rol.Add("Name", "Administrador")
+        Dim data As String = ""
+        For Each row As GridViewRow In Me.GridRoles.Rows
+            If row.RowType = DataControlRowType.DataRow Then
+                Dim chkRow As CheckBox = TryCast(row.Cells(0).FindControl("chkSelect"), CheckBox)
+                If chkRow.Checked Then
+                    Rol.Add("Name", "Administrador")
+
+                End If
+            End If
+        Next
+
+        ''Rol.Add("Name", "Administrador")
         Roles.Add(Rol)
 
         With Registro
@@ -43,5 +65,8 @@ Public Class Registro
 
         ''CoflexWebServices.doPostRequest()
 
+    End Sub
+
+    Private Sub GridRoles_PreRender(sender As Object, e As EventArgs) Handles GridRoles.PreRender
     End Sub
 End Class
