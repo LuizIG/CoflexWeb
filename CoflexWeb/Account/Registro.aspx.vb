@@ -19,13 +19,29 @@ Public Class Registro
     End Sub
 
     Protected Sub CreateUser_Click(sender As Object, e As EventArgs)
-        Dim role As New JObject
-        role.Add("Email", Me.UserName.Text)
-        role.Add("Password", Me.UserName.Text)
-        role.Add("ConfirmPassword", Me.UserName.Text)
-        role.Add("Name", Me.UserName.Text)
-        role.Add("PaternalSurname", Me.UserName.Text)
-        role.Add("MaternalSurname", Me.UserName.Text)
-        role.Add("Roles", "[{""Name"" : ""Administrador""}]")
+        Dim Registro As New JObject
+        Dim Roles As New JArray
+        Dim Rol As New JObject
+
+        Rol.Add("Name", "Administrador")
+        Roles.Add(Rol)
+
+        With Registro
+            .Add("Email", Me.UserName.Text)
+            .Add("Password", Me.Password.Text)
+            .Add("ConfirmPassword", Me.ConfirmPassword.Text)
+            .Add("Name", Me.Name.Text)
+            .Add("PaternalSurname", Me.LastName.Text)
+            .Add("MaternalSurname", Me.MotherSurname.Text)
+            .Add("Roles", Roles)
+        End With
+
+        ''role.Add("Roles", otro)
+
+        CoflexWebServices.doPostRequest(CoflexWebServices.REGISTER, Registro.ToString)
+
+
+        ''CoflexWebServices.doPostRequest()
+
     End Sub
 End Class
