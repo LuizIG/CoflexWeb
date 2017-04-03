@@ -36,7 +36,7 @@ Public Class Registro
     Protected Sub CreateUser_Click(sender As Object, e As EventArgs)
         Dim Registro As New JObject
         Dim Roles As New JArray
-        Dim Rol As New JObject
+
 
 
 
@@ -57,9 +57,10 @@ Public Class Registro
             If row.RowType = DataControlRowType.DataRow Then
                 Dim chkRow As CheckBox = TryCast(row.Cells(0).FindControl("chkSelect"), CheckBox)
                 If chkRow.Checked Then
+                    Dim Rol As New JObject
                     Rol.Add("Name", row.Cells(1).Text)
                     Roles.Add(Rol)
-                    Rol.RemoveAll()
+                    Rol = Nothing
                 End If
             End If
         Next
