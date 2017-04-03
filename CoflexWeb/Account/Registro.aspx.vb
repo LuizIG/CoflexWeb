@@ -38,34 +38,16 @@ Public Class Registro
         Dim Roles As New JArray
         Dim Rol As New JObject
 
-
-
-        'For Each grv As GridViewRow In Me.GridRoles.Rows
-        '    If grv.RowType = DataControlRowType.DataRow Then
-        '        Dim chk As New CheckBox()
-
-        '        chk = DirectCast(grv.FindControl("chkSelect"), CheckBox)
-
-        '        If chk.Checked Then
-        '            Dim algo
-        '            algo = "si trae"
-        '        End If
-        '    End If
-        'Next
-
         For Each row As GridViewRow In Me.GridRoles.Rows
             If row.RowType = DataControlRowType.DataRow Then
                 Dim chkRow As CheckBox = TryCast(row.Cells(0).FindControl("chkSelect"), CheckBox)
                 If chkRow.Checked Then
                     Rol.Add("Name", row.Cells(1).Text)
                     Roles.Add(Rol)
-                    Rol.RemoveAll()
+                    Rol = Nothing
                 End If
             End If
         Next
-
-        ''Rol.Add("Name", "Administrador")
-        'Roles.Add(Rol)
 
         With Registro
             .Add("Email", Me.UserName.Text)
@@ -77,12 +59,17 @@ Public Class Registro
             .Add("Roles", Roles)
         End With
 
-        ''role.Add("Roles", otro)
-
-        CoflexWebServices.doPostRequest(CoflexWebServices.REGISTER, Registro.ToString)
 
 
-        ''CoflexWebServices.doPostRequest()
+        Dim jsonResponse = CoflexWebServices.doPostRequest(CoflexWebServices.REGISTER, Registro.ToString)
+        Dim o = JObject.Parse(jsonResponse)
+        Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+        If (statusCode >= 200 And statusCode < 400) Then
+            Me.ErrorMessage.Text = "Üsuario Registrado"
+        Else
+            Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
+            Me.ErrorMessage.Text = errorMessage
+        End If
 
     End Sub
 
