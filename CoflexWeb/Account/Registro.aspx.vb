@@ -36,12 +36,13 @@ Public Class Registro
     Protected Sub CreateUser_Click(sender As Object, e As EventArgs)
         Dim Registro As New JObject
         Dim Roles As New JArray
-        Dim Rol As New JObject
+
 
         For Each row As GridViewRow In Me.GridRoles.Rows
             If row.RowType = DataControlRowType.DataRow Then
                 Dim chkRow As CheckBox = TryCast(row.Cells(0).FindControl("chkSelect"), CheckBox)
                 If chkRow.Checked Then
+                    Dim Rol As New JObject
                     Rol.Add("Name", row.Cells(1).Text)
                     Roles.Add(Rol)
                     Rol = Nothing
@@ -61,11 +62,11 @@ Public Class Registro
 
 
 
-        Dim jsonResponse = CoflexWebServices.doPostRequest(CoflexWebServices.REGISTER, Registro.ToString)
+        Dim jsonResponse = CoflexWebServices.doPostRequest(CoflexWebServices.REGISTER, Registro.ToString,, Session("access_token"))
         Dim o = JObject.Parse(jsonResponse)
         Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
         If (statusCode >= 200 And statusCode < 400) Then
-            Me.ErrorMessage.Text = "Üsuario Registrado"
+            Me.ErrorMessage.Text = "Usuario Registrado"
         Else
             Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
             Me.ErrorMessage.Text = errorMessage
