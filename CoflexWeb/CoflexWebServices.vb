@@ -7,8 +7,8 @@ Imports Newtonsoft.Json.Linq
 Namespace CoflexWeb.Services.Web
     Public Module CoflexWebServices
 
-        'Private Const SERVER_HOST As String = "http://62.151.178.139/CoflexAPI/"
-        Private Const SERVER_HOST As String = "http://localhost/"
+        Private Const SERVER_HOST As String = "http://62.151.178.139/CoflexAPI/"
+        'Private Const SERVER_HOST As String = "http://localhost/"
 
         Public Const LOGIN As String = "Token"
         Public Const REGISTER As String = "api/Account/Register"
@@ -43,7 +43,6 @@ Namespace CoflexWeb.Services.Web
             Dim request As WebRequest = WebRequest.Create(url)
             request.Method = method
             request.ContentType = contentType
-
             If Not Strings.StrComp(token, "") = 0 Then
                 request.Headers.Add("Authorization", "bearer " & token)
             End If
