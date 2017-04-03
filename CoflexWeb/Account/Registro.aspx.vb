@@ -36,37 +36,18 @@ Public Class Registro
     Protected Sub CreateUser_Click(sender As Object, e As EventArgs)
         Dim Registro As New JObject
         Dim Roles As New JArray
-
-
-
-
-        'For Each grv As GridViewRow In Me.GridRoles.Rows
-        '    If grv.RowType = DataControlRowType.DataRow Then
-        '        Dim chk As New CheckBox()
-
-        '        chk = DirectCast(grv.FindControl("chkSelect"), CheckBox)
-
-        '        If chk.Checked Then
-        '            Dim algo
-        '            algo = "si trae"
-        '        End If
-        '    End If
-        'Next
+        Dim Rol As New JObject
 
         For Each row As GridViewRow In Me.GridRoles.Rows
             If row.RowType = DataControlRowType.DataRow Then
                 Dim chkRow As CheckBox = TryCast(row.Cells(0).FindControl("chkSelect"), CheckBox)
                 If chkRow.Checked Then
-                    Dim Rol As New JObject
                     Rol.Add("Name", row.Cells(1).Text)
                     Roles.Add(Rol)
                     Rol = Nothing
                 End If
             End If
         Next
-
-        ''Rol.Add("Name", "Administrador")
-        'Roles.Add(Rol)
 
         With Registro
             .Add("Email", Me.UserName.Text)
@@ -78,12 +59,7 @@ Public Class Registro
             .Add("Roles", Roles)
         End With
 
-        ''role.Add("Roles", otro)
-
         CoflexWebServices.doPostRequest(CoflexWebServices.REGISTER, Registro.ToString)
-
-
-        ''CoflexWebServices.doPostRequest()
 
     End Sub
 
