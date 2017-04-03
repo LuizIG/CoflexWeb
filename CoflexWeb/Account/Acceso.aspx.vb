@@ -16,7 +16,7 @@ Public Class Acceso
 
     Protected Sub LogIn(sender As Object, e As EventArgs)
 
-        Dim Consulta = CoflexWebServices.doPostRequest(CoflexWebServices.LOGIN, "grant_type=password&username=" & Me.UserName.Text & "&password=" & Me.Password.Text)
+        Dim Consulta = CoflexWebServices.doPostRequest(CoflexWebServices.LOGIN, "grant_type=password&username=" & Me.UserName.Text & "&password=" & Me.Password.Text, "application/x-www-form-urlencoded")
         ''Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ROLES)
         Dim o = JObject.Parse(Consulta)
         Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
