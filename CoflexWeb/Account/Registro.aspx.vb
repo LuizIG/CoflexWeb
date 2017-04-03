@@ -59,7 +59,17 @@ Public Class Registro
             .Add("Roles", Roles)
         End With
 
-        CoflexWebServices.doPostRequest(CoflexWebServices.REGISTER, Registro.ToString)
+
+
+        Dim jsonResponse = CoflexWebServices.doPostRequest(CoflexWebServices.REGISTER, Registro.ToString)
+        Dim o = JObject.Parse(jsonResponse)
+        Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+        If (statusCode >= 200 And statusCode < 400) Then
+            Me.ErrorMessage.Text = "Üsuario Registrado"
+        Else
+            Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
+            Me.ErrorMessage.Text = errorMessage
+        End If
 
     End Sub
 
