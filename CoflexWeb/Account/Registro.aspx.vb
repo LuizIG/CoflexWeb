@@ -15,18 +15,22 @@ Public Class Registro
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ROLES)
-        Dim o = JObject.Parse(jsonResponse)
-        Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
-        If (statusCode >= 200 And statusCode < 400) Then
-            Dim detail = o.GetValue("detail").Value(Of JArray)
-            Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
-            Me.GridRoles.DataSource = Table
-            Me.GridRoles.DataBind()
-            'Else
-            '    Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
-            '    Me.Response.InnerText = errorMessage
+
+        If Not IsPostBack Then
+            Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ROLES)
+            Dim o = JObject.Parse(jsonResponse)
+            Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+            If (statusCode >= 200 And statusCode < 400) Then
+                Dim detail = o.GetValue("detail").Value(Of JArray)
+                Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+                Me.GridRoles.DataSource = Table
+                Me.GridRoles.DataBind()
+                'Else
+                '    Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
+                '    Me.Response.InnerText = errorMessage
+            End If
         End If
+
     End Sub
 
     Protected Sub CreateUser_Click(sender As Object, e As EventArgs)
@@ -34,19 +38,34 @@ Public Class Registro
         Dim Roles As New JArray
         Dim Rol As New JObject
 
-        Dim data As String = ""
+
+
+        'For Each grv As GridViewRow In Me.GridRoles.Rows
+        '    If grv.RowType = DataControlRowType.DataRow Then
+        '        Dim chk As New CheckBox()
+
+        '        chk = DirectCast(grv.FindControl("chkSelect"), CheckBox)
+
+        '        If chk.Checked Then
+        '            Dim algo
+        '            algo = "si trae"
+        '        End If
+        '    End If
+        'Next
+
         For Each row As GridViewRow In Me.GridRoles.Rows
             If row.RowType = DataControlRowType.DataRow Then
                 Dim chkRow As CheckBox = TryCast(row.Cells(0).FindControl("chkSelect"), CheckBox)
                 If chkRow.Checked Then
-                    Rol.Add("Name", "Administrador")
-
+                    Rol.Add("Name", row.Cells(1).Text)
+                    Roles.Add(Rol)
+                    Rol.RemoveAll()
                 End If
             End If
         Next
 
         ''Rol.Add("Name", "Administrador")
-        Roles.Add(Rol)
+        'Roles.Add(Rol)
 
         With Registro
             .Add("Email", Me.UserName.Text)

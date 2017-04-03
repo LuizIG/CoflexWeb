@@ -68,7 +68,7 @@
                     <Columns>
                         <asp:TemplateField HeaderText="Select">
                             <ItemTemplate>
-                                <asp:CheckBox ID="chkSelect" runat="server" />
+                                <asp:CheckBox ID="chkSelect" Name="chkSelect" runat="server" />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="Name" HeaderText="" />
