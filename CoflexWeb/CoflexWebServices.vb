@@ -43,7 +43,6 @@ Namespace CoflexWeb.Services.Web
             Dim request As WebRequest = WebRequest.Create(url)
             request.Method = method
             request.ContentType = contentType
-
             If Not Strings.StrComp(token, "") = 0 Then
                 request.Headers.Add("Authorization", "bearer " & token)
             End If
