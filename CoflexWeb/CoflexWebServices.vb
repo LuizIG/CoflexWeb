@@ -12,7 +12,7 @@ Namespace CoflexWeb.Services.Web
 
         Public Const LOGIN As String = "Token"
         Public Const REGISTER As String = "api/Account/Register"
-        Public Const CHANGEPASSWORD As String = "api/Account/Register"
+        Public Const CHANGEPASSWORD As String = "api/Account/ChangePassword"
         Public Const ROLES As String = "api/Roles"
         Public Const USERS As String = "api/Account"
 

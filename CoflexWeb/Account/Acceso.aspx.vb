@@ -27,6 +27,7 @@ Public Class Acceso
             Dim accessToken = detail.GetValue("access_token").Value(Of String)
             Session("access_token") = accessToken
             Session("expire") = False
+            Session("roles") = detail.GetValue("Roles").Value(Of String)
             Response.Redirect("~/Default.aspx")
         Else
             Session.Abandon()
