@@ -12,9 +12,7 @@ Public Class Usuarios
     End Sub
 
     Private Sub GetUsersList()
-
         Dim accessToken As String = Session("access_token")
-
         Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.USERS,, accessToken)
         Dim o = JObject.Parse(jsonResponse)
         Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
@@ -29,4 +27,10 @@ Public Class Usuarios
         End If
     End Sub
 
+    Private Sub GridUsers_SelectedIndexChanging(sender As Object, e As GridViewSelectEventArgs) Handles GridUsers.SelectedIndexChanging
+        Dim row = GridUsers.SelectedRow
+
+        MsgBox(row.Cells(0).Text)
+
+    End Sub
 End Class
