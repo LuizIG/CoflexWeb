@@ -138,7 +138,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
@@ -167,10 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
-    <Content Include="Account\Acceso.aspx" />
-    <Content Include="Account\Login.aspx" />
-    <Content Include="Account\Perfiles.aspx" />
-    <Content Include="Account\Register.aspx" />
+    <Content Include="Acceso.aspx" />
     <Content Include="Account\Registro.aspx" />
     <Content Include="Account\ResetPassword.aspx" />
     <Content Include="Account\Roles.aspx" />
@@ -233,23 +229,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account\Acceso.aspx.designer.vb">
+    <Compile Include="Acceso.aspx.designer.vb">
       <DependentUpon>Acceso.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Account\Acceso.aspx.vb">
+    <Compile Include="Acceso.aspx.vb">
       <DependentUpon>Acceso.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Account\Perfiles.aspx.designer.vb">
-      <DependentUpon>Perfiles.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Account\Perfiles.aspx.vb">
-      <DependentUpon>Perfiles.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Account\Register.aspx.vb">
-      <DependentUpon>Register.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Account\Registro.aspx.designer.vb">
       <DependentUpon>Registro.aspx</DependentUpon>
@@ -272,16 +257,15 @@
       <DependentUpon>Roles.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="Account\Login.aspx.vb">
-      <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Account\Usuarios.aspx.designer.vb">
       <DependentUpon>Usuarios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\Usuarios.aspx.vb">
       <DependentUpon>Usuarios.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="App_Code\CoflexWebPage.vb">
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="App_Start\BundleConfig.vb" />
     <Compile Include="App_Start\RouteConfig.vb" />

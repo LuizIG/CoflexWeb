@@ -32,13 +32,13 @@ Partial Public Class Usuarios
     Protected WithEvents BtnSend As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''Control GridView1.
+    '''Control GridUsers.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents GridView1 As Global.System.Web.UI.WebControls.GridView
+    Protected WithEvents GridUsers As Global.System.Web.UI.WebControls.GridView
     
     '''<summary>
     '''Control response.

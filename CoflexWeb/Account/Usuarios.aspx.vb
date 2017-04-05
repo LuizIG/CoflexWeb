@@ -3,14 +3,14 @@ Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 
 Public Class Usuarios
-    Inherits System.Web.UI.Page
+    Inherits CoflexWebPage
 
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        MyBase.Page_Load(sender, e)
         If Not IsPostBack Then
             GetUsersList()
         End If
     End Sub
-
     Private Sub GetUsersList()
         Dim accessToken As String = Session("access_token")
         Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.USERS,, accessToken)
@@ -18,6 +18,17 @@ Public Class Usuarios
         Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
         If (statusCode >= 200 And statusCode < 400) Then
             Dim detail = o.GetValue("detail").Value(Of JArray)
+            Dim x = detail.Count
+            For i As Integer = 0 To detail.Count - 1
+                Dim item = DirectCast(detail(i), JObject)
+                Dim roles = item.GetValue("Roles").Value(Of JArray)
+                Dim rolesString As String = ""
+                For j As Integer = 0 To roles.Count - 1
+                    Dim roleItem = DirectCast(roles(j), JObject)
+                    rolesString += roleItem.GetValue("Name").Value(Of String) & "<br/>"
+                Next
+                item.Add("RolesString", rolesString)
+            Next
             Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
             Me.GridUsers.DataSource = Table
             Me.GridUsers.DataBind()
@@ -25,12 +36,5 @@ Public Class Usuarios
             Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
             Me.response.InnerText = errorMessage
         End If
-    End Sub
-
-    Private Sub GridUsers_SelectedIndexChanging(sender As Object, e As GridViewSelectEventArgs) Handles GridUsers.SelectedIndexChanging
-        Dim row = GridUsers.SelectedRow
-
-        MsgBox(row.Cells(0).Text)
-
     End Sub
 End Class

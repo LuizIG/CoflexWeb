@@ -2,8 +2,9 @@
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 Public Class Roles
-    Inherits System.Web.UI.Page
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Inherits CoflexWebPage
+    Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        MyBase.Page_Load(sender, e)
         If Not Me.IsPostBack Then
             GetRolesList()
         End If
@@ -40,6 +41,7 @@ Public Class Roles
         If (statusCode >= 200 And statusCode < 400) Then
             Dim detail = o.GetValue("detail").Value(Of JArray)
             Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+            Table.Columns.Add(New DataColumn("Roles"))
             Me.GridRoles.DataSource = Table
             Me.GridRoles.DataBind()
         Else
