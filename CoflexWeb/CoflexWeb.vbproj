@@ -167,6 +167,7 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="Acceso.aspx" />
+    <Content Include="Account\PerfilUsuario.aspx" />
     <Content Include="Account\Registro.aspx" />
     <Content Include="Account\ResetPassword.aspx" />
     <Content Include="Account\Roles.aspx" />
@@ -234,6 +235,13 @@
     </Compile>
     <Compile Include="Acceso.aspx.vb">
       <DependentUpon>Acceso.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Account\PerfilUsuario.aspx.designer.vb">
+      <DependentUpon>PerfilUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\PerfilUsuario.aspx.vb">
+      <DependentUpon>PerfilUsuario.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Account\Registro.aspx.designer.vb">

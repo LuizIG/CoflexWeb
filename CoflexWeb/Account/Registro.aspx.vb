@@ -14,7 +14,7 @@ Imports System.Dynamic.ExpandoObject
 Public Class Registro
     Inherits CoflexWebPage
 
-    Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
         MyBase.Page_Load(sender, e)
         If Not IsPostBack Then
             Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ROLES)
