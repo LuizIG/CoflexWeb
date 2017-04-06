@@ -4,7 +4,7 @@
 
 <html lang="es">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %> - CoflexWeb</title>
@@ -13,7 +13,7 @@
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
 
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
 </head>
@@ -57,7 +57,7 @@
                         <li><a runat="server" href="~/About">Acerca de</a></li>
                         <%--<li><a runat="server" href="~/Contact">Contacto</a></li>--%>
                     </ul>
-                    <asp:LoginView runat="server" ViewStateMode="Disabled">
+                    <asp:LoginView ID="LoginView1" runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
                             <ul class="nav navbar-nav navbar-right">
                                 <%--<li><a runat="server" href="~/Account/Register">Register</a></li>--%>
@@ -72,6 +72,16 @@
                                 </li>
                             </ul>
                         </LoggedInTemplate>
+                        <RoleGroups>
+                            <asp:RoleGroup Roles="Administrador">
+                                <ContentTemplate>
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <%--<li><a runat="server" href="~/Account/Register">Register</a></li>--%>
+                                        <li><a runat="server" href="~/Account/Login">Log Administrador</a></li>
+                                    </ul>
+                                </ContentTemplate>
+                            </asp:RoleGroup>
+                        </RoleGroups>
                     </asp:LoginView>
                 </div>
             </div>

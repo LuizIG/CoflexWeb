@@ -14,6 +14,15 @@ Option Explicit On
 Partial Public Class SiteMaster
     
     '''<summary>
+    '''LoginView1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents LoginView1 As Global.System.Web.UI.WebControls.LoginView
+    
+    '''<summary>
     '''MainContent control.
     '''</summary>
     '''<remarks>

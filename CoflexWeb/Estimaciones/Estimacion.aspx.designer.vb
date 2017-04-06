@@ -104,6 +104,24 @@ Partial Public Class Estimacion
     Protected WithEvents Button2 As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
+    '''TextBox12 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents TextBox12 As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''TextBox13 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents TextBox13 As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
     '''Button5 control.
     '''</summary>
     '''<remarks>

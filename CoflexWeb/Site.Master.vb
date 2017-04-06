@@ -17,6 +17,18 @@ Public Class SiteMaster
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+        'Dim item = HeadLoginView.AnonymousTemplate
+
+        'Dim testDiv = HeadLoginView.FindControl("test1")
+        'testDiv.Visible = True
+        ''LoginView1.
+        'Dim vista = Me.LoginView1.FindControl("Administrador")
+        'vista.Visible = True
+
+        'Dim rg As New RoleGroup
+        'rg.ContentTemplate
+        'rg.Roles(0).
+
 
     End Sub
 

@@ -48,6 +48,8 @@
                                         <td>&nbsp;</td>
                                         <td>
                                             <asp:Button ID="Button2" runat="server" Text="Remover" />
+                                            <asp:TextBox ID="TextBox12" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="TextBox13" runat="server"></asp:TextBox>
                                         </td>
                                     </tr>
                                 </table>
