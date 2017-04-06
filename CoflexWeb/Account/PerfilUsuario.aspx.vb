@@ -1,4 +1,5 @@
 ﻿Imports CoflexWeb.CoflexWeb.Services.Web
+Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 
 Public Class PerfilUsuario
@@ -18,11 +19,12 @@ Public Class PerfilUsuario
                 Me.Name.Text = detail.GetValue("Name")
                 Me.LastName.Text = detail.GetValue("PaternalSurname")
                 Me.MotherSurname.Text = detail.GetValue("MaternalSurname")
-
+                Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.GetValue("Roles").Value(Of JArray).ToString)
+                Me.GridRoles.DataSource = Table
+                Me.GridRoles.DataBind()
             Else
 
             End If
-
         End If
     End Sub
 End Class

@@ -28,21 +28,46 @@ Public Class Usuarios
                     rolesString += roleItem.GetValue("Name").Value(Of String) & "<br/>"
                 Next
                 item.Add("RolesString", rolesString)
+                If item.GetValue("Enable").Value(Of Boolean) Then
+                    item.Add("ActionButton", "<a idUser='" & item.GetValue("Id").Value(Of String) & "' class='btn btn-danger deleteUser' role='button'>Eliminar</a>")
+                Else
+                    item.Add("ActionButton", "<a idUser='" & item.GetValue("Id").Value(Of String) & "' class='btn btn-info activateUser' role='button'>Activar</a>")
+                End If
             Next
             Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
-            Me.GridUsers.DataSource = Table
-            Me.GridUsers.DataBind()
+            GridUsers.DataSource = Table
+            GridUsers.DataBind()
         Else
             Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
-            Me.response.InnerText = errorMessage
+            response.InnerText = errorMessage
         End If
     End Sub
 
     Protected Sub btn_delete_Click(sender As Object, e As EventArgs) Handles btn_delete.Click
+        OnUserEstatusResult(CoflexWebServices.doPutRequest(CoflexWebServices.USERS_ESTATUS, getUserEstatusObject(False).ToString,, Session("access_token")))
+    End Sub
+    Protected Sub btn_activate_Click(sender As Object, e As EventArgs) Handles btn_activate.Click
+        OnUserEstatusResult(CoflexWebServices.doPutRequest(CoflexWebServices.USERS_ESTATUS, getUserEstatusObject(True).ToString,, Session("access_token")))
+    End Sub
 
-
-        MsgBox(Me.id_delete.Value)
-
+    Private Sub OnUserEstatusResult(ByVal jsonResponse As String)
+        Dim o = JObject.Parse(jsonResponse)
+        Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+        If (statusCode >= 200 And statusCode < 400) Then
+            GetUsersList()
+        Else
+            Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
+            MsgBox(errorMessage)
+        End If
 
     End Sub
+
+    Private Function getUserEstatusObject(ByVal estatus As Boolean) As JObject
+        Dim user As New JObject
+        With user
+            .Add("UserId", Me.id_user.Value)
+            .Add("Enable", estatus)
+        End With
+        Return user
+    End Function
 End Class

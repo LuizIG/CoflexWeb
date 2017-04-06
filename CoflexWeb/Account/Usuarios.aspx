@@ -2,13 +2,18 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript">
-
-
         $(document).ready(function () {
             $(".deleteUser").click(function () {
                 var idUser = $(this).attr("idUser");
-                $("#MainContent_id_delete").val(idUser);
-                __doPostBack('MainContent_btn_delete', '');
+                $("#MainContent_id_user").val(idUser);
+                var elm = document.getElementById('<%=btn_delete.ClientID%>');
+                elm.click();
+            });
+            $(".activateUser").click(function () {
+                var idUser = $(this).attr("idUser");
+                $("#MainContent_id_user").val(idUser);
+                var elm = document.getElementById('<%=btn_activate.ClientID%>');
+                elm.click();
             });
         });
     </script>
@@ -25,30 +30,15 @@
                 <asp:BoundField DataField="MaternalSurname" HeaderText="Apellido Materno" />
                 <asp:BoundField DataField="RolesString" HtmlEncode="False" HeaderText="Roles" />
                 <asp:BoundField DataField="Id" HeaderText="" HtmlEncode="False" DataFormatString="<a class='btn btn-primary' role='button' href='PerfilUsuario.aspx?id={0}'>Editar</a>" />
-                <asp:BoundField DataField="Id" HeaderText="" HtmlEncode="False" DataFormatString="<a idUser='{0}' class='btn btn-danger deleteUser' role='button'>Eliminar</a>" />
-            </Columns>
+                <asp:BoundField DataField="ActionButton" HeaderText="" HtmlEncode="False" />
+             </Columns>
             <HeaderStyle BackColor="#C0C0C0" />
         </asp:GridView>
     </div>
-    <!-- Modal -->
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Some text in the modal.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <div id="response" runat="server"></div>
-    <asp:HiddenField ID="id_delete" runat="server" />
-    <asp:Button runat="server" ID="btn_delete" Visible="false" />
+    <asp:HiddenField ID="id_user" runat="server" />
+    <div style="visibility:hidden">
+        <asp:Button runat="server" ID="btn_delete" style="width:0px;height:0px" />
+        <asp:Button runat="server" ID="btn_activate" style="width:0px;height:0px" />
+    </div>
 </asp:Content>

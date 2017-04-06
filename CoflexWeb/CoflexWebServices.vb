@@ -7,14 +7,15 @@ Imports Newtonsoft.Json.Linq
 Namespace CoflexWeb.Services.Web
     Public Module CoflexWebServices
 
-        Private Const SERVER_HOST As String = "http://62.151.178.139/CoflexAPI/"
-        'Private Const SERVER_HOST As String = "http://localhost/"
+        'Private Const SERVER_HOST As String = "http://62.151.178.139/CoflexAPI/"
+        Private Const SERVER_HOST As String = "http://localhost/"
 
         Public Const LOGIN As String = "Token"
         Public Const REGISTER As String = "api/Account/Register"
         Public Const CHANGEPASSWORD As String = "api/Account/ChangePassword"
         Public Const ROLES As String = "api/Roles"
         Public Const USERS As String = "api/Account"
+        Public Const USERS_ESTATUS As String = "api/Account/Enable"
 
         Public Function doPostRequest(url As String, data As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As String
             Dim request = createRequest(SERVER_HOST & url, "POST", contentType, token)
