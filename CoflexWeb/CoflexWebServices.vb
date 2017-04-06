@@ -15,6 +15,7 @@ Namespace CoflexWeb.Services.Web
         Public Const CHANGEPASSWORD As String = "api/Account/ChangePassword"
         Public Const ROLES As String = "api/Roles"
         Public Const USERS As String = "api/Account"
+        Public Const USERS_ESTATUS As String = "api/Account/Enable"
 
         Public Function doPostRequest(url As String, data As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As String
             Dim request = createRequest(SERVER_HOST & url, "POST", contentType, token)

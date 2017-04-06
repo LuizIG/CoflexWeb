@@ -59,6 +59,15 @@ Partial Public Class PerfilUsuario
     Protected WithEvents MotherSurname As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''Control btn_edit_profile.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents btn_edit_profile As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''Control Password.
     '''</summary>
     '''<remarks>
@@ -75,6 +84,15 @@ Partial Public Class PerfilUsuario
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents ConfirmPassword As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''Control btn_cambiar_pass.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents btn_cambiar_pass As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
     '''Control GridRoles.
