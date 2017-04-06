@@ -6,8 +6,8 @@ Public Class Usuarios
     Inherits CoflexWebPage
 
     Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
-        MyBase.Page_Load(sender, e)
         If Not IsPostBack Then
+            MyBase.Page_Load(sender, e)
             GetUsersList()
         End If
     End Sub
@@ -36,5 +36,13 @@ Public Class Usuarios
             Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
             Me.response.InnerText = errorMessage
         End If
+    End Sub
+
+    Protected Sub btn_delete_Click(sender As Object, e As EventArgs) Handles btn_delete.Click
+
+
+        MsgBox(Me.id_delete.Value)
+
+
     End Sub
 End Class
