@@ -10,7 +10,7 @@
                             <asp:Label ID="Label9" runat="server" Text="Cliente"></asp:Label>
                         </td>
                         <td>
-                            <asp:DropDownList ID="DropDownList2" runat="server">
+                            <asp:DropDownList ID="DDCliente" runat="server">
                                 <asp:ListItem Value="1">Usuario Ejemplo 1</asp:ListItem>
                                 <asp:ListItem Value="1">Usuario Ejemplo 2</asp:ListItem>
                                 <asp:ListItem Value="1">Usuario Ejemplo 3</asp:ListItem>
@@ -35,11 +35,7 @@
                                             <asp:Label ID="Label8" runat="server" Text="Articulo"></asp:Label>
                                         </td>
                                         <td>
-                                            <asp:DropDownList ID="DropDownList1" runat="server">
-                                                <asp:ListItem>1-PO-C16</asp:ListItem>
-                                                <asp:ListItem>1-AL-B55</asp:ListItem>
-                                                <asp:ListItem>1-AB-Q60</asp:ListItem>
-                                                <asp:ListItem>1-B1-30A</asp:ListItem>
+                                            <asp:DropDownList ID="DDArticulo" runat="server">
                                             </asp:DropDownList>
                                         </td>
                                         <td>
@@ -48,8 +44,20 @@
                                         <td>&nbsp;</td>
                                         <td>
                                             <asp:Button ID="Button2" runat="server" Text="Remover" />
-                                            <asp:TextBox ID="TextBox12" runat="server"></asp:TextBox>
-                                            <asp:TextBox ID="TextBox13" runat="server"></asp:TextBox>
+                                        </td>
+                                         <td>
+                                            <asp:Label ID="Label11" runat="server" Text="Articulo"></asp:Label>
+                                        </td>
+                                        <td>
+                                            <asp:DropDownList ID="DDComponente" runat="server">
+                                            </asp:DropDownList>
+                                        </td>
+                                        <td>
+                                            <asp:Button ID="Button3" runat="server" Text="Agregar" />
+                                        </td>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            <asp:Button ID="Button4" runat="server" Text="Remover" />
                                         </td>
                                     </tr>
                                 </table>
@@ -85,15 +93,11 @@
                         <tr>
                             <td style="vertical-align: top; width: 50%; border-style: outset;">
                                 <div style="vertical-align: top; width: 100%">
-                                    <asp:TreeView ID="TreeView1" Width="100%" runat="server">
-                                        <Nodes>
-                                            <asp:TreeNode Text="2-PS-E324-RH : PAQUETE INSTALACION CALENTADOR PALOMA" ShowCheckBox="true">
-                                                <asp:TreeNode Text="1-VB-A90-RH : COFLEX VINILO BOILER"></asp:TreeNode>
-                                                <asp:TreeNode Text="1-AG-S90-RH : COFLEX GAS ACERO"></asp:TreeNode>
-                                                <asp:TreeNode Text="3-U1234-WG : REDUC BUSH GALV"></asp:TreeNode>
-                                                <asp:TreeNode Text="3-U34NM-WG : NIPLE GALV 3/4"></asp:TreeNode>
-                                            </asp:TreeNode>
-                                        </Nodes>
+                                    <asp:TreeView ID="TreeView1" Width="100%" ShowCheckBoxes="All" ShowExpandCollapse="true"  runat="server" ImageSet="Simple">
+                                          <HoverNodeStyle Font-Underline="True" ForeColor="#5555DD" />
+                                          <NodeStyle Font-Names="Tahoma" Font-Size="10pt" ForeColor="Black" HorizontalPadding="0px" NodeSpacing="0px" VerticalPadding="0px" />
+                                          <ParentNodeStyle Font-Bold="False" />
+                                          <SelectedNodeStyle Font-Underline="True" ForeColor="#5555DD" HorizontalPadding="0px" VerticalPadding="0px" />
                                     </asp:TreeView>
                                 </div>
                             </td>

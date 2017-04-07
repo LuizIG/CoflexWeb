@@ -41,13 +41,13 @@ Partial Public Class Estimacion
     Protected WithEvents Label9 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''DropDownList2 control.
+    '''DDCliente control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList2 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents DDCliente As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''Label10 control.
@@ -77,13 +77,13 @@ Partial Public Class Estimacion
     Protected WithEvents Label8 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''DropDownList1 control.
+    '''DDArticulo control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList1 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents DDArticulo As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''Button1 control.
@@ -104,22 +104,40 @@ Partial Public Class Estimacion
     Protected WithEvents Button2 As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''TextBox12 control.
+    '''Label11 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TextBox12 As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents Label11 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''TextBox13 control.
+    '''DDComponente control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TextBox13 As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents DDComponente As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''Button3 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Button3 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''Button4 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Button4 As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
     '''Button5 control.
