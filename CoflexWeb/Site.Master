@@ -54,14 +54,22 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/">Inicio</a></li>
-                        <li><a runat="server" href="~/About">Acerca de</a></li>
+                        <%--<li><a runat="server" href="~/About">Acerca de</a></li>--%>
                         <%--<li><a runat="server" href="~/Contact">Contacto</a></li>--%>
                     </ul>
                     <asp:LoginView ID="LoginView1" runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
                             <ul class="nav navbar-nav navbar-right">
                                 <%--<li><a runat="server" href="~/Account/Register">Register</a></li>--%>
-                                <li><a runat="server" href="~/Account/Login">Log in</a></li>
+                                <li><a runat="server" href="~/Estimaciones/Estimacion">Estimaciones</a></li>
+                                <li><a runat="server" href="~/Account/Usuarios">Usuarios</a></li>
+                                <li><a runat="server" href="~/Account/ResetPassword">Password</a></li>
+                                <li><a runat="server" href="~/Account/Roles">Roles</a></li>
+                                <%If Session("access_token") = Nothing Then %>
+                                <li><a runat="server" id="LogInA" href="~/Acceso">Log in</a></li>
+                                <%else %>
+                                <li><a runat="server" id="A1" href="~/Exit">Log out</a></li>
+                                <% End IF %>
                             </ul>
                         </AnonymousTemplate>
                         <LoggedInTemplate>

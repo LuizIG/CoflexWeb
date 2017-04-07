@@ -13,9 +13,14 @@ Namespace CoflexWeb.Services.Web
         Public Const LOGIN As String = "Token"
         Public Const REGISTER As String = "api/Account/Register"
         Public Const CHANGEPASSWORD As String = "api/Account/ChangePassword"
+        Public Const SETPASSWORD As String = "api/Account/SetPassword"
+        Public Const ROLES_ADMIN_ADD As String = "api/Account/Roles/Add"
+        Public Const ROLES_ADMIN_DEL As String = "api/Account/Roles/Remove"
         Public Const ROLES As String = "api/Roles"
         Public Const USERS As String = "api/Account"
+        Public Const USERS_ALT As String = "api/Account/Edit"
         Public Const USERS_ESTATUS As String = "api/Account/Enable"
+        Public Const ITEM As String = "api/Items"
 
         Public Function doPostRequest(url As String, data As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As String
             Dim request = createRequest(SERVER_HOST & url, "POST", contentType, token)

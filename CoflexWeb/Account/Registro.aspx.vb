@@ -25,9 +25,6 @@ Public Class Registro
                 Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
                 Me.GridRoles.DataSource = Table
                 Me.GridRoles.DataBind()
-                'Else
-                '    Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
-                '    Me.Response.InnerText = errorMessage
             End If
         End If
 

@@ -42,16 +42,16 @@
                 <asp:Label runat="server" AssociatedControlID="Password" CssClass="col-md-2 control-label">Contraseña</asp:Label>
                 <div class="col-md-10">
                     <asp:TextBox runat="server" ID="Password" TextMode="Password" CssClass="form-control" />
-                    <asp:RequiredFieldValidator runat="server" ControlToValidate="Password"
-                        CssClass="text-danger" ErrorMessage="The password field is required." />
+                   <%-- <asp:RequiredFieldValidator runat="server" ControlToValidate="Password"
+                        CssClass="text-danger" ErrorMessage="The password field is required." />--%>
                 </div>
             </div>
             <div class="form-group">
                 <asp:Label runat="server" AssociatedControlID="ConfirmPassword" CssClass="col-md-2 control-label">Confirmar contraseña</asp:Label>
                 <div class="col-md-10">
                     <asp:TextBox runat="server" ID="ConfirmPassword" TextMode="Password" CssClass="form-control" />
-                    <asp:RequiredFieldValidator runat="server" ControlToValidate="ConfirmPassword"
-                        CssClass="text-danger" Display="Dynamic" ErrorMessage="The confirm password field is required." />
+                   <%-- <asp:RequiredFieldValidator runat="server" ControlToValidate="ConfirmPassword"
+                        CssClass="text-danger" Display="Dynamic" ErrorMessage="The confirm password field is required." />--%>
                     <asp:CompareValidator runat="server" ControlToCompare="Password" ControlToValidate="ConfirmPassword"
                         CssClass="text-danger" Display="Dynamic" ErrorMessage="The password and confirmation password do not match." />
                 </div>
@@ -75,6 +75,7 @@
                         <asp:BoundField DataField="Name" HeaderText="" />
                     </Columns>
                 </asp:GridView>
+                <asp:Button id="BRoles" class="btn btn-primary" role="button" runat="server" Text="Editar Perfil" />
             </div>
         </div>
     </div>

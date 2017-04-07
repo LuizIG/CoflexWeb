@@ -29,7 +29,6 @@ Public Class SiteMaster
         'rg.ContentTemplate
         'rg.Roles(0).
 
-
     End Sub
 
     Protected Sub Unnamed_LoggingOut(sender As Object, e As LoginCancelEventArgs)
