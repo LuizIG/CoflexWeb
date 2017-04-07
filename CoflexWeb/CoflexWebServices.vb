@@ -21,7 +21,11 @@ Namespace CoflexWeb.Services.Web
         Public Const USERS_ALT As String = "api/Account/Edit"
         Public Const USERS_ESTATUS As String = "api/Account/Enable"
         Public Const ITEM As String = "api/Items"
+        Public Const ITEM_COMPONENTS As String = "api/ItemComponents"
         Public Const COMPONENT As String = "api/Components"
+
+
+        Public itemsLists As New ItemsComponentsCollection
 
         Public Function doPostRequest(url As String, data As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As String
             Dim request = createRequest(SERVER_HOST & url, "POST", contentType, token)

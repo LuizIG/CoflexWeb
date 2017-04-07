@@ -5,6 +5,8 @@ Imports Newtonsoft.Json.Linq
 Public Class Estimacion
     Inherits CoflexWebPage
 
+    Private data As New DataSet
+
     Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
         If Not IsPostBack Then
             Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM)
@@ -31,6 +33,12 @@ Public Class Estimacion
                 Me.DDComponente.DataBind()
             End If
 
+        Else
+            If (Session("tables") Is Nothing) Then
+                data = New DataSet
+            Else
+                data = Session("tables")
+            End If
         End If
     End Sub
 
@@ -44,11 +52,53 @@ Public Class Estimacion
     End Sub
 
     Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim sku = DDArticulo.SelectedValue
+        Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM_COMPONENTS & "/" & sku,, Session("access_token"))
+        Dim o = JObject.Parse(jsonResponse)
+        Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+        If (statusCode >= 200 And statusCode < 400) Then
+            Dim detail = o.GetValue("detail").Value(Of JArray)
+            Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+            Table.TableName = sku
+            If Not data.Tables.Contains(sku) Then
+                data.Tables.Add(Table)
+                Session("tables") = data
+                FillTreeView()
+            Else
+                Me.Response.InnerText = "Ya se agregó este artículo"
+            End If
+        Else
+            Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
+            Me.Response.InnerText = errorMessage
+        End If
+
+
         ''Me.TreeView1.Nodes(0).nodes.Add(Me.TextBox12.Text)
         'Dim newNode As TreeNode = New TreeNode(Me.TextBox12.Text)
         '''Me.TreeView1.SelectedNode.Nodes.Add(newNode)
         'Me.TreeView1.SelectedNode.ChildNodes.Add(newNode)
     End Sub
+
+    Private Sub FillTreeView()
+
+
+        Dim items As New ItemsComponentsCollection
+
+        itemsLists.Add(New ItemComp(1, -1, "Padre1"))
+        itemsLists.Add(New ItemComp(2, -1, "Padre2"))
+        itemsLists.Add(New ItemComp(3, 1, "Hijo 1"))
+        itemsLists.Add(New ItemComp(4, 2, "Hijo 2"))
+        itemsLists.Add(New ItemComp(5, 3, "Nieto 1"))
+
+        CoflexWebServices.itemsLists = itemsLists
+
+        TreeView1.DataSource = itemsLists
+
+
+
+        TreeView1.DataBind()
+    End Sub
+
 
     Protected Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         'Dim newNode As TreeNode = New TreeNode("1-AG-S90-RH : COFLEX GAS ACERO")

@@ -3,6 +3,9 @@
     <h2><%--<%: Title %>.--%></h2>
     <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
         <asp:View ID="View1" runat="server">
+
+            <div id="Response" runat="server"></div>
+
             <div class="row">
                 <table style="width: 50%">
                     <tr>
@@ -98,6 +101,12 @@
                                           <NodeStyle Font-Names="Tahoma" Font-Size="10pt" ForeColor="Black" HorizontalPadding="0px" NodeSpacing="0px" VerticalPadding="0px" />
                                           <ParentNodeStyle Font-Bold="False" />
                                           <SelectedNodeStyle Font-Underline="True" ForeColor="#5555DD" HorizontalPadding="0px" VerticalPadding="0px" />
+                                            <DataBindings>
+                                              <asp:TreeNodeBinding DataMember="name" TextField="name"/>
+                                              <asp:TreeNodeBinding DataMember="name" TextField="name"/>
+                                              <asp:TreeNodeBinding DataMember="name" TextField="name"/>
+                                              <asp:TreeNodeBinding DataMember="name" TextField="name"/>
+                                            </DataBindings>
                                     </asp:TreeView>
                                 </div>
                             </td>

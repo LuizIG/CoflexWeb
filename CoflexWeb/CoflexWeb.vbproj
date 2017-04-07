@@ -277,6 +277,7 @@
     <Compile Include="App_Code\CoflexWebPage.vb">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="App_Code\ItemsComponents.vb" />
     <Compile Include="App_Start\BundleConfig.vb" />
     <Compile Include="App_Start\RouteConfig.vb" />
     <Compile Include="About.aspx.designer.vb">
