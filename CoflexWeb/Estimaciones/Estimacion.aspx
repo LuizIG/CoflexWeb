@@ -36,6 +36,10 @@
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DDArticulo" runat="server">
+                                                
+                                                <asp:ListItem>2-PS-E324-RH</asp:ListItem>
+                                                <asp:ListItem>1-AB-Q60</asp:ListItem>
+                                                
                                             </asp:DropDownList>
                                         </td>
                                         <td>
