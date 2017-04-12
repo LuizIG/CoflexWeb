@@ -43,11 +43,11 @@
                                             </asp:DropDownList>
                                         </td>
                                         <td>
-                                            <asp:Button ID="Button1" runat="server" Text="Agregar" />
+                                           <asp:Button ID="Button2" runat="server" Text="Agregar" />
                                         </td>
                                         <td>&nbsp;</td>
                                         <td>
-                                            <asp:Button ID="Button2" runat="server" Text="Remover" />
+                                            
                                         </td>
                                          <td>
                                             <asp:Label ID="Label11" runat="server" Text="Articulo"></asp:Label>
