@@ -24,7 +24,7 @@ Namespace CoflexWeb.Services.Web
         Public Const ITEM As String = "api/Items"
         Public Const ITEM_COMPONENTS As String = "api/ItemComponents"
         Public Const COMPONENT As String = "api/Components"
-        Public Const ITEMCOMPONENTS As String = "api/ItemComponents/"
+        'Public Const ITEMCOMPONENTS As String = "api/ItemComponents"
 
 
         Public itemsLists As New ItemsComponentsCollection

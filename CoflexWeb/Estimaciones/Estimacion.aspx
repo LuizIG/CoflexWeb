@@ -46,25 +46,25 @@
                                             </asp:DropDownList>
                                         </td>
                                         <td>
-                                            <asp:Button ID="Button1" runat="server" Text="Agregar" />
+                                           <asp:Button ID="Button2" class="btn btn-primary" runat="server" Text="Agregar" />
                                         </td>
                                         <td>&nbsp;</td>
                                         <td>
-                                            <asp:Button ID="Button2" runat="server" Text="Remover" />
+                                            
                                         </td>
                                          <td>
-                                            <asp:Label ID="Label11" runat="server" Text="Articulo"></asp:Label>
+                                            <asp:Label ID="Label11" runat="server" Text="Componente"></asp:Label>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DDComponente" runat="server">
                                             </asp:DropDownList>
                                         </td>
                                         <td>
-                                            <asp:Button ID="Button3" runat="server" Text="Agregar" />
+                                            <asp:Button ID="Button3"  runat="server" class="btn btn-primary" Text="Agregar"/>
                                         </td>
                                         <td>&nbsp;</td>
                                         <td>
-                                            <asp:Button ID="Button4" runat="server" Text="Remover" />
+                                            <asp:Button ID="Button4" runat="server" class="btn btn-primary" Text="Remover" />
                                         </td>
                                     </tr>
                                 </table>
@@ -84,7 +84,7 @@
                                         </td>
                                         <td>&nbsp;</td>
                                         <td>
-                                            <asp:Button ID="Button5" runat="server" Text="Continuar" />
+                                            <asp:Button ID="Button5" class="btn btn-primary" runat="server" Text="Continuar" />
 
                                         </td>
                                     </tr>

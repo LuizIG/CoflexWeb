@@ -34,12 +34,12 @@ Public Class Estimacion
                 Me.DDComponente.DataBind()
             End If
 
-        Else
-            If (Session("tables") Is Nothing) Then
-                data = New DataSet
-            Else
-                data = Session("tables")
-            End If
+            'Else
+            '    If (Session("tables") Is Nothing) Then
+            '        data = New DataSet
+            '    Else
+            '        data = Session("tables")
+            '    End If
         End If
     End Sub
 
@@ -52,114 +52,121 @@ Public Class Estimacion
 
     End Sub
 
-    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim sku = DDArticulo.SelectedValue
-        Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM_COMPONENTS & "/" & sku,, Session("access_token"))
-        Dim o = JObject.Parse(jsonResponse)
-        Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
-        If (statusCode >= 200 And statusCode < 400) Then
-            Dim detail = o.GetValue("detail").Value(Of JArray)
-            Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
-            Table.TableName = sku
-            If Not data.Tables.Contains(sku) Then
-                data.Tables.Add(Table)
-                Session("tables") = data
-                FillTreeView()
-            Else
-                Me.Response.InnerText = "Ya se agregó este artículo"
-            End If
-        Else
-            Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
-            Me.Response.InnerText = errorMessage
-        End If
+    'Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    '    Dim sku = DDArticulo.SelectedValue
+    '    Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM_COMPONENTS & "/" & sku,, Session("access_token"))
+    '    Dim o = JObject.Parse(jsonResponse)
+    '    Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+    '    If (statusCode >= 200 And statusCode < 400) Then
+    '        Dim detail = o.GetValue("detail").Value(Of JArray)
+    '        Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+    '        Table.TableName = sku
+    '        If Not data.Tables.Contains(sku) Then
+    '            data.Tables.Add(Table)
+    '            Session("tables") = data
+    '        Else
+    '            Me.Response.InnerText = "Ya se agregó este artículo"
+    '        End If
+    '    Else
+    '        Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
+    '        Me.Response.InnerText = errorMessage
+    '    End If
 
 
-        ''Me.TreeView1.Nodes(0).nodes.Add(Me.TextBox12.Text)
-        'Dim newNode As TreeNode = New TreeNode(Me.TextBox12.Text)
-        '''Me.TreeView1.SelectedNode.Nodes.Add(newNode)
-        'Me.TreeView1.SelectedNode.ChildNodes.Add(newNode)
-    End Sub
-
-    Private Sub FillTreeView()
-
-
-        Dim items As New ItemsComponentsCollection
-
-        itemsLists.Add(New ItemComp(1, -1, "Padre1"))
-        itemsLists.Add(New ItemComp(2, -1, "Padre2"))
-        itemsLists.Add(New ItemComp(3, 1, "Hijo 1"))
-        itemsLists.Add(New ItemComp(4, 2, "Hijo 2"))
-        itemsLists.Add(New ItemComp(5, 3, "Nieto 1"))
-
-        CoflexWebServices.itemsLists = itemsLists
-
-        TreeView1.DataSource = itemsLists
-
-
-
-        TreeView1.DataBind()
-    End Sub
+    '    ''Me.TreeView1.Nodes(0).nodes.Add(Me.TextBox12.Text)
+    '    'Dim newNode As TreeNode = New TreeNode(Me.TextBox12.Text)
+    '    '''Me.TreeView1.SelectedNode.Nodes.Add(newNode)
+    '    'Me.TreeView1.SelectedNode.ChildNodes.Add(newNode)
+    'End Sub
 
 
     Protected Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEMCOMPONENTS & "/" & Me.DDArticulo.SelectedValue)
+        Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM_COMPONENTS & "/" & Me.DDArticulo.SelectedValue)
         Dim o = JObject.Parse(jsonResponse)
         Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
         If (statusCode >= 200 And statusCode < 400) Then
             Dim detail = o.GetValue("detail").Value(Of JArray)
             Dim Table As DataTable = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
 
+            treeViewTable(Table)
 
-            Dim innerI As New TreeNode()
-            innerI.Value = DDArticulo.SelectedValue.ToString
-            innerI.Text = DDArticulo.SelectedValue.ToString
-            TreeView1.Nodes.Add(innerI)
+            For Each reng As DataRow In Table.Rows
+                If reng("Nivel1") = 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
+                    Dim innerI As New TreeNode()
+                    innerI.Value = reng("Nivel1")
+                    innerI.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                    TreeView1.Nodes.Add(innerI)
+                End If
+            Next
             'Dim sqlDR As SqlDataAdapter
             'sqlDR.Fill(Table)
             For Each reng As DataRow In Table.Rows
                 If reng("Nivel1") > 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
                     Dim inner As New TreeNode()
                     inner.Value = reng("Nivel1")
-                    inner.Text = reng("SkuComponente")
-                    TreeView1.Nodes.Add(inner)
-                    TreeView1.Nodes(0).ChildNodes.Add(inner)
+                    inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                    ''TreeView1.Nodes.Add(inner)
+                    If TreeView1.Nodes.Count > 1 Then
+                        TreeView1.Nodes(TreeView1.Nodes.Count - 1).ChildNodes.Add(inner)
+                    Else
+                        TreeView1.Nodes(0).ChildNodes.Add(inner)
+                    End If
                 End If
             Next
 
-            Dim myNode As TreeNode
-            For Each myNode In Me.TreeView1.Nodes
-                For Each childNodeA As TreeNode In myNode.ChildNodes
+            Dim myNode As TreeNode = TreeView1.Nodes(TreeView1.Nodes.Count - 1)
+            ''For Each myNode In Me.TreeView1.Nodes
+            For Each childNodeA As TreeNode In myNode.ChildNodes
+                Dim dv As New DataView(Table)
+                dv.RowFilter = "Nivel1 = " & childNodeA.Value
+                For Each reng As DataRowView In dv
+                    If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") = 0 Then
+                        Dim inner As New TreeNode()
+                        inner.Value = reng("Nivel2")
+                        inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                        childNodeA.ChildNodes.Add(inner)
+                    End If
+                Next
+            Next
+            '' Next
+
+            ''For Each myNode In Me.TreeView1.Nodes
+            For Each childNodeA As TreeNode In myNode.ChildNodes
+                For Each childNodeB As TreeNode In childNodeA.ChildNodes
                     Dim dv As New DataView(Table)
-                    dv.RowFilter = "Nivel1 = " & childNodeA.Value
+                    dv.RowFilter = "Nivel1 = " & childNodeA.Value & " and Nivel2 = " & childNodeB.Value
                     For Each reng As DataRowView In dv
-                        If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") = 0 Then
+                        If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") > 0 Then
                             Dim inner As New TreeNode()
-                            inner.Value = reng("Nivel2")
-                            inner.Text = reng("SkuComponente")
-                            childNodeA.ChildNodes.Add(inner)
+                            inner.Value = reng("Nivel3")
+                            inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                            childNodeB.ChildNodes.Add(inner)
                         End If
                     Next
                 Next
             Next
-
-            For Each myNode In Me.TreeView1.Nodes
-                For Each childNodeA As TreeNode In myNode.ChildNodes
-                    For Each childNodeB As TreeNode In childNodeA.ChildNodes
-                        Dim dv As New DataView(Table)
-                        dv.RowFilter = "Nivel1 = " & childNodeA.Value & " and Nivel2 = " & childNodeB.Value
-                        For Each reng As DataRowView In dv
-                            If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") > 0 Then
-                                Dim inner As New TreeNode()
-                                inner.Value = reng("Nivel3")
-                                inner.Text = reng("SkuComponente")
-                                childNodeB.ChildNodes.Add(inner)
-                            End If
-                        Next
-                    Next
-                Next
-            Next
+            ''Next
 
 
+        End If
+    End Sub
+
+    Protected Sub treeViewTable(ByVal fDataTable As DataTable)
+        If Session("treeView") Is Nothing Then
+            Session("treeView") = fDataTable
+        Else
+            ''Dim dt1 As DataTable = DirectCast(Session("treeView"), DataTable)
+
+            DirectCast(Session("treeView"), DataTable).Merge(fDataTable)
+
+            ''Dim comparer = New CustomComparer()
+            'Dim dtUnion As DataTable = dt1.AsEnumerable().Union(fDataTable.AsEnumerable(), comparer).CopyToDataTable(Of DataRow)()
+
+            ''Dim dt1 = New DataTable()
+            ' Replace with Dt1
+            ''Dim dt2 = New DataTable()
+            ' Replace with Dt2
+            ''Dim result As DataTable = dt1.AsEnumerable().Union(fDataTable.AsEnumerable()).OrderBy(Function(d) d.Field(Of String)("table"))
         End If
     End Sub
 
@@ -235,7 +242,14 @@ Public Class Estimacion
     Protected Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         If TreeView1.CheckedNodes.Count > 0 Then
             If TreeView1.Nodes.Count > 0 Then
-                For Each myNode As TreeNode In Me.TreeView1.Nodes
+                For z = 0 To Me.TreeView1.Nodes.Count
+                    If z >= TreeView1.Nodes.Count Then
+                        Exit For
+                    End If
+                    Dim myNode = TreeView1.Nodes(z)
+
+                    'Next
+                    'For Each myNode As TreeNode In Me.TreeView1.Nodes
                     If myNode.ChildNodes.Count > 0 Then
                         For a = 0 To myNode.ChildNodes.Count
                             If a >= myNode.ChildNodes.Count Then
@@ -283,10 +297,11 @@ Public Class Estimacion
                         'Dim inner As New TreeNode()
                         'inner.Value = DDComponente.SelectedValue.ToString
                         'inner.Text = DDComponente.SelectedValue.ToString
-                        ''myNode.ChildNodes.Remove(inner)
+                        ''                        myNode.ChildNodes.Remove(myNode)
                         TreeView1.Nodes.Remove(myNode)
+                        z = z - 1
                     End If
-                Next myNode
+                Next
 
             End If
         Else
@@ -306,4 +321,27 @@ Public Class Estimacion
     Private Sub TreeView1_SelectedNodeChanged(sender As Object, e As EventArgs) Handles TreeView1.SelectedNodeChanged
 
     End Sub
+End Class
+
+Class CustomComparer
+    Implements IEqualityComparer(Of DataRow)
+#Region "IEqualityComparer<DataRow> Members"
+
+    Public Function Equals(x As DataRow, y As DataRow) As Boolean
+        Return DirectCast(x("Name"), String).Equals(DirectCast(y("Name"), String))
+    End Function
+
+    Public Function GetHashCode(obj As DataRow) As Integer
+        Return DirectCast(obj("Name"), String).GetHashCode()
+    End Function
+
+    Private Function IEqualityComparer_Equals(x As DataRow, y As DataRow) As Boolean Implements IEqualityComparer(Of DataRow).Equals
+        Throw New NotImplementedException()
+    End Function
+
+    Private Function IEqualityComparer_GetHashCode(obj As DataRow) As Integer Implements IEqualityComparer(Of DataRow).GetHashCode
+        Throw New NotImplementedException()
+    End Function
+
+#End Region
 End Class
