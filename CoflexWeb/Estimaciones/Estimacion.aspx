@@ -3,6 +3,9 @@
     <h2><%--<%: Title %>.--%></h2>
     <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
         <asp:View ID="View1" runat="server">
+
+            <div id="Response" runat="server"></div>
+
             <div class="row">
                 <table style="width: 50%">
                     <tr>
@@ -43,25 +46,25 @@
                                             </asp:DropDownList>
                                         </td>
                                         <td>
-                                           <asp:Button ID="Button2" runat="server" Text="Agregar" />
+                                           <asp:Button ID="Button2" class="btn btn-primary" runat="server" Text="Agregar" />
                                         </td>
                                         <td>&nbsp;</td>
                                         <td>
                                             
                                         </td>
                                          <td>
-                                            <asp:Label ID="Label11" runat="server" Text="Articulo"></asp:Label>
+                                            <asp:Label ID="Label11" runat="server" Text="Componente"></asp:Label>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DDComponente" runat="server">
                                             </asp:DropDownList>
                                         </td>
                                         <td>
-                                            <asp:Button ID="Button3" runat="server" Text="Agregar" />
+                                            <asp:Button ID="Button3"  runat="server" class="btn btn-primary" Text="Agregar"/>
                                         </td>
                                         <td>&nbsp;</td>
                                         <td>
-                                            <asp:Button ID="Button4" runat="server" Text="Remover" />
+                                            <asp:Button ID="Button4" runat="server" class="btn btn-primary" Text="Remover" />
                                         </td>
                                     </tr>
                                 </table>
@@ -81,7 +84,7 @@
                                         </td>
                                         <td>&nbsp;</td>
                                         <td>
-                                            <asp:Button ID="Button5" runat="server" Text="Continuar" />
+                                            <asp:Button ID="Button5" class="btn btn-primary" runat="server" Text="Continuar" />
 
                                         </td>
                                     </tr>
@@ -102,6 +105,12 @@
                                           <NodeStyle Font-Names="Tahoma" Font-Size="10pt" ForeColor="Black" HorizontalPadding="0px" NodeSpacing="0px" VerticalPadding="0px" />
                                           <ParentNodeStyle Font-Bold="False" />
                                           <SelectedNodeStyle Font-Underline="True" ForeColor="#5555DD" HorizontalPadding="0px" VerticalPadding="0px" />
+                                            <DataBindings>
+                                              <asp:TreeNodeBinding DataMember="name" TextField="name"/>
+                                              <asp:TreeNodeBinding DataMember="name" TextField="name"/>
+                                              <asp:TreeNodeBinding DataMember="name" TextField="name"/>
+                                              <asp:TreeNodeBinding DataMember="name" TextField="name"/>
+                                            </DataBindings>
                                     </asp:TreeView>
                                 </div>
                             </td>

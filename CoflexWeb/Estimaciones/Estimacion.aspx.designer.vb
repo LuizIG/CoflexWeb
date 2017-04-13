@@ -32,6 +32,15 @@ Partial Public Class Estimacion
     Protected WithEvents View1 As Global.System.Web.UI.WebControls.View
     
     '''<summary>
+    '''Response control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Response As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''Label9 control.
     '''</summary>
     '''<remarks>

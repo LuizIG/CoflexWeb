@@ -9,6 +9,7 @@ Namespace CoflexWeb.Services.Web
 
         Private Const SERVER_HOST As String = "http://62.151.178.139/CoflexAPI/"
         'Private Const SERVER_HOST As String = "http://localhost/"
+        'Private Const SERVER_HOST As String = "http://localhost/coflexAPI"
 
         Public Const LOGIN As String = "Token"
         Public Const REGISTER As String = "api/Account/Register"
@@ -21,8 +22,12 @@ Namespace CoflexWeb.Services.Web
         Public Const USERS_ALT As String = "api/Account/Edit"
         Public Const USERS_ESTATUS As String = "api/Account/Enable"
         Public Const ITEM As String = "api/Items"
+        Public Const ITEM_COMPONENTS As String = "api/ItemComponents"
         Public Const COMPONENT As String = "api/Components"
-        Public Const ITEMCOMPONENTS As String = "api/ItemComponents/"
+        'Public Const ITEMCOMPONENTS As String = "api/ItemComponents"
+
+
+        Public itemsLists As New ItemsComponentsCollection
 
         Public Function doPostRequest(url As String, data As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As String
             Dim request = createRequest(SERVER_HOST & url, "POST", contentType, token)

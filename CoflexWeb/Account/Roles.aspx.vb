@@ -41,7 +41,6 @@ Public Class Roles
         If (statusCode >= 200 And statusCode < 400) Then
             Dim detail = o.GetValue("detail").Value(Of JArray)
             Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
-            Table.Columns.Add(New DataColumn("Roles"))
             Me.GridRoles.DataSource = Table
             Me.GridRoles.DataBind()
         Else
