@@ -11,23 +11,23 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class SiteMaster
+Partial Public Class ResumenEstimaciones
     
     '''<summary>
-    '''Control LoginView1.
+    '''Control GridUsers.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents LoginView1 As Global.System.Web.UI.WebControls.LoginView
+    Protected WithEvents GridUsers As Global.System.Web.UI.WebControls.GridView
     
     '''<summary>
-    '''Control MainContent.
+    '''Control response.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents MainContent As Global.System.Web.UI.WebControls.ContentPlaceHolder
+    Protected WithEvents response As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 End Class
