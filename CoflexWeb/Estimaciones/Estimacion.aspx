@@ -1,5 +1,26 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="Estimacion.aspx.vb" Inherits="CoflexWeb.Estimacion" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <script language="javascript" type="text/javascript">
+        function CheckNumeric(e) {
+ 
+            if (window.event) // IE 
+            {
+                if ((e.keyCode < 48 || e.keyCode > 57) & e.keyCode != 8) {
+                    event.returnValue = false;
+                    return false;
+ 
+                }
+            }
+            else { // Fire Fox
+                if ((e.which < 48 || e.which > 57) & e.which != 8) {
+                    e.preventDefault();
+                    return false;
+ 
+                }
+            }
+        }
+     
+    </script>
     <h2><%--<%: Title %>.--%></h2>
     <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
         <asp:View ID="View1" runat="server">
@@ -123,20 +144,20 @@
 
                                             </td>
                                             <td>
-                                                <asp:TextBox ID="TextBox1" runat="server">2-PS-E324</asp:TextBox>
+                                                <asp:TextBox ID="TextBox1" Enabled="false" runat="server"></asp:TextBox>
                                             </td>
                                             <td>
                                                 <asp:Label ID="Label2" runat="server" Text="Sku Componente"></asp:Label>
                                             </td>
                                             <td>
-                                                <asp:TextBox ID="TextBox2" runat="server">2-PS-E324</asp:TextBox>
+                                                <asp:TextBox ID="TextBox2" Enabled="false" runat="server"></asp:TextBox>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <asp:Label ID="Label3" runat="server" Text="Descripción"></asp:Label></td>
                                             <td colspan="3">
-                                                <textarea id="TextArea1" style="width: 100%" runat="server">PAQUETE INSTALACION CALENTADOR PALOMA 3/4</textarea></td>
+                                                <textarea id="TextArea1" style="width: 100%" disabled runat="server"></textarea></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -144,13 +165,14 @@
 
                                             </td>
                                             <td>
-                                                <asp:TextBox ID="TextBox3" runat="server">1</asp:TextBox>
+                                                <asp:TextBox ID="TextBox3" onkeypress="CheckNumeric(event);"  runat="server"></asp:TextBox>
+                                                
                                             </td>
                                             <td>
                                                 <asp:Label ID="Label5" runat="server" Text="Unidad de Medida"></asp:Label>
                                             </td>
                                             <td>
-                                                <asp:TextBox ID="TextBox4" runat="server">PZ</asp:TextBox>
+                                                <asp:TextBox ID="TextBox4" Enabled="false" runat="server">PZ</asp:TextBox>
                                             </td>
                                         </tr>
                                         <tr>
@@ -159,13 +181,13 @@
 
                                             </td>
                                             <td>
-                                                <asp:TextBox ID="TextBox5" runat="server">467.59</asp:TextBox>
+                                                <asp:TextBox ID="TextBox5" Enabled="false" runat="server"></asp:TextBox>
                                             </td>
                                             <td>
                                                 <asp:Label ID="Label7" runat="server" Text="Total"></asp:Label>
                                             </td>
                                             <td>
-                                                <asp:TextBox ID="TextBox6" runat="server">467.59</asp:TextBox>
+                                                <asp:TextBox ID="TextBox6" Enabled="false" runat="server"></asp:TextBox>
                                             </td>
                                         </tr>
                                     </table>

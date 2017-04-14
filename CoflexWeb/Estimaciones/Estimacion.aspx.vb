@@ -79,7 +79,6 @@ Public Class Estimacion
     '    'Me.TreeView1.SelectedNode.ChildNodes.Add(newNode)
     'End Sub
 
-
     Protected Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM_COMPONENTS & "/" & Me.DDArticulo.SelectedValue)
         Dim o = JObject.Parse(jsonResponse)
@@ -93,7 +92,7 @@ Public Class Estimacion
             For Each reng As DataRow In Table.Rows
                 If reng("Nivel1") = 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
                     Dim innerI As New TreeNode()
-                    innerI.Value = reng("Nivel1")
+                    innerI.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente")
                     innerI.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
                     TreeView1.Nodes.Add(innerI)
                 End If
@@ -103,7 +102,7 @@ Public Class Estimacion
             For Each reng As DataRow In Table.Rows
                 If reng("Nivel1") > 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
                     Dim inner As New TreeNode()
-                    inner.Value = reng("Nivel1")
+                    inner.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente")
                     inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
                     ''TreeView1.Nodes.Add(inner)
                     If TreeView1.Nodes.Count > 1 Then
@@ -118,11 +117,11 @@ Public Class Estimacion
             ''For Each myNode In Me.TreeView1.Nodes
             For Each childNodeA As TreeNode In myNode.ChildNodes
                 Dim dv As New DataView(Table)
-                dv.RowFilter = "Nivel1 = " & childNodeA.Value
+                dv.RowFilter = "Nivel1 = " & Split(childNodeA.Value, "|")(1)
                 For Each reng As DataRowView In dv
                     If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") = 0 Then
                         Dim inner As New TreeNode()
-                        inner.Value = reng("Nivel2")
+                        inner.Value = reng("Id") & "|" & reng("Nivel2") & "|" & reng("SkuComponente")
                         inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
                         childNodeA.ChildNodes.Add(inner)
                     End If
@@ -134,11 +133,11 @@ Public Class Estimacion
             For Each childNodeA As TreeNode In myNode.ChildNodes
                 For Each childNodeB As TreeNode In childNodeA.ChildNodes
                     Dim dv As New DataView(Table)
-                    dv.RowFilter = "Nivel1 = " & childNodeA.Value & " and Nivel2 = " & childNodeB.Value
+                    dv.RowFilter = "Nivel1 = " & Split(childNodeA.Value, "|")(1) & " and Nivel2 = " & Split(childNodeB.Value, "|")(1)
                     For Each reng As DataRowView In dv
                         If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") > 0 Then
                             Dim inner As New TreeNode()
-                            inner.Value = reng("Nivel3")
+                            inner.Value = reng("Id") & "|" & reng("Nivel3") & "|" & reng("SkuComponente")
                             inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
                             childNodeB.ChildNodes.Add(inner)
                         End If
@@ -171,17 +170,12 @@ Public Class Estimacion
     End Sub
 
     Protected Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        'Dim MyNode As TreeNode = Nothing
-        'MyNode.Value = DDComponente.SelectedValue.ToString
-        'Me.TreeView1.Nodes.Add(MyNode)
-
-        ''''Dim inner As New TreeNode()
-        ''''inner.Value = DDComponente.SelectedValue.ToString
-        ''''inner.Text = DDComponente.SelectedValue.ToString
-        ''''TreeView1.Nodes.Add(inner)
-        '''''TreeView1.Nodes(0).ChildNodes.Add(inner)
-
-
+        ''Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.DETAIL_COMPONENTS & "/" & Me.DDComponente.SelectedValue)
+        ''Dim o = JObject.Parse(jsonResponse)
+        ''Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+        ''If (statusCode >= 200 And statusCode < 400) Then
+        ''    Dim detail = o.GetValue("detail").Value(Of JObject)
+        ''    Dim Table As DataTable = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
 
         Dim countIndex As Integer = 0
         Dim myNode As TreeNode
@@ -204,8 +198,6 @@ Public Class Estimacion
                                             innerB.Value = DDComponente.SelectedValue.ToString
                                             innerB.Text = DDComponente.SelectedValue.ToString
                                             childNodeB.ChildNodes.Add(innerB)
-
-
                                         End If
                                     Next
                                 End If
@@ -218,25 +210,24 @@ Public Class Estimacion
                         inner.Value = DDComponente.SelectedValue.ToString
                         inner.Text = DDComponente.SelectedValue.ToString
                         myNode.ChildNodes.Add(inner)
-                    Else
-                        'Dim inner As New TreeNode()
-                        'inner.Value = DDComponente.SelectedValue.ToString
-                        'inner.Text = DDComponente.SelectedValue.ToString
-                        'TreeView1.Nodes.Add(inner)
+
                     End If
                 Next myNode
-                'Else
-                '    Dim inner As New TreeNode()
-                '    inner.Value = DDComponente.SelectedValue.ToString
-                '    inner.Text = DDComponente.SelectedValue.ToString
-                '    TreeView1.Nodes.Add(inner)
             End If
         Else
+
             Dim inner As New TreeNode()
             inner.Value = DDComponente.SelectedValue.ToString
+            ''inner.Value = Table.Rows(0)("Id").ToString() & "|" & Table.Rows(0)("Nivel1")
             inner.Text = DDComponente.SelectedValue.ToString
+            ''inner.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
             TreeView1.Nodes.Add(inner)
+
+            ''treeViewTable(Table)
         End If
+        ''End If
+
+
     End Sub
 
     Protected Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
@@ -320,28 +311,35 @@ Public Class Estimacion
 
     Private Sub TreeView1_SelectedNodeChanged(sender As Object, e As EventArgs) Handles TreeView1.SelectedNodeChanged
 
+        Dim scTreeView = TreeView1.SelectedNode.Value
+        Dim Table As DataTable = DirectCast(Session("treeView"), DataTable)
+        Dim dv As New DataView(Table)
+        dv.RowFilter = "Id = " & Split(scTreeView, "|")(0) & " and SkuComponente = '" & Split(scTreeView, "|")(2) & "'"
+
+        For Each reng As DataRowView In dv
+            Me.TextBox1.Text = reng("SkuArticulo")
+            Me.TextBox2.Text = reng("SkuComponente")
+            Me.TextArea1.Value = reng("ITEMDESC")
+            Me.TextBox3.Text = reng("QUANTITY_I")
+            Me.TextBox4.Text = reng("UOFM")
+            Me.TextBox5.Text = reng("CURRCOST")
+            Me.TextBox6.Text = reng("RESULT")
+        Next
+
+
+
+
     End Sub
-End Class
 
-Class CustomComparer
-    Implements IEqualityComparer(Of DataRow)
-#Region "IEqualityComparer<DataRow> Members"
+    Private Sub TreeView1_TreeNodeCheckChanged(sender As Object, e As TreeNodeEventArgs) Handles TreeView1.TreeNodeCheckChanged
 
-    Public Function Equals(x As DataRow, y As DataRow) As Boolean
-        Return DirectCast(x("Name"), String).Equals(DirectCast(y("Name"), String))
-    End Function
+    End Sub
 
-    Public Function GetHashCode(obj As DataRow) As Integer
-        Return DirectCast(obj("Name"), String).GetHashCode()
-    End Function
+    Private Sub TreeView1_TreeNodePopulate(sender As Object, e As TreeNodeEventArgs) Handles TreeView1.TreeNodePopulate
 
-    Private Function IEqualityComparer_Equals(x As DataRow, y As DataRow) As Boolean Implements IEqualityComparer(Of DataRow).Equals
-        Throw New NotImplementedException()
-    End Function
+    End Sub
 
-    Private Function IEqualityComparer_GetHashCode(obj As DataRow) As Integer Implements IEqualityComparer(Of DataRow).GetHashCode
-        Throw New NotImplementedException()
-    End Function
-
-#End Region
+    Private Sub TextBox3_TextChanged(sender As Object, e As EventArgs) Handles TextBox3.TextChanged
+        Dim x = 0
+    End Sub
 End Class
