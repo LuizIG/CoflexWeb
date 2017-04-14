@@ -1,25 +1,26 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="Estimacion.aspx.vb" Inherits="CoflexWeb.Estimacion" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <script language="javascript" type="text/javascript">
         function CheckNumeric(e) {
- 
+
             if (window.event) // IE 
             {
                 if ((e.keyCode < 48 || e.keyCode > 57) & e.keyCode != 8) {
                     event.returnValue = false;
                     return false;
- 
+
                 }
             }
             else { // Fire Fox
                 if ((e.which < 48 || e.which > 57) & e.which != 8) {
                     e.preventDefault();
                     return false;
- 
+
                 }
             }
         }
-     
+
     </script>
     <h2><%--<%: Title %>.--%></h2>
     <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
@@ -60,20 +61,18 @@
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DDArticulo" runat="server">
-                                                
+
                                                 <asp:ListItem>2-PS-E324-RH</asp:ListItem>
                                                 <asp:ListItem>1-AB-Q60</asp:ListItem>
-                                                
+
                                             </asp:DropDownList>
                                         </td>
                                         <td>
-                                           <asp:Button ID="Button2" class="btn btn-primary" runat="server" Text="Agregar" />
+                                            <asp:Button ID="Button2" class="btn btn-primary" runat="server" Text="Agregar" />
                                         </td>
                                         <td>&nbsp;</td>
+                                        <td></td>
                                         <td>
-                                            
-                                        </td>
-                                         <td>
                                             <asp:Label ID="Label11" runat="server" Text="Componente"></asp:Label>
                                         </td>
                                         <td>
@@ -81,7 +80,7 @@
                                             </asp:DropDownList>
                                         </td>
                                         <td>
-                                            <asp:Button ID="Button3"  runat="server" class="btn btn-primary" Text="Agregar"/>
+                                            <asp:Button ID="Button3" runat="server" class="btn btn-primary" Text="Agregar" />
                                         </td>
                                         <td>&nbsp;</td>
                                         <td>
@@ -121,17 +120,17 @@
                         <tr>
                             <td style="vertical-align: top; width: 50%; border-style: outset;">
                                 <div style="vertical-align: top; width: 100%">
-                                    <asp:TreeView ID="TreeView1" Width="100%" ShowCheckBoxes="All" ShowExpandCollapse="true"  runat="server" ImageSet="Simple">
-                                          <HoverNodeStyle Font-Underline="True" ForeColor="#5555DD" />
-                                          <NodeStyle Font-Names="Tahoma" Font-Size="10pt" ForeColor="Black" HorizontalPadding="0px" NodeSpacing="0px" VerticalPadding="0px" />
-                                          <ParentNodeStyle Font-Bold="False" />
-                                          <SelectedNodeStyle Font-Underline="True" ForeColor="#5555DD" HorizontalPadding="0px" VerticalPadding="0px" />
-                                            <DataBindings>
-                                              <asp:TreeNodeBinding DataMember="name" TextField="name"/>
-                                              <asp:TreeNodeBinding DataMember="name" TextField="name"/>
-                                              <asp:TreeNodeBinding DataMember="name" TextField="name"/>
-                                              <asp:TreeNodeBinding DataMember="name" TextField="name"/>
-                                            </DataBindings>
+                                    <asp:TreeView ID="TreeView1" Width="100%" ShowCheckBoxes="All" ShowExpandCollapse="true" runat="server" ImageSet="Simple">
+                                        <HoverNodeStyle Font-Underline="True" ForeColor="#5555DD" />
+                                        <NodeStyle Font-Names="Tahoma" Font-Size="10pt" ForeColor="Black" HorizontalPadding="0px" NodeSpacing="0px" VerticalPadding="0px" />
+                                        <ParentNodeStyle Font-Bold="False" />
+                                        <SelectedNodeStyle Font-Underline="True" ForeColor="#5555DD" HorizontalPadding="0px" VerticalPadding="0px" />
+                                        <DataBindings>
+                                            <asp:TreeNodeBinding DataMember="name" TextField="name" />
+                                            <asp:TreeNodeBinding DataMember="name" TextField="name" />
+                                            <asp:TreeNodeBinding DataMember="name" TextField="name" />
+                                            <asp:TreeNodeBinding DataMember="name" TextField="name" />
+                                        </DataBindings>
                                     </asp:TreeView>
                                 </div>
                             </td>
@@ -165,8 +164,8 @@
 
                                             </td>
                                             <td>
-                                                <asp:TextBox ID="TextBox3" onkeypress="CheckNumeric(event);"  runat="server"></asp:TextBox>
-                                                
+                                                <asp:TextBox ID="TextBox3" onkeypress="CheckNumeric(event);" runat="server"></asp:TextBox>
+
                                             </td>
                                             <td>
                                                 <asp:Label ID="Label5" runat="server" Text="Unidad de Medida"></asp:Label>
@@ -190,6 +189,13 @@
                                                 <asp:TextBox ID="TextBox6" Enabled="false" runat="server"></asp:TextBox>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td style="text-align: right">
+                                                <asp:Button ID="Button1" class="btn btn-primary" runat="server" Text="Actualizar" /></td>
+                                        </tr>
                                     </table>
                                 </div>
                             </td>
@@ -205,40 +211,62 @@
                     <td colspan="4">
                         <div style="float: left;">
                             <table>
-                                    <tr>
-                                        <td>Margen</td><td>
-                                            <asp:TextBox ID="TextBox11" runat="server"></asp:TextBox></td></tr></table>
-                            </div>
-                          <div style="float: right;">
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <asp:Button ID="Imprimir" runat="server" Text="Imprimir" />
-                                        </td>
-                                        <td>&nbsp;</td>
-                                        <td>
-                                            <asp:Button ID="Guardar" runat="server" Text="Guardar" />
-                                        </td>
-                                        <td>&nbsp;</td>
-                                        <td>
-                                            <asp:Button ID="Versionar" runat="server" Text="Versionar" />
+                                <tr>
+                                    <td>Margen</td>
+                                    <td>
+                                        <asp:TextBox ID="TextBox11" runat="server"></asp:TextBox></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="float: right;">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <asp:Button ID="Imprimir" class="btn btn-primary" runat="server" Text="Imprimir" />
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        <asp:Button ID="Guardar" class="btn btn-primary" runat="server" Text="Guardar" />
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        <asp:Button ID="Versionar" class="btn btn-primary" runat="server" Text="Versionar" />
 
-                                        </td> <td>&nbsp;</td>
-                                        <td>
-                                            <asp:Button ID="Cotizar" runat="server" Text="Cotizar" />
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        <asp:Button ID="Cotizar" class="btn btn-primary" runat="server" Text="Cotizar" />
 
-                                        </td>
-                                         <td>&nbsp;</td>
-                                        <td>
-                                            <asp:Button ID="Regresar" runat="server" Text="Regresar" />
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        <asp:Button ID="Regresar" class="btn btn-primary" runat="server" Text="Regresar" />
 
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
 
                     </td>
 
+                </tr>
+            </table>
+            <asp:GridView ID="GridView1" Width="100%" AutoGenerateColumns="False" runat="server">
+                <Columns>
+                    <asp:BoundField ItemStyle-Width="10%" HeaderText="No Articulo" DataField="SkuComponente" />
+                    <asp:BoundField ItemStyle-Width="70%" HeaderText="Articulo" DataField="ITEMDESC" />
+                    <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo" DataField="RESULT" />
+                    <asp:TemplateField ItemStyle-Width="10%" HeaderText="Select">
+                        <ItemTemplate>
+                            <asp:TextBox ID="TBQuantity" Text='<%# Bind("QUANTITY_I") %>' runat="server"></asp:TextBox>
+                            <%--<asp:CheckBox ID="chkSelect" Name="chkSelect" runat="server" />--%>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
+           <%-- <table>
+                <tr>
+                    <td colspan="4"></td>
                 </tr>
                 <tr>
                     <td style="width: 10%"><b>No Articulo</b></td>
@@ -267,12 +295,15 @@
                     <td>
                         <asp:TextBox ID="TextBox10" runat="server">1</asp:TextBox></td>
                 </tr>
-                <tr><td colspan="4">&nbsp;</td></tr>
-                <tr><td colspan="2" style="text-align:right"><b>Total</b>&nbsp;</td>
+                <tr>
+                    <td colspan="4">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: right"><b>Total</b>&nbsp;</td>
                     <td><b>&nbsp;$537.82</b></td>
                     <td><b>3</b></td>
                 </tr>
-            </table>
+            </table>--%>
         </asp:View>
 
     </asp:MultiView>

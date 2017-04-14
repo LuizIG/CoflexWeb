@@ -284,6 +284,15 @@ Partial Public Class Estimacion
     Protected WithEvents TextBox6 As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''Button1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Button1 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''View2 control.
     '''</summary>
     '''<remarks>
@@ -347,29 +356,11 @@ Partial Public Class Estimacion
     Protected WithEvents Regresar As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''TextBox8 control.
+    '''GridView1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TextBox8 As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''TextBox9 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents TextBox9 As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''TextBox10 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents TextBox10 As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents GridView1 As Global.System.Web.UI.WebControls.GridView
 End Class
