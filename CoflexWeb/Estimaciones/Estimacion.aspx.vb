@@ -34,7 +34,8 @@ Public Class Estimacion
                 Me.DDComponente.DataBind()
             End If
 
-            'Else
+            Session.Remove("treeView")
+
             '    If (Session("tables") Is Nothing) Then
             '        data = New DataSet
             '    Else
@@ -163,63 +164,69 @@ Public Class Estimacion
     End Sub
 
     Protected Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        ''Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.DETAIL_COMPONENTS & "/" & Me.DDComponente.SelectedValue)
-        ''Dim o = JObject.Parse(jsonResponse)
-        ''Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
-        ''If (statusCode >= 200 And statusCode < 400) Then
-        ''    Dim detail = o.GetValue("detail").Value(Of JObject)
-        ''    Dim Table As DataTable = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+        If ExistProduct(Me.DDComponente.SelectedValue) Then
 
-        Dim countIndex As Integer = 0
-        Dim myNode As TreeNode
+            Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.DETAIL_COMPONENTS & "/" & Me.DDComponente.SelectedValue)
+            Dim o = JObject.Parse(jsonResponse)
+            Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+            If (statusCode >= 200 And statusCode < 400) Then
+                Dim detail = o.GetValue("detail").Value(Of JArray)
+                ''Dim Table As DataTable = JsonConvert.DeserializeObject(Of DataTable)("[" & detail.ToString & "]")
+                Dim Table As DataTable = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
 
-        If TreeView1.CheckedNodes.Count > 0 Then
-            If TreeView1.Nodes.Count > 0 Then
-                For Each myNode In Me.TreeView1.Nodes
-                    If myNode.ChildNodes.Count > 0 Then
-                        For Each childNodeA As TreeNode In myNode.ChildNodes
-                            If childNodeA.Checked Then
+
+                Dim countIndex As Integer = 0
+                Dim myNode As TreeNode
+
+                If TreeView1.CheckedNodes.Count > 0 Then
+                    If TreeView1.Nodes.Count > 0 Then
+                        For Each myNode In Me.TreeView1.Nodes
+                            If myNode.ChildNodes.Count > 0 Then
+                                For Each childNodeA As TreeNode In myNode.ChildNodes
+                                    If childNodeA.Checked Then
+                                        Dim inner As New TreeNode()
+                                        inner.Value = DDComponente.SelectedValue.ToString
+                                        inner.Text = DDComponente.SelectedValue.ToString
+                                        childNodeA.ChildNodes.Add(inner)
+                                    Else
+                                        If childNodeA.ChildNodes.Count > 0 Then
+                                            For Each childNodeB As TreeNode In childNodeA.ChildNodes
+                                                If childNodeB.Checked Then
+                                                    Dim innerB As New TreeNode()
+                                                    innerB.Value = DDComponente.SelectedValue.ToString
+                                                    innerB.Text = DDComponente.SelectedValue.ToString
+                                                    childNodeB.ChildNodes.Add(innerB)
+                                                End If
+                                            Next
+                                        End If
+                                    End If
+                                Next
+                            End If
+                            ' Check whether the tree node is checked.
+                            If myNode.Checked Then
                                 Dim inner As New TreeNode()
                                 inner.Value = DDComponente.SelectedValue.ToString
                                 inner.Text = DDComponente.SelectedValue.ToString
-                                childNodeA.ChildNodes.Add(inner)
-                            Else
-                                If childNodeA.ChildNodes.Count > 0 Then
-                                    For Each childNodeB As TreeNode In childNodeA.ChildNodes
-                                        If childNodeB.Checked Then
-                                            Dim innerB As New TreeNode()
-                                            innerB.Value = DDComponente.SelectedValue.ToString
-                                            innerB.Text = DDComponente.SelectedValue.ToString
-                                            childNodeB.ChildNodes.Add(innerB)
-                                        End If
-                                    Next
-                                End If
+                                myNode.ChildNodes.Add(inner)
+
                             End If
-                        Next
+                        Next myNode
                     End If
-                    ' Check whether the tree node is checked.
-                    If myNode.Checked Then
-                        Dim inner As New TreeNode()
-                        inner.Value = DDComponente.SelectedValue.ToString
-                        inner.Text = DDComponente.SelectedValue.ToString
-                        myNode.ChildNodes.Add(inner)
+                Else
 
-                    End If
-                Next myNode
+                    Dim inner As New TreeNode()
+                    ''inner.Value = DDComponente.SelectedValue.ToString
+                    inner.Value = Table.Rows(0)("Id").ToString() & "|" & Table.Rows(0)("Nivel1") & "|" & Table.Rows(0)("SkuComponente")
+                    ''inner.Text = DDComponente.SelectedValue.ToString
+                    inner.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
+                    TreeView1.Nodes.Add(inner)
+
+                    treeViewTable(Table)
+                End If
             End If
-        Else
 
-            Dim inner As New TreeNode()
-            inner.Value = DDComponente.SelectedValue.ToString
-            ''inner.Value = Table.Rows(0)("Id").ToString() & "|" & Table.Rows(0)("Nivel1")
-            inner.Text = DDComponente.SelectedValue.ToString
-            ''inner.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
-            TreeView1.Nodes.Add(inner)
 
-            ''treeViewTable(Table)
         End If
-        ''End If
-
 
     End Sub
 
