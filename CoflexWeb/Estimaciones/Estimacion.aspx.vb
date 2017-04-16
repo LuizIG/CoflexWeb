@@ -304,22 +304,57 @@ Public Class Estimacion
                             If myNode.ChildNodes.Count > 0 Then
                                 For Each childNodeA As TreeNode In myNode.ChildNodes
                                     If childNodeA.Checked Then
+
+                                        For Each dr As DataRow In Table.Rows
+                                            If dr("Id") = Table.Rows(0)("Id").ToString() And dr("SkuComponente") = Table.Rows(0)("SkuComponente") Then
+                                                dr("SkuArticulo") = Split(myNode.Value, "|")(2)
+                                                dr("Nivel1") = Split(childNodeA.Value, "|")(1)
+
+                                                If childNodeA.ChildNodes.Count = 0 Then
+                                                    dr("Nivel2") = 1
+                                                Else
+                                                    dr("Nivel2") = childNodeA.ChildNodes.Count + 1
+                                                    ''dr("Nivel2") = Me.TextBox3.Text
+                                                End If
+                                            End If
+                                        Next
+
                                         Dim inner As New TreeNode()
-                                        inner.Value = Table.Rows(0)("Id").ToString() & "|" & Table.Rows(0)("Nivel1") & "|" & Table.Rows(0)("SkuComponente")
+                                        inner.Value = Table.Rows(0)("Id").ToString() & "|" & Table.Rows(0)("Nivel2").ToString() & "|" & Table.Rows(0)("SkuComponente")
                                         ''DDComponente.SelectedValue.ToString()
                                         inner.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
                                         ''DDComponente.SelectedValue.ToString()
                                         childNodeA.ChildNodes.Add(inner)
+
+                                        treeViewTable(Table)
+
                                     Else
                                         If childNodeA.ChildNodes.Count > 0 Then
                                             For Each childNodeB As TreeNode In childNodeA.ChildNodes
                                                 If childNodeB.Checked Then
+
+                                                    For Each dr As DataRow In Table.Rows
+                                                        If dr("Id") = Table.Rows(0)("Id").ToString() And dr("SkuComponente") = Table.Rows(0)("SkuComponente") Then
+                                                            dr("SkuArticulo") = Split(myNode.Value, "|")(2)
+                                                            dr("Nivel1") = Split(childNodeA.Value, "|")(1)
+                                                            dr("Nivel2") = Split(childNodeB.Value, "|")(1)
+                                                            If childNodeB.ChildNodes.Count = 0 Then
+                                                                dr("Nivel3") = 1
+                                                            Else
+                                                                dr("Nivel3") = childNodeB.ChildNodes.Count + 1
+                                                            End If
+                                                        End If
+                                                    Next
+
                                                     Dim innerB As New TreeNode()
-                                                    innerB.Value = Table.Rows(0)("Id").ToString() & "|" & Table.Rows(0)("Nivel1") & "|" & Table.Rows(0)("SkuComponente")
+                                                    innerB.Value = Table.Rows(0)("Id").ToString() & "|" & Table.Rows(0)("Nivel3") & "|" & Table.Rows(0)("SkuComponente")
                                                     ''DDComponente.SelectedValue.ToString()
                                                     innerB.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
                                                     ''DDComponente.SelectedValue.ToString()
                                                     childNodeB.ChildNodes.Add(innerB)
+
+                                                    treeViewTable(Table)
+
                                                 End If
                                             Next
                                         End If
@@ -328,12 +363,30 @@ Public Class Estimacion
                             End If
                             ' Check whether the tree node is checked.
                             If myNode.Checked Then
+
+                                For Each dr As DataRow In Table.Rows
+                                    If dr("Id") = Table.Rows(0)("Id").ToString() And dr("SkuComponente") = Table.Rows(0)("SkuComponente") Then
+
+                                        dr("SkuArticulo") = Split(myNode.Value, "|")(2)
+
+                                        If myNode.ChildNodes.Count = 0 Then
+                                            dr("Nivel1") = 1
+                                        Else
+                                            dr("Nivel1") = myNode.ChildNodes.Count + 1
+                                            ''dr("Nivel2") = Me.TextBox3.Text
+                                        End If
+                                    End If
+
+                                Next
+
                                 Dim inner As New TreeNode()
                                 inner.Value = Table.Rows(0)("Id").ToString() & "|" & Table.Rows(0)("Nivel1") & "|" & Table.Rows(0)("SkuComponente")
                                 ''DDComponente.SelectedValue.ToString()
                                 inner.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
                                 ''DDComponente.SelectedValue.ToString()
                                 myNode.ChildNodes.Add(inner)
+
+                                treeViewTable(Table)
 
                             End If
                         Next myNode
@@ -491,6 +544,7 @@ Public Class Estimacion
 
         End If
     End Sub
+
     Private Function CreateQuotation() As JObject
         Dim Quotation As New JObject
         Quotation.Add("ClientId", DDCliente.SelectedValue)
