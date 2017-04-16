@@ -44,7 +44,7 @@
                         <td>
                             <asp:Label ID="Label10" runat="server" Text="Tipo de Cambio"></asp:Label></td>
                         <td>
-                            <asp:TextBox ID="TextBox7" runat="server">19.05</asp:TextBox>
+                            <asp:TextBox ID="Tv_Exchange"  runat="server">19.05</asp:TextBox>
                         </td>
                     </tr>
 
@@ -251,12 +251,12 @@
 
                 </tr>
             </table>
-            <asp:GridView ID="GridView1" Width="100%" AutoGenerateColumns="False" runat="server">
+            <asp:GridView ID="GridSummary" Width="100%" AutoGenerateColumns="False" runat="server">
                 <Columns>
                     <asp:BoundField ItemStyle-Width="10%" HeaderText="No Articulo" DataField="SkuComponente" />
                     <asp:BoundField ItemStyle-Width="70%" HeaderText="Articulo" DataField="ITEMDESC" />
                     <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo" DataField="RESULT" />
-                    <asp:TemplateField ItemStyle-Width="10%" HeaderText="Select">
+                    <asp:TemplateField ItemStyle-Width="10%" HeaderText="Cantidad">
                         <ItemTemplate>
                             <asp:TextBox ID="TBQuantity" Text='<%# Bind("QUANTITY_I") %>' runat="server"></asp:TextBox>
                             <%--<asp:CheckBox ID="chkSelect" Name="chkSelect" runat="server" />--%>

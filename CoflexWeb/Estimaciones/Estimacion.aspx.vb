@@ -34,7 +34,127 @@ Public Class Estimacion
                 Me.DDComponente.DataBind()
             End If
 
-            Session.Remove("treeView")
+
+            jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.CLIENTS)
+            o = JObject.Parse(jsonResponse)
+            statusCode = o.GetValue("statusCode").Value(Of Integer)
+            If (statusCode >= 200 And statusCode < 400) Then
+                Dim detail = o.GetValue("detail").Value(Of JArray)
+                Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+                Me.DDCliente.DataSource = Table
+                Me.DDCliente.DataValueField = "Id"
+                Me.DDCliente.DataTextField = "ClientName"
+                Me.DDCliente.DataBind()
+            End If
+
+            Dim VersionId As String = Request.QueryString("v")
+
+            If VersionId IsNot Nothing Then
+                Dim ResponseVersions = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS_VERSION & "/" & VersionId)
+                o = JObject.Parse(ResponseVersions)
+                statusCode = o.GetValue("statusCode").Value(Of Integer)
+                If (statusCode >= 200 And statusCode < 400) Then
+                    Dim detail = o.GetValue("detail").Value(Of JObject)
+
+                    Tv_Exchange.Text = detail.GetValue("ExchangeRate").Value(Of String)
+                    Dim items = detail.GetValue("Items").Value(Of JArray)
+
+                    Dim Table As DataTable
+
+                    For Each item As JObject In items
+                        Dim itemComponents = item.GetValue("ItemsComponents").Value(Of JArray)
+                        Dim arrayConParent As New JArray
+                        For Each itemComponent As JObject In itemComponents
+                            itemComponent.Add("SkuArticulo", item.GetValue("Sku").Value(Of String))
+                            itemComponent.Add("Parent", "")
+                            itemComponent.Remove("ItemsId")
+                            arrayConParent.Add(itemComponent)
+                        Next
+
+                        Table = JsonConvert.DeserializeObject(Of DataTable)(arrayConParent.ToString)
+
+                        Try
+
+                            Table.Columns("SkuComponent").ColumnName = "SkuComponente"
+                            Table.Columns("ItemDescription").ColumnName = "ITEMDESC"
+                            Table.Columns("Quantity").ColumnName = "QUANTITY_I"
+                            Table.Columns("UM").ColumnName = "UOFM"
+                            Table.Columns("Lvl1").ColumnName = "Nivel1"
+                            Table.Columns("Lvl2").ColumnName = "Nivel2"
+                            Table.Columns("Lvl3").ColumnName = "Nivel3"
+                        Catch ex As Exception
+                            MsgBox(ex.StackTrace)
+                        End Try
+
+                        treeViewTable(Table)
+
+                        For Each reng As DataRow In Table.Rows
+                            If reng("Nivel1") = 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
+                                Dim innerI As New TreeNode()
+                                innerI.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente")
+                                innerI.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                                TreeView1.Nodes.Add(innerI)
+                            End If
+                        Next
+                        'Dim sqlDR As SqlDataAdapter
+                        'sqlDR.Fill(Table)
+                        For Each reng As DataRow In Table.Rows
+                            If reng("Nivel1") > 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
+                                Dim inner As New TreeNode()
+                                inner.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente")
+                                inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                                ''TreeView1.Nodes.Add(inner)
+                                If TreeView1.Nodes.Count > 1 Then
+                                    TreeView1.Nodes(TreeView1.Nodes.Count - 1).ChildNodes.Add(inner)
+                                Else
+                                    TreeView1.Nodes(0).ChildNodes.Add(inner)
+                                End If
+                            End If
+                        Next
+
+                        Dim myNode As TreeNode = TreeView1.Nodes(TreeView1.Nodes.Count - 1)
+                        ''For Each myNode In Me.TreeView1.Nodes
+                        For Each childNodeA As TreeNode In myNode.ChildNodes
+                            Dim dv As New DataView(Table)
+                            dv.RowFilter = "Nivel1 = " & Split(childNodeA.Value, "|")(1)
+                            For Each reng As DataRowView In dv
+                                If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") = 0 Then
+                                    Dim inner As New TreeNode()
+                                    inner.Value = reng("Id") & "|" & reng("Nivel2") & "|" & reng("SkuComponente")
+                                    inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                                    childNodeA.ChildNodes.Add(inner)
+                                End If
+                            Next
+                        Next
+                        '' Next
+
+                        ''For Each myNode In Me.TreeView1.Nodes
+                        For Each childNodeA As TreeNode In myNode.ChildNodes
+                            For Each childNodeB As TreeNode In childNodeA.ChildNodes
+                                Dim dv As New DataView(Table)
+                                dv.RowFilter = "Nivel1 = " & Split(childNodeA.Value, "|")(1) & " and Nivel2 = " & Split(childNodeB.Value, "|")(1)
+                                For Each reng As DataRowView In dv
+                                    If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") > 0 Then
+                                        Dim inner As New TreeNode()
+                                        inner.Value = reng("Id") & "|" & reng("Nivel3") & "|" & reng("SkuComponente")
+                                        inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                                        childNodeB.ChildNodes.Add(inner)
+                                    End If
+                                Next
+                            Next
+                        Next
+
+
+                    Next
+
+
+                End If
+            Else
+                Session.Remove("treeView")
+            End If
+
+
+
 
             '    If (Session("tables") Is Nothing) Then
             '        data = New DataSet
@@ -51,8 +171,8 @@ Public Class Estimacion
             Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
             dv.RowFilter = "Nivel1 = 0 and Nivel2 = 0 and Nivel3 = 0"
 
-            Me.GridView1.DataSource = dv.ToTable
-            Me.GridView1.DataBind()
+            Me.GridSummary.DataSource = dv.ToTable
+            Me.GridSummary.DataBind()
         End If
     End Sub
 
@@ -352,4 +472,88 @@ Public Class Estimacion
         treeViewTable(Table)
 
     End Sub
+
+    Private Sub Versionar_Click(sender As Object, e As EventArgs) Handles Versionar.Click
+
+        'Si no existe la cotizacion, crea una nueva
+
+        Dim IdQuotaion As String = Request.QueryString("q")
+        If IdQuotaion Is Nothing Then
+            Dim Response = doPostRequest(QUOTATIONS, CreateQuotation.ToString)
+            Console.Write(Response)
+        Else
+            Dim Response = doPostRequest(QUOTATIONS_VERSION, CreateQuotationVersion(IdQuotaion).ToString)
+            Console.Write(Response)
+        End If
+
+        'Si no existe la version, crea una nueva
+        If Request.QueryString("v") Is Nothing Then
+
+        End If
+    End Sub
+    Private Function CreateQuotation() As JObject
+        Dim Quotation As New JObject
+        Quotation.Add("ClientId", DDCliente.SelectedValue)
+        Quotation.Add("ClientName", DDCliente.SelectedItem.Text)
+        Quotation.Add("QuotationVersions", CreateQuotationVersion())
+        Return Quotation
+    End Function
+
+    Private Function CreateQuotationVersion() As JObject
+        Dim QuotationVersion As New JObject
+
+        Dim exchange As Double = CDbl(Val(Tv_Exchange.Text))
+
+        QuotationVersion.Add("ExchangeRate", exchange)
+        QuotationVersion.Add("UseStndCost", True)
+        QuotationVersion.Add("ItemsBindingModel", CreateItems())
+        Return QuotationVersion
+    End Function
+
+    Private Function CreateQuotationVersion(ByVal idQuotation As String) As JObject
+        Dim QuotationVersionId = CreateQuotationVersion()
+        QuotationVersionId.Add("IdQuotaions", CInt(idQuotation))
+        Return QuotationVersionId
+    End Function
+
+    Private Function CreateItems() As JArray
+        Dim ItemArray As New JArray
+        Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
+        dv.RowFilter = "Nivel1 = 0 and Nivel2 = 0 and Nivel3 = 0"
+        For Each reng As DataRowView In dv
+            Dim Item As New JObject
+            Dim sku As String = reng("SkuArticulo")
+            Item.Add("Sku", sku)
+            Item.Add("ItemDescription", reng("ITEMDESC").ToString)
+            Item.Add("Quantity", CDbl(reng("QUANTITY_I").ToString))
+            Item.Add("UM", reng("UOFM").ToString)
+            Item.Add("Status", 0)
+            Item.Add("ItemsComponents", CreateItemComponents(sku))
+            ItemArray.Add(Item)
+        Next
+        Return ItemArray
+    End Function
+
+    Private Function CreateItemComponents(ByVal itemSku As String) As JArray
+        Dim ItemComponentsArray As New JArray
+        Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
+        dv.RowFilter = "SkuArticulo = '" & itemSku & "'"
+        For Each reng As DataRowView In dv
+            Dim Item As New JObject
+            Item.Add("SkuComponent", reng("SkuComponente").ToString)
+            Item.Add("ItemDescription", reng("ITEMDESC").ToString)
+            Item.Add("Quantity", CDbl(reng("QUANTITY_I").ToString))
+            Item.Add("UM", reng("UOFM").ToString)
+            Item.Add("StndCost", CDbl(reng("STNDCOST").ToString))
+            Item.Add("CurrCost", CDbl(reng("CURRCOST").ToString))
+            Item.Add("Result", CDbl(reng("RESULT").ToString))
+            Item.Add("Lvl1", CInt(reng("Nivel1").ToString))
+            Item.Add("Lvl2", CInt(reng("Nivel2").ToString))
+            Item.Add("Lvl3", CInt(reng("Nivel2").ToString))
+            Item.Add("Status", 0)
+            ItemComponentsArray.Add(Item)
+        Next
+        Return ItemComponentsArray
+    End Function
+
 End Class

@@ -11,23 +11,23 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class SiteMaster
+Partial Public Class ResumenEstimaciones
     
     '''<summary>
-    '''Control LoginView1.
+    '''Control TreeViewQuotation.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents LoginView1 As Global.System.Web.UI.WebControls.LoginView
+    Protected WithEvents TreeViewQuotation As Global.System.Web.UI.WebControls.TreeView
     
     '''<summary>
-    '''Control MainContent.
+    '''Control div_response.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents MainContent As Global.System.Web.UI.WebControls.ContentPlaceHolder
+    Protected WithEvents div_response As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 End Class

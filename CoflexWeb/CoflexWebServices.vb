@@ -7,28 +7,8 @@ Imports Newtonsoft.Json.Linq
 Namespace CoflexWeb.Services.Web
     Public Module CoflexWebServices
 
-        ''Private Const SERVER_HOST As String = "http://62.151.178.139/CoflexAPIExt/"
-        '''Private Const SERVER_HOST As String = "http://localhost/"
-        '''Private Const SERVER_HOST As String = "http://localhost/coflexAPI"
-
-        ''Public Const LOGIN As String = "Token"
-        ''Public Const REGISTER As String = "api/Account/Register"
-        ''Public Const CHANGEPASSWORD As String = "api/Account/ChangePassword"
-        ''Public Const SETPASSWORD As String = "api/Account/SetPassword"
-        ''Public Const ROLES_ADMIN_ADD As String = "api/Account/Roles/Add"
-        ''Public Const ROLES_ADMIN_DEL As String = "api/Account/Roles/Remove"
-        ''Public Const ROLES As String = "api/Roles"
-        ''Public Const USERS As String = "api/Account"
-        ''Public Const USERS_ALT As String = "api/Account/Edit"
-        ''Public Const USERS_ESTATUS As String = "api/Account/Enable"
-        ''Public Const ITEM As String = "api/Items"
-        ''Public Const ITEM_COMPONENTS As String = "api/ItemComponents"
-        ''Public Const COMPONENT As String = "api/Components"
-        ''Public Const DETAIL_COMPONENTS As String = "api/DetailComponets"
-
-        Private Const SERVER_HOST As String = "http://62.151.178.139/"
-        'Private Const SERVER_HOST As String = "http://localhost/"
-        'Private Const SERVER_HOST As String = "http://localhost/coflexAPI"
+        'Private Const SERVER_HOST As String = "http://62.151.178.139/"
+        Private Const SERVER_HOST As String = "http://localhost/"
 
         Public Const LOGIN As String = "CoflexAPI/Token"
         Public Const REGISTER As String = "CoflexAPI/api/Account/Register"
@@ -40,11 +20,15 @@ Namespace CoflexWeb.Services.Web
         Public Const USERS As String = "CoflexAPI/api/Account"
         Public Const USERS_ALT As String = "CoflexAPI/api/Account/Edit"
         Public Const USERS_ESTATUS As String = "CoflexAPI/api/Account/Enable"
+        Public Const QUOTATIONS As String = "CoflexAPI/api/Quotations"
+        Public Const QUOTATIONS_VERSION As String = "CoflexAPI/api/QuotationVersions"
+
+        'Enpoints Externos
         Public Const ITEM As String = "CoflexAPIExt/api/Items"
         Public Const ITEM_COMPONENTS As String = "CoflexAPIExt/api/ItemComponents"
         Public Const COMPONENT As String = "CoflexAPIExt/api/Components"
         Public Const DETAIL_COMPONENTS As String = "CoflexAPIExt/api/DetailComponets"
-
+        Public Const CLIENTS As String = "CoflexAPIExt/api/Clients"
 
         Public itemsLists As New ItemsComponentsCollection
 

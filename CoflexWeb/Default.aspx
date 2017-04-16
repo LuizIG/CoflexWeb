@@ -2,7 +2,7 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">
-        <h1>Cotizador</h1>
+        <h4>Bienvenido</h4>
     </div>
     <div id="response" runat="server"></div>
 </asp:Content>
