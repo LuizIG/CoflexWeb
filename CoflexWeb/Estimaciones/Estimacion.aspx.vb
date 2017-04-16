@@ -185,16 +185,20 @@ Public Class Estimacion
                                 For Each childNodeA As TreeNode In myNode.ChildNodes
                                     If childNodeA.Checked Then
                                         Dim inner As New TreeNode()
-                                        inner.Value = DDComponente.SelectedValue.ToString
-                                        inner.Text = DDComponente.SelectedValue.ToString
+                                        inner.Value = Table.Rows(0)("Id").ToString() & "|" & Table.Rows(0)("Nivel1") & "|" & Table.Rows(0)("SkuComponente")
+                                        ''DDComponente.SelectedValue.ToString()
+                                        inner.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
+                                        ''DDComponente.SelectedValue.ToString()
                                         childNodeA.ChildNodes.Add(inner)
                                     Else
                                         If childNodeA.ChildNodes.Count > 0 Then
                                             For Each childNodeB As TreeNode In childNodeA.ChildNodes
                                                 If childNodeB.Checked Then
                                                     Dim innerB As New TreeNode()
-                                                    innerB.Value = DDComponente.SelectedValue.ToString
-                                                    innerB.Text = DDComponente.SelectedValue.ToString
+                                                    innerB.Value = Table.Rows(0)("Id").ToString() & "|" & Table.Rows(0)("Nivel1") & "|" & Table.Rows(0)("SkuComponente")
+                                                    ''DDComponente.SelectedValue.ToString()
+                                                    innerB.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
+                                                    ''DDComponente.SelectedValue.ToString()
                                                     childNodeB.ChildNodes.Add(innerB)
                                                 End If
                                             Next
@@ -205,8 +209,10 @@ Public Class Estimacion
                             ' Check whether the tree node is checked.
                             If myNode.Checked Then
                                 Dim inner As New TreeNode()
-                                inner.Value = DDComponente.SelectedValue.ToString
-                                inner.Text = DDComponente.SelectedValue.ToString
+                                inner.Value = Table.Rows(0)("Id").ToString() & "|" & Table.Rows(0)("Nivel1") & "|" & Table.Rows(0)("SkuComponente")
+                                ''DDComponente.SelectedValue.ToString()
+                                inner.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
+                                ''DDComponente.SelectedValue.ToString()
                                 myNode.ChildNodes.Add(inner)
 
                             End If
