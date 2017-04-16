@@ -55,17 +55,109 @@ Public Class Estimacion
                 statusCode = o.GetValue("statusCode").Value(Of Integer)
                 If (statusCode >= 200 And statusCode < 400) Then
                     Dim detail = o.GetValue("detail").Value(Of JObject)
-                    Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
-                    Me.DDCliente.DataSource = Table
-                    Me.DDCliente.DataValueField = "Id"
-                    Me.DDCliente.DataTextField = "ClientName"
-                    Me.DDCliente.DataBind()
-                End If
 
+                    Tv_Exchange.Text = detail.GetValue("ExchangeRate").Value(Of String)
+                    Dim items = detail.GetValue("Items").Value(Of JArray)
+
+                    Dim Table As DataTable
+
+                    For Each item As JObject In items
+                        Dim itemComponents = item.GetValue("ItemsComponents").Value(Of JArray)
+                        Dim arrayConParent As New JArray
+                        For Each itemComponent As JObject In itemComponents
+                            itemComponent.Add("SkuArticulo", item.GetValue("Sku").Value(Of String))
+                            itemComponent.Add("Parent", "")
+                            itemComponent.Remove("ItemsId")
+                            arrayConParent.Add(itemComponent)
+                        Next
+
+                        Table = JsonConvert.DeserializeObject(Of DataTable)(arrayConParent.ToString)
+                        treeViewTable(Table)
+                        Try
+
+                            Table.Columns("SkuComponent").ColumnName = "SkuComponente"
+                            Table.Columns("ItemDescription").ColumnName = "ITEMDESC"
+                            Table.Columns("Quantity").ColumnName = "QUANTITY_I"
+                            Table.Columns("UM").ColumnName = "UOFM"
+                            Table.Columns("StndCost").ColumnName = "STNDCOST"
+                            Table.Columns("CurrCost").ColumnName = "CURRCOST"
+                            Table.Columns("Result").ColumnName = "RESULT"
+                            Table.Columns("Lvl1").ColumnName = "Nivel1"
+                            Table.Columns("Lvl2").ColumnName = "Nivel2"
+                            Table.Columns("Lvl3").ColumnName = "Nivel3"
+                        Catch ex As Exception
+
+                        End Try
+
+
+
+                        For Each reng As DataRow In Table.Rows
+                            If reng("Nivel1") = 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
+                                Dim innerI As New TreeNode()
+                                innerI.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente")
+                                innerI.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                                TreeView1.Nodes.Add(innerI)
+                            End If
+                        Next
+                        'Dim sqlDR As SqlDataAdapter
+                        'sqlDR.Fill(Table)
+                        For Each reng As DataRow In Table.Rows
+                            If reng("Nivel1") > 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
+                                Dim inner As New TreeNode()
+                                inner.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente")
+                                inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                                ''TreeView1.Nodes.Add(inner)
+                                If TreeView1.Nodes.Count > 1 Then
+                                    TreeView1.Nodes(TreeView1.Nodes.Count - 1).ChildNodes.Add(inner)
+                                Else
+                                    TreeView1.Nodes(0).ChildNodes.Add(inner)
+                                End If
+                            End If
+                        Next
+
+                        Dim myNode As TreeNode = TreeView1.Nodes(TreeView1.Nodes.Count - 1)
+                        ''For Each myNode In Me.TreeView1.Nodes
+                        For Each childNodeA As TreeNode In myNode.ChildNodes
+                            Dim dv As New DataView(Table)
+                            dv.RowFilter = "Nivel1 = " & Split(childNodeA.Value, "|")(1)
+                            For Each reng As DataRowView In dv
+                                If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") = 0 Then
+                                    Dim inner As New TreeNode()
+                                    inner.Value = reng("Id") & "|" & reng("Nivel2") & "|" & reng("SkuComponente")
+                                    inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                                    childNodeA.ChildNodes.Add(inner)
+                                End If
+                            Next
+                        Next
+                        '' Next
+
+                        ''For Each myNode In Me.TreeView1.Nodes
+                        For Each childNodeA As TreeNode In myNode.ChildNodes
+                            For Each childNodeB As TreeNode In childNodeA.ChildNodes
+                                Dim dv As New DataView(Table)
+                                dv.RowFilter = "Nivel1 = " & Split(childNodeA.Value, "|")(1) & " and Nivel2 = " & Split(childNodeB.Value, "|")(1)
+                                For Each reng As DataRowView In dv
+                                    If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") > 0 Then
+                                        Dim inner As New TreeNode()
+                                        inner.Value = reng("Id") & "|" & reng("Nivel3") & "|" & reng("SkuComponente")
+                                        inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                                        childNodeB.ChildNodes.Add(inner)
+                                    End If
+                                Next
+                            Next
+                        Next
+
+
+                    Next
+
+
+                End If
+            Else
+                Session.Remove("treeView")
             End If
 
 
-            Session.Remove("treeView")
+
 
             '    If (Session("tables") Is Nothing) Then
             '        data = New DataSet
@@ -434,7 +526,7 @@ Public Class Estimacion
     Private Function CreateItemComponents(ByVal itemSku As String) As JArray
         Dim ItemComponentsArray As New JArray
         Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
-        dv.RowFilter = "Nivel1 <> 0 and SkuArticulo = '" & itemSku & "'"
+        dv.RowFilter = "SkuArticulo = '" & itemSku & "'"
         For Each reng As DataRowView In dv
             Dim Item As New JObject
             Item.Add("SkuComponent", reng("SkuComponente").ToString)
