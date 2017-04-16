@@ -485,6 +485,20 @@ Public Class Estimacion
 
         End If
     End Sub
+
+    Private Sub Guardar_Click(sender As Object, e As EventArgs) Handles Guardar.Click
+        Dim IdQuotaionVersion As String = Request.QueryString("v")
+        If IdQuotaionVersion IsNot Nothing Then
+
+            Dim jonsString = CreateQuotationVersion(IdQuotaionVersion).ToString
+
+            Dim Response = doPutRequest(QUOTATIONS_VERSION & "/" & IdQuotaionVersion, CreateQuotationVersion(IdQuotaionVersion).ToString)
+            Console.Write(Response)
+        Else
+            MsgBox("Primero crea una versión")
+        End If
+    End Sub
+
     Private Function CreateQuotation() As JObject
         Dim Quotation As New JObject
         Quotation.Add("ClientId", DDCliente.SelectedValue)
@@ -543,11 +557,12 @@ Public Class Estimacion
             Item.Add("Result", CDbl(reng("RESULT").ToString))
             Item.Add("Lvl1", CInt(reng("Nivel1").ToString))
             Item.Add("Lvl2", CInt(reng("Nivel2").ToString))
-            Item.Add("Lvl3", CInt(reng("Nivel2").ToString))
+            Item.Add("Lvl3", CInt(reng("Nivel3").ToString))
             Item.Add("Status", 0)
             ItemComponentsArray.Add(Item)
         Next
         Return ItemComponentsArray
     End Function
+
 
 End Class
