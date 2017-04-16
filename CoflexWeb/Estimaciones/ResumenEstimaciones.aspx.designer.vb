@@ -14,20 +14,20 @@ Option Explicit On
 Partial Public Class ResumenEstimaciones
     
     '''<summary>
-    '''Control GridUsers.
+    '''Control TreeViewQuotation.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents GridUsers As Global.System.Web.UI.WebControls.GridView
+    Protected WithEvents TreeViewQuotation As Global.System.Web.UI.WebControls.TreeView
     
     '''<summary>
-    '''Control response.
+    '''Control div_response.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents response As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents div_response As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 End Class

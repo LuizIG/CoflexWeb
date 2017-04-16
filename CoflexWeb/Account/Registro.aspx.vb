@@ -57,8 +57,6 @@ Public Class Registro
             .Add("Roles", Roles)
         End With
 
-
-
         Dim jsonResponse = CoflexWebServices.doPostRequest(CoflexWebServices.REGISTER, Registro.ToString,, Session("access_token"))
         Dim o = JObject.Parse(jsonResponse)
         Dim statusCode = o.GetValue("statusCode").Value(Of Integer)

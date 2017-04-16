@@ -34,6 +34,20 @@ Public Class Estimacion
                 Me.DDComponente.DataBind()
             End If
 
+
+            jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.CLIENTS)
+            o = JObject.Parse(jsonResponse)
+            statusCode = o.GetValue("statusCode").Value(Of Integer)
+            If (statusCode >= 200 And statusCode < 400) Then
+                Dim detail = o.GetValue("detail").Value(Of JArray)
+                Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+                Me.DDCliente.DataSource = Table
+                Me.DDCliente.DataValueField = "Id"
+                Me.DDCliente.DataTextField = "ClientName"
+                Me.DDCliente.DataBind()
+            End If
+
+
             Session.Remove("treeView")
 
             '    If (Session("tables") Is Nothing) Then
@@ -51,8 +65,8 @@ Public Class Estimacion
             Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
             dv.RowFilter = "Nivel1 = 0 and Nivel2 = 0 and Nivel3 = 0"
 
-            Me.GridView1.DataSource = dv.ToTable
-            Me.GridView1.DataBind()
+            Me.GridSummary.DataSource = dv.ToTable
+            Me.GridSummary.DataBind()
         End If
     End Sub
 
@@ -346,4 +360,80 @@ Public Class Estimacion
         treeViewTable(Table)
 
     End Sub
+
+    Private Sub Versionar_Click(sender As Object, e As EventArgs) Handles Versionar.Click
+
+        'Si no existe la cotizacion, crea una nueva
+        If Request.QueryString("q") Is Nothing Then
+            Dim Response = CoflexWebServices.doPostRequest(CoflexWebServices.QUOTATIONS, CreateQuotation.ToString)
+            Console.Write(Response)
+        End If
+
+        'Si no existe la version, crea una nueva
+        If Request.QueryString("v") Is Nothing Then
+
+        End If
+
+    End Sub
+
+
+    Private Function CreateQuotation() As JObject
+        Dim Quotation As New JObject
+        Quotation.Add("ClientId", DDCliente.SelectedValue)
+        Quotation.Add("ClientName", DDCliente.SelectedItem.Text)
+        Quotation.Add("QuotationVersions", CreateQuotationVersion())
+        Return Quotation
+    End Function
+
+    Private Function CreateQuotationVersion() As JObject
+        Dim QuotationVersion As New JObject
+
+        Dim exchange As Double = CDbl(Val(Tv_Exchange.Text))
+
+        QuotationVersion.Add("ExchangeRate", exchange)
+        QuotationVersion.Add("UseStndCost", True)
+        QuotationVersion.Add("ItemsBindingModel", CreateItems())
+        Return QuotationVersion
+    End Function
+
+    Private Function CreateItems() As JArray
+        Dim ItemArray As New JArray
+        Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
+        dv.RowFilter = "Nivel1 = 0 and Nivel2 = 0 and Nivel3 = 0"
+        For Each reng As DataRowView In dv
+            Dim Item As New JObject
+            Dim sku As String = reng("SkuArticulo")
+            Item.Add("Sku", sku)
+            Item.Add("ItemDescription", reng("ITEMDESC").ToString)
+            Item.Add("Quantity", CDbl(reng("QUANTITY_I").ToString))
+            Item.Add("UM", reng("UOFM").ToString)
+            Item.Add("Status", 0)
+            Item.Add("ItemsComponents", CreateItemComponents(sku))
+            ItemArray.Add(Item)
+        Next
+        Return ItemArray
+    End Function
+
+    Private Function CreateItemComponents(ByVal itemSku As String) As JArray
+        Dim ItemComponentsArray As New JArray
+        Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
+        dv.RowFilter = "Nivel1 <> 0 and SkuArticulo = '" & itemSku & "'"
+        For Each reng As DataRowView In dv
+            Dim Item As New JObject
+            Item.Add("SkuComponent", reng("SkuComponente").ToString)
+            Item.Add("ItemDescription", reng("ITEMDESC").ToString)
+            Item.Add("Quantity", CDbl(reng("QUANTITY_I").ToString))
+            Item.Add("UM", reng("UOFM").ToString)
+            Item.Add("StndCost", CDbl(reng("STNDCOST").ToString))
+            Item.Add("CurrCost", CDbl(reng("CURRCOST").ToString))
+            Item.Add("Result", CDbl(reng("RESULT").ToString))
+            Item.Add("Lvl1", CInt(reng("Nivel1").ToString))
+            Item.Add("Lvl2", CInt(reng("Nivel2").ToString))
+            Item.Add("Lvl3", CInt(reng("Nivel2").ToString))
+            Item.Add("Status", 0)
+            ItemComponentsArray.Add(Item)
+        Next
+        Return ItemComponentsArray
+    End Function
+
 End Class
