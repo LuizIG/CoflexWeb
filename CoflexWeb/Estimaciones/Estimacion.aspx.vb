@@ -72,24 +72,21 @@ Public Class Estimacion
                         Next
 
                         Table = JsonConvert.DeserializeObject(Of DataTable)(arrayConParent.ToString)
-                        treeViewTable(Table)
+
                         Try
 
                             Table.Columns("SkuComponent").ColumnName = "SkuComponente"
                             Table.Columns("ItemDescription").ColumnName = "ITEMDESC"
                             Table.Columns("Quantity").ColumnName = "QUANTITY_I"
                             Table.Columns("UM").ColumnName = "UOFM"
-                            Table.Columns("StndCost").ColumnName = "STNDCOST"
-                            Table.Columns("CurrCost").ColumnName = "CURRCOST"
-                            Table.Columns("Result").ColumnName = "RESULT"
                             Table.Columns("Lvl1").ColumnName = "Nivel1"
                             Table.Columns("Lvl2").ColumnName = "Nivel2"
                             Table.Columns("Lvl3").ColumnName = "Nivel3"
                         Catch ex As Exception
-
+                            MsgBox(ex.StackTrace)
                         End Try
 
-
+                        treeViewTable(Table)
 
                         For Each reng As DataRow In Table.Rows
                             If reng("Nivel1") = 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
@@ -473,8 +470,13 @@ Public Class Estimacion
     Private Sub Versionar_Click(sender As Object, e As EventArgs) Handles Versionar.Click
 
         'Si no existe la cotizacion, crea una nueva
-        If Request.QueryString("q") Is Nothing Then
-            Dim Response = CoflexWebServices.doPostRequest(CoflexWebServices.QUOTATIONS, CreateQuotation.ToString)
+
+        Dim IdQuotaion As String = Request.QueryString("q")
+        If IdQuotaion Is Nothing Then
+            Dim Response = doPostRequest(QUOTATIONS, CreateQuotation.ToString)
+            Console.Write(Response)
+        Else
+            Dim Response = doPostRequest(QUOTATIONS_VERSION, CreateQuotationVersion(IdQuotaion).ToString)
             Console.Write(Response)
         End If
 
@@ -482,10 +484,7 @@ Public Class Estimacion
         If Request.QueryString("v") Is Nothing Then
 
         End If
-
     End Sub
-
-
     Private Function CreateQuotation() As JObject
         Dim Quotation As New JObject
         Quotation.Add("ClientId", DDCliente.SelectedValue)
@@ -503,6 +502,12 @@ Public Class Estimacion
         QuotationVersion.Add("UseStndCost", True)
         QuotationVersion.Add("ItemsBindingModel", CreateItems())
         Return QuotationVersion
+    End Function
+
+    Private Function CreateQuotationVersion(ByVal idQuotation As String) As JObject
+        Dim QuotationVersionId = CreateQuotationVersion()
+        QuotationVersionId.Add("IdQuotaions", CInt(idQuotation))
+        Return QuotationVersionId
     End Function
 
     Private Function CreateItems() As JArray
