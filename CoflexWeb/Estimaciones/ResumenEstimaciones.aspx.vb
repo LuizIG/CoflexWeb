@@ -29,7 +29,7 @@ Public Class ResumenEstimaciones
                     innerI.Text = Table.Rows(x)("ClientName")
                     TreeViewQuotation.Nodes.Add(innerI)
 
-                    Dim ResponseVersion = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS_VERSION)
+                    Dim ResponseVersion = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS_VERSION & "?QuotationsId=" & Table.Rows(x)("Id").ToString)
                     Dim oVersion = JObject.Parse(ResponseVersion)
                     Dim statusCodeVersion = oVersion.GetValue("statusCode").Value(Of Integer)
                     If (statusCodeVersion >= 200 And statusCodeVersion < 400) Then
@@ -59,5 +59,21 @@ Public Class ResumenEstimaciones
 
             End If
         End If
+    End Sub
+
+    Private Sub TreeViewQuotation_SelectedNodeChanged(sender As Object, e As EventArgs) Handles TreeViewQuotation.SelectedNodeChanged
+        Dim scTreeView = TreeViewQuotation.SelectedNode
+
+        If scTreeView.Parent IsNot Nothing Then
+
+            Dim idQuotation = scTreeView.Parent.Value
+            Dim idQuotationVersion = scTreeView.Value
+
+
+            Response.Redirect("Estimacion.aspx?q=" & idQuotation & "&v=" & idQuotationVersion)
+
+        End If
+
+
     End Sub
 End Class

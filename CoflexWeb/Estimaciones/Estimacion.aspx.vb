@@ -47,6 +47,23 @@ Public Class Estimacion
                 Me.DDCliente.DataBind()
             End If
 
+            Dim VersionId As String = Request.QueryString("v")
+
+            If VersionId IsNot Nothing Then
+                Dim ResponseVersions = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS_VERSION & "/" & VersionId)
+                o = JObject.Parse(ResponseVersions)
+                statusCode = o.GetValue("statusCode").Value(Of Integer)
+                If (statusCode >= 200 And statusCode < 400) Then
+                    Dim detail = o.GetValue("detail").Value(Of JObject)
+                    Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+                    Me.DDCliente.DataSource = Table
+                    Me.DDCliente.DataValueField = "Id"
+                    Me.DDCliente.DataTextField = "ClientName"
+                    Me.DDCliente.DataBind()
+                End If
+
+            End If
+
 
             Session.Remove("treeView")
 
