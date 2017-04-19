@@ -55,6 +55,17 @@ Public Class Estimacion
 
             Me.DDCliente.Items.Insert(0, "Seleccionar")
 
+            jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.NEW_COMPONENTES,, Session("access_token"))
+            o = JObject.Parse(jsonResponse)
+            statusCode = o.GetValue("statusCode").Value(Of Integer)
+            If (statusCode >= 200 And statusCode < 400) Then
+                Dim detail = o.GetValue("detail").Value(Of JArray)
+                Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+                Me.DDElemento.DataSource = Table
+                Me.DDElemento.DataValueField = "SkuComponente"
+                Me.DDElemento.DataTextField = "SkuComponente"
+                Me.DDElemento.DataBind()
+            End If
 
             Me.DDElemento.Items.Insert(0, "Seleccionar")
 
@@ -716,5 +727,169 @@ Public Class Estimacion
 
     Protected Sub Cotizar_Click(sender As Object, e As EventArgs) Handles Cotizar.Click
 
+    End Sub
+
+    Protected Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
+        Me.MultiView1.ActiveViewIndex = 0
+    End Sub
+
+    Protected Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        Dim Elemento As New JObject
+
+        With Elemento
+            .Add("SkuComponente", Me.txtSkuComponente.Text)
+            .Add("IdQuotation", 14)
+            .Add("Uofm", Me.txtUofm.Text)
+            .Add("ItemDesc", Me.txtItemDesc.Value)
+            .Add("StndCost", Me.txtStndCost.Text)
+        End With
+
+        Dim jsonResponse = CoflexWebServices.doPostRequest(CoflexWebServices.NEW_COMPONENTES, Elemento.ToString,, Session("access_token"))
+        Dim o = JObject.Parse(jsonResponse)
+        Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+        If (statusCode >= 200 And statusCode < 400) Then
+            '' Me.ErrorMessage.Text = "Usuario Registrado"
+        Else
+            Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
+            ''Me.ErrorMessage.Text = errorMessage
+        End If
+
+        Me.DDElemento.Dispose()
+
+        jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.NEW_COMPONENTES,, Session("access_token"))
+        o = JObject.Parse(jsonResponse)
+        statusCode = o.GetValue("statusCode").Value(Of Integer)
+        If (statusCode >= 200 And statusCode < 400) Then
+            Dim detail = o.GetValue("detail").Value(Of JArray)
+            Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+            Me.DDElemento.DataSource = Table
+            Me.DDElemento.DataValueField = "Id"
+            Me.DDElemento.DataTextField = "SkuComponente"
+            Me.DDElemento.DataBind()
+        End If
+
+        Me.DDElemento.Items.Insert(0, "Seleccionar")
+
+        Me.MultiView1.ActiveViewIndex = 0
+
+    End Sub
+
+    Protected Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+        If ExistProduct(Me.DDElemento.SelectedValue) Then
+
+            Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.NEW_COMPONENTES & "/" & Me.DDElemento.SelectedValue,, Session("access_token"))
+            Dim o = JObject.Parse(jsonResponse)
+            Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+            If (statusCode >= 200 And statusCode < 400) Then
+                Dim detail = o.GetValue("detail").Value(Of JArray)
+                Dim Table As DataTable = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+
+
+                Dim countIndex As Integer = 0
+                Dim myNode As TreeNode
+
+                If TreeView1.CheckedNodes.Count > 0 Then
+                    If TreeView1.Nodes.Count > 0 Then
+                        For Each myNode In Me.TreeView1.Nodes
+                            If myNode.ChildNodes.Count > 0 Then
+                                For Each childNodeA As TreeNode In myNode.ChildNodes
+                                    If childNodeA.Checked Then
+
+                                        For Each dr As DataRow In Table.Rows
+                                            If dr("Id") = Table.Rows(0)("Id").ToString() And dr("SkuComponente") = Table.Rows(0)("SkuComponente") Then
+                                                dr("SkuArticulo") = Split(myNode.Value, "|")(2)
+                                                dr("Nivel1") = Split(childNodeA.Value, "|")(1)
+
+                                                If childNodeA.ChildNodes.Count = 0 Then
+                                                    dr("Nivel2") = 1
+                                                Else
+                                                    Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
+                                                    Dim valMax = FindMaxDataTableValue(dt2, "Nivel2") + 1
+                                                    dr("Nivel2") = valMax ''childNodeA.ChildNodes.Count + 1
+                                                End If
+                                            End If
+                                        Next
+
+                                        Dim inner As New TreeNode()
+                                        inner.Value = Table.Rows(0)("Id").ToString() & "|" & Table.Rows(0)("Nivel2").ToString() & "|" & Table.Rows(0)("SkuComponente")
+                                        inner.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
+                                        childNodeA.ChildNodes.Add(inner)
+                                        treeViewTable(Table)
+
+                                    Else
+                                        If childNodeA.ChildNodes.Count > 0 Then
+                                            For Each childNodeB As TreeNode In childNodeA.ChildNodes
+                                                If childNodeB.Checked Then
+
+                                                    For Each dr As DataRow In Table.Rows
+                                                        If dr("Id") = Table.Rows(0)("Id").ToString() And dr("SkuComponente") = Table.Rows(0)("SkuComponente") Then
+                                                            dr("SkuArticulo") = Split(myNode.Value, "|")(2)
+                                                            dr("Nivel1") = Split(childNodeA.Value, "|")(1)
+                                                            dr("Nivel2") = Split(childNodeB.Value, "|")(1)
+                                                            If childNodeB.ChildNodes.Count = 0 Then
+                                                                dr("Nivel3") = 1
+                                                            Else
+                                                                Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
+                                                                Dim valMax = FindMaxDataTableValue(dt2, "Nivel3") + 1
+                                                                dr("Nivel3") = valMax ''dr("Nivel3") = childNodeB.ChildNodes.Count + 1
+                                                            End If
+                                                        End If
+                                                    Next
+
+                                                    Dim innerB As New TreeNode()
+                                                    innerB.Value = Table.Rows(0)("Id").ToString() & "|" & Table.Rows(0)("Nivel3") & "|" & Table.Rows(0)("SkuComponente")
+                                                    innerB.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
+                                                    childNodeB.ChildNodes.Add(innerB)
+                                                    treeViewTable(Table)
+
+                                                End If
+                                            Next
+                                        End If
+                                    End If
+                                Next
+                            End If
+                            If myNode.Checked Then
+
+                                For Each dr As DataRow In Table.Rows
+                                    If dr("Id") = Table.Rows(0)("Id").ToString() And dr("SkuComponente") = Table.Rows(0)("SkuComponente") Then
+
+                                        dr("SkuArticulo") = Split(myNode.Value, "|")(2)
+
+                                        If myNode.ChildNodes.Count = 0 Then
+                                            dr("Nivel1") = 1
+                                        Else
+                                            Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
+                                            Dim valMax = FindMaxDataTableValue(dt2, "Nivel1") + 1
+                                            dr("Nivel1") = valMax ''dr("Nivel1") = myNode.ChildNodes.Count + 1
+                                        End If
+                                    End If
+                                Next
+
+                                Dim inner As New TreeNode()
+                                inner.Value = Table.Rows(0)("Id").ToString() & "|" & Table.Rows(0)("Nivel1") & "|" & Table.Rows(0)("SkuComponente")
+                                inner.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
+                                myNode.ChildNodes.Add(inner)
+                                treeViewTable(Table)
+
+                            End If
+                        Next myNode
+                    End If
+                Else
+                    Dim inner As New TreeNode()
+                    inner.Value = Table.Rows(0)("Id").ToString() & "|" & Table.Rows(0)("Nivel1") & "|" & Table.Rows(0)("SkuComponente")
+                    inner.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
+                    TreeView1.Nodes.Add(inner)
+                    treeViewTable(Table)
+                End If
+            End If
+
+
+        End If
+
+        Me.DDElemento.SelectedIndex = 0
+    End Sub
+
+    Protected Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        Me.MultiView1.ActiveViewIndex = 2
     End Sub
 End Class

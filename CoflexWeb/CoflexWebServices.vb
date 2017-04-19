@@ -7,8 +7,8 @@ Imports Newtonsoft.Json.Linq
 Namespace CoflexWeb.Services.Web
     Public Module CoflexWebServices
 
-        'Private Const SERVER_HOST As String = "http://62.151.178.139/"
-        Private Const SERVER_HOST As String = "http://localhost/"
+        Private Const SERVER_HOST As String = "http://62.151.178.139/"
+        ''Private Const SERVER_HOST As String = "http://localhost/"
 
         Public Const LOGIN As String = "CoflexAPI/Token"
         Public Const REGISTER As String = "CoflexAPI/api/Account/Register"
@@ -22,6 +22,7 @@ Namespace CoflexWeb.Services.Web
         Public Const USERS_ESTATUS As String = "CoflexAPI/api/Account/Enable"
         Public Const QUOTATIONS As String = "CoflexAPI/api/Quotations"
         Public Const QUOTATIONS_VERSION As String = "CoflexAPI/api/QuotationVersions"
+        Public Const NEW_COMPONENTES As String = "CoflexAPI/api/NewComponents"
 
         'Enpoints Externos
         Public Const ITEM As String = "CoflexAPIExt/api/Items"

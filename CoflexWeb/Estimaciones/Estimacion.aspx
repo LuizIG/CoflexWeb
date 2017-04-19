@@ -32,9 +32,9 @@
 
                 <table style="border-style: solid; border-color: #C0C0C0; width: 100%; align-items: center">
                     <tr>
-                        <td style="border-right-style: solid; border-color: #C0C0C0; width: 30%; text-align:center">
-                            <div style=" width:100%">
-                                <table style=" width:100%">
+                        <td style="border-right-style: solid; border-color: #C0C0C0; width: 30%; text-align: center">
+                            <div style="width: 100%">
+                                <table style="width: 100%">
                                     <tr>
                                         <td>
                                             <asp:Label ID="Label9" runat="server" Text="Cliente"></asp:Label>&nbsp;
@@ -72,7 +72,7 @@
                                             <asp:Label ID="Label11" runat="server" Text="Componente"></asp:Label>&nbsp;
                                         </td>
                                         <td>
-                                            <asp:DropDownList ID="DDComponente" class="form-control" runat="server">
+                                            <asp:DropDownList ID="DDComponente" runat="server">
                                             </asp:DropDownList>&nbsp;
                                         </td>
                                         <td colspan="2" style="vertical-align: bottom;">
@@ -209,7 +209,7 @@
                                                 <asp:Label ID="Label5" runat="server" Text="Unidad de Medida"></asp:Label>
                                             </td>
                                             <td>
-                                                <asp:TextBox ID="TextBox4" Enabled="false" runat="server">PZ</asp:TextBox>
+                                                <asp:TextBox ID="TextBox4" Enabled="false" runat="server"></asp:TextBox>
                                             </td>
                                         </tr>
                                         <tr>
@@ -344,6 +344,68 @@
                 </tr>
             </table>--%>
         </asp:View>
+        <asp:View ID="View3" runat="server">
+            <br />
+            <div style="vertical-align: top; width: 100%">
+                <table>
+                    <tr>
+                        <td>
+                            <asp:Label ID="Label13" runat="server" Text="Sku Articulo"></asp:Label>
 
+                        </td>
+                        <td>
+                            &nbsp;</td>
+                        <td>
+                            <asp:Label ID="Label14" runat="server" Text="Sku Componente"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtSkuComponente" Enabled="true" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="Label15" runat="server" Text="Descripción"></asp:Label></td>
+                        <td colspan="3">
+                            <textarea id="txtItemDesc" style="width: 100%" runat="server"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="Label16" runat="server" Text="Cantidad"></asp:Label>
+
+                        </td>
+                        <td>
+                            &nbsp;</td>
+                        <td>
+                            <asp:Label ID="Label17" runat="server" Text="Unidad de Medida"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtUofm" Enabled="true" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="Label18" runat="server" Text="Costo"></asp:Label>
+
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtStndCost" Enabled="true" runat="server"></asp:TextBox>
+                        </td>
+                        <td>
+                            <asp:Label ID="Label19" runat="server" Text="Total"></asp:Label>
+                        </td>
+                        <td>
+                            &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td style="text-align: right">
+                            <asp:Button ID="Button9" class="btn btn-primary" runat="server" Text="Regresar" />&nbsp;
+                            <asp:Button ID="Button8" class="btn btn-primary" runat="server" Text="Agregar" /></td>
+                    </tr>
+                </table>
+            </div>
+        </asp:View>
     </asp:MultiView>
 </asp:Content>
