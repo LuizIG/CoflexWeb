@@ -72,7 +72,7 @@
                                             <asp:Label ID="Label11" runat="server" Text="Componente"></asp:Label>&nbsp;
                                         </td>
                                         <td>
-                                            <asp:DropDownList ID="DDComponente" runat="server">
+                                            <asp:DropDownList ID="DDComponente" class="form-control" runat="server">
                                             </asp:DropDownList>&nbsp;
                                         </td>
                                         <td colspan="2" style="vertical-align: bottom;">
