@@ -26,9 +26,9 @@
     <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
         <asp:View ID="View1" runat="server">
 
-            <div id="div_Response" runat="server"></div>
+            <div id="div_Response"  runat="server"></div>
 
-            <div class="row">
+            <div class="well well-lg">
 
                 <table style="border-style: solid; border-color: #C0C0C0; width: 100%; align-items: center">
                     <tr>
@@ -154,11 +154,10 @@
                 <br />
                 <div>
                     <table style="width: 100%">
-
                         <tr>
-                            <td style="vertical-align: top; width: 50%; border-style: outset;">
-                                <div style="vertical-align: top; width: 100%">
-                                    <asp:TreeView ID="TreeView1" Width="100%" ShowCheckBoxes="All" ShowExpandCollapse="true" runat="server" ImageSet="Simple">
+                            <td style="vertical-align: top; width: 50%; height:100%; border-style: outset;">
+                                <div style="vertical-align: top; height:100%; width: 98%">
+                                    <asp:TreeView ID="TreeView1" Width="90%" ShowCheckBoxes="All" ShowExpandCollapse="true" runat="server" ImageSet="Simple">
                                         <HoverNodeStyle Font-Underline="True" ForeColor="#5555DD" />
                                         <NodeStyle Font-Names="Tahoma" Font-Size="10pt" ForeColor="Black" HorizontalPadding="0px" NodeSpacing="0px" VerticalPadding="0px" />
                                         <ParentNodeStyle Font-Bold="False" />
@@ -173,18 +172,19 @@
                                 </div>
                             </td>
                             <td style="vertical-align: top; width: 50%">
+                                <br />
                                 <div style="vertical-align: top; width: 100%">
-                                    <table>
+                                    <table style="width: 100%">
                                         <tr>
                                             <td>
-                                                <asp:Label ID="Label1" runat="server" Text="Sku Articulo"></asp:Label>
+                                                <asp:Label ID="Label1" runat="server" Text="Sku Articulo"></asp:Label>&nbsp;
 
                                             </td>
                                             <td>
                                                 <asp:TextBox ID="TextBox1" Enabled="false" runat="server"></asp:TextBox>
                                             </td>
                                             <td>
-                                                <asp:Label ID="Label2" runat="server" Text="Sku Componente"></asp:Label>
+                                                <asp:Label ID="Label2" runat="server" Text="Sku Componente"></asp:Label>&nbsp;
                                             </td>
                                             <td>
                                                 <asp:TextBox ID="TextBox2" Enabled="false" runat="server"></asp:TextBox>
@@ -192,13 +192,15 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <asp:Label ID="Label3" runat="server" Text="Descripción"></asp:Label></td>
+                                                <asp:Label ID="Label3" runat="server" Text="Descripción"></asp:Label>&nbsp;
+
+                                            </td>
                                             <td colspan="3">
                                                 <textarea id="TextArea1" style="width: 100%" disabled runat="server"></textarea></td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <asp:Label ID="Label4" runat="server" Text="Cantidad"></asp:Label>
+                                                <asp:Label ID="Label4" runat="server" Text="Cantidad"></asp:Label>&nbsp
 
                                             </td>
                                             <td>
@@ -206,7 +208,7 @@
 
                                             </td>
                                             <td>
-                                                <asp:Label ID="Label5" runat="server" Text="Unidad de Medida"></asp:Label>
+                                                <asp:Label ID="Label5" runat="server" Text="Unidad de Medida"></asp:Label>&nbsp;
                                             </td>
                                             <td>
                                                 <asp:TextBox ID="TextBox4" Enabled="false" runat="server"></asp:TextBox>
@@ -214,14 +216,14 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <asp:Label ID="Label6" runat="server" Text="Costo"></asp:Label>
+                                                <asp:Label ID="Label6" runat="server" Text="Costo"></asp:Label>&nbsp;
 
                                             </td>
                                             <td>
                                                 <asp:TextBox ID="TextBox5" Enabled="false" runat="server"></asp:TextBox>
                                             </td>
                                             <td>
-                                                <asp:Label ID="Label7" runat="server" Text="Total"></asp:Label>
+                                                <asp:Label ID="Label7" runat="server" Text="Total"></asp:Label>&nbsp
                                             </td>
                                             <td>
                                                 <asp:TextBox ID="TextBox6" Enabled="false" runat="server"></asp:TextBox>
@@ -345,22 +347,41 @@
             </table>--%>
         </asp:View>
         <asp:View ID="View3" runat="server">
+            <table style="width: 100%">
+                <tr>
+                    <td>
+                        <div style="float: right">
+                            <table>
+                                <tr>
+                                    <td style="text-align: right">
+                                        <asp:Button ID="Button9" class="btn btn-primary" runat="server" Text="Regresar" />
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>
+                                        <asp:Button ID="Button8" class="btn btn-primary" runat="server" Text="Agregar" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
             <br />
             <div style="vertical-align: top; width: 100%">
                 <table>
                     <tr>
                         <td>
-                            <asp:Label ID="Label13" runat="server" Text="Sku Articulo"></asp:Label>
+                            <asp:Label ID="Label14" runat="server" Text="Sku Componente"></asp:Label>
 
                         </td>
                         <td>
-                            &nbsp;</td>
-                        <td>
-                            <asp:Label ID="Label14" runat="server" Text="Sku Componente"></asp:Label>
-                        </td>
-                        <td>
                             <asp:TextBox ID="txtSkuComponente" Enabled="true" runat="server"></asp:TextBox>
-                        </td>
+                            &nbsp;</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>
@@ -370,39 +391,17 @@
                     </tr>
                     <tr>
                         <td>
-                            <asp:Label ID="Label16" runat="server" Text="Cantidad"></asp:Label>
-
-                        </td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
                             <asp:Label ID="Label17" runat="server" Text="Unidad de Medida"></asp:Label>
                         </td>
                         <td>
                             <asp:TextBox ID="txtUofm" Enabled="true" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr>
+                            &nbsp;</td>
                         <td>
                             <asp:Label ID="Label18" runat="server" Text="Costo"></asp:Label>
-
                         </td>
                         <td>
                             <asp:TextBox ID="txtStndCost" Enabled="true" runat="server"></asp:TextBox>
                         </td>
-                        <td>
-                            <asp:Label ID="Label19" runat="server" Text="Total"></asp:Label>
-                        </td>
-                        <td>
-                            &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td style="text-align: right">
-                            <asp:Button ID="Button9" class="btn btn-primary" runat="server" Text="Regresar" />&nbsp;
-                            <asp:Button ID="Button8" class="btn btn-primary" runat="server" Text="Agregar" /></td>
                     </tr>
                 </table>
             </div>

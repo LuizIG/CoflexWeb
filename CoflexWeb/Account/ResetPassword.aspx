@@ -6,7 +6,7 @@
 
 
             <div class="form-horizontal">
-                <h4>Change Password Form</h4>
+                <h4></h4>
                 <hr />
                 <p class="text-danger">
                     <asp:Literal runat="server" ID="ErrorMessage" />
@@ -44,7 +44,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <asp:Button runat="server" Text="Change Password" ValidationGroup="ChangePassword" OnClick="ChangePassword_Click" CssClass="btn btn-default" />
+                        <asp:Button runat="server" Text="Cambiar contraseña" class="btn btn-primary" ValidationGroup="ChangePassword" OnClick="ChangePassword_Click" />
                     </div>
                 </div>
             </div>

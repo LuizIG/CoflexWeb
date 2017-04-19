@@ -410,13 +410,22 @@ Partial Public Class Estimacion
     Protected WithEvents View3 As Global.System.Web.UI.WebControls.View
     
     '''<summary>
-    '''Label13 control.
+    '''Button9 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Label13 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents Button9 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''Button8 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Button8 As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
     '''Label14 control.
@@ -455,15 +464,6 @@ Partial Public Class Estimacion
     Protected WithEvents txtItemDesc As Global.System.Web.UI.HtmlControls.HtmlTextArea
     
     '''<summary>
-    '''Label16 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Label16 As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
     '''Label17 control.
     '''</summary>
     '''<remarks>
@@ -498,31 +498,4 @@ Partial Public Class Estimacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtStndCost As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''Label19 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Label19 As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''Button9 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Button9 As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''Button8 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Button8 As Global.System.Web.UI.WebControls.Button
 End Class
