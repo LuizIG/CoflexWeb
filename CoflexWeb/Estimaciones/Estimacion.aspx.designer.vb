@@ -59,22 +59,13 @@ Partial Public Class Estimacion
     Protected WithEvents DDCliente As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''Label10 control.
+    '''Button2 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Label10 As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''Tv_Exchange control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Tv_Exchange As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents Button2 As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
     '''Label8 control.
@@ -93,15 +84,6 @@ Partial Public Class Estimacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents DDArticulo As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
-    '''Button2 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Button2 As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
     '''Label11 control.
@@ -131,6 +113,42 @@ Partial Public Class Estimacion
     Protected WithEvents Button3 As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
+    '''Label12 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label12 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''DDElemento control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents DDElemento As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''Button6 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Button6 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''Button7 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Button7 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''Button4 control.
     '''</summary>
     '''<remarks>
@@ -138,6 +156,24 @@ Partial Public Class Estimacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Button4 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''Label10 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label10 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''Tv_Exchange control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Tv_Exchange As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''Button5 control.

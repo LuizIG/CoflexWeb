@@ -55,6 +55,9 @@ Public Class Estimacion
 
             Me.DDCliente.Items.Insert(0, "Seleccionar")
 
+
+            Me.DDElemento.Items.Insert(0, "Seleccionar")
+
             Dim VersionId As String = Request.QueryString("v")
 
             If VersionId IsNot Nothing Then
@@ -270,6 +273,7 @@ Public Class Estimacion
             End If
 
         End If
+        Me.DDArticulo.SelectedIndex = 0
     End Sub
 
     Protected Sub treeViewTable(ByVal fDataTable As DataTable)
@@ -403,6 +407,7 @@ Public Class Estimacion
 
         End If
 
+        Me.DDComponente.SelectedIndex = 0
     End Sub
 
     Private Function FindMaxDataTableValue(ByVal dt As DataTable, ByVal Nivel As String) As Integer
@@ -689,5 +694,7 @@ Public Class Estimacion
         Return ItemComponentsArray
     End Function
 
+    Protected Sub Cotizar_Click(sender As Object, e As EventArgs) Handles Cotizar.Click
 
+    End Sub
 End Class
