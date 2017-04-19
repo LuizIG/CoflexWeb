@@ -29,80 +29,118 @@
             <div id="div_Response" runat="server"></div>
 
             <div class="row">
-                <table style="width: 50%">
-                    <tr>
-                        <td>
-                            <asp:Label ID="Label9" runat="server" Text="Cliente"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:DropDownList ID="DDCliente" runat="server">
-                                <asp:ListItem Value="1">Usuario Ejemplo 1</asp:ListItem>
-                                <asp:ListItem Value="1">Usuario Ejemplo 2</asp:ListItem>
-                                <asp:ListItem Value="1">Usuario Ejemplo 3</asp:ListItem>
-                            </asp:DropDownList>
-                        </td>
-                        <td>
-                            <asp:Label ID="Label10" runat="server" Text="Tipo de Cambio"></asp:Label></td>
-                        <td>
-                            <asp:TextBox ID="Tv_Exchange"  runat="server">19.05</asp:TextBox>
-                        </td>
-                    </tr>
 
-                </table>
-                <br />
-                <table style="width: 100%">
+                <table style="border-style: solid; border-color: #C0C0C0; width: 100%; align-items: center">
                     <tr>
-                        <td>
-                            <div style="float: left;">
-                                <table>
+                        <td style="border-right-style: solid; border-color: #C0C0C0; width: 30%; text-align:center">
+                            <div style=" width:100%">
+                                <table style=" width:100%">
                                     <tr>
                                         <td>
-                                            <asp:Label ID="Label8" runat="server" Text="Articulo"></asp:Label>
+                                            <asp:Label ID="Label9" runat="server" Text="Cliente"></asp:Label>&nbsp;
                                         </td>
                                         <td>
-                                            <asp:DropDownList ID="DDArticulo" Width="90%" runat="server">
-
-                                                <asp:ListItem>2-PS-E324-RH</asp:ListItem>
-                                                <asp:ListItem>1-AB-Q60</asp:ListItem>
-
+                                            <asp:DropDownList ID="DDCliente" Width="100%" runat="server">
                                             </asp:DropDownList>
                                         </td>
-                                        <td>
+                                        <td rowspan="2" style="vertical-align: bottom;">
+
                                             <asp:Button ID="Button2" class="btn btn-primary" runat="server" Text="Agregar" />
                                         </td>
-                                        <td>&nbsp;</td>
-                                        <td></td>
+                                    </tr>
+                                    <tr>
                                         <td>
-                                            <asp:Label ID="Label11" runat="server" Text="Componente"></asp:Label>
+                                            <asp:Label ID="Label8" runat="server" Text="Articulo"></asp:Label>&nbsp;
                                         </td>
                                         <td>
-                                            <asp:DropDownList ID="DDComponente" Width="90%" runat="server">
+                                            <asp:DropDownList ID="DDArticulo" Width="100%" runat="server">
+                                                <asp:ListItem>2-PS-E324-RH</asp:ListItem>
+                                                <asp:ListItem>1-AB-Q60</asp:ListItem>
                                             </asp:DropDownList>
-                                        </td>
-                                        <td>
-                                            <asp:Button ID="Button3" runat="server" class="btn btn-primary" Text="Agregar" />
-                                        </td>
-                                        <td>&nbsp;</td>
-                                        <td>
-                                            <asp:Button ID="Button4" runat="server" class="btn btn-primary" Text="Remover" />
+
                                         </td>
                                     </tr>
+
+                                </table>
+                            </div>
+                        </td>
+                        <td style="border-right-style: solid; border-color: #C0C0C0; width: 30%; text-align: center;">
+                            <div style="width: 100%">
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td>
+                                            <asp:Label ID="Label11" runat="server" Text="Componente"></asp:Label>&nbsp;
+                                        </td>
+                                        <td>
+                                            <asp:DropDownList ID="DDComponente" runat="server">
+                                            </asp:DropDownList>&nbsp;
+                                        </td>
+                                        <td colspan="2" style="vertical-align: bottom;">
+                                            <asp:Button ID="Button3" runat="server" class="btn btn-primary" Text="Agregar" />
+                                        </td>
+                                    </tr>
+
                                 </table>
 
                             </div>
+                        </td>
+                        <td style="border-right-style: solid; border-color: #C0C0C0; width: 30%; text-align: center; vertical-align: middle">
+                            <div style="width: 100%">
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td>
+                                            <asp:Label ID="Label12" runat="server" Text="Elemento"></asp:Label>&nbsp;
+                                        </td>
+                                        <td>
+                                            <asp:DropDownList ID="DDElemento" runat="server">
+                                            </asp:DropDownList>&nbsp;
+                                        </td>
+                                        <td>
+                                            <asp:Button ID="Button6" runat="server" class="btn btn-primary" Text="Nuevo" />&nbsp;
+
+                                        </td>
+                                        <td>
+                                            <asp:Button ID="Button7" runat="server" class="btn btn-primary" Text="Agregar" />&nbsp;
+
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </td>
+                        <td style="width: 10%; text-align: center;">
+                            <div style="width: 100%">
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td>
+                                            <asp:Button ID="Button4" runat="server" class="btn btn-primary" Text="Remover" />
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <br />
+
+                <table style="width: 100%">
+                    <tr>
+                        <td>
+                            <table style="width: 50%">
+                                <tr>
+                                    <td>
+                                        <asp:Label ID="Label10" runat="server" Text="Tipo de Cambio"></asp:Label></td>
+                                    <td>
+                                        <asp:TextBox ID="Tv_Exchange" runat="server">19.05</asp:TextBox>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                         <td>
                             <div style="float: right;">
                                 <table>
                                     <tr>
-                                        <td>
-                                            <%--<asp:Button ID="Button3" runat="server" Text="Guardar" />--%>
-                                        </td>
-                                        <td>&nbsp;</td>
-                                        <td>
-                                            <%--<asp:Button ID="Button4" runat="server" Text="Enviar" />--%>
-                                        </td>
-                                        <td>&nbsp;</td>
                                         <td>
                                             <asp:Button ID="Button5" class="btn btn-primary" runat="server" Text="Continuar" />
 
@@ -222,7 +260,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <asp:Button ID="Imprimir" class="btn btn-primary" runat="server" Text="Imprimir" />
+                                        <asp:Button ID="Imprimir" Enabled="false" class="btn btn-primary" runat="server" Text="Imprimir" />
                                     </td>
                                     <td>&nbsp;</td>
                                     <td>
@@ -235,7 +273,7 @@
                                     </td>
                                     <td>&nbsp;</td>
                                     <td>
-                                        <asp:Button ID="Cotizar" class="btn btn-primary" runat="server" Text="Cotizar" />
+                                        <asp:Button ID="Cotizar" class="btn btn-primary" Enabled="false" runat="server" Text="Cotizar" />
 
                                     </td>
                                     <td>&nbsp;</td>
@@ -251,6 +289,7 @@
 
                 </tr>
             </table>
+            <br />
             <asp:GridView ID="GridSummary" Width="100%" AutoGenerateColumns="False" runat="server">
                 <Columns>
                     <asp:BoundField ItemStyle-Width="10%" HeaderText="No Articulo" DataField="SkuComponente" />
@@ -264,7 +303,7 @@
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-           <%-- <table>
+            <%-- <table>
                 <tr>
                     <td colspan="4"></td>
                 </tr>
