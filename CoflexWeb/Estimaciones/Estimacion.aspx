@@ -60,7 +60,7 @@
                                             <asp:Label ID="Label8" runat="server" Text="Articulo"></asp:Label>
                                         </td>
                                         <td>
-                                            <asp:DropDownList ID="DDArticulo" runat="server">
+                                            <asp:DropDownList ID="DDArticulo" Width="90%" runat="server">
 
                                                 <asp:ListItem>2-PS-E324-RH</asp:ListItem>
                                                 <asp:ListItem>1-AB-Q60</asp:ListItem>
@@ -76,7 +76,7 @@
                                             <asp:Label ID="Label11" runat="server" Text="Componente"></asp:Label>
                                         </td>
                                         <td>
-                                            <asp:DropDownList ID="DDComponente" runat="server">
+                                            <asp:DropDownList ID="DDComponente" Width="90%" runat="server">
                                             </asp:DropDownList>
                                         </td>
                                         <td>

@@ -22,6 +22,8 @@ Public Class Estimacion
                 ''Me.DDArticulo.DataBind()
             End If
 
+            Me.DDArticulo.Items.Insert(0, "Seleccionar")
+
             jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.COMPONENT)
             o = JObject.Parse(jsonResponse)
             statusCode = o.GetValue("statusCode").Value(Of Integer)
@@ -34,6 +36,7 @@ Public Class Estimacion
                 Me.DDComponente.DataBind()
             End If
 
+            Me.DDComponente.Items.Insert(0, "Seleccionar")
 
             jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.CLIENTS)
             o = JObject.Parse(jsonResponse)
@@ -46,6 +49,8 @@ Public Class Estimacion
                 Me.DDCliente.DataTextField = "ClientName"
                 Me.DDCliente.DataBind()
             End If
+
+            Me.DDCliente.Items.Insert(0, "Seleccionar")
 
             Dim VersionId As String = Request.QueryString("v")
 
@@ -291,7 +296,6 @@ Public Class Estimacion
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
             If (statusCode >= 200 And statusCode < 400) Then
                 Dim detail = o.GetValue("detail").Value(Of JArray)
-                ''Dim Table As DataTable = JsonConvert.DeserializeObject(Of DataTable)("[" & detail.ToString & "]")
                 Dim Table As DataTable = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
 
 
@@ -313,19 +317,17 @@ Public Class Estimacion
                                                 If childNodeA.ChildNodes.Count = 0 Then
                                                     dr("Nivel2") = 1
                                                 Else
-                                                    dr("Nivel2") = childNodeA.ChildNodes.Count + 1
-                                                    ''dr("Nivel2") = Me.TextBox3.Text
+                                                    Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
+                                                    Dim valMax = FindMaxDataTableValue(dt2, "Nivel2") + 1
+                                                    dr("Nivel2") = valMax ''childNodeA.ChildNodes.Count + 1
                                                 End If
                                             End If
                                         Next
 
                                         Dim inner As New TreeNode()
                                         inner.Value = Table.Rows(0)("Id").ToString() & "|" & Table.Rows(0)("Nivel2").ToString() & "|" & Table.Rows(0)("SkuComponente")
-                                        ''DDComponente.SelectedValue.ToString()
                                         inner.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
-                                        ''DDComponente.SelectedValue.ToString()
                                         childNodeA.ChildNodes.Add(inner)
-
                                         treeViewTable(Table)
 
                                     Else
@@ -341,18 +343,17 @@ Public Class Estimacion
                                                             If childNodeB.ChildNodes.Count = 0 Then
                                                                 dr("Nivel3") = 1
                                                             Else
-                                                                dr("Nivel3") = childNodeB.ChildNodes.Count + 1
+                                                                Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
+                                                                Dim valMax = FindMaxDataTableValue(dt2, "Nivel3") + 1
+                                                                dr("Nivel3") = valMax ''dr("Nivel3") = childNodeB.ChildNodes.Count + 1
                                                             End If
                                                         End If
                                                     Next
 
                                                     Dim innerB As New TreeNode()
                                                     innerB.Value = Table.Rows(0)("Id").ToString() & "|" & Table.Rows(0)("Nivel3") & "|" & Table.Rows(0)("SkuComponente")
-                                                    ''DDComponente.SelectedValue.ToString()
                                                     innerB.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
-                                                    ''DDComponente.SelectedValue.ToString()
                                                     childNodeB.ChildNodes.Add(innerB)
-
                                                     treeViewTable(Table)
 
                                                 End If
@@ -361,7 +362,6 @@ Public Class Estimacion
                                     End If
                                 Next
                             End If
-                            ' Check whether the tree node is checked.
                             If myNode.Checked Then
 
                                 For Each dr As DataRow In Table.Rows
@@ -372,34 +372,27 @@ Public Class Estimacion
                                         If myNode.ChildNodes.Count = 0 Then
                                             dr("Nivel1") = 1
                                         Else
-                                            dr("Nivel1") = myNode.ChildNodes.Count + 1
-                                            ''dr("Nivel2") = Me.TextBox3.Text
+                                            Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
+                                            Dim valMax = FindMaxDataTableValue(dt2, "Nivel1") + 1
+                                            dr("Nivel1") = valMax ''dr("Nivel1") = myNode.ChildNodes.Count + 1
                                         End If
                                     End If
-
                                 Next
 
                                 Dim inner As New TreeNode()
                                 inner.Value = Table.Rows(0)("Id").ToString() & "|" & Table.Rows(0)("Nivel1") & "|" & Table.Rows(0)("SkuComponente")
-                                ''DDComponente.SelectedValue.ToString()
                                 inner.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
-                                ''DDComponente.SelectedValue.ToString()
                                 myNode.ChildNodes.Add(inner)
-
                                 treeViewTable(Table)
 
                             End If
                         Next myNode
                     End If
                 Else
-
                     Dim inner As New TreeNode()
-                    ''inner.Value = DDComponente.SelectedValue.ToString
                     inner.Value = Table.Rows(0)("Id").ToString() & "|" & Table.Rows(0)("Nivel1") & "|" & Table.Rows(0)("SkuComponente")
-                    ''inner.Text = DDComponente.SelectedValue.ToString
                     inner.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
                     TreeView1.Nodes.Add(inner)
-
                     treeViewTable(Table)
                 End If
             End If
@@ -408,6 +401,17 @@ Public Class Estimacion
         End If
 
     End Sub
+
+    Private Function FindMaxDataTableValue(ByVal dt As DataTable, ByVal Nivel As String) As Integer
+        Dim currentValue As Integer, maxValue As Integer
+        Dim dv As DataView = dt.DefaultView
+        For c As Integer = 0 To dt.Columns.Count - 1
+            dv.Sort = dt.Columns(c).ColumnName + " DESC"
+            currentValue = CInt(dv(0).Item(Nivel))
+            If currentValue > maxValue Then maxValue = currentValue
+        Next
+        Return maxValue
+    End Function
 
     Protected Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         If TreeView1.CheckedNodes.Count > 0 Then
@@ -429,6 +433,20 @@ Public Class Estimacion
                             'Next
                             'For Each childNodeA As TreeNode In myNode.ChildNodes
                             If childNodeA.Checked Then
+
+                                Dim Table As DataTable = DirectCast(Session("treeView"), DataTable)
+                                Dim dv As New DataView(Table)
+                                dv.RowFilter = "Id = " & Split(childNodeA.Value, "|")(0) & " and SkuComponente = '" & Split(childNodeA.Value, "|")(2) & "'"
+                                For Each reng As DataRowView In dv
+                                    Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
+                                    Dim rows = dt2.[Select]("Nivel1 = " & reng("Nivel1") & " and SkuArticulo = '" & reng("SkuArticulo") & "'")
+                                    For Each row In rows
+                                        row.Delete()
+                                    Next
+                                    treeViewTable(dt2)
+                                Next
+
+
                                 myNode.ChildNodes.Remove(childNodeA)
                                 a = a - 1
                             Else
@@ -439,6 +457,20 @@ Public Class Estimacion
                                         End If
                                         Dim childNodeB = childNodeA.ChildNodes(b)
                                         If childNodeB.Checked Then
+
+                                            Dim Table As DataTable = DirectCast(Session("treeView"), DataTable)
+                                            Dim dv As New DataView(Table)
+                                            dv.RowFilter = "Id = " & Split(childNodeB.Value, "|")(0) & " and SkuComponente = '" & Split(childNodeB.Value, "|")(2) & "'"
+                                            For Each reng As DataRowView In dv
+                                                Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
+                                                Dim rows = dt2.[Select]("Nivel1 = " & reng("Nivel1") & " and Nivel2 = " & reng("Nivel2") & " and SkuArticulo = '" & reng("SkuArticulo") & "'")
+                                                For Each row In rows
+                                                    row.Delete()
+                                                Next
+                                                treeViewTable(dt2)
+                                            Next
+
+
                                             childNodeA.ChildNodes.Remove(childNodeB)
                                             b = b - 1
 
@@ -450,6 +482,20 @@ Public Class Estimacion
                                                     End If
                                                     Dim childNodeC = childNodeB.ChildNodes(c)
                                                     If childNodeC.Checked Then
+
+                                                        Dim Table As DataTable = DirectCast(Session("treeView"), DataTable)
+                                                        Dim dv As New DataView(Table)
+                                                        dv.RowFilter = "Id = " & Split(childNodeC.Value, "|")(0) & " and SkuComponente = '" & Split(childNodeC.Value, "|")(2) & "'"
+                                                        For Each reng As DataRowView In dv
+                                                            Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
+                                                            Dim rows = dt2.[Select]("Nivel1 = " & reng("Nivel1") & " and Nivel2 = " & reng("Nivel2") & " and Nivel3 = " & reng("Nivel3") & " and SkuArticulo = '" & reng("SkuArticulo") & "'")
+                                                            For Each row In rows
+                                                                row.Delete()
+                                                            Next
+                                                            treeViewTable(dt2)
+                                                        Next
+
+
                                                         childNodeB.ChildNodes.Remove(childNodeC)
                                                         c = c - 1
                                                     End If
@@ -464,10 +510,18 @@ Public Class Estimacion
                     End If
                     ' Check whether the tree node is checked.
                     If myNode.Checked Then
-                        'Dim inner As New TreeNode()
-                        'inner.Value = DDComponente.SelectedValue.ToString
-                        'inner.Text = DDComponente.SelectedValue.ToString
-                        ''                        myNode.ChildNodes.Remove(myNode)
+
+                        Dim Table As DataTable = DirectCast(Session("treeView"), DataTable)
+                        Dim dv As New DataView(Table)
+                        dv.RowFilter = "Id = " & Split(myNode.Value, "|")(0) & " and SkuComponente = '" & Split(myNode.Value, "|")(2) & "'"
+                        For Each reng As DataRowView In dv
+                            Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
+                            Dim rows = dt2.[Select]("Nivel1 = " & reng("Nivel1") & " and SkuArticulo = '" & reng("SkuArticulo") & "'")
+                            For Each row In rows
+                                row.Delete
+                            Next
+                            treeViewTable(dt2)
+                        Next
                         TreeView1.Nodes.Remove(myNode)
                         z = z - 1
                     End If
@@ -479,9 +533,9 @@ Public Class Estimacion
         End If
 
 
-        For Each Node In TreeView1.CheckedNodes
+        'For Each Node In TreeView1.CheckedNodes
 
-        Next
+        'Next
 
 
 
@@ -545,7 +599,6 @@ Public Class Estimacion
         End If
     End Sub
 
-
     Private Sub Guardar_Click(sender As Object, e As EventArgs) Handles Guardar.Click
         Dim IdQuotaionVersion As String = Request.QueryString("v")
         If IdQuotaionVersion IsNot Nothing Then
@@ -558,7 +611,6 @@ Public Class Estimacion
             MsgBox("Primero crea una versión")
         End If
     End Sub
-
 
     Private Function CreateQuotation() As JObject
         Dim Quotation As New JObject
