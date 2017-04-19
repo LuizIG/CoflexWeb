@@ -8,7 +8,7 @@ Public Class ResumenEstimaciones
     Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
         If Not IsPostBack Then
             MyBase.Page_Load(sender, e)
-            Dim Response = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS)
+            Dim Response = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS, , Session("access_token"))
             Dim o = JObject.Parse(Response)
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
             If (statusCode >= 200 And statusCode < 400) Then
