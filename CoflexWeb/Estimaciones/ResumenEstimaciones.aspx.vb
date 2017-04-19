@@ -12,68 +12,50 @@ Public Class ResumenEstimaciones
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
             If (statusCode >= 200 And statusCode < 400) Then
                 Dim detail = o.GetValue("detail").Value(Of JArray)
-
                 Dim arrayLimpio = New JArray
-
                 For Each Quotation As JObject In detail
-                    Quotation.Remove("QuotationVersions")
-                    arrayLimpio.Add(Quotation)
+                    Dim Client = Quotation.GetValue("AspNetUsersView").Value(Of JObject)
+                    Dim UserName As String = Client.GetValue("Name").Value(Of String) & " " & Client.GetValue("PaternalSurname").Value(Of String) & " " & Client.GetValue("MaternalSurname").Value(Of String)
+                    Dim Versions = Quotation.GetValue("QuotationVersions").Value(Of JArray)
+                    For Each Version As JObject In Versions
+                        Version.Remove("Items")
+                        Version.Add("ClientName", Quotation.GetValue("ClientName").Value(Of String))
+                        Select Case Quotation.GetValue("Status").Value(Of Integer)
+                            Case 0
+                                Version.Add("QStatus", "Abierta")
+                            Case 1
+                                Version.Add("QStatus", "Cerrada")
+                            Case 2
+                                Version.Add("QStatus", "Cancelada")
+                        End Select
+                        Version.Add("User", UserName)
+                        Version.Add("ActionEdit", "<a href='Estimacion.aspx?q=" & Version.GetValue("QuotationsId").Value(Of Integer) & "&v=" & Version.GetValue("Id").Value(Of Integer) & "' class='btn btn-primary' role='button'>Editar</a>")
+                        arrayLimpio.Add(Version)
+                    Next
                 Next
-
                 Dim Table As DataTable = JsonConvert.DeserializeObject(Of DataTable)(arrayLimpio.ToString)
-
-
-                For x As Integer = 0 To Table.Rows.Count - 1
-                    Dim innerI As New TreeNode()
-                    innerI.Value = Table.Rows(x)("Id")
-                    innerI.Text = Table.Rows(x)("ClientName")
-                    TreeViewQuotation.Nodes.Add(innerI)
-
-                    Dim ResponseVersion = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS_VERSION & "?QuotationsId=" & Table.Rows(x)("Id").ToString)
-                    Dim oVersion = JObject.Parse(ResponseVersion)
-                    Dim statusCodeVersion = oVersion.GetValue("statusCode").Value(Of Integer)
-                    If (statusCodeVersion >= 200 And statusCodeVersion < 400) Then
-
-                        Dim detailVersion = oVersion.GetValue("detail").Value(Of JArray)
-
-                        Dim arrayLimpioVersion = New JArray
-
-                        For Each QuotationVersion As JObject In detailVersion
-                            QuotationVersion.Remove("Items")
-                            arrayLimpioVersion.Add(QuotationVersion)
-                        Next
-
-
-                        Dim TableVersion As DataTable = JsonConvert.DeserializeObject(Of DataTable)(arrayLimpioVersion.ToString)
-
-                        For y As Integer = 0 To TableVersion.Rows.Count - 1
-                            Dim innerIV As New TreeNode()
-                            innerIV.Value = TableVersion.Rows(y)("Id")
-                            innerIV.Text = "Version " & TableVersion.Rows(y)("VersionNumber")
-                            TreeViewQuotation.Nodes(x).ChildNodes.Add(innerIV)
-                        Next
-
-                    End If
-
-                Next
-
+                GridUsers.DataSource = Table
+                GridUsers.DataBind()
             End If
         End If
     End Sub
 
-    Private Sub TreeViewQuotation_SelectedNodeChanged(sender As Object, e As EventArgs) Handles TreeViewQuotation.SelectedNodeChanged
-        Dim scTreeView = TreeViewQuotation.SelectedNode
-
-        If scTreeView.Parent IsNot Nothing Then
-
-            Dim idQuotation = scTreeView.Parent.Value
-            Dim idQuotationVersion = scTreeView.Value
-
-
-            Response.Redirect("Estimacion.aspx?q=" & idQuotation & "&v=" & idQuotationVersion)
-
-        End If
-
-
+    Private Sub GridUsers_DataBound(sender As Object, e As EventArgs) Handles GridUsers.DataBound
+        For i As Integer = GridUsers.Rows.Count - 1 To 1 Step -1
+            Dim row As GridViewRow = GridUsers.Rows(i)
+            Dim previousRow As GridViewRow = GridUsers.Rows(i - 1)
+            For j As Integer = 0 To row.Cells.Count - 1
+                If row.Cells(j).Text = previousRow.Cells(j).Text And row.Cells(0).Text = previousRow.Cells(0).Text Then
+                    If previousRow.Cells(j).RowSpan = 0 Then
+                        If row.Cells(j).RowSpan = 0 Then
+                            previousRow.Cells(j).RowSpan += 2
+                        Else
+                            previousRow.Cells(j).RowSpan = row.Cells(j).RowSpan + 1
+                        End If
+                        row.Cells(j).Visible = False
+                    End If
+                End If
+            Next
+        Next
     End Sub
 End Class
