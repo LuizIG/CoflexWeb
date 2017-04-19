@@ -13,7 +13,7 @@ Public Class Estimacion
             MyBase.Page_Load(sender, e)
             Session.Remove("treeView")
 
-            Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM)
+            Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM,, Session("access_token"))
             Dim o = JObject.Parse(jsonResponse)
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
             If (statusCode >= 200 And statusCode < 400) Then
@@ -27,7 +27,7 @@ Public Class Estimacion
 
             Me.DDArticulo.Items.Insert(0, "Seleccionar")
 
-            jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.COMPONENT)
+            jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.COMPONENT,, Session("access_token"))
             o = JObject.Parse(jsonResponse)
             statusCode = o.GetValue("statusCode").Value(Of Integer)
             If (statusCode >= 200 And statusCode < 400) Then
@@ -41,7 +41,7 @@ Public Class Estimacion
 
             Me.DDComponente.Items.Insert(0, "Seleccionar")
 
-            jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.CLIENTS)
+            jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.CLIENTS,, Session("access_token"))
             o = JObject.Parse(jsonResponse)
             statusCode = o.GetValue("statusCode").Value(Of Integer)
             If (statusCode >= 200 And statusCode < 400) Then
@@ -61,7 +61,7 @@ Public Class Estimacion
             Dim VersionId As String = Request.QueryString("v")
 
             If VersionId IsNot Nothing Then
-                Dim ResponseVersions = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS_VERSION & "/" & VersionId)
+                Dim ResponseVersions = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS_VERSION & "/" & VersionId,, Session("access_token"))
                 o = JObject.Parse(ResponseVersions)
                 statusCode = o.GetValue("statusCode").Value(Of Integer)
                 If (statusCode >= 200 And statusCode < 400) Then
@@ -206,7 +206,7 @@ Public Class Estimacion
         If ExistProduct(Me.DDArticulo.SelectedValue) Then
 
 
-            Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM_COMPONENTS & "/" & Me.DDArticulo.SelectedValue)
+            Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM_COMPONENTS & "/" & Me.DDArticulo.SelectedValue,, Session("access_token"))
             Dim o = JObject.Parse(jsonResponse)
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
             If (statusCode >= 200 And statusCode < 400) Then
@@ -298,7 +298,7 @@ Public Class Estimacion
     Protected Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         If ExistProduct(Me.DDComponente.SelectedValue) Then
 
-            Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.DETAIL_COMPONENTS & "/" & Me.DDComponente.SelectedValue)
+            Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.DETAIL_COMPONENTS & "/" & Me.DDComponente.SelectedValue,, Session("access_token"))
             Dim o = JObject.Parse(jsonResponse)
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
             If (statusCode >= 200 And statusCode < 400) Then
@@ -594,23 +594,28 @@ Public Class Estimacion
 
         Dim IdQuotaion As String = Request.QueryString("q")
         If IdQuotaion Is Nothing Then
-            Dim Response = doPostRequest(QUOTATIONS, CreateQuotation.ToString)
+            Dim ResponseServer = doPostRequest(QUOTATIONS, CreateQuotation.ToString,, Session("access_token"))
             Console.Write(Response)
-            Dim o = JObject.Parse(Response)
+            Dim o = JObject.Parse(ResponseServer)
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
             If (statusCode >= 200 And statusCode < 400) Then
 
                 Dim QuotationCreated = o.GetValue("detail").Value(Of JObject)
 
+                Dim QuotationVersionCreated = QuotationCreated.GetValue("QuotationVersions").Value(Of JArray)
 
+                Dim version As JObject = QuotationVersionCreated(0)
 
+                Dim quotationID As String = version.GetValue("QuotationsId").Value(Of Integer) & ""
+                Dim versionID As String = version.GetValue("Id").Value(Of Integer) & ""
 
+                Response.Redirect("Estimacion?q=" & quotationID & "&v=" & versionID)
 
             Else
 
             End If
         Else
-            Dim Response = doPostRequest(QUOTATIONS_VERSION, CreateQuotationVersion(IdQuotaion).ToString)
+            Dim Response = doPostRequest(QUOTATIONS_VERSION, CreateQuotationVersion(IdQuotaion).ToString,, Session("access_token"))
             Console.Write(Response)
         End If
 
@@ -640,7 +645,7 @@ Public Class Estimacion
             End If
             Console.Write(Response)
         Else
-            MsgBox("Primero crea una versión")
+
         End If
     End Sub
 
@@ -697,9 +702,9 @@ Public Class Estimacion
             Item.Add("ItemDescription", reng("ITEMDESC").ToString)
             Item.Add("Quantity", CDbl(reng("QUANTITY_I").ToString))
             Item.Add("UM", reng("UOFM").ToString)
-            Item.Add("StndCost", CDbl(IIf(reng("STNDCOST").ToString Is Nothing, "0", reng("STNDCOST").ToString)))
-            Item.Add("CurrCost", CDbl(IIf(reng("CURRCOST").ToString Is Nothing, "0", reng("CURRCOST").ToString)))
-            Item.Add("Result", CDbl(IIf(reng("RESULT").ToString Is Nothing, "0", reng("RESULT").ToString)))
+            Item.Add("StndCost", CDbl(IIf(reng("STNDCOST").ToString Is Nothing Or reng("STNDCOST").ToString = "", "0", reng("STNDCOST").ToString)))
+            Item.Add("CurrCost", CDbl(IIf(reng("CURRCOST").ToString Is Nothing Or reng("STNDCOST").ToString = "", "0", reng("CURRCOST").ToString)))
+            Item.Add("Result", CDbl(IIf(reng("RESULT").ToString Is Nothing Or reng("STNDCOST").ToString = "", "0", reng("RESULT").ToString)))
             Item.Add("Lvl1", CInt(reng("Nivel1").ToString))
             Item.Add("Lvl2", CInt(reng("Nivel2").ToString))
             Item.Add("Lvl3", CInt(reng("Nivel3").ToString))
