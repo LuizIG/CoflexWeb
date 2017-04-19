@@ -10,7 +10,7 @@ Public Class Estimacion
 
     Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
         If Not IsPostBack Then
-
+            MyBase.Page_Load(sender, e)
             Session.Remove("treeView")
 
             Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM)
@@ -521,7 +521,7 @@ Public Class Estimacion
                             Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
                             Dim rows = dt2.[Select]("Nivel1 = " & reng("Nivel1") & " and SkuArticulo = '" & reng("SkuArticulo") & "'")
                             For Each row In rows
-                                row.Delete
+                                row.Delete()
                             Next
                             treeViewTable(dt2)
                         Next
@@ -591,6 +591,19 @@ Public Class Estimacion
         If IdQuotaion Is Nothing Then
             Dim Response = doPostRequest(QUOTATIONS, CreateQuotation.ToString)
             Console.Write(Response)
+            Dim o = JObject.Parse(Response)
+            Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+            If (statusCode >= 200 And statusCode < 400) Then
+
+                Dim QuotationCreated = o.GetValue("detail").Value(Of JObject)
+
+
+
+
+
+            Else
+
+            End If
         Else
             Dim Response = doPostRequest(QUOTATIONS_VERSION, CreateQuotationVersion(IdQuotaion).ToString)
             Console.Write(Response)
@@ -615,12 +628,14 @@ Public Class Estimacion
 
 
 
+
+
             Else
 
             End If
             Console.Write(Response)
-            Else
-                MsgBox("Primero crea una versión")
+        Else
+            MsgBox("Primero crea una versión")
         End If
     End Sub
 

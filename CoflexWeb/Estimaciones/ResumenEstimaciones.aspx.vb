@@ -4,9 +4,10 @@ Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 
 Public Class ResumenEstimaciones
-    Inherits System.Web.UI.Page
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Inherits CoflexWebPage
+    Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
         If Not IsPostBack Then
+            MyBase.Page_Load(sender, e)
             Dim Response = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS)
             Dim o = JObject.Parse(Response)
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
