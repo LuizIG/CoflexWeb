@@ -10,6 +10,9 @@ Public Class Estimacion
 
     Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
         If Not IsPostBack Then
+
+            Session.Remove("treeView")
+
             Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM)
             Dim o = JObject.Parse(jsonResponse)
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
@@ -150,7 +153,7 @@ Public Class Estimacion
 
                 End If
             Else
-                Session.Remove("treeView")
+
             End If
 
 
@@ -550,12 +553,21 @@ Public Class Estimacion
         Dim IdQuotaionVersion As String = Request.QueryString("v")
         If IdQuotaionVersion IsNot Nothing Then
 
-            Dim jonsString = CreateQuotationVersion(IdQuotaionVersion).ToString
-
             Dim Response = doPutRequest(QUOTATIONS_VERSION & "/" & IdQuotaionVersion, CreateQuotationVersion(IdQuotaionVersion).ToString)
+            Dim o = JObject.Parse(Response)
+            Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+            If (statusCode >= 200 And statusCode < 400) Then
+
+                Dim QuotationCreated = o.GetValue("detail").Value(Of JObject)
+
+
+
+            Else
+
+            End If
             Console.Write(Response)
-        Else
-            MsgBox("Primero crea una versión")
+            Else
+                MsgBox("Primero crea una versión")
         End If
     End Sub
 
@@ -613,9 +625,9 @@ Public Class Estimacion
             Item.Add("ItemDescription", reng("ITEMDESC").ToString)
             Item.Add("Quantity", CDbl(reng("QUANTITY_I").ToString))
             Item.Add("UM", reng("UOFM").ToString)
-            Item.Add("StndCost", CDbl(reng("STNDCOST").ToString))
-            Item.Add("CurrCost", CDbl(reng("CURRCOST").ToString))
-            Item.Add("Result", CDbl(reng("RESULT").ToString))
+            Item.Add("StndCost", CDbl(IIf(reng("STNDCOST").ToString Is Nothing, "0", reng("STNDCOST").ToString)))
+            Item.Add("CurrCost", CDbl(IIf(reng("CURRCOST").ToString Is Nothing, "0", reng("CURRCOST").ToString)))
+            Item.Add("Result", CDbl(IIf(reng("RESULT").ToString Is Nothing, "0", reng("RESULT").ToString)))
             Item.Add("Lvl1", CInt(reng("Nivel1").ToString))
             Item.Add("Lvl2", CInt(reng("Nivel2").ToString))
             Item.Add("Lvl3", CInt(reng("Nivel3").ToString))
