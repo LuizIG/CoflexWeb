@@ -62,7 +62,7 @@ Public Class Estimacion
                 Dim detail = o.GetValue("detail").Value(Of JArray)
                 Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
                 Me.DDElemento.DataSource = Table
-                Me.DDElemento.DataValueField = "SkuComponente"
+                Me.DDElemento.DataValueField = "Id"
                 Me.DDElemento.DataTextField = "SkuComponente"
                 Me.DDElemento.DataBind()
             End If
@@ -575,7 +575,15 @@ Public Class Estimacion
             Me.TextBox3.Text = reng("QUANTITY_I")
             Me.TextBox4.Text = reng("UOFM")
             Me.TextBox5.Text = reng("CURRCOST")
+            Me.TextBox7.Text = reng("STNDCOST")
             Me.TextBox6.Text = reng("RESULT")
+            If reng("RBCost") = 1 Then
+                Me.RadioButton1.Checked = True
+                Me.RadioButton2.Checked = False
+            Else
+                Me.RadioButton2.Checked = True
+                Me.RadioButton1.Checked = False
+            End If
         Next
 
 
@@ -589,10 +597,58 @@ Public Class Estimacion
         'Dim dv As New DataView(Table)
         'dv.RowFilter = "Id = " & Split(scTreeView, "|")(0) & " and SkuComponente = '" & Split(scTreeView, "|")(2) & "'"
 
-        For Each dr As DataRow In Table.Rows
+        'Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
+        Dim rows = Table.[Select]("id = " & Split(scTreeView, "|")(0) & " and SkuComponente = '" & Split(scTreeView, "|")(2) & "'")
+        'For Each row In rows
+
+        'Next
+
+
+        For Each dr As DataRow In rows
             If dr("Id") = Split(scTreeView, "|")(0) And dr("SkuComponente") = Split(scTreeView, "|")(2) Then
                 dr("QUANTITY_I") = Me.TextBox3.Text
+
+
+
+                If dr("Nivel1") = 0 Then
+                    Dim rows2 = Table.[Select]("SkuArticulo = '" & dr("SkuArticulo") & "'")
+                    For Each dr2 As DataRow In rows2
+                        If Me.RadioButton1.Checked Then
+                            dr2("RBCost") = 1
+                        ElseIf Me.RadioButton2.Checked Then
+                            dr2("RBCost") = 2
+                        End If
+                    Next
+                ElseIf dr("Nivel1") > 0 And dr("Nivel2") = 0 And dr("Nivel3") = 0 Then
+                    Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and SkuArticulo = '" & dr("SkuArticulo") & "'")
+                    For Each dr2 As DataRow In rows2
+                        If Me.RadioButton1.Checked Then
+                            dr2("RBCost") = 1
+                        ElseIf Me.RadioButton2.Checked Then
+                            dr2("RBCost") = 2
+                        End If
+                    Next
+                ElseIf dr("Nivel1") > 0 And dr("Nivel2") > 0 And dr("Nivel3") = 0 Then
+                    Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and Nivel2 = " & dr("Nivel2") & " and SkuArticulo = '" & dr("SkuArticulo") & "'")
+                    For Each dr2 As DataRow In rows2
+                        If Me.RadioButton1.Checked Then
+                            dr2("RBCost") = 1
+                        ElseIf Me.RadioButton2.Checked Then
+                            dr2("RBCost") = 2
+                        End If
+                    Next
+                ElseIf dr("Nivel1") > 0 And dr("Nivel2") > 0 And dr("Nivel3") > 0 Then
+                    Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and Nivel2 = " & dr("Nivel2") & " and Nivel3 = " & dr("Nivel3") & " and SkuArticulo = '" & dr("SkuArticulo") & "'")
+                    For Each dr2 As DataRow In rows2
+                        If Me.RadioButton1.Checked Then
+                            dr2("RBCost") = 1
+                        ElseIf Me.RadioButton2.Checked Then
+                            dr2("RBCost") = 2
+                        End If
+                    Next
+                End If
             End If
+
         Next
 
         treeViewTable(Table)
