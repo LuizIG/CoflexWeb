@@ -171,6 +171,7 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="Acceso.aspx" />
+    <Content Include="Account\logo.png" />
     <Content Include="Account\PerfilUsuario.aspx" />
     <Content Include="Account\Registro.aspx" />
     <Content Include="Account\ResetPassword.aspx" />
@@ -184,15 +185,18 @@
     </Content>
     <Content Include="Default.aspx" />
     <Content Include="Estimaciones\Estimacion.aspx" />
+    <Content Include="Estimaciones\logo.png" />
     <Content Include="Estimaciones\ResumenEstimaciones.aspx" />
     <Content Include="Exit.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="My Project\PublishProfiles\CoflexWebPublish.pubxml" />
     <None Include="My Project\PublishProfiles\localWeb.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Images\logo.png" />
+    <Content Include="logo.png" />
     <Content Include="LogViewExample.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

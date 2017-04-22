@@ -56,6 +56,9 @@
                                             <asp:DropDownList ID="DDArticulo" Width="100%" runat="server">
                                                 <asp:ListItem>2-PS-E324-RH</asp:ListItem>
                                                 <asp:ListItem>1-AB-Q60</asp:ListItem>
+                                                <asp:ListItem>1-AB-H80</asp:ListItem>
+                                                <asp:ListItem>1-AB-H80-SE</asp:ListItem>
+                                                <asp:ListItem>1-AG-S90-RH</asp:ListItem>
                                             </asp:DropDownList>
 
                                         </td>
@@ -220,7 +223,7 @@
 
                                             </td>
                                             <td>
-                                                <asp:TextBox ID="TextBox5" Enabled="false" runat="server"></asp:TextBox>
+                                                
                                             </td>
                                             <td>
                                                 <asp:Label ID="Label7" runat="server" Text="Total"></asp:Label>&nbsp
@@ -230,8 +233,11 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>&nbsp;</td>
-                                            <td>&nbsp;</td>
+                                            <td><asp:Label ID="Label13" runat="server" Text="Tipo de Costo"></asp:Label>&nbsp;</td>
+                                            <td>
+                                                <asp:RadioButton ID="RadioButton1" GroupName="tipoCosto" runat="server" />&nbsp;<asp:Label ID="Label16" runat="server" Text="Costo Estandar"></asp:Label>&nbsp;<asp:TextBox ID="TextBox5" Enabled="false" runat="server"></asp:TextBox>&nbsp;<br />
+                                                <asp:RadioButton ID="RadioButton2" GroupName="tipoCosto" runat="server" />&nbsp;<asp:Label ID="Label19" runat="server" Text="Costo Actual"></asp:Label>&nbsp;<asp:TextBox ID="TextBox7" Enabled="false" runat="server"></asp:TextBox>&nbsp;
+                                            </td>
                                             <td>&nbsp;</td>
                                             <td style="text-align: right">
                                                 <asp:Button ID="Button1" class="btn btn-primary" runat="server" Text="Actualizar" /></td>
