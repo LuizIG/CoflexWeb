@@ -577,10 +577,10 @@ Public Class Estimacion
             Me.TextBox5.Text = reng("CURRCOST")
             Me.TextBox7.Text = reng("STNDCOST")
             Me.TextBox6.Text = reng("RESULT")
-            If reng("RBCost") = 1 Then
+            If reng("RACost") = 1 Then
                 Me.RadioButton1.Checked = True
                 Me.RadioButton2.Checked = False
-            Else
+            ElseIf reng("RBCost") = 1 Then
                 Me.RadioButton2.Checked = True
                 Me.RadioButton1.Checked = False
             End If
@@ -614,36 +614,44 @@ Public Class Estimacion
                     Dim rows2 = Table.[Select]("SkuArticulo = '" & dr("SkuArticulo") & "'")
                     For Each dr2 As DataRow In rows2
                         If Me.RadioButton1.Checked Then
-                            dr2("RBCost") = 1
+                            dr2("RACost") = 1
+                            dr2("RBCost") = 0
                         ElseIf Me.RadioButton2.Checked Then
-                            dr2("RBCost") = 2
+                            dr2("RACost") = 0
+                            dr2("RBCost") = 1
                         End If
                     Next
                 ElseIf dr("Nivel1") > 0 And dr("Nivel2") = 0 And dr("Nivel3") = 0 Then
                     Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and SkuArticulo = '" & dr("SkuArticulo") & "'")
                     For Each dr2 As DataRow In rows2
                         If Me.RadioButton1.Checked Then
-                            dr2("RBCost") = 1
+                            dr2("RACost") = 1
+                            dr2("RBCost") = 0
                         ElseIf Me.RadioButton2.Checked Then
-                            dr2("RBCost") = 2
+                            dr2("RACost") = 0
+                            dr2("RBCost") = 1
                         End If
                     Next
                 ElseIf dr("Nivel1") > 0 And dr("Nivel2") > 0 And dr("Nivel3") = 0 Then
                     Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and Nivel2 = " & dr("Nivel2") & " and SkuArticulo = '" & dr("SkuArticulo") & "'")
                     For Each dr2 As DataRow In rows2
                         If Me.RadioButton1.Checked Then
-                            dr2("RBCost") = 1
+                            dr2("RACost") = 1
+                            dr2("RBCost") = 0
                         ElseIf Me.RadioButton2.Checked Then
-                            dr2("RBCost") = 2
+                            dr2("RACost") = 0
+                            dr2("RBCost") = 1
                         End If
                     Next
                 ElseIf dr("Nivel1") > 0 And dr("Nivel2") > 0 And dr("Nivel3") > 0 Then
                     Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and Nivel2 = " & dr("Nivel2") & " and Nivel3 = " & dr("Nivel3") & " and SkuArticulo = '" & dr("SkuArticulo") & "'")
                     For Each dr2 As DataRow In rows2
                         If Me.RadioButton1.Checked Then
-                            dr2("RBCost") = 1
+                            dr2("RACost") = 1
+                            dr2("RBCost") = 0
                         ElseIf Me.RadioButton2.Checked Then
-                            dr2("RBCost") = 2
+                            dr2("RACost") = 0
+                            dr2("RBCost") = 1
                         End If
                     Next
                 End If

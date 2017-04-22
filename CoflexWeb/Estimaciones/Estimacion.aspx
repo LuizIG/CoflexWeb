@@ -26,7 +26,7 @@
     <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
         <asp:View ID="View1" runat="server">
 
-            <div id="div_Response"  runat="server"></div>
+            <div id="div_Response" runat="server"></div>
 
             <div class="well well-lg">
 
@@ -111,35 +111,13 @@
                                 </table>
                             </div>
                         </td>
-                        <td style="width: 10%; text-align: center;">
-                            <div style="width: 100%">
-                                <table style="width: 100%">
-                                    <tr>
-                                        <td>
-                                            <asp:Button ID="Button4" runat="server" class="btn btn-primary" Text="Remover" />
-
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </td>
                     </tr>
                 </table>
                 <br />
 
                 <table style="width: 100%">
                     <tr>
-                        <td>
-                            <table style="width: 50%">
-                                <tr>
-                                    <td>
-                                        <asp:Label ID="Label10" runat="server" Text="Tipo de Cambio"></asp:Label></td>
-                                    <td>
-                                        <asp:TextBox ID="Tv_Exchange" runat="server">19.05</asp:TextBox>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
+                        <td>&nbsp;</td>
                         <td>
                             <div style="float: right;">
                                 <table>
@@ -158,8 +136,18 @@
                 <div>
                     <table style="width: 100%">
                         <tr>
-                            <td style="vertical-align: top; width: 50%; height:100%; border-style: outset;">
-                                <div style="vertical-align: top; height:100%; width: 98%">
+                            <td style="vertical-align: top; width: 50%; height: 100%; border-style: outset;">  
+                                <div style="width: 100%">
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td>
+                                            <asp:Button ID="Button4" runat="server" class="btn btn-primary" Text="Remover" />
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                                <div style="vertical-align: top; height: 100%; width: 98%">
                                     <asp:TreeView ID="TreeView1" Width="90%" ShowCheckBoxes="All" ShowExpandCollapse="true" runat="server" ImageSet="Simple">
                                         <HoverNodeStyle Font-Underline="True" ForeColor="#5555DD" />
                                         <NodeStyle Font-Names="Tahoma" Font-Size="10pt" ForeColor="Black" HorizontalPadding="0px" NodeSpacing="0px" VerticalPadding="0px" />
@@ -222,9 +210,7 @@
                                                 <asp:Label ID="Label6" runat="server" Text="Costo"></asp:Label>&nbsp;
 
                                             </td>
-                                            <td>
-                                                
-                                            </td>
+                                            <td></td>
                                             <td>
                                                 <asp:Label ID="Label7" runat="server" Text="Total"></asp:Label>&nbsp
                                             </td>
@@ -233,7 +219,8 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><asp:Label ID="Label13" runat="server" Text="Tipo de Costo"></asp:Label>&nbsp;</td>
+                                            <td>
+                                                <asp:Label ID="Label13" runat="server" Text="Tipo de Costo"></asp:Label>&nbsp;</td>
                                             <td>
                                                 <asp:RadioButton ID="RadioButton1" GroupName="tipoCosto" runat="server" />&nbsp;<asp:Label ID="Label16" runat="server" Text="Costo Estandar"></asp:Label>&nbsp;<asp:TextBox ID="TextBox5" Enabled="false" runat="server"></asp:TextBox>&nbsp;<br />
                                                 <asp:RadioButton ID="RadioButton2" GroupName="tipoCosto" runat="server" />&nbsp;<asp:Label ID="Label19" runat="server" Text="Costo Actual"></asp:Label>&nbsp;<asp:TextBox ID="TextBox7" Enabled="false" runat="server"></asp:TextBox>&nbsp;
@@ -261,6 +248,15 @@
                                     <td>Margen</td>
                                     <td>
                                         <asp:TextBox ID="TextBox11" runat="server"></asp:TextBox></td>
+                                </tr>
+                            </table>
+                            <table style="width: 50%">
+                                <tr>
+                                    <td>
+                                        <asp:Label ID="Label10" runat="server" Text="Tipo de Cambio"></asp:Label></td>
+                                    <td>
+                                        <asp:TextBox ID="Tv_Exchange" runat="server">19.05</asp:TextBox>
+                                    </td>
                                 </tr>
                             </table>
                         </div>
@@ -362,8 +358,7 @@
                                     <td style="text-align: right">
                                         <asp:Button ID="Button9" class="btn btn-primary" runat="server" Text="Regresar" />
                                     </td>
-                                    <td>
-                                        &nbsp;
+                                    <td>&nbsp;
                                     </td>
                                     <td>
                                         <asp:Button ID="Button8" class="btn btn-primary" runat="server" Text="Agregar" />
