@@ -12,24 +12,9 @@ Public Class Estimacion
         If Not IsPostBack Then
             MyBase.Page_Load(sender, e)
             Session.Remove("treeView")
-
-            Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM,, Session("access_token"))
+            Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.COMPONENT,, Session("access_token"))
             Dim o = JObject.Parse(jsonResponse)
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
-            If (statusCode >= 200 And statusCode < 400) Then
-                Dim detail = o.GetValue("detail").Value(Of JArray)
-                Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
-                Me.DDArticulo.DataSource = Table
-                Me.DDArticulo.DataValueField = "PPN_I"
-                Me.DDArticulo.DataTextField = "PPN_I"
-                ''Me.DDArticulo.DataBind()
-            End If
-
-            Me.DDArticulo.Items.Insert(0, "Seleccionar")
-
-            jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.COMPONENT,, Session("access_token"))
-            o = JObject.Parse(jsonResponse)
-            statusCode = o.GetValue("statusCode").Value(Of Integer)
             If (statusCode >= 200 And statusCode < 400) Then
                 Dim detail = o.GetValue("detail").Value(Of JArray)
                 Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
@@ -185,6 +170,8 @@ Public Class Estimacion
             '    End If
         End If
     End Sub
+
+
 
     Protected Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
         If Session("treeView") IsNot Nothing Then
@@ -703,10 +690,6 @@ Public Class Estimacion
 
                 Dim QuotationCreated = o.GetValue("detail").Value(Of JObject)
 
-
-
-
-
             Else
 
             End If
@@ -947,5 +930,22 @@ Public Class Estimacion
 
     Protected Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         Me.MultiView1.ActiveViewIndex = 2
+    End Sub
+
+    Private Sub DDCliente_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDCliente.SelectedIndexChanged
+        Dim value As String = DDCliente.Items(DDCliente.SelectedIndex).Value
+
+        Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM & "?ClientId=" & value,, Session("access_token"))
+        Dim o = JObject.Parse(jsonResponse)
+        Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+        If (statusCode >= 200 And statusCode < 400) Then
+            Dim detail = o.GetValue("detail").Value(Of JArray)
+            Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+            Me.DDArticulo.DataSource = Table
+            Me.DDArticulo.DataValueField = "PPN_I"
+            Me.DDArticulo.DataTextField = "PPN_I"
+            Me.DDArticulo.DataBind()
+        End If
+
     End Sub
 End Class

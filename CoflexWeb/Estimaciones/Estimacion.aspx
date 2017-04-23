@@ -40,7 +40,7 @@
                                             <asp:Label ID="Label9" runat="server" Text="Cliente"></asp:Label>&nbsp;
                                         </td>
                                         <td>
-                                            <asp:DropDownList ID="DDCliente" Width="100%" runat="server">
+                                            <asp:DropDownList ID="DDCliente" Width="100%" runat="server" AutoPostBack="True" >
                                             </asp:DropDownList>
                                         </td>
                                         <td rowspan="2" style="vertical-align: bottom;">
@@ -53,14 +53,7 @@
                                             <asp:Label ID="Label8" runat="server" Text="Articulo"></asp:Label>&nbsp;
                                         </td>
                                         <td>
-                                            <asp:DropDownList ID="DDArticulo" Width="100%" runat="server">
-                                                <asp:ListItem>2-PS-E324-RH</asp:ListItem>
-                                                <asp:ListItem>1-AB-Q60</asp:ListItem>
-                                                <asp:ListItem>1-AB-H80</asp:ListItem>
-                                                <asp:ListItem>1-AB-H80-SE</asp:ListItem>
-                                                <asp:ListItem>1-AG-S90-RH</asp:ListItem>
-                                            </asp:DropDownList>
-
+                                            <asp:DropDownList ID="DDArticulo" Width="100%" runat="server"></asp:DropDownList>
                                         </td>
                                     </tr>
 

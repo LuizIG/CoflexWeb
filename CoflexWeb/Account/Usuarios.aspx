@@ -15,6 +15,7 @@
                 var elm = document.getElementById('<%=btn_activate.ClientID%>');
                 elm.click();
             });
+
         });
     </script>
     <div class="well well-lg" style="margin-top: 32px">

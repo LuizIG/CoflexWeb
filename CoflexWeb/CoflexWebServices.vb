@@ -7,8 +7,8 @@ Imports Newtonsoft.Json.Linq
 Namespace CoflexWeb.Services.Web
     Public Module CoflexWebServices
 
-        Private Const SERVER_HOST As String = "http://62.151.178.139/DM"
-        ''Private Const SERVER_HOST As String = "http://localhost/"
+        'Private Const SERVER_HOST As String = "http://62.151.178.139/DM"
+        Private Const SERVER_HOST As String = "http://localhost/"
 
         Public Const LOGIN As String = "CoflexAPI/Token"
         Public Const REGISTER As String = "CoflexAPI/api/Account/Register"
@@ -23,6 +23,7 @@ Namespace CoflexWeb.Services.Web
         Public Const QUOTATIONS As String = "CoflexAPI/api/Quotations"
         Public Const QUOTATIONS_VERSION As String = "CoflexAPI/api/QuotationVersions"
         Public Const NEW_COMPONENTES As String = "CoflexAPI/api/NewComponents"
+        Public Const LEADERS As String = "CoflexAPI/api/Account/Leaders"
 
         'Enpoints Externos
         Public Const ITEM As String = "CoflexAPIExt/api/Items"
@@ -57,6 +58,7 @@ Namespace CoflexWeb.Services.Web
         End Function
 
         Private Function createRequest(ByVal url As String, ByVal method As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As WebRequest
+            Console.WriteLine(url)
             Dim request As WebRequest = WebRequest.Create(url)
             request.Method = method
             request.ContentType = contentType
@@ -112,8 +114,26 @@ Namespace CoflexWeb.Services.Web
                 Else
                 End If
 
-                Dim errorJSON = JObject.Parse(resp)
                 Dim ErrorString As String = ""
+                Dim errorJSON As JObject
+                Try
+                    errorJSON = JObject.Parse(resp)
+                Catch e As Exception
+
+                    StatusCode = 500
+                    ErrorString = "{
+                      'Message': 'Ocurrió un error en el servidor'
+                    }"
+
+                    Return "{" _
+                    & """statusCode"":" & StatusCode & "," _
+                    & """errorMessage"":""" & ErrorString & """," _
+                    & """detail"":" & resp _
+                    & "}"
+                End Try
+
+
+
                 Try
                     ErrorString = errorJSON.GetValue("error_description").Value(Of String)
                 Catch e As Exception

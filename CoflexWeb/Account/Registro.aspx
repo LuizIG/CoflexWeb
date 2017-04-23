@@ -1,6 +1,20 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="Registro.aspx.vb" Inherits="CoflexWeb.Registro" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#MainContent_GridRoles_chkSelect_2").change(function () {
+
+                if ($(this).is(":checked")) {
+                    $("#div_leader").show();
+                } else {
+                    $("#div_leader").hide();
+                }
+            });
+
+        });
+    </script>
     <h2><%--<%: Title %>.--%></h2>
     <p class="text-danger">
         <asp:Literal runat="server" ID="ErrorMessage" />
@@ -11,6 +25,7 @@
         <div class="form-group" style="text-align:right">
             <asp:Button runat="server" OnClick="CreateUser_Click" Text="Registrar" CssClass="btn btn-primary" />
         </div>
+
         <div class="row">
             <div class="col-sm-4">
 
@@ -91,10 +106,10 @@
                         </asp:GridView>
                     </div>
                 </div>
-                <div style="margin-top:16px" class="form-group">
+                <div id="div_leader" style="margin-top:32px; display:none" class="form-group">
                     <asp:Label runat="server" AssociatedControlID="Name" CssClass="col-md-4 control-label">Lider</asp:Label>
                     <div class="col-md-8">
-                        <asp:DropDownList runat="server" ID="Cb_Leaders" CssClass="form-control" />
+                        <asp:DropDownList runat="server" ID="Cb_Leaders" CssClass="form-control"  />
                         <asp:RequiredFieldValidator runat="server" ControlToValidate="Name"
                             CssClass="text-danger" ErrorMessage="The user name field is required." />
                     </div>
