@@ -241,8 +241,8 @@ Public Class Estimacion
             End If
 
             Me.GridSummary.DataSource = dv.ToTable
-                Me.GridSummary.DataBind()
-            End If
+            Me.GridSummary.DataBind()
+        End If
     End Sub
 
     Protected Sub Regresar_Click(sender As Object, e As EventArgs) Handles Regresar.Click
@@ -621,8 +621,8 @@ Public Class Estimacion
             Me.TextArea1.Value = reng("ITEMDESC")
             Me.TextBox3.Text = reng("QUANTITY_I")
             Me.TextBox4.Text = reng("UOFM")
-            Me.TextBox5.Text = reng("CURRCOST")
-            Me.TextBox7.Text = reng("STNDCOST")
+            Me.TextBox7.Text = reng("CURRCOST")
+            Me.TextBox5.Text = reng("STNDCOST")
             Me.TextBox6.Text = reng("RESULT")
             If reng("RACost") = 1 Then
                 Me.RadioButton1.Checked = True
@@ -641,21 +641,11 @@ Public Class Estimacion
     Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim scTreeView = TreeView1.SelectedNode.Value
         Dim Table As DataTable = DirectCast(Session("treeView"), DataTable)
-        'Dim dv As New DataView(Table)
-        'dv.RowFilter = "Id = " & Split(scTreeView, "|")(0) & " and SkuComponente = '" & Split(scTreeView, "|")(2) & "'"
-
-        'Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
         Dim rows = Table.[Select]("id = " & Split(scTreeView, "|")(0) & " and SkuComponente = '" & Split(scTreeView, "|")(2) & "'")
-        'For Each row In rows
-
-        'Next
-
 
         For Each dr As DataRow In rows
             If dr("Id") = Split(scTreeView, "|")(0) And dr("SkuComponente") = Split(scTreeView, "|")(2) Then
                 dr("QUANTITY_I") = Me.TextBox3.Text
-
-
 
                 If dr("Nivel1") = 0 Then
                     Dim rows2 = Table.[Select]("SkuArticulo = '" & dr("SkuArticulo") & "'")
@@ -667,6 +657,8 @@ Public Class Estimacion
                             dr2("RACost") = 0
                             dr2("RBCost") = 1
                         End If
+                        dr2("Result") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
+                        Me.TextBox6.Text = dr("Result")
                     Next
                 ElseIf dr("Nivel1") > 0 And dr("Nivel2") = 0 And dr("Nivel3") = 0 Then
                     Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and SkuArticulo = '" & dr("SkuArticulo") & "'")
@@ -678,6 +670,8 @@ Public Class Estimacion
                             dr2("RACost") = 0
                             dr2("RBCost") = 1
                         End If
+                        dr2("Result") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
+                        Me.TextBox6.Text = dr("Result")
                     Next
                 ElseIf dr("Nivel1") > 0 And dr("Nivel2") > 0 And dr("Nivel3") = 0 Then
                     Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and Nivel2 = " & dr("Nivel2") & " and SkuArticulo = '" & dr("SkuArticulo") & "'")
@@ -689,6 +683,8 @@ Public Class Estimacion
                             dr2("RACost") = 0
                             dr2("RBCost") = 1
                         End If
+                        dr2("Result") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
+                        Me.TextBox6.Text = dr("Result")
                     Next
                 ElseIf dr("Nivel1") > 0 And dr("Nivel2") > 0 And dr("Nivel3") > 0 Then
                     Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and Nivel2 = " & dr("Nivel2") & " and Nivel3 = " & dr("Nivel3") & " and SkuArticulo = '" & dr("SkuArticulo") & "'")
@@ -700,13 +696,38 @@ Public Class Estimacion
                             dr2("RACost") = 0
                             dr2("RBCost") = 1
                         End If
+                        dr2("Result") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
+                        Me.TextBox6.Text = dr("Result")
                     Next
                 End If
+
             End If
 
         Next
 
+        Montos(Table)
         treeViewTable(Table)
+
+    End Sub
+
+    Private Sub Montos(ByVal fDataTable As DataTable)
+        Dim scTreeView = TreeView1.SelectedNode.Value
+        Dim Table As DataTable = DirectCast(Session("treeView"), DataTable)
+        Dim rows = Table.[Select]("id = " & Split(scTreeView, "|")(0) & " and SkuComponente = '" & Split(scTreeView, "|")(2) & "'")
+
+        For Each dr As DataRow In rows
+            If dr("Nivel1") > 0 And dr("Nivel2") > 0 And dr("Nivel3") > 0 Then
+                Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and Nivel2 = " & dr("Nivel2") & " and SkuArticulo = '" & dr("SkuArticulo") & "'")
+                For Each dr2 As DataRow In rows2
+
+                Next
+
+            End If
+        Next
+
+    End Sub
+
+    Private Sub Suma()
 
     End Sub
 
