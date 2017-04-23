@@ -7,10 +7,20 @@ Public Class Estimacion
     Inherits CoflexWebPage
 
     Private data As New DataSet
+    Private Suma As Double
+    Private SumaCotizacion As Double
+    Private SumaMargen As Double
 
     Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
         If Not IsPostBack Then
             MyBase.Page_Load(sender, e)
+
+
+            Dim r As New Globalization.CultureInfo("es-ES")
+            r.NumberFormat.CurrencyDecimalSeparator = "."
+            r.NumberFormat.NumberDecimalSeparator = "."
+            System.Threading.Thread.CurrentThread.CurrentCulture = r
+
             Session.Remove("treeView")
             Session.Remove("Margin")
             Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.COMPONENT,, Session("access_token"))
@@ -189,9 +199,17 @@ Public Class Estimacion
     Protected Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
         If Session("treeView") IsNot Nothing Then
             Me.MultiView1.ActiveViewIndex = 1
+            Suma = 0
+            SumaCotizacion = 0
+            SumaMargen = 0
 
             Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
             dv.RowFilter = "Nivel1 = 0 and Nivel2 = 0 and Nivel3 = 0"
+
+
+            If Not dv.Table.Columns.Contains("UnitaryCost") Then
+                dv.Table.Columns.Add("UnitaryCost", GetType(Double))
+            End If
 
             Dim VersionId As String = Request.QueryString("v")
             If (VersionId IsNot Nothing) Then
@@ -210,12 +228,14 @@ Public Class Estimacion
                     Else
                         row("Margin") = 0.35 * 100
                     End If
+                    row("UnitaryCost") = CDbl(row("FinalCost")) / CDbl(row("QUANTITY_I"))
                 Next
 
             Else
                 dv.Table.Columns.Add("Margin", GetType(Double))
                 For Each row In dv
                     row("Margin") = 0.35 * 100
+                    row("UnitaryCost") = CDbl(row("FinalCost")) / CDbl(row("QUANTITY_I"))
                 Next
 
             End If
@@ -743,7 +763,26 @@ Public Class Estimacion
             End If
             Console.Write(Response)
         Else
+            Dim ResponseServer = doPostRequest(QUOTATIONS, CreateQuotation.ToString,, Session("access_token"))
+            Console.Write(Response)
+            Dim o = JObject.Parse(ResponseServer)
+            Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+            If (statusCode >= 200 And statusCode < 400) Then
 
+                Dim QuotationCreated = o.GetValue("detail").Value(Of JObject)
+
+                Dim QuotationVersionCreated = QuotationCreated.GetValue("QuotationVersions").Value(Of JArray)
+
+                Dim version As JObject = QuotationVersionCreated(0)
+
+                Dim quotationID As String = version.GetValue("QuotationsId").Value(Of Integer) & ""
+                Dim versionID As String = version.GetValue("Id").Value(Of Integer) & ""
+
+                Response.Redirect("Estimacion?q=" & quotationID & "&v=" & versionID)
+
+            Else
+
+            End If
         End If
     End Sub
 
@@ -1022,5 +1061,49 @@ Public Class Estimacion
             Me.DDArticulo.DataBind()
         End If
 
+    End Sub
+
+    Private Sub GridSummary_RowDataBound(sender As Object, e As GridViewRowEventArgs) Handles GridSummary.RowDataBound
+        If e.Row.RowType = DataControlRowType.DataRow Then
+            Dim txCantidad = TryCast(e.Row.FindControl("TBQuantity"), TextBox)
+            Dim txMargin = TryCast(e.Row.FindControl("TVMargin"), TextBox)
+            Dim costoUnitario As Double = CDbl(e.Row.Cells(3).Text.Replace("$", ""))
+            Dim cantidad As Double = CDbl(txCantidad.Text.Replace("$", ""))
+            Dim margen As Double = CDbl(txMargin.Text.Replace("$", ""))
+            e.Row.Cells(8).Text = FormatCurrency(costoUnitario * cantidad * (1 + (margen / 100)))
+            'Acumulando el monto
+            Suma += costoUnitario * cantidad * (1 + (margen / 100))
+            SumaCotizacion += costoUnitario * cantidad
+            SumaMargen += (costoUnitario * cantidad * (1 + (margen / 100)) - costoUnitario * cantidad)
+
+        ElseIf (e.Row.RowType = DataControlRowType.Footer) Then
+            e.Row.Cells(6).Text = FormatCurrency(SumaCotizacion)
+            e.Row.Cells(7).Text = "Margen de Ganancia: " & FormatCurrency(SumaMargen)
+            e.Row.Cells(8).Text = "Total: " & FormatCurrency(Suma)
+        End If
+    End Sub
+
+    Private Sub BtnRecalcular_Click(sender As Object, e As EventArgs) Handles BtnRecalcular.Click
+        Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
+        dv.RowFilter = "Nivel1 = 0 and Nivel2 = 0 and Nivel3 = 0"
+        If Not dv.Table.Columns.Contains("Margin") Then
+            dv.Table.Columns.Add("Margin", GetType(Double))
+        End If
+
+
+
+        For Each reng As DataRowView In dv
+            For Each renglon As GridViewRow In GridSummary.Rows
+                If (reng("SkuArticulo") = renglon.Cells(0).Text) Then
+                    Dim TBCantidad As TextBox = TryCast(renglon.FindControl("TBQuantity"), TextBox)
+                    Dim TBMargin As TextBox = TryCast(renglon.FindControl("TVMargin"), TextBox)
+                    reng("QUANTITY_I") = CDbl(TBCantidad.Text)
+                    reng("Margin") = CDbl(TBMargin.Text)
+                    reng("FinalCost") = CDbl(TBCantidad.Text) * (reng("UnitaryCost"))
+                End If
+            Next
+        Next
+        GridSummary.DataSource = dv.ToTable
+        GridSummary.DataBind()
     End Sub
 End Class

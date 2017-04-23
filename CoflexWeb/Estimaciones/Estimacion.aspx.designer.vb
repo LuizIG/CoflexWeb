@@ -392,6 +392,15 @@ Partial Public Class Estimacion
     Protected WithEvents Tv_Exchange As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''Control BtnRecalcular.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents BtnRecalcular As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''Control Imprimir.
     '''</summary>
     '''<remarks>

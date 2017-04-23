@@ -230,112 +230,93 @@
             </div>
         </asp:View>
         <asp:View ID="View2" runat="server">
-            <table style="width: 100%">
-                <tr>
 
-                    <td colspan="4">
-                        <div style="float: left;">
-                            <table style="width: 50%">
-                                <tr>
-                                    <td>
-                                        <asp:Label ID="Label10" runat="server" Text="Tipo de Cambio"></asp:Label></td>
-                                    <td>
-                                        <asp:TextBox ID="Tv_Exchange" runat="server">19.05</asp:TextBox>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div style="float: right;">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <asp:Button ID="Imprimir" Enabled="false" class="btn btn-primary" runat="server" Text="Imprimir" />
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
-                                        <asp:Button ID="Guardar" class="btn btn-primary" runat="server" Text="Guardar" />
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
-                                        <asp:Button ID="Versionar" class="btn btn-primary" runat="server" Text="Versionar" />
+            <div class="well well-lg" style="margin-top: 32px">
+                <table style="width: 100%">
+                    <tr>
 
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
-                                        <asp:Button ID="Cotizar" class="btn btn-primary" Enabled="false" runat="server" Text="Cotizar" />
+                        <td colspan="4">
+                            <div style="float: left;">
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td>
+                                            <asp:Label ID="Label10" runat="server" Text="Tipo de Cambio"></asp:Label></td>
+                                        <td>
+                                            <asp:TextBox ID="Tv_Exchange"  runat="server">19.05</asp:TextBox>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div style="float: right;">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <asp:Button ID="BtnRecalcular" class="btn btn-success" runat="server" Text="Recalcular" />
+                                        </td>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            <asp:Button ID="Imprimir" class="btn btn-default" runat="server" Text="Imprimir" />
+                                        </td>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            <asp:Button ID="Guardar" class="btn btn-primary" runat="server" Text="Guardar" />
+                                        </td>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            <asp:Button ID="Versionar" class="btn btn-primary" runat="server" Text="Versionar" />
 
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
-                                        <asp:Button ID="Regresar" class="btn btn-primary" runat="server" Text="Regresar" />
+                                        </td>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            <asp:Button ID="Cotizar" class="btn btn-default" runat="server" Text="Cotizar" />
 
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
+                                        </td>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            <asp:Button ID="Regresar" class="btn btn-primary" runat="server" Text="Regresar" />
 
-                    </td>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
 
-                </tr>
-            </table>
-            <br />
-            <asp:GridView class="table" ID="GridSummary" Width="100%" AutoGenerateColumns="False" runat="server">
-                <Columns>
-                    <asp:BoundField ItemStyle-Width="10%" HeaderText="No Articulo" DataField="SkuComponente" />
-                    <asp:BoundField ItemStyle-Width="70%" HeaderText="Articulo" DataField="ITEMDESC" />
-                    <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo" DataField="RESULT" />
-                    <asp:TemplateField ItemStyle-Width="10%" HeaderText="Margen">
-                        <ItemTemplate>
-                            <asp:TextBox ID="TVMargin" Text='<%# Bind("Margin") %>' runat="server"></asp:TextBox>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField ItemStyle-Width="10%" HeaderText="Cantidad">
-                        <ItemTemplate>
-                            <asp:TextBox ID="TBQuantity" Text='<%# Bind("QUANTITY_I") %>' runat="server"></asp:TextBox>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
-            </asp:GridView>
-            <%-- <table>
-                <tr>
-                    <td colspan="4"></td>
-                </tr>
-                <tr>
-                    <td style="width: 10%"><b>No Articulo</b></td>
-                    <td style="width: 70%"><b>Articulo</b></td>
-                    <td style="width: 10%"><b>Costo</b></td>
-                    <td style="width: 10%"><b>Cantidad</b></td>
-                </tr>
-                <tr>
-                    <td>2-PS-E324-RH</td>
-                    <td>PAQUETE INSTALACION CALENTADOR 3/4</td>
-                    <td>$467.59</td>
-                    <td>
-                        <asp:TextBox ID="TextBox8" runat="server">1</asp:TextBox></td>
-                </tr>
-                <tr>
-                    <td>1-B1-30-A</td>
-                    <td>PB FAUCET CONNECTOR 3/8 COMP X 1/2 FIP</td>
-                    <td>$23.99</td>
-                    <td>
-                        <asp:TextBox ID="TextBox9" runat="server">1</asp:TextBox></td>
-                </tr>
-                <tr>
-                    <td>1-AB-Q60</td>
-                    <td>ROTOPLAS ACERO BOILER, PVC, 1/2 FIP 3/4 FIP</td>
-                    <td>$46.24</td>
-                    <td>
-                        <asp:TextBox ID="TextBox10" runat="server">1</asp:TextBox></td>
-                </tr>
-                <tr>
-                    <td colspan="4">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td colspan="2" style="text-align: right"><b>Total</b>&nbsp;</td>
-                    <td><b>&nbsp;$537.82</b></td>
-                    <td><b>3</b></td>
-                </tr>
-            </table>--%>
+                        </td>
+
+                    </tr>
+                </table>
+                <br />
+                <asp:GridView class="table" ID="GridSummary" Width="100%" AutoGenerateColumns="False" runat="server" ShowFooter="True">
+                    <Columns>
+                        <asp:BoundField ItemStyle-Width="20%" HeaderText="Sku" DataField="SkuComponente" />
+                        <asp:BoundField ItemStyle-Width="50%" HeaderText="Descripción" DataField="ITEMDESC" />
+                        <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo Unitario (Sin Modificar)" DataField="RESULT" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.0000}" HtmlEncode="False"/>
+                        <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo Unitario" DataField="UnitaryCost" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.0000}" HtmlEncode="False"/>
+                        <asp:BoundField ItemStyle-Width="10%" HeaderText="Unidad de Medida" DataField="UOFM" />
+                        
+                        <asp:TemplateField ItemStyle-Width="10%" HeaderText="Cantidad">
+                            <ItemTemplate>
+                                <asp:TextBox ID="TBQuantity" Text='<%# Bind("QUANTITY_I") %>' runat="server"></asp:TextBox>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        
+                        <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo Cotización" DataField="FinalCost" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.0000}" HtmlEncode="False"/>
+                        
+                        <asp:TemplateField ItemStyle-Width="10%" HeaderText="Margen (%)">
+                            <ItemTemplate>
+                                <asp:TextBox ID="TVMargin" Text='<%# Bind("Margin") %>' runat="server"></asp:TextBox>
+                            </ItemTemplate>
+
+                        </asp:TemplateField>
+                        <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo Total" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.0000}" HtmlEncode="False" >
+                        </asp:BoundField >
+                    </Columns>
+                    <HeaderStyle BackColor="#C0C0C0" />
+                    <FooterStyle BackColor="#C0C0C0" />
+                </asp:GridView>
+            </div>
+
+
+
         </asp:View>
         <asp:View ID="View3" runat="server">
             <table style="width: 100%">
