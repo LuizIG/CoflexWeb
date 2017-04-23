@@ -44,7 +44,6 @@
                                             </asp:DropDownList>
                                         </td>
                                         <td rowspan="2" style="vertical-align: bottom;">
-
                                             <asp:Button ID="Button2" class="btn btn-primary" runat="server" Text="Agregar" />
                                         </td>
                                     </tr>
