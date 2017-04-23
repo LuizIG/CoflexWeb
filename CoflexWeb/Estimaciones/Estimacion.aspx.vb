@@ -12,6 +12,7 @@ Public Class Estimacion
         If Not IsPostBack Then
             MyBase.Page_Load(sender, e)
             Session.Remove("treeView")
+            Session.Remove("Margin")
             Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.COMPONENT,, Session("access_token"))
             Dim o = JObject.Parse(jsonResponse)
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
@@ -67,8 +68,18 @@ Public Class Estimacion
                     Dim items = detail.GetValue("Items").Value(Of JArray)
 
                     Dim Table As DataTable
+                    Dim TableMargin As New DataTable
+
+                    TableMargin.Columns.Add("sku", GetType(String))
+                    TableMargin.Columns.Add("margin", GetType(Double))
 
                     For Each item As JObject In items
+
+                        Dim rowMargin = TableMargin.NewRow
+                        rowMargin("sku") = item.GetValue("Sku").Value(Of String)
+                        rowMargin("margin") = item.GetValue("ProfitMargin").Value(Of Double)
+                        TableMargin.Rows.Add(rowMargin)
+
                         Dim itemComponents = item.GetValue("ItemsComponents").Value(Of JArray)
                         Dim arrayConParent As New JArray
                         For Each itemComponent As JObject In itemComponents
@@ -154,6 +165,8 @@ Public Class Estimacion
 
                     Next
 
+                    Session("Margin") = TableMargin
+
 
                 End If
             Else
@@ -180,9 +193,36 @@ Public Class Estimacion
             Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
             dv.RowFilter = "Nivel1 = 0 and Nivel2 = 0 and Nivel3 = 0"
 
+            Dim VersionId As String = Request.QueryString("v")
+            If (VersionId IsNot Nothing) Then
+                'Ir por el margen
+
+                If Not dv.Table.Columns.Contains("Margin") Then
+                    dv.Table.Columns.Add("Margin", GetType(Double))
+                End If
+
+                Dim dvMargin As New DataView(DirectCast(Session("Margin"), DataTable))
+
+                For Each row In dv
+                    dvMargin.RowFilter = "sku = '" & row("SkuArticulo") & "'"
+                    If dvMargin.Count > 0 Then
+                        row("Margin") = dvMargin(0)("margin") * 100
+                    Else
+                        row("Margin") = 0.35 * 100
+                    End If
+                Next
+
+            Else
+                dv.Table.Columns.Add("Margin", GetType(Double))
+                For Each row In dv
+                    row("Margin") = 0.35 * 100
+                Next
+
+            End If
+
             Me.GridSummary.DataSource = dv.ToTable
-            Me.GridSummary.DataBind()
-        End If
+                Me.GridSummary.DataBind()
+            End If
     End Sub
 
     Protected Sub Regresar_Click(sender As Object, e As EventArgs) Handles Regresar.Click
@@ -735,30 +775,55 @@ Public Class Estimacion
     Private Function CreateItems() As JArray
         Dim ItemArray As New JArray
         Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
+
+        Dim dvNew As New DataView(DirectCast(GridSummary.DataSource, DataTable))
+
         dv.RowFilter = "Nivel1 = 0 and Nivel2 = 0 and Nivel3 = 0"
         For Each reng As DataRowView In dv
             Dim Item As New JObject
             Dim sku As String = reng("SkuArticulo")
+
+            Dim row
+
+            For Each gridRow In GridSummary.Rows
+
+                If gridRow.Cells(0).Text = sku Then
+                    row = gridRow
+                End If
+
+            Next
+
+            Dim TBCantidad As TextBox = TryCast(row.FindControl("TBQuantity"), TextBox)
+            Dim TBMargin As TextBox = TryCast(row.FindControl("TVMargin"), TextBox)
+
             Item.Add("Sku", sku)
             Item.Add("ItemDescription", reng("ITEMDESC").ToString)
-            Item.Add("Quantity", CDbl(reng("QUANTITY_I").ToString))
+            Item.Add("Quantity", CDbl(TBCantidad.Text))
             Item.Add("UM", reng("UOFM").ToString)
             Item.Add("Status", 0)
-            Item.Add("ItemsComponents", CreateItemComponents(sku))
+            Item.Add("ProfitMargin", CDbl(TBMargin.Text) / 100)
+            Item.Add("ItemsComponents", CreateItemComponents(sku, TBCantidad.Text))
             ItemArray.Add(Item)
         Next
         Return ItemArray
     End Function
 
-    Private Function CreateItemComponents(ByVal itemSku As String) As JArray
+    Private Function CreateItemComponents(ByVal itemSku As String, ByVal cant As String) As JArray
         Dim ItemComponentsArray As New JArray
         Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
         dv.RowFilter = "SkuArticulo = '" & itemSku & "'"
         For Each reng As DataRowView In dv
             Dim Item As New JObject
+
+            If CInt(reng("Nivel1").ToString) = 0 And CInt(reng("Nivel2").ToString) = 0 And CInt(reng("Nivel3").ToString) = 0 Then
+                Item.Add("Quantity", CDbl(cant))
+            Else
+                Item.Add("Quantity", CDbl(reng("QUANTITY_I").ToString))
+            End If
+
             Item.Add("SkuComponent", reng("SkuComponente").ToString)
             Item.Add("ItemDescription", reng("ITEMDESC").ToString)
-            Item.Add("Quantity", CDbl(reng("QUANTITY_I").ToString))
+
             Item.Add("UM", reng("UOFM").ToString)
             Item.Add("StndCost", CDbl(IIf(reng("STNDCOST").ToString Is Nothing Or reng("STNDCOST").ToString = "", "0", reng("STNDCOST").ToString)))
             Item.Add("CurrCost", CDbl(IIf(reng("CURRCOST").ToString Is Nothing Or reng("STNDCOST").ToString = "", "0", reng("CURRCOST").ToString)))
@@ -766,7 +831,9 @@ Public Class Estimacion
             Item.Add("Lvl1", CInt(reng("Nivel1").ToString))
             Item.Add("Lvl2", CInt(reng("Nivel2").ToString))
             Item.Add("Lvl3", CInt(reng("Nivel3").ToString))
-            Item.Add("Status", 0)
+            Item.Add("RACost", CInt(reng("RACost").ToString))
+            Item.Add("RBCost", CInt(reng("RBCost").ToString))
+            Item.Add("FinalCost", CDbl(reng("FinalCost").ToString))
             ItemComponentsArray.Add(Item)
         Next
         Return ItemComponentsArray

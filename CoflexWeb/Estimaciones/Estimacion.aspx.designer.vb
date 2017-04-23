@@ -147,28 +147,18 @@ Partial Public Class Estimacion
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents Button7 As Global.System.Web.UI.WebControls.Button
-
-
+    
     '''<summary>
-    '''Control Label10.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents Label10 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Button5 control.
+    '''Control Button5.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents Button5 As Global.System.Web.UI.WebControls.Button
-
+    
     '''<summary>
-    '''Button4 control.
+    '''Control Button4.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
@@ -384,26 +374,25 @@ Partial Public Class Estimacion
     Protected WithEvents View2 As Global.System.Web.UI.WebControls.View
     
     '''<summary>
-    '''Control TextBox11.
+    '''Control Label10.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents TextBox11 As Global.System.Web.UI.WebControls.TextBox
-
-
+    Protected WithEvents Label10 As Global.System.Web.UI.WebControls.Label
+    
     '''<summary>
-    '''Tv_Exchange control.
+    '''Control Tv_Exchange.
     '''</summary>
     '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents Tv_Exchange As Global.System.Web.UI.WebControls.TextBox
-
+    
     '''<summary>
-    '''Imprimir control.
+    '''Control Imprimir.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
