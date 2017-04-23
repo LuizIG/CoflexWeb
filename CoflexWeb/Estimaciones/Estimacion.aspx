@@ -40,11 +40,10 @@
                                             <asp:Label ID="Label9" runat="server" Text="Cliente"></asp:Label>&nbsp;
                                         </td>
                                         <td>
-                                            <asp:DropDownList ID="DDCliente" Width="100%" runat="server">
+                                            <asp:DropDownList ID="DDCliente" Width="100%" runat="server" AutoPostBack="True" >
                                             </asp:DropDownList>
                                         </td>
                                         <td rowspan="2" style="vertical-align: bottom;">
-
                                             <asp:Button ID="Button2" class="btn btn-primary" runat="server" Text="Agregar" />
                                         </td>
                                     </tr>
@@ -53,14 +52,7 @@
                                             <asp:Label ID="Label8" runat="server" Text="Articulo"></asp:Label>&nbsp;
                                         </td>
                                         <td>
-                                            <asp:DropDownList ID="DDArticulo" Width="100%" runat="server">
-                                                <asp:ListItem>2-PS-E324-RH</asp:ListItem>
-                                                <asp:ListItem>1-AB-Q60</asp:ListItem>
-                                                <asp:ListItem>1-AB-H80</asp:ListItem>
-                                                <asp:ListItem>1-AB-H80-SE</asp:ListItem>
-                                                <asp:ListItem>1-AG-S90-RH</asp:ListItem>
-                                            </asp:DropDownList>
-
+                                            <asp:DropDownList ID="DDArticulo" Width="100%" runat="server"></asp:DropDownList>
                                         </td>
                                     </tr>
 
@@ -242,13 +234,6 @@
 
                     <td colspan="4">
                         <div style="float: left;">
-                            <table>
-                                <tr>
-                                    <td>Margen</td>
-                                    <td>
-                                        <asp:TextBox ID="TextBox11" runat="server"></asp:TextBox></td>
-                                </tr>
-                            </table>
                             <table style="width: 50%">
                                 <tr>
                                     <td>
@@ -293,15 +278,19 @@
                 </tr>
             </table>
             <br />
-            <asp:GridView ID="GridSummary" Width="100%" AutoGenerateColumns="False" runat="server">
+            <asp:GridView class="table" ID="GridSummary" Width="100%" AutoGenerateColumns="False" runat="server">
                 <Columns>
                     <asp:BoundField ItemStyle-Width="10%" HeaderText="No Articulo" DataField="SkuComponente" />
                     <asp:BoundField ItemStyle-Width="70%" HeaderText="Articulo" DataField="ITEMDESC" />
                     <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo" DataField="RESULT" />
+                    <asp:TemplateField ItemStyle-Width="10%" HeaderText="Margen">
+                        <ItemTemplate>
+                            <asp:TextBox ID="TVMargin" Text='<%# Bind("Margin") %>' runat="server"></asp:TextBox>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:TemplateField ItemStyle-Width="10%" HeaderText="Cantidad">
                         <ItemTemplate>
                             <asp:TextBox ID="TBQuantity" Text='<%# Bind("QUANTITY_I") %>' runat="server"></asp:TextBox>
-                            <%--<asp:CheckBox ID="chkSelect" Name="chkSelect" runat="server" />--%>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>

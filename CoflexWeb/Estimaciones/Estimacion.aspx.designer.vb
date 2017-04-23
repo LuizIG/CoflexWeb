@@ -365,15 +365,6 @@ Partial Public Class Estimacion
     Protected WithEvents View2 As Global.System.Web.UI.WebControls.View
     
     '''<summary>
-    '''TextBox11 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents TextBox11 As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
     '''Label10 control.
     '''</summary>
     '''<remarks>
