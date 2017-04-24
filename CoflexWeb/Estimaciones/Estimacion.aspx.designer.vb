@@ -392,6 +392,33 @@ Partial Public Class Estimacion
     Protected WithEvents View2 As Global.System.Web.UI.WebControls.View
 
     '''<summary>
+    '''status_actual control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents status_actual As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''DDEstatus control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents DDEstatus As Global.System.Web.UI.HtmlControls.HtmlSelect
+
+    '''<summary>
+    '''BTN_ACEPTAR_1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents BTN_ACEPTAR_1 As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''Label10 control.
     '''</summary>
     '''<remarks>
