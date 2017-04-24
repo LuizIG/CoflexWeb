@@ -33,10 +33,15 @@
             <div class="well well-lg">
 
                 <table style="border-style: solid; border-color: #C0C0C0; width: 100%; align-items: center">
-                    <tr>
-                        <td style="width: 30%; text-align: center">
-                            <div style="width: 100%">
-                                <table style="width: 100%">
+                    <tr style="vertical-align: top;">
+                        <td style="width: 30%; text-align: center;vertical-align:top;">
+                            <div style="width: 100%; vertical-align: top;">
+                                <table style="width: 100%;">
+                                    <tr style="background-color: #C0C0C0">
+                                        <td colspan="3" style="text-align:left;"><b>
+                                            &nbsp;<asp:Label ID="Label20" runat="server" Text="Articulos"></asp:Label>
+                                            </b>&nbsp;</td>
+                                    </tr>
                                     <tr>
                                         <td>
                                             <asp:Label ID="Label9" runat="server" Text="Cliente"></asp:Label>&nbsp;
@@ -61,9 +66,14 @@
                                 </table>
                             </div>
                         </td>
-                        <td style="width: 30%; text-align: center;">
-                            <div style="width: 100%">
-                                <table style="width: 100%">
+                        <td style="width: 30%; text-align: center; vertical-align:top;">
+                            <div style="width: 100%; vertical-align: top;">
+                                <table style="width: 100%; height:100%; vertical-align: top;">
+                                     <tr  style="background-color: #C0C0C0">
+                                        <td colspan="3" style="text-align:left;"><b>
+                                            &nbsp;<asp:Label ID="Label21" runat="server" Text="Componentes"></asp:Label>
+                                            </b>&nbsp;</td>
+                                    </tr>
                                     <tr style="vertical-align: central;">
                                         <td>
                                             <asp:Label ID="Label11" runat="server" Text="Componente"></asp:Label>&nbsp;
@@ -81,9 +91,14 @@
 
                             </div>
                         </td>
-                        <td style="border-right-style: solid; border-color: #C0C0C0; width: 30%; text-align: center; vertical-align: middle">
-                            <div style="width: 100%">
-                                <table style="width: 100%">
+                        <td style="border-right-style: solid; border-color: #C0C0C0; width: 30%; text-align: center; vertical-align: top">
+                            <div style="width: 100%; vertical-align: top;">
+                                <table style="width: 100%; height:100%; vertical-align: top;">
+                                     <tr  style="background-color: #C0C0C0">
+                                        <td colspan="4" style="text-align:left;"><b>
+                                            &nbsp;<asp:Label ID="Label22" runat="server" Text="Elemento"></asp:Label>
+                                            </b>&nbsp;</td>
+                                    </tr>
                                     <tr>
                                         <td>
                                             <asp:Label ID="Label12" runat="server" Text="Elemento"></asp:Label>&nbsp;
@@ -132,7 +147,7 @@
                         <tr>
                             <td style="vertical-align: top; width: 50%; height: 100%; border-style: outset;">
                                 <div style="vertical-align: top; height: 90%; width: 98%">
-                                    <asp:TreeView ID="TreeView1" Width="90%" ShowCheckBoxes="All" ShowExpandCollapse="true" runat="server" ImageSet="Simple">
+                                    <asp:TreeView ID="TreeView1" Width="90%" ShowCheckBoxes="All" ShowExpandCollapse="true" runat="server" ImageSet="Simple" Height="273px">
                                         <HoverNodeStyle Font-Underline="True" ForeColor="#5555DD" />
                                         <NodeStyle Font-Names="Tahoma" Font-Size="10pt" ForeColor="Black" HorizontalPadding="0px" NodeSpacing="0px" VerticalPadding="0px" />
                                         <ParentNodeStyle Font-Bold="False" />

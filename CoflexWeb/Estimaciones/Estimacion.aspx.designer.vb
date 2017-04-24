@@ -50,6 +50,15 @@ Partial Public Class Estimacion
     Protected WithEvents div_Response As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
+    '''Label20 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label20 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Label9 control.
     '''</summary>
     '''<remarks>
@@ -95,6 +104,15 @@ Partial Public Class Estimacion
     Protected WithEvents DDArticulo As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''Label21 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label21 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Label11 control.
     '''</summary>
     '''<remarks>
@@ -120,6 +138,15 @@ Partial Public Class Estimacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Button3 As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''Label22 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label22 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Label12 control.
