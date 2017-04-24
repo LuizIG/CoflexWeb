@@ -40,7 +40,7 @@
                                             <asp:Label ID="Label9" runat="server" Text="Cliente"></asp:Label>&nbsp;
                                         </td>
                                         <td>
-                                            <asp:DropDownList ID="DDCliente" Width="100%" runat="server" AutoPostBack="True" >
+                                            <asp:DropDownList ID="DDCliente" Width="100%" runat="server" AutoPostBack="True">
                                             </asp:DropDownList>
                                         </td>
                                         <td rowspan="2" style="vertical-align: bottom;">
@@ -197,19 +197,35 @@
                                                 <asp:TextBox ID="TextBox4" Enabled="false" runat="server"></asp:TextBox>
                                             </td>
                                         </tr>
-                                        
+
                                         <tr>
                                             <td>
-                                                <asp:Label ID="Label13" runat="server" Text="Tipo de Costo"></asp:Label>&nbsp;</td>
-                                            <td>
-                                                <asp:RadioButton ID="RadioButton1" GroupName="tipoCosto" runat="server" />&nbsp;<asp:Label ID="Label16" runat="server" Text="Costo Estandar"></asp:Label>&nbsp;<asp:TextBox ID="TextBox5" Enabled="false" runat="server"></asp:TextBox>&nbsp;<br />
-                                                <asp:RadioButton ID="RadioButton2" GroupName="tipoCosto" runat="server" />&nbsp;<asp:Label ID="Label19" runat="server" Text="Costo Actual"></asp:Label>&nbsp;<asp:TextBox ID="TextBox7" Enabled="false" runat="server"></asp:TextBox>&nbsp;
-                                            </td>
+                                                <asp:Label ID="Label13" runat="server" Text="Costo Estandar"></asp:Label>&nbsp;</td>
+                                            <td colspan="2">
+                                                <asp:TextBox ID="TextBox5" Enabled="false" runat="server"></asp:TextBox>&nbsp;
+                                           <asp:RadioButton ID="RadioButton1" GroupName="tipoCosto" runat="server" />&nbsp;</td>
                                             <td>&nbsp;</td>
-                                            <td style="text-align: right">
-                                                </td>
                                         </tr>
-                                        <tr><td colspan="4">&nbsp;</td></tr>
+                                        <tr>
+                                            <td>
+                                                <asp:Label ID="Label19" runat="server" Text="Costo Actual"></asp:Label></td>
+                                            <td colspan="2">
+                                                <asp:TextBox ID="TextBox7" Enabled="false" runat="server"></asp:TextBox>&nbsp;
+                                                <asp:RadioButton ID="RadioButton2" GroupName="tipoCosto" runat="server" />&nbsp;</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <asp:Label ID="Label6" runat="server" Visible="false"  Text="Costo Mixto"></asp:Label>&nbsp;</td>
+                                            <td colspan="2">
+                                                <asp:TextBox ID="TextBox8" Enabled="false" Visible="false"  runat="server"></asp:TextBox>&nbsp;
+                                            <asp:RadioButton ID="RadioButton3" Enabled="false" Visible="false"  GroupName="tipoCosto" runat="server" />&nbsp;
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4">&nbsp;</td>
+                                        </tr>
                                         <tr>
                                             <td>
                                                 <asp:Label ID="Label7" runat="server" Text="Costo Estimacion"></asp:Label>&nbsp
@@ -218,7 +234,8 @@
                                                 <asp:TextBox ID="TextBox6" Enabled="false" runat="server"></asp:TextBox>
                                             </td>
                                             <td>&nbsp;</td>
-                                            <td><asp:Button ID="Button1" class="btn btn-primary" runat="server" Text="Actualizar" />&nbsp;</td>
+                                            <td>
+                                                <asp:Button ID="Button1" class="btn btn-primary" runat="server" Text="Actualizar" />&nbsp;</td>
                                         </tr>
                                     </table>
                                 </div>
