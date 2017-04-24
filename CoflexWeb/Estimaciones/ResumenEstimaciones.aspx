@@ -14,6 +14,7 @@
             <asp:BoundField DataField="QStatus" HeaderText="Estatus Cotización" />
             <asp:BoundField DataField="VersionNumber" HeaderText="Versión" />
             <asp:BoundField DataField="Date" HtmlEncode="False" HeaderText="Fecha" />
+            <asp:BoundField DataField="VStatus" HtmlEncode="False" HeaderText="Estatus Versión" />
             <asp:BoundField DataField="ActionEdit" HeaderText="" HtmlEncode="False" />
             </Columns>
         <HeaderStyle BackColor="#C0C0C0" />

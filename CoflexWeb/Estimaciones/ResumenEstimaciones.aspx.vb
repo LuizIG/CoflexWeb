@@ -29,8 +29,30 @@ Public Class ResumenEstimaciones
                             Case 2
                                 Version.Add("QStatus", "Cancelada")
                         End Select
+                        Select Case Version.GetValue("Status").Value(Of Integer)
+                            Case 0
+                                Version.Add("VStatus", "Abierta")
+                            Case 1
+                                Version.Add("VStatus", "Propuesta Cerrada")
+                            Case 2
+                                Version.Add("VStatus", "Propuesta Descartada")
+                            Case 3
+                                Version.Add("VStatus", "Aceptada")
+                        End Select
                         Version.Add("User", UserName)
-                        Version.Add("ActionEdit", "<a href='Estimacion.aspx?q=" & Version.GetValue("QuotationsId").Value(Of Integer) & "&v=" & Version.GetValue("Id").Value(Of Integer) & "' class='btn btn-primary' role='button'>Editar</a>")
+
+                        Select Case Version.GetValue("Status").Value(Of Integer)
+                            Case 0
+                                Version.Add("ActionEdit", "<a href='Estimacion.aspx?q=" & Version.GetValue("QuotationsId").Value(Of Integer) & "&v=" & Version.GetValue("Id").Value(Of Integer) & "' class='btn btn-primary' role='button'>Editar</a>")
+                            Case 1
+                                Version.Add("ActionEdit", "<a href='Estimacion.aspx?q=" & Version.GetValue("QuotationsId").Value(Of Integer) & "&v=" & Version.GetValue("Id").Value(Of Integer) & "' class='btn btn-primary' role='button'>Ver</a>")
+                            Case 2
+                                Version.Add("ActionEdit", "<a href='Estimacion.aspx?q=" & Version.GetValue("QuotationsId").Value(Of Integer) & "&v=" & Version.GetValue("Id").Value(Of Integer) & "' class='btn btn-primary' role='button'>Ver</a>")
+                            Case 3
+                                Version.Add("ActionEdit", "<a href='Estimacion.aspx?q=" & Version.GetValue("QuotationsId").Value(Of Integer) & "&v=" & Version.GetValue("Id").Value(Of Integer) & "' class='btn btn-primary' role='button'>Ver</a>")
+                        End Select
+
+
                         arrayLimpio.Add(Version)
                     Next
                 Next
@@ -47,13 +69,15 @@ Public Class ResumenEstimaciones
             Dim previousRow As GridViewRow = GridUsers.Rows(i - 1)
             For j As Integer = 0 To row.Cells.Count - 1
                 If row.Cells(j).Text = previousRow.Cells(j).Text And row.Cells(0).Text = previousRow.Cells(0).Text Then
-                    If previousRow.Cells(j).RowSpan = 0 Then
-                        If row.Cells(j).RowSpan = 0 Then
-                            previousRow.Cells(j).RowSpan += 2
-                        Else
-                            previousRow.Cells(j).RowSpan = row.Cells(j).RowSpan + 1
+                    If (j <> 6) Then
+                        If previousRow.Cells(j).RowSpan = 0 Then
+                            If row.Cells(j).RowSpan = 0 Then
+                                previousRow.Cells(j).RowSpan += 2
+                            Else
+                                previousRow.Cells(j).RowSpan = row.Cells(j).RowSpan + 1
+                            End If
+                            row.Cells(j).Visible = False
                         End If
-                        row.Cells(j).Visible = False
                     End If
                 End If
             Next
