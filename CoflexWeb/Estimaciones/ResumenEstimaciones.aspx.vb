@@ -44,6 +44,9 @@ Public Class ResumenEstimaciones
                             Case 3
                                 Version.Add("VStatus", "Aceptada")
                                 Version.Add("ActionEdit", "<a href='Estimacion.aspx?q=" & Version.GetValue("QuotationsId").Value(Of Integer) & "&v=" & Version.GetValue("Id").Value(Of Integer) & "' class='btn btn-primary' role='button'>Ver</a>")
+                            Case 4
+                                Version.Add("VStatus", "Cancelada")
+                                Version.Add("ActionEdit", "<a href='Estimacion.aspx?q=" & Version.GetValue("QuotationsId").Value(Of Integer) & "&v=" & Version.GetValue("Id").Value(Of Integer) & "' class='btn btn-primary' role='button'>Ver</a>")
                         End Select
 
                         arrayLimpio.Add(Version)

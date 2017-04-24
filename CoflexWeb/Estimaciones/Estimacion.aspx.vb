@@ -269,7 +269,10 @@ Public Class Estimacion
                 Next
 
             Else
-                dv.Table.Columns.Add("Margin", GetType(Double))
+
+                If Not dv.Table.Columns.Contains("Margin") Then
+                    dv.Table.Columns.Add("Margin", GetType(Double))
+                End If
                 For Each row In dv
                     row("Margin") = 0.35 * 100
                     row("UnitaryCost") = CDbl(row("FinalCost")) / CDbl(row("QUANTITY_I"))
@@ -1187,11 +1190,12 @@ Public Class Estimacion
             Suma += costoUnitario * cantidad * (1 + (margen / 100))
             SumaCotizacion += costoUnitario * cantidad
             SumaMargen += (costoUnitario * cantidad * (1 + (margen / 100)) - costoUnitario * cantidad)
-
+            e.Row.Cells(9).Text = FormatCurrency((costoUnitario * cantidad * (1 + (margen / 100))) / CDbl(Tv_Exchange.Text))
         ElseIf (e.Row.RowType = DataControlRowType.Footer) Then
             e.Row.Cells(6).Text = FormatCurrency(SumaCotizacion)
             e.Row.Cells(7).Text = "Margen de Ganancia: " & FormatCurrency(SumaMargen)
             e.Row.Cells(8).Text = "Total: " & FormatCurrency(Suma)
+            e.Row.Cells(9).Text = "Total: " & FormatCurrency(Suma / CDbl(Tv_Exchange.Text))
         End If
     End Sub
 
@@ -1219,9 +1223,13 @@ Public Class Estimacion
     Private Sub btn_accept_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR_1.Click
         Dim idQuotation = Request.QueryString("v")
         If idQuotation IsNot Nothing Then
-
             Dim STATUS = DDEstatus.Items(DDEstatus.SelectedIndex).Value
-            Dim response = doPutRequest(QUOTATIONS_VERSION & "/" & idQuotation & "?status=" & STATUS, "",, Session("access_token"))
+            Dim response = doPatchRequest(QUOTATIONS_VERSION & "/" & idQuotation & "?status=" & STATUS, "",, Session("access_token"))
+            Dim o = JObject.Parse(response)
+            Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+            If (statusCode >= 200 And statusCode < 400) Then
+                Me.Status = CInt(STATUS)
+            End If
         End If
     End Sub
 End Class

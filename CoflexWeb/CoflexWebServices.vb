@@ -57,6 +57,12 @@ Namespace CoflexWeb.Services.Web
             Return getData(request)
         End Function
 
+        Public Function doPatchRequest(url As String, data As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As String
+            Dim request = createRequest(SERVER_HOST & url, "PATCH", contentType, token)
+            sendData(request, data)
+            Return getData(request)
+        End Function
+
         Private Function createRequest(ByVal url As String, ByVal method As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As WebRequest
             Console.WriteLine(url)
             Dim request As WebRequest = WebRequest.Create(url)
