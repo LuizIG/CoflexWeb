@@ -615,6 +615,16 @@ Public Class Estimacion
         Dim dv As New DataView(Table)
         dv.RowFilter = "Id = " & Split(scTreeView, "|")(0) & " and SkuComponente = '" & Split(scTreeView, "|")(2) & "'"
 
+        If Split(scTreeView, "|")(1) = 0 Then
+            Me.Label6.Visible = True
+            Me.TextBox8.Visible = True
+            Me.RadioButton3.Visible = True
+        Else
+            Me.Label6.Visible = False
+            Me.TextBox8.Visible = False
+            Me.RadioButton3.Visible = False
+        End If
+
         For Each reng As DataRowView In dv
             Me.TextBox1.Text = reng("SkuArticulo")
             Me.TextBox2.Text = reng("SkuComponente")
@@ -724,7 +734,7 @@ Public Class Estimacion
                     Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and Nivel2 = " & dr("Nivel2") & " and Nivel3 > 0 and SkuArticulo = '" & dr("SkuArticulo") & "'")
                     Dim Suma As Double = 0
                     For Each dr2 As DataRow In rows2
-                        Suma += dr2("Result")
+                        Suma += dr2("Result") * dr2("QUANTITY_I")
                     Next
                     dr3("Result") = Suma
                 Next
@@ -738,7 +748,7 @@ Public Class Estimacion
                     Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and Nivel2 > 0 and Nivel3 = 0 and SkuArticulo = '" & dr("SkuArticulo") & "'")
                     Dim Suma As Double = 0
                     For Each dr2 As DataRow In rows2
-                        Suma += dr2("Result")
+                        Suma += dr2("Result") * dr2("QUANTITY_I")
                     Next
                     dr3("Result") = Suma
                 Next
