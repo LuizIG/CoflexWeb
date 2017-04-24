@@ -345,6 +345,11 @@
                         </td>
 
                     </tr>
+                    <tr>
+
+                        <div id="margen_ganancia" runat="server"></div>
+                    </tr>
+
                 </table>
                 <br />
                 <asp:GridView class="table" ID="GridSummary" Width="100%" AutoGenerateColumns="False" runat="server" ShowFooter="True">

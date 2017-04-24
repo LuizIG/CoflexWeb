@@ -1244,9 +1244,11 @@ Public Class Estimacion
             e.Row.Cells(9).Text = FormatCurrency((costoUnitario * cantidad * (1 + (margen / 100))) / CDbl(Tv_Exchange.Text))
         ElseIf (e.Row.RowType = DataControlRowType.Footer) Then
             e.Row.Cells(6).Text = FormatCurrency(SumaCotizacion)
-            e.Row.Cells(7).Text = "Margen de Ganancia: " & FormatCurrency(SumaMargen)
-            e.Row.Cells(8).Text = "Total: " & FormatCurrency(Suma)
-            e.Row.Cells(9).Text = "Total: " & FormatCurrency(Suma / CDbl(Tv_Exchange.Text))
+
+            margen_ganancia.InnerHtml = "<h4>Margen de Ganancia: " & FormatCurrency(SumaMargen) & "</h4>"
+
+            e.Row.Cells(8).Text = FormatCurrency(Suma)
+            e.Row.Cells(9).Text = FormatCurrency(Suma / CDbl(Tv_Exchange.Text))
         End If
     End Sub
 
