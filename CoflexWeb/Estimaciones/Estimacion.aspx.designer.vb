@@ -158,15 +158,6 @@ Partial Public Class Estimacion
     Protected WithEvents Button5 As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''Button4 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Button4 As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
     '''TreeView1 control.
     '''</summary>
     '''<remarks>
@@ -174,6 +165,15 @@ Partial Public Class Estimacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents TreeView1 As Global.System.Web.UI.WebControls.TreeView
+
+    '''<summary>
+    '''Button4 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Button4 As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''Label1 control.
@@ -266,6 +266,15 @@ Partial Public Class Estimacion
     Protected WithEvents TextBox4 As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''Label16 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label16 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Label13 control.
     '''</summary>
     '''<remarks>
@@ -273,15 +282,6 @@ Partial Public Class Estimacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Label13 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''TextBox5 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents TextBox5 As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''RadioButton1 control.
@@ -293,6 +293,15 @@ Partial Public Class Estimacion
     Protected WithEvents RadioButton1 As Global.System.Web.UI.WebControls.RadioButton
 
     '''<summary>
+    '''TextBox5 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents TextBox5 As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
     '''Label19 control.
     '''</summary>
     '''<remarks>
@@ -300,15 +309,6 @@ Partial Public Class Estimacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Label19 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''TextBox7 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents TextBox7 As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''RadioButton2 control.
@@ -320,6 +320,15 @@ Partial Public Class Estimacion
     Protected WithEvents RadioButton2 As Global.System.Web.UI.WebControls.RadioButton
 
     '''<summary>
+    '''TextBox7 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents TextBox7 As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
     '''Label6 control.
     '''</summary>
     '''<remarks>
@@ -329,15 +338,6 @@ Partial Public Class Estimacion
     Protected WithEvents Label6 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''TextBox8 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents TextBox8 As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
     '''RadioButton3 control.
     '''</summary>
     '''<remarks>
@@ -345,6 +345,15 @@ Partial Public Class Estimacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents RadioButton3 As Global.System.Web.UI.WebControls.RadioButton
+
+    '''<summary>
+    '''TextBox8 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents TextBox8 As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''Label7 control.

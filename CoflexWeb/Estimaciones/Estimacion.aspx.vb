@@ -15,6 +15,7 @@ Public Class Estimacion
         If Not IsPostBack Then
             MyBase.Page_Load(sender, e)
 
+            Me.DDArticulo.Items.Insert(0, "Seleccionar")
 
             Dim r As New Globalization.CultureInfo("es-ES")
             r.NumberFormat.CurrencyDecimalSeparator = "."
@@ -193,8 +194,6 @@ Public Class Estimacion
             '    End If
         End If
     End Sub
-
-
 
     Protected Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
         If Session("treeView") IsNot Nothing Then
@@ -1129,6 +1128,8 @@ Public Class Estimacion
             Me.DDArticulo.DataTextField = "PPN_I"
             Me.DDArticulo.DataBind()
         End If
+
+        Me.DDArticulo.Items.Insert(0, "Seleccionar")
 
     End Sub
 
