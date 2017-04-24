@@ -269,7 +269,9 @@ Public Class Estimacion
                 Next
 
             Else
-                dv.Table.Columns.Add("Margin", GetType(Double))
+                If Not dv.Table.Columns.Contains("Margin") Then
+                    dv.Table.Columns.Add("Margin", GetType(Double))
+                End If
                 For Each row In dv
                     row("Margin") = 0.35 * 100
                     row("UnitaryCost") = CDbl(row("FinalCost")) / CDbl(row("QUANTITY_I"))
@@ -656,6 +658,7 @@ Public Class Estimacion
             Me.Label6.Visible = True
             Me.TextBox8.Visible = True
             Me.RadioButton3.Visible = True
+            Me.TextBox8.Text = 0
         Else
             Me.Label6.Visible = False
             Me.TextBox8.Visible = False
@@ -670,13 +673,20 @@ Public Class Estimacion
             Me.TextBox4.Text = reng("UOFM")
             Me.TextBox7.Text = reng("CURRCOST")
             Me.TextBox5.Text = reng("STNDCOST")
-            Me.TextBox6.Text = reng("RESULT")
-            If reng("RACost") = 1 Then
+            Me.TextBox6.Text = reng("FinalCost")
+            If Math.Round((reng("FinalCost") / reng("QUANTITY_I")), 4) <> reng("STNDCOST") And Math.Round((reng("FinalCost") / reng("QUANTITY_I")), 4) <> reng("CURRCOST") Then
+                Me.TextBox8.Text = (reng("FinalCost") / reng("QUANTITY_I"))
+                Me.RadioButton3.Checked = True
+                Me.RadioButton1.Checked = False
+                Me.RadioButton2.Checked = False
+            ElseIf reng("RACost") = 1 Then
                 Me.RadioButton1.Checked = True
                 Me.RadioButton2.Checked = False
+                Me.RadioButton3.Checked = False
             ElseIf reng("RBCost") = 1 Then
                 Me.RadioButton2.Checked = True
                 Me.RadioButton1.Checked = False
+                Me.RadioButton3.Checked = False
             End If
         Next
 
@@ -756,6 +766,32 @@ Public Class Estimacion
         Montos(Table)
         treeViewTable(Table)
 
+        If Split(scTreeView, "|")(1) = 0 Then
+            Dim scTreeView22 = TreeView1.SelectedNode.Value
+            Dim Table22 As DataTable = DirectCast(Session("treeView"), DataTable)
+            Dim rows22 = Table.[Select]("id = " & Split(scTreeView, "|")(0) & " and SkuComponente = '" & Split(scTreeView, "|")(2) & "'")
+
+
+            For Each reng As DataRow In rows22
+                If Math.Round((reng("FinalCost") / reng("QUANTITY_I")), 4) <> reng("STNDCOST") And Math.Round((reng("FinalCost") / reng("QUANTITY_I")), 4) <> reng("CURRCOST") Then
+                    Me.TextBox8.Text = (reng("FinalCost") / reng("QUANTITY_I"))
+                    Me.RadioButton3.Checked = True
+                    Me.RadioButton1.Checked = False
+                    Me.RadioButton2.Checked = False
+                ElseIf reng("RACost") = 1 Then
+                    Me.RadioButton1.Checked = True
+                    Me.RadioButton2.Checked = False
+                    Me.RadioButton3.Checked = False
+                ElseIf reng("RBCost") = 1 Then
+                    Me.RadioButton2.Checked = True
+                    Me.RadioButton1.Checked = False
+                    Me.RadioButton3.Checked = False
+                End If
+            Next
+
+        End If
+
+
     End Sub
 
     Private Sub Montos(ByVal fDataTable As DataTable)
@@ -771,9 +807,10 @@ Public Class Estimacion
                     Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and Nivel2 = " & dr("Nivel2") & " and Nivel3 > 0 and SkuArticulo = '" & dr("SkuArticulo") & "'")
                     Dim Suma As Double = 0
                     For Each dr2 As DataRow In rows2
-                        Suma += dr2("Result") * dr2("QUANTITY_I")
+                        Suma += dr2("Result")
                     Next
                     dr3("Result") = Suma
+                    dr3("FinalCost") = Suma
                 Next
             End If
 
@@ -785,9 +822,10 @@ Public Class Estimacion
                     Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and Nivel2 > 0 and Nivel3 = 0 and SkuArticulo = '" & dr("SkuArticulo") & "'")
                     Dim Suma As Double = 0
                     For Each dr2 As DataRow In rows2
-                        Suma += dr2("Result") * dr2("QUANTITY_I")
+                        Suma += dr2("Result")
                     Next
                     dr3("Result") = Suma
+                    dr3("FinalCost") = Suma
                 Next
             End If
 
@@ -802,6 +840,22 @@ Public Class Estimacion
                         Suma += dr2("Result")
                     Next
                     dr3("Result") = Suma
+                    dr3("FinalCost") = Suma
+                Next
+            End If
+
+            If dr("Nivel1") = 0 Then
+                Dim rows3 = Table.[Select]("Nivel1 = 0 and  Nivel2 = 0 and Nivel3 = 0 and SkuArticulo = '" & dr("SkuArticulo") & "'")
+
+                For Each dr3 As DataRow In rows3
+                    Dim Table2 As DataTable = DirectCast(Session("treeView"), DataTable)
+                    Dim rows2 = Table.[Select]("Nivel1 > 0 and Nivel2 = 0 and Nivel3 = 0 and SkuArticulo = '" & dr("SkuArticulo") & "'")
+                    Dim Suma As Double = 0
+                    For Each dr2 As DataRow In rows2
+                        Suma += dr2("Result")
+                    Next
+                    dr3("Result") = Suma
+                    dr3("FinalCost") = Suma
                 Next
             End If
 

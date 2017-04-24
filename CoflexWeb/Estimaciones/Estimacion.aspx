@@ -23,6 +23,8 @@
 
     </script>
     <h2><%--<%: Title %>.--%></h2>
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
     <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
         <asp:View ID="View1" runat="server">
 
@@ -43,7 +45,7 @@
                                             <asp:DropDownList ID="DDCliente" Width="100%" runat="server" AutoPostBack="True">
                                             </asp:DropDownList>
                                         </td>
-                                        <td rowspan="2" style="vertical-align:central ;">
+                                        <td rowspan="2" style="vertical-align: central;">
                                             <asp:Button ID="Button2" class="btn btn-primary" runat="server" Text="Agregar" />
                                         </td>
                                     </tr>
@@ -62,7 +64,7 @@
                         <td style="width: 30%; text-align: center;">
                             <div style="width: 100%">
                                 <table style="width: 100%">
-                                    <tr style="vertical-align: central;" >
+                                    <tr style="vertical-align: central;">
                                         <td>
                                             <asp:Label ID="Label11" runat="server" Text="Componente"></asp:Label>&nbsp;
                                         </td>
@@ -90,7 +92,7 @@
                                             <asp:DropDownList ID="DDElemento" runat="server">
                                             </asp:DropDownList>&nbsp;
                                         </td>
-                                        <td style="vertical-align: central;" >
+                                        <td style="vertical-align: central;">
                                             <asp:Button ID="Button6" runat="server" class="btn btn-primary" Text="Nuevo" />&nbsp;
 
                                         </td>
@@ -129,7 +131,7 @@
                     <table style="width: 100%">
                         <tr>
                             <td style="vertical-align: top; width: 50%; height: 100%; border-style: outset;">
-                                <div style="vertical-align: top; height: 100%; width: 98%">
+                                <div style="vertical-align: top; height: 89%; width: 98%">
                                     <asp:TreeView ID="TreeView1" Width="90%" ShowCheckBoxes="All" ShowExpandCollapse="true" runat="server" ImageSet="Simple">
                                         <HoverNodeStyle Font-Underline="True" ForeColor="#5555DD" />
                                         <NodeStyle Font-Names="Tahoma" Font-Size="10pt" ForeColor="Black" HorizontalPadding="0px" NodeSpacing="0px" VerticalPadding="0px" />
@@ -154,14 +156,13 @@
                                     </table>
                                 </div>
                             </td>
-                            <td style="vertical-align: top; width: 50%">
+                            <td style="vertical-align: top; width: 50%; height: 100%;">
                                 <br />
                                 <div style="vertical-align: top; width: 100%">
-                                    <table style="width: 100%">
+                                    <table class="nav-justified">
                                         <tr>
                                             <td>
                                                 <asp:Label ID="Label1" runat="server" Text="Sku Articulo"></asp:Label>&nbsp;
-
                                             </td>
                                             <td>
                                                 <asp:TextBox ID="TextBox1" Width="70%" Enabled="false" runat="server"></asp:TextBox>
@@ -179,7 +180,8 @@
 
                                             </td>
                                             <td colspan="3">
-                                                <textarea id="TextArea1" style="width: 100%" disabled runat="server"></textarea></td>
+                                                <textarea id="TextArea1" style="width: 100%" disabled runat="server"></textarea>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -194,7 +196,7 @@
                                                 <asp:Label ID="Label5" runat="server" Text="Unidad de Medida"></asp:Label>&nbsp;
                                             </td>
                                             <td>
-                                                <asp:TextBox ID="TextBox4" Enabled="false" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="TextBox4" Enabled="false" Width="70%" runat="server"></asp:TextBox>
                                             </td>
                                         </tr>
                                         <tr>
@@ -210,7 +212,8 @@
                                                 <asp:RadioButton ID="RadioButton1" GroupName="tipoCosto" runat="server" />&nbsp;
                                                 <asp:TextBox ID="TextBox5" Enabled="false" runat="server"></asp:TextBox>&nbsp;
                                             </td>
-                                            <td>&nbsp;<br /></td>
+                                            <td>&nbsp;<br />
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>&nbsp;&nbsp;<asp:Label ID="Label19" runat="server" Text="Actual"></asp:Label></td>
@@ -236,14 +239,24 @@
                                             <td>
                                                 <asp:Label ID="Label7" runat="server" Text="Costo Estimacion"></asp:Label>&nbsp
                                             </td>
-                                            <td colspan="2">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="TextBox6" Enabled="false" runat="server"></asp:TextBox>
+                                            <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="TextBox6" Enabled="false" runat="server"></asp:TextBox>
                                             </td>
                                             <td></td>
-                                            
+
                                         </tr>
-                                        <tr><td colspan="4" style="text-align:right;">
-                                                <asp:Button ID="Button1" class="btn btn-primary" runat="server" Text="Actualizar" />&nbsp;</td></tr>
+                                        <tr>
+                                            <td colspan="4" style="text-align: right;">
+                                                </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="width:100%">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td style="text-align: right;">
+<asp:Button ID="Button1" class="btn btn-primary" runat="server" Text="Actualizar" />&nbsp;
+                                            </td>
+                                        </tr>
                                     </table>
                                 </div>
                             </td>
@@ -255,28 +268,28 @@
         <asp:View ID="View2" runat="server">
 
             <div class="well well-lg" style="margin-top: 32px">
-                            <div id="myModal" class="modal fade" role="dialog">
-                              <div class="modal-dialog">
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
 
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Cambiar estatus</h4>
-                                  </div>
-                                  <div class="modal-body">
-                                    <p>Estatus Actual</p>
-                                      <div id="status_actual" runat="server"></div>
-                                      <select id="DDEstatus" runat="server"></select>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <asp:Button  Text="Cancelar" runat="server" type="button" class="btn btn-danger" data-dismiss="modal" />
-                                    <asp:Button ID="BTN_ACEPTAR_1" Text="Aceptar" runat="server" type="button" class="btn btn-success"/>
-                                  </div>
-                                </div>
-
-                              </div>
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Cambiar estatus</h4>
                             </div>
+                            <div class="modal-body">
+                                <p>Estatus Actual</p>
+                                <div id="status_actual" runat="server"></div>
+                                <select id="DDEstatus" runat="server"></select>
+                            </div>
+                            <div class="modal-footer">
+                                <asp:Button Text="Cancelar" runat="server" type="button" class="btn btn-danger" data-dismiss="modal" />
+                                <asp:Button ID="BTN_ACEPTAR_1" Text="Aceptar" runat="server" type="button" class="btn btn-success" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
                 <table style="width: 100%">
                     <tr>
 
@@ -432,4 +445,8 @@
 
         </asp:View>
     </asp:MultiView>
+
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    
 </asp:Content>
