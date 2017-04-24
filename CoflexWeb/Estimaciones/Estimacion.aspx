@@ -128,10 +128,10 @@
                 </table>
                 <br />
                 <div>
-                    <table style="width: 100%">
+                    <table class="nav-justified">
                         <tr>
                             <td style="vertical-align: top; width: 50%; height: 100%; border-style: outset;">
-                                <div style="vertical-align: top; height: 89%; width: 98%">
+                                <div style="vertical-align: top; height: 90%; width: 98%">
                                     <asp:TreeView ID="TreeView1" Width="90%" ShowCheckBoxes="All" ShowExpandCollapse="true" runat="server" ImageSet="Simple">
                                         <HoverNodeStyle Font-Underline="True" ForeColor="#5555DD" />
                                         <NodeStyle Font-Names="Tahoma" Font-Size="10pt" ForeColor="Black" HorizontalPadding="0px" NodeSpacing="0px" VerticalPadding="0px" />
@@ -145,8 +145,8 @@
                                         </DataBindings>
                                     </asp:TreeView>
                                 </div>
-                                <div style="width: 100%;">
-                                    <table style="width: 100%; text-align: right;">
+                                <div style="width: 100%; height: 35px;">
+                                    <table style="width: 100%; text-align: right; height: 37px;">
                                         <tr>
                                             <td>
                                                 <asp:Button ID="Button4" runat="server" class="btn btn-primary" Text="Remover" />
@@ -336,7 +336,7 @@
                                         </td>
                                         <td>&nbsp;</td>
                                         <td>
-                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Cambiar Esatus</button>
+                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Cambiar Estatus</button>
                                         </td>
                                     </tr>
                                 </table>
@@ -351,9 +351,9 @@
                     <Columns>
                         <asp:BoundField ItemStyle-Width="20%" HeaderText="Sku" DataField="SkuComponente" />
                         <asp:BoundField ItemStyle-Width="50%" HeaderText="Descripción" DataField="ITEMDESC" />
-                        <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo Unitario (Sin Modificar)" DataField="RESULT" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.0000}" HtmlEncode="False" />
+                        <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo Unitario (Sin Modificar)" Visible="false" DataField="RESULT" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.0000}" HtmlEncode="False" />
                         <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo Unitario" DataField="UnitaryCost" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.0000}" HtmlEncode="False" />
-                        <asp:BoundField ItemStyle-Width="10%" HeaderText="Unidad de Medida" DataField="UOFM" />
+                        <asp:BoundField ItemStyle-Width="10%" HeaderText="Unidad de Medida" Visible="false" DataField="UOFM" />
 
                         <asp:TemplateField ItemStyle-Width="10%" HeaderText="Cantidad">
                             <ItemTemplate>
@@ -369,7 +369,8 @@
                             </ItemTemplate>
 
                         </asp:TemplateField>
-                        <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo Total" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.0000}" HtmlEncode="False"></asp:BoundField>
+                        <asp:BoundField ItemStyle-Width="10%" HeaderText="Precio de Venta (Pesos)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.0000}" HtmlEncode="False"></asp:BoundField>
+                        <asp:BoundField ItemStyle-Width="10%" HeaderText="Precio de Venta (Dólares)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.0000}" HtmlEncode="False"></asp:BoundField>
                     </Columns>
                     <HeaderStyle BackColor="#C0C0C0" />
                     <FooterStyle BackColor="#C0C0C0" />
