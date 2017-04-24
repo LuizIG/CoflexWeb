@@ -360,6 +360,11 @@
                         </td>
 
                     </tr>
+                    <tr>
+
+                        <div id="margen_ganancia" runat="server"></div>
+                    </tr>
+
                 </table>
                 <br />
                 <asp:GridView class="table" ID="GridSummary" Width="100%" AutoGenerateColumns="False" runat="server" ShowFooter="True">
@@ -372,7 +377,7 @@
 
                         <asp:TemplateField ItemStyle-Width="10%" HeaderText="Cantidad">
                             <ItemTemplate>
-                                <asp:TextBox ID="TBQuantity" Text='<%# Bind("QUANTITY_I") %>' runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TBQuantity" Width="70px" Text='<%# Bind("QUANTITY_I") %>' runat="server"></asp:TextBox>
                             </ItemTemplate>
                         </asp:TemplateField>
 
@@ -380,7 +385,7 @@
 
                         <asp:TemplateField ItemStyle-Width="10%" HeaderText="Margen (%)">
                             <ItemTemplate>
-                                <asp:TextBox ID="TVMargin" Text='<%# Bind("Margin") %>' runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TVMargin" Width="70px" Text='<%# Bind("Margin") %>' runat="server"></asp:TextBox>
                             </ItemTemplate>
 
                         </asp:TemplateField>
