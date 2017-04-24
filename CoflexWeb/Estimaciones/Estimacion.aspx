@@ -360,11 +360,6 @@
                         </td>
 
                     </tr>
-                    <tr>
-
-                        <div id="margen_ganancia" runat="server"></div>
-                    </tr>
-
                 </table>
                 <br />
                 <asp:GridView class="table" ID="GridSummary" Width="100%" AutoGenerateColumns="False" runat="server" ShowFooter="True">
@@ -395,6 +390,7 @@
                     <HeaderStyle BackColor="#C0C0C0" />
                     <FooterStyle BackColor="#C0C0C0" />
                 </asp:GridView>
+                <div style="width:100%; text-align:right" id="margen_ganancia" runat="server"></div>
             </div>
 
 
