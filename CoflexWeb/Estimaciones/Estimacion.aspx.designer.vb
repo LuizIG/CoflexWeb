@@ -651,4 +651,6 @@ Partial Public Class Estimacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtStndCost As Global.System.Web.UI.WebControls.TextBox
+
+
 End Class

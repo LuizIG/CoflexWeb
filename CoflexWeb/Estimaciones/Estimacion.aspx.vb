@@ -13,7 +13,7 @@ Public Class Estimacion
 
     Private Status As Integer
 
-    Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
+    Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         MyBase.Page_Load(sender, e)
         If Not IsPostBack Then
 
@@ -1101,8 +1101,11 @@ Public Class Estimacion
             Dim o = JObject.Parse(jsonResponse)
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
             If (statusCode >= 200 And statusCode < 400) Then
-                Dim detail = o.GetValue("detail").Value(Of JArray)
-                Dim Table As DataTable = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+                Dim detail = o.GetValue("detail").Value(Of JObject)
+                Dim StndCost = detail.GetValue("StndCost").Value(Of Double)
+                detail.Remove("StndCost")
+                detail.Add("STNDCOST", StndCost)
+                Dim Table As DataTable = JsonConvert.DeserializeObject(Of DataTable)("[" & detail.ToString & "]")
 
 
                 Dim countIndex As Integer = 0
@@ -1280,11 +1283,12 @@ Public Class Estimacion
         Dim idQuotation = Request.QueryString("v")
         If idQuotation IsNot Nothing Then
             Dim STATUS = DDEstatus.Items(DDEstatus.SelectedIndex).Value
-            Dim response = doPatchRequest(QUOTATIONS_VERSION & "/" & idQuotation & "?status=" & STATUS, "",, Session("access_token"))
-            Dim o = JObject.Parse(response)
+            Dim responset = doPatchRequest(QUOTATIONS_VERSION & "/" & idQuotation & "?status=" & STATUS, "",, Session("access_token"))
+            Dim o = JObject.Parse(responset)
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
             If (statusCode >= 200 And statusCode < 400) Then
                 Me.Status = CInt(STATUS)
+                Response.Redirect("ResumenEstimaciones.aspx")
             End If
         End If
     End Sub
