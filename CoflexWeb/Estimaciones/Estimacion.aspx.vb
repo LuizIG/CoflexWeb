@@ -1277,11 +1277,12 @@ Public Class Estimacion
         Dim idQuotation = Request.QueryString("v")
         If idQuotation IsNot Nothing Then
             Dim STATUS = DDEstatus.Items(DDEstatus.SelectedIndex).Value
-            Dim response = doPatchRequest(QUOTATIONS_VERSION & "/" & idQuotation & "?status=" & STATUS, "",, Session("access_token"))
-            Dim o = JObject.Parse(response)
+            Dim responset = doPatchRequest(QUOTATIONS_VERSION & "/" & idQuotation & "?status=" & STATUS, "",, Session("access_token"))
+            Dim o = JObject.Parse(responset)
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
             If (statusCode >= 200 And statusCode < 400) Then
                 Me.Status = CInt(STATUS)
+                Response.Redirect("ResumenEstimaciones.aspx")
             End If
         End If
     End Sub
