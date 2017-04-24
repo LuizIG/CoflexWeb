@@ -685,6 +685,7 @@ Public Class Estimacion
 
         Next
 
+        treeViewTable(Table)
         Montos(Table)
         treeViewTable(Table)
 
@@ -696,18 +697,55 @@ Public Class Estimacion
         Dim rows = Table.[Select]("id = " & Split(scTreeView, "|")(0) & " and SkuComponente = '" & Split(scTreeView, "|")(2) & "'")
 
         For Each dr As DataRow In rows
-            If dr("Nivel1") > 0 And dr("Nivel2") > 0 And dr("Nivel3") > 0 Then
-                Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and Nivel2 = " & dr("Nivel2") & " and SkuArticulo = '" & dr("SkuArticulo") & "'")
-                For Each dr2 As DataRow In rows2
-
+            If dr("Nivel3") > 0 Then
+                Dim rows3 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and Nivel2 = " & dr("Nivel2") & " and Nivel3 = 0 and SkuArticulo = '" & dr("SkuArticulo") & "'")
+                For Each dr3 As DataRow In rows3
+                    Dim Table2 As DataTable = DirectCast(Session("treeView"), DataTable)
+                    Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and Nivel2 = " & dr("Nivel2") & " and Nivel3 > 0 and SkuArticulo = '" & dr("SkuArticulo") & "'")
+                    Dim Suma As Double = 0
+                    For Each dr2 As DataRow In rows2
+                        Suma += dr2("Result")
+                    Next
+                    dr3("Result") = Suma
                 Next
-
             End If
+
+            If dr("Nivel2") > 0 Then
+                Dim rows3 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and Nivel2 = 0 and Nivel3 = 0 and SkuArticulo = '" & dr("SkuArticulo") & "'")
+                For Each dr3 As DataRow In rows3
+
+                    Dim Table2 As DataTable = DirectCast(Session("treeView"), DataTable)
+                    Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and Nivel2 > 0 and Nivel3 = 0 and SkuArticulo = '" & dr("SkuArticulo") & "'")
+                    Dim Suma As Double = 0
+                    For Each dr2 As DataRow In rows2
+                        Suma += dr2("Result")
+                    Next
+                    dr3("Result") = Suma
+                Next
+            End If
+
+            If dr("Nivel1") > 0 Then
+                Dim rows3 = Table.[Select]("Nivel1 = 0 and  Nivel2 = 0 and Nivel3 = 0 and SkuArticulo = '" & dr("SkuArticulo") & "'")
+
+                For Each dr3 As DataRow In rows3
+                    Dim Table2 As DataTable = DirectCast(Session("treeView"), DataTable)
+                    Dim rows2 = Table.[Select]("Nivel1 > 0 and Nivel2 = 0 and Nivel3 = 0 and SkuArticulo = '" & dr("SkuArticulo") & "'")
+                    Dim Suma As Double = 0
+                    For Each dr2 As DataRow In rows2
+                        Suma += dr2("Result")
+                    Next
+                    dr3("Result") = Suma
+                Next
+            End If
+
+            'If dr("Nivel1") > 0 And dr("Nivel2") > 0 And dr("Nivel3") > 0 Then
+            '    Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and Nivel2 = " & dr("Nivel2") & " and SkuArticulo = '" & dr("SkuArticulo") & "'")
+            '    For Each dr2 As DataRow In rows2
+
+            '    Next
+
+            'End If
         Next
-
-    End Sub
-
-    Private Sub Suma()
 
     End Sub
 
