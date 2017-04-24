@@ -726,11 +726,6 @@ Public Class Estimacion
         Next
 
     End Sub
-
-    Private Sub Suma()
-
-    End Sub
-
     Private Sub Versionar_Click(sender As Object, e As EventArgs) Handles Versionar.Click
 
         'Si no existe la cotizacion, crea una nueva
