@@ -300,75 +300,78 @@ Public Class Estimacion
 
     Protected Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
-        If ExistProduct(Me.DDArticulo.SelectedValue) Then
+        If Me.DDArticulo.SelectedValue <> "Seleccionar" Then
+
+            If ExistProduct(Me.DDArticulo.SelectedValue) Then
 
 
-            Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM_COMPONENTS & "/" & Me.DDArticulo.SelectedValue,, Session("access_token"))
-            Dim o = JObject.Parse(jsonResponse)
-            Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
-            If (statusCode >= 200 And statusCode < 400) Then
-                Dim detail = o.GetValue("detail").Value(Of JArray)
-                Dim Table As DataTable = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+                Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM_COMPONENTS & "/" & Me.DDArticulo.SelectedValue,, Session("access_token"))
+                Dim o = JObject.Parse(jsonResponse)
+                Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+                If (statusCode >= 200 And statusCode < 400) Then
+                    Dim detail = o.GetValue("detail").Value(Of JArray)
+                    Dim Table As DataTable = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
 
-                treeViewTable(Table)
+                    treeViewTable(Table)
 
-                For Each reng As DataRow In Table.Rows
-                    If reng("Nivel1") = 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
-                        Dim innerI As New TreeNode()
-                        innerI.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente")
-                        innerI.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
-                        TreeView1.Nodes.Add(innerI)
-                    End If
-                Next
-                'Dim sqlDR As SqlDataAdapter
-                'sqlDR.Fill(Table)
-                For Each reng As DataRow In Table.Rows
-                    If reng("Nivel1") > 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
-                        Dim inner As New TreeNode()
-                        inner.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente")
-                        inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
-                        ''TreeView1.Nodes.Add(inner)
-                        If TreeView1.Nodes.Count > 1 Then
-                            TreeView1.Nodes(TreeView1.Nodes.Count - 1).ChildNodes.Add(inner)
-                        Else
-                            TreeView1.Nodes(0).ChildNodes.Add(inner)
-                        End If
-                    End If
-                Next
-
-                Dim myNode As TreeNode = TreeView1.Nodes(TreeView1.Nodes.Count - 1)
-                ''For Each myNode In Me.TreeView1.Nodes
-                For Each childNodeA As TreeNode In myNode.ChildNodes
-                    Dim dv As New DataView(Table)
-                    dv.RowFilter = "Nivel1 = " & Split(childNodeA.Value, "|")(1)
-                    For Each reng As DataRowView In dv
-                        If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") = 0 Then
-                            Dim inner As New TreeNode()
-                            inner.Value = reng("Id") & "|" & reng("Nivel2") & "|" & reng("SkuComponente")
-                            inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
-                            childNodeA.ChildNodes.Add(inner)
+                    For Each reng As DataRow In Table.Rows
+                        If reng("Nivel1") = 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
+                            Dim innerI As New TreeNode()
+                            innerI.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente")
+                            innerI.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                            TreeView1.Nodes.Add(innerI)
                         End If
                     Next
-                Next
-                '' Next
+                    'Dim sqlDR As SqlDataAdapter
+                    'sqlDR.Fill(Table)
+                    For Each reng As DataRow In Table.Rows
+                        If reng("Nivel1") > 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
+                            Dim inner As New TreeNode()
+                            inner.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente")
+                            inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                            ''TreeView1.Nodes.Add(inner)
+                            If TreeView1.Nodes.Count > 1 Then
+                                TreeView1.Nodes(TreeView1.Nodes.Count - 1).ChildNodes.Add(inner)
+                            Else
+                                TreeView1.Nodes(0).ChildNodes.Add(inner)
+                            End If
+                        End If
+                    Next
 
-                ''For Each myNode In Me.TreeView1.Nodes
-                For Each childNodeA As TreeNode In myNode.ChildNodes
-                    For Each childNodeB As TreeNode In childNodeA.ChildNodes
+                    Dim myNode As TreeNode = TreeView1.Nodes(TreeView1.Nodes.Count - 1)
+                    ''For Each myNode In Me.TreeView1.Nodes
+                    For Each childNodeA As TreeNode In myNode.ChildNodes
                         Dim dv As New DataView(Table)
-                        dv.RowFilter = "Nivel1 = " & Split(childNodeA.Value, "|")(1) & " and Nivel2 = " & Split(childNodeB.Value, "|")(1)
+                        dv.RowFilter = "Nivel1 = " & Split(childNodeA.Value, "|")(1)
                         For Each reng As DataRowView In dv
-                            If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") > 0 Then
+                            If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") = 0 Then
                                 Dim inner As New TreeNode()
-                                inner.Value = reng("Id") & "|" & reng("Nivel3") & "|" & reng("SkuComponente")
+                                inner.Value = reng("Id") & "|" & reng("Nivel2") & "|" & reng("SkuComponente")
                                 inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
-                                childNodeB.ChildNodes.Add(inner)
+                                childNodeA.ChildNodes.Add(inner)
                             End If
                         Next
                     Next
-                Next
-            End If
+                    '' Next
 
+                    ''For Each myNode In Me.TreeView1.Nodes
+                    For Each childNodeA As TreeNode In myNode.ChildNodes
+                        For Each childNodeB As TreeNode In childNodeA.ChildNodes
+                            Dim dv As New DataView(Table)
+                            dv.RowFilter = "Nivel1 = " & Split(childNodeA.Value, "|")(1) & " and Nivel2 = " & Split(childNodeB.Value, "|")(1)
+                            For Each reng As DataRowView In dv
+                                If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") > 0 Then
+                                    Dim inner As New TreeNode()
+                                    inner.Value = reng("Id") & "|" & reng("Nivel3") & "|" & reng("SkuComponente")
+                                    inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                                    childNodeB.ChildNodes.Add(inner)
+                                End If
+                            Next
+                        Next
+                    Next
+                End If
+
+            End If
         End If
         Me.DDArticulo.SelectedIndex = 0
     End Sub
