@@ -718,6 +718,7 @@ Public Class Estimacion
                             dr2("RBCost") = 1
                         End If
                         dr2("Result") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
+                        dr2("FinalCost") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
                         Me.TextBox6.Text = dr("Result")
                     Next
                 ElseIf dr("Nivel1") > 0 And dr("Nivel2") = 0 And dr("Nivel3") = 0 Then
@@ -731,6 +732,7 @@ Public Class Estimacion
                             dr2("RBCost") = 1
                         End If
                         dr2("Result") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
+                        dr2("FinalCost") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
                         Me.TextBox6.Text = dr("Result")
                     Next
                 ElseIf dr("Nivel1") > 0 And dr("Nivel2") > 0 And dr("Nivel3") = 0 Then
@@ -744,6 +746,7 @@ Public Class Estimacion
                             dr2("RBCost") = 1
                         End If
                         dr2("Result") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
+                        dr2("FinalCost") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
                         Me.TextBox6.Text = dr("Result")
                     Next
                 ElseIf dr("Nivel1") > 0 And dr("Nivel2") > 0 And dr("Nivel3") > 0 Then
@@ -757,6 +760,7 @@ Public Class Estimacion
                             dr2("RBCost") = 1
                         End If
                         dr2("Result") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
+                        dr2("FinalCost") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
                         Me.TextBox6.Text = dr("Result")
                     Next
                 End If
@@ -859,6 +863,7 @@ Public Class Estimacion
                     Next
                     dr3("Result") = Suma
                     dr3("FinalCost") = Suma
+                    Me.TextBox6.Text = Suma
                 Next
             End If
 
@@ -1058,10 +1063,10 @@ Public Class Estimacion
 
         With Elemento
             .Add("SkuComponente", Me.txtSkuComponente.Text)
-            .Add("IdQuotation", 14)
+            .Add("IdQuotation", 0)
             .Add("Uofm", Me.txtUofm.Text)
             .Add("ItemDesc", Me.txtItemDesc.Value)
-            .Add("StndCost", Me.txtStndCost.Text)
+            .Add("StndCost", CDbl(Me.txtStndCost.Text))
         End With
 
         Dim jsonResponse = CoflexWebServices.doPostRequest(CoflexWebServices.NEW_COMPONENTES, Elemento.ToString,, Session("access_token"))
