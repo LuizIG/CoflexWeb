@@ -6,8 +6,8 @@ Imports Newtonsoft.Json.Linq
 Public Class ResumenEstimaciones
     Inherits CoflexWebPage
     Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
+        MyBase.Page_Load(sender, e)
         If Not IsPostBack Then
-            MyBase.Page_Load(sender, e)
             Dim Response = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS, , Session("access_token"))
             Dim o = JObject.Parse(Response)
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
@@ -29,29 +29,22 @@ Public Class ResumenEstimaciones
                             Case 2
                                 Version.Add("QStatus", "Cancelada")
                         End Select
-                        Select Case Version.GetValue("Status").Value(Of Integer)
-                            Case 0
-                                Version.Add("VStatus", "Abierta")
-                            Case 1
-                                Version.Add("VStatus", "Propuesta Cerrada")
-                            Case 2
-                                Version.Add("VStatus", "Propuesta Descartada")
-                            Case 3
-                                Version.Add("VStatus", "Aceptada")
-                        End Select
                         Version.Add("User", UserName)
 
                         Select Case Version.GetValue("Status").Value(Of Integer)
                             Case 0
+                                Version.Add("VStatus", "Abierta")
                                 Version.Add("ActionEdit", "<a href='Estimacion.aspx?q=" & Version.GetValue("QuotationsId").Value(Of Integer) & "&v=" & Version.GetValue("Id").Value(Of Integer) & "' class='btn btn-primary' role='button'>Editar</a>")
                             Case 1
+                                Version.Add("VStatus", "Propuesta Cerrada")
                                 Version.Add("ActionEdit", "<a href='Estimacion.aspx?q=" & Version.GetValue("QuotationsId").Value(Of Integer) & "&v=" & Version.GetValue("Id").Value(Of Integer) & "' class='btn btn-primary' role='button'>Ver</a>")
                             Case 2
+                                Version.Add("VStatus", "Propuesta Descartada")
                                 Version.Add("ActionEdit", "<a href='Estimacion.aspx?q=" & Version.GetValue("QuotationsId").Value(Of Integer) & "&v=" & Version.GetValue("Id").Value(Of Integer) & "' class='btn btn-primary' role='button'>Ver</a>")
                             Case 3
+                                Version.Add("VStatus", "Aceptada")
                                 Version.Add("ActionEdit", "<a href='Estimacion.aspx?q=" & Version.GetValue("QuotationsId").Value(Of Integer) & "&v=" & Version.GetValue("Id").Value(Of Integer) & "' class='btn btn-primary' role='button'>Ver</a>")
                         End Select
-
 
                         arrayLimpio.Add(Version)
                     Next

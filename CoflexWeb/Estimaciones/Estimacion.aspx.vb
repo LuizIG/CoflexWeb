@@ -11,11 +11,11 @@ Public Class Estimacion
     Private SumaCotizacion As Double
     Private SumaMargen As Double
 
+    Private Status As Integer
+
     Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
+        MyBase.Page_Load(sender, e)
         If Not IsPostBack Then
-            MyBase.Page_Load(sender, e)
-
-
             Dim r As New Globalization.CultureInfo("es-ES")
             r.NumberFormat.CurrencyDecimalSeparator = "."
             r.NumberFormat.NumberDecimalSeparator = "."
@@ -68,11 +68,47 @@ Public Class Estimacion
             Dim VersionId As String = Request.QueryString("v")
 
             If VersionId IsNot Nothing Then
+
+                Dim QuotationResponse = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS & "/" & Request.QueryString("q"),, Session("access_token"))
+
+                o = JObject.Parse(QuotationResponse)
+                statusCode = o.GetValue("statusCode").Value(Of Integer)
+                If (statusCode >= 200 And statusCode < 400) Then
+                    Dim detail = o.GetValue("detail").Value(Of JObject)
+                    Dim ClientId = detail.GetValue("ClientId").Value(Of String)
+                    DDCliente.SelectedValue = ClientId
+                End If
+
                 Dim ResponseVersions = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS_VERSION & "/" & VersionId,, Session("access_token"))
                 o = JObject.Parse(ResponseVersions)
                 statusCode = o.GetValue("statusCode").Value(Of Integer)
                 If (statusCode >= 200 And statusCode < 400) Then
                     Dim detail = o.GetValue("detail").Value(Of JObject)
+
+                    Status = detail.GetValue("Status").Value(Of Integer)
+
+
+                    Select Case Status
+                        Case 0
+                            status_actual.InnerText = "Abierta"
+                            DDEstatus.Items.Add(New ListItem("Abierta", "0"))
+                            DDEstatus.Items.Add(New ListItem("Propuesta Cerrada", "1"))
+                            DDEstatus.Items.Add(New ListItem("Propuesta Descartada", "2"))
+                            DDEstatus.Items.Add(New ListItem("Aceptada", "3"))
+                            DDEstatus.Items.Add(New ListItem("Cancelar Cotizacion", "4"))
+                        Case 1
+                            status_actual.InnerText = "Propuesta Cerrada"
+                            DDEstatus.Items.Add(New ListItem("Propuesta Cerrada", "1"))
+                            DDEstatus.Items.Add(New ListItem("Cancelar Cotizacion", "4"))
+                        Case 2
+                            status_actual.InnerText = "Propuesta Descartada"
+                            DDEstatus.Items.Add(New ListItem("Propuesta Descartada", "2"))
+                            DDEstatus.Items.Add(New ListItem("4", "Cancelar Cotizacion"))
+                        Case 3
+                            status_actual.InnerText = "Aceptada"
+                            DDEstatus.Items.Add(New ListItem("3", "Aceptada"))
+                    End Select
+
 
                     Tv_Exchange.Text = detail.GetValue("ExchangeRate").Value(Of String)
                     Dim items = detail.GetValue("Items").Value(Of JArray)
@@ -772,77 +808,81 @@ Public Class Estimacion
     Private Sub Versionar_Click(sender As Object, e As EventArgs) Handles Versionar.Click
 
         'Si no existe la cotizacion, crea una nueva
+        If (Status < 3) Then 'Solo 0
+            Dim IdQuotaion As String = Request.QueryString("q")
+            If IdQuotaion Is Nothing Then
+                Dim ResponseServer = doPostRequest(QUOTATIONS, CreateQuotation.ToString,, Session("access_token"))
+                Console.Write(Response)
+                Dim o = JObject.Parse(ResponseServer)
+                Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+                If (statusCode >= 200 And statusCode < 400) Then
 
-        Dim IdQuotaion As String = Request.QueryString("q")
-        If IdQuotaion Is Nothing Then
-            Dim ResponseServer = doPostRequest(QUOTATIONS, CreateQuotation.ToString,, Session("access_token"))
-            Console.Write(Response)
-            Dim o = JObject.Parse(ResponseServer)
-            Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
-            If (statusCode >= 200 And statusCode < 400) Then
+                    Dim QuotationCreated = o.GetValue("detail").Value(Of JObject)
 
-                Dim QuotationCreated = o.GetValue("detail").Value(Of JObject)
+                    Dim QuotationVersionCreated = QuotationCreated.GetValue("QuotationVersions").Value(Of JArray)
 
-                Dim QuotationVersionCreated = QuotationCreated.GetValue("QuotationVersions").Value(Of JArray)
+                    Dim version As JObject = QuotationVersionCreated(0)
 
-                Dim version As JObject = QuotationVersionCreated(0)
+                    Dim quotationID As String = version.GetValue("QuotationsId").Value(Of Integer) & ""
+                    Dim versionID As String = version.GetValue("Id").Value(Of Integer) & ""
 
-                Dim quotationID As String = version.GetValue("QuotationsId").Value(Of Integer) & ""
-                Dim versionID As String = version.GetValue("Id").Value(Of Integer) & ""
+                    Response.Redirect("Estimacion?q=" & quotationID & "&v=" & versionID)
 
-                Response.Redirect("Estimacion?q=" & quotationID & "&v=" & versionID)
+                Else
 
+                End If
             Else
-
+                Dim ResponseS = doPostRequest(QUOTATIONS_VERSION, CreateQuotationVersion(IdQuotaion).ToString,, Session("access_token"))
+                Dim o = JObject.Parse(ResponseS)
+                Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+                If (statusCode >= 200 And statusCode < 400) Then
+                    Dim QuotationCreated = o.GetValue("detail").Value(Of JObject)
+                    Response.Redirect("Estimacion?q=" & IdQuotaion & "&v=" & QuotationCreated.GetValue("Id").Value(Of Integer))
+                End If
             End If
-        Else
-            Dim Response = doPostRequest(QUOTATIONS_VERSION, CreateQuotationVersion(IdQuotaion).ToString,, Session("access_token"))
-            Console.Write(Response)
-        End If
-
-        'Si no existe la version, crea una nueva
-        If Request.QueryString("v") Is Nothing Then
-
         End If
     End Sub
 
     Private Sub Guardar_Click(sender As Object, e As EventArgs) Handles Guardar.Click
-        Dim IdQuotaionVersion As String = Request.QueryString("v")
-        If IdQuotaionVersion IsNot Nothing Then
+        If (Status = 0) Then 'Solo 0
+            Dim IdQuotaionVersion As String = Request.QueryString("v")
+            If IdQuotaionVersion IsNot Nothing Then
+                Dim Response = doPutRequest(QUOTATIONS_VERSION & "/" & IdQuotaionVersion, CreateQuotationVersion(IdQuotaionVersion).ToString)
+                Dim o = JObject.Parse(Response)
+                Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+                If (statusCode >= 200 And statusCode < 400) Then
 
-            Dim Response = doPutRequest(QUOTATIONS_VERSION & "/" & IdQuotaionVersion, CreateQuotationVersion(IdQuotaionVersion).ToString)
-            Dim o = JObject.Parse(Response)
-            Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
-            If (statusCode >= 200 And statusCode < 400) Then
+                    Dim QuotationCreated = o.GetValue("detail").Value(Of JObject)
 
-                Dim QuotationCreated = o.GetValue("detail").Value(Of JObject)
+                Else
 
+                End If
+                Console.Write(Response)
             Else
+                Dim ResponseServer = doPostRequest(QUOTATIONS, CreateQuotation.ToString,, Session("access_token"))
+                Console.Write(Response)
+                Dim o = JObject.Parse(ResponseServer)
+                Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+                If (statusCode >= 200 And statusCode < 400) Then
 
-            End If
-            Console.Write(Response)
-        Else
-            Dim ResponseServer = doPostRequest(QUOTATIONS, CreateQuotation.ToString,, Session("access_token"))
-            Console.Write(Response)
-            Dim o = JObject.Parse(ResponseServer)
-            Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
-            If (statusCode >= 200 And statusCode < 400) Then
+                    Dim QuotationCreated = o.GetValue("detail").Value(Of JObject)
 
-                Dim QuotationCreated = o.GetValue("detail").Value(Of JObject)
+                    Dim QuotationVersionCreated = QuotationCreated.GetValue("QuotationVersions").Value(Of JArray)
 
-                Dim QuotationVersionCreated = QuotationCreated.GetValue("QuotationVersions").Value(Of JArray)
+                    Dim version As JObject = QuotationVersionCreated(0)
 
-                Dim version As JObject = QuotationVersionCreated(0)
+                    Dim quotationID As String = version.GetValue("QuotationsId").Value(Of Integer) & ""
+                    Dim versionID As String = version.GetValue("Id").Value(Of Integer) & ""
 
-                Dim quotationID As String = version.GetValue("QuotationsId").Value(Of Integer) & ""
-                Dim versionID As String = version.GetValue("Id").Value(Of Integer) & ""
+                    Response.Redirect("Estimacion?q=" & quotationID & "&v=" & versionID)
 
-                Response.Redirect("Estimacion?q=" & quotationID & "&v=" & versionID)
+                Else
 
-            Else
-
+                End If
             End If
         End If
+
+
     End Sub
 
     Private Function CreateQuotation() As JObject
@@ -1148,9 +1188,6 @@ Public Class Estimacion
         If Not dv.Table.Columns.Contains("Margin") Then
             dv.Table.Columns.Add("Margin", GetType(Double))
         End If
-
-
-
         For Each reng As DataRowView In dv
             For Each renglon As GridViewRow In GridSummary.Rows
                 If (reng("SkuArticulo") = renglon.Cells(0).Text) Then
@@ -1164,5 +1201,14 @@ Public Class Estimacion
         Next
         GridSummary.DataSource = dv.ToTable
         GridSummary.DataBind()
+    End Sub
+
+    Private Sub btn_accept_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR_1.Click
+        Dim idQuotation = Request.QueryString("v")
+        If idQuotation IsNot Nothing Then
+
+            Dim STATUS = DDEstatus.Items(DDEstatus.SelectedIndex).Value
+            Dim response = doPutRequest(QUOTATIONS_VERSION & "/" & idQuotation & "?status=" & STATUS, "",, Session("access_token"))
+        End If
     End Sub
 End Class

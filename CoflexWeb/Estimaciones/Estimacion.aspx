@@ -248,6 +248,28 @@
         <asp:View ID="View2" runat="server">
 
             <div class="well well-lg" style="margin-top: 32px">
+                            <div id="myModal" class="modal fade" role="dialog">
+                              <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Cambiar estatus</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p>Estatus Actual</p>
+                                      <div id="status_actual" runat="server"></div>
+                                      <select id="DDEstatus" runat="server"></select>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <asp:Button  Text="Cancelar" runat="server" type="button" class="btn btn-danger" data-dismiss="modal" />
+                                    <asp:Button ID="BTN_ACEPTAR_1" Text="Aceptar" runat="server" type="button" class="btn btn-success"/>
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
                 <table style="width: 100%">
                     <tr>
 
@@ -291,6 +313,10 @@
                                         <td>
                                             <asp:Button ID="Regresar" class="btn btn-primary" runat="server" Text="Regresar" />
 
+                                        </td>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Cambiar Esatus</button>
                                         </td>
                                     </tr>
                                 </table>
@@ -392,6 +418,12 @@
                     </tr>
                 </table>
             </div>
+
+
+
+            <!-- Modal -->
+
+
         </asp:View>
     </asp:MultiView>
 </asp:Content>
