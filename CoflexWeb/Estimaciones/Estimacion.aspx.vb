@@ -662,10 +662,12 @@ Public Class Estimacion
             Me.TextBox8.Visible = True
             Me.RadioButton3.Visible = True
             Me.TextBox8.Text = 0
+            Me.TextBox3.Enabled = False
         Else
             Me.Label6.Visible = False
             Me.TextBox8.Visible = False
             Me.RadioButton3.Visible = False
+            Me.TextBox3.Enabled = True
         End If
 
         For Each reng As DataRowView In dv
@@ -1296,5 +1298,24 @@ Public Class Estimacion
                 Response.Redirect("ResumenEstimaciones.aspx")
             End If
         End If
+    End Sub
+
+    Protected Sub Imprimir_Click(sender As Object, e As EventArgs) Handles Imprimir.Click
+
+        Me.MultiView1.ActiveViewIndex = 3
+        Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
+        dv.RowFilter = "Nivel1 = 0 and Nivel2 = 0 and Nivel3 = 0"
+        'Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
+        'Dim rows = dt2.[Select]("Nivel1 = 0 and Nivel2 = 0 and Nivel3 = 0")
+        'Table.ImportRow(rows(0))
+        GridViewCotiza.DataSource = dv.ToTable
+        GridViewCotiza.DataBind()
+
+        Me.Label23.Text = Today
+
+    End Sub
+
+    Protected Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
+        Me.MultiView1.ActiveViewIndex = 1
     End Sub
 End Class

@@ -26,39 +26,53 @@
             ddlText = new Array();
             ddlValue = new Array();
             ddl = document.getElementById("<%=DDComponente.ClientID %>");
-        for (var i = 0; i < ddl.options.length; i++) {
-            ddlText[ddlText.length] = ddl.options[i].text;
-            ddlValue[ddlValue.length] = ddl.options[i].value;
-        }
-    }
-    window.onload = CacheItems;
-
-    function FilterItems(value) {
-        ddl.options.length = 0;
-        for (var i = 0; i < ddlText.length; i++) {
-            if (ddlText[i].toLowerCase().indexOf(value) != -1) {
-                AddItem(ddlText[i], ddlValue[i]);
+            for (var i = 0; i < ddl.options.length; i++) {
+                ddlText[ddlText.length] = ddl.options[i].text;
+                ddlValue[ddlValue.length] = ddl.options[i].value;
             }
         }
-        lblMesg.innerHTML = ddl.options.length + " items found.";
-        if (ddl.options.length == 0) {
-            AddItem("No items found.", "");
+        window.onload = CacheItems;
+
+        function FilterItems(value) {
+            ddl.options.length = 0;
+            for (var i = 0; i < ddlText.length; i++) {
+                if (ddlText[i].toLowerCase().indexOf(value) != -1) {
+                    AddItem(ddlText[i], ddlValue[i]);
+                }
+            }
+            lblMesg.innerHTML = ddl.options.length + " items found.";
+            if (ddl.options.length == 0) {
+                AddItem("No items found.", "");
+            }
         }
-    }
 
-    function AddItem(text, value) {
-        var opt = document.createElement("option");
-        opt.text = text;
-        opt.value = value;
-        ddl.options.add(opt);
-    }
+        function AddItem(text, value) {
+            var opt = document.createElement("option");
+            opt.text = text;
+            opt.value = value;
+            ddl.options.add(opt);
+        }
 
+
+        function PrintPanel() {
+            var panel = document.getElementById("<%=pnlContents.ClientID %>");
+            var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<html><head><title>DIV Contents</title>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(panel.innerHTML);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            setTimeout(function () {
+                printWindow.print();
+            }, 500);
+            return false;
+        }
     </script>
     <h2><%--<%: Title %>.--%></h2>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
 
-<%--     <div style="text-align: center;">
+            <%--     <div style="text-align: center;">
                 <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DynamicLayout="true">
                     <ProgressTemplate>
                         <img src="../Images/progress.gif" />
@@ -114,11 +128,9 @@
                                                 </b>&nbsp;</td>
                                             </tr>
                                             <tr style="vertical-align: top;">
+                                                <td></td>
                                                 <td>
-                
-                                                </td>
-                                                <td>
-                                                    <asp:TextBox Width="100%" Height="20px" ID="txtSearch" runat="server" onkeyup = "FilterItems(this.value)"></asp:TextBox>
+                                                    <asp:TextBox Width="100%" Height="20px" ID="txtSearch" runat="server" onkeyup="FilterItems(this.value)"></asp:TextBox>
                                                 </td>
                                                 <td rowspan="2" style="vertical-align: central;">
                                                     <asp:Button ID="Button3" runat="server" class="btn btn-primary" Text="Agregar" />
@@ -512,10 +524,89 @@
                         </table>
                     </div>
 
+                </asp:View>
+                <asp:View ID="View4" runat="server">
 
+                    <div class="well well-lg">
+                    <asp:Panel ID="pnlContents" runat="server">
+                        <table style="width: 70%">
+                            <tr style="text-align: right">
+                                <td colspan="4">
+                                    <asp:Button ID="Button11" class="btn btn-primary" OnClientClick="return PrintPanel();" runat="server" Text="Imprimir" />&nbsp;&nbsp;&nbsp;
+                                <asp:Button ID="Button10" class="btn btn-primary" runat="server" Text="Regresar" />
 
-                    <!-- Modal -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="logo.png" />
+                                </td>
 
+                                <td>&nbsp;
+                                </td>
+                                <td colspan="2" style="border-bottom-color: #003366; border-bottom-width: medium; border-bottom-style: solid; text-align: right; color: #000080;">Cotización
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;
+                                </td>
+
+                                <td>&nbsp;
+                                </td>
+                                <td>Fecha
+                                </td>
+                                <td>
+                                    <asp:Label ID="Label23" runat="server"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;
+                                </td>
+
+                                <td>&nbsp;
+                                </td>
+                                <td>Numero de<br />
+                                    Cotización
+                                </td>
+                                <td>Cotización
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="border-style: solid; border-width: thin thin medium thin; text-align: left; color: #000080; border-top-color: #003366;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="border-style: solid; border-width: medium 0px 0px 0px; text-align: left; border-top-color: #003366;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="border-style: solid; border-width: medium 0px 0px 0px; text-align: left; border-top-color: #003366;">
+                                    <asp:GridView class="table" ID="GridViewCotiza" Width="100%" AutoGenerateColumns="False" runat="server" ShowFooter="True">
+                                        <Columns>
+                                            <asp:BoundField ItemStyle-Width="20%" HeaderText="Numero de Parte" DataField="SkuComponente">
+                                                <ItemStyle Width="20%" BorderStyle="Solid" />
+                                            </asp:BoundField>
+                                            <asp:BoundField ItemStyle-Width="50%" HeaderText="Descripción" DataField="ITEMDESC">
+                                                <ItemStyle Width="50%" />
+                                            </asp:BoundField>
+                                            <asp:BoundField ItemStyle-Width="30%" DataField="UnitaryCost" HeaderText="Precio Unitario (Pesos)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.0000}" HtmlEncode="False" FooterText="Precios más IVA">
+                                                <ItemStyle CssClass="t-cost" Width="30%" />
+                                            </asp:BoundField>
+                                        </Columns>
+                                        <FooterStyle Font-Bold="True" HorizontalAlign="Left" />
+                                    </asp:GridView>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="border-style: solid; border-width: medium 0px 0px 0px; text-align: left; color: #000080; border-top-color: #003366;">&nbsp;</td>
+                            </tr>
+                        </table>
+                    </asp:Panel>
+                    </div>
 
                 </asp:View>
             </asp:MultiView>

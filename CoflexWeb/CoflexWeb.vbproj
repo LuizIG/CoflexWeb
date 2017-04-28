@@ -184,6 +184,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Default.aspx" />
+    <Content Include="Estimaciones\Cotizacion.aspx" />
     <Content Include="Estimaciones\Estimacion.aspx" />
     <Content Include="Estimaciones\logo.png" />
     <Content Include="Estimaciones\ResumenEstimaciones.aspx" />
@@ -305,6 +306,13 @@
     <Compile Include="Default.aspx.vb">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Estimaciones\Cotizacion.aspx.designer.vb">
+      <DependentUpon>Cotizacion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Estimaciones\Cotizacion.aspx.vb">
+      <DependentUpon>Cotizacion.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Estimaciones\Estimacion.aspx.designer.vb">
       <DependentUpon>Estimacion.aspx</DependentUpon>
