@@ -21,6 +21,38 @@
             }
         }
 
+        var ddlText, ddlValue, ddl, lblMesg;
+        function CacheItems() {
+            ddlText = new Array();
+            ddlValue = new Array();
+            ddl = document.getElementById("<%=DDComponente.ClientID %>");
+        for (var i = 0; i < ddl.options.length; i++) {
+            ddlText[ddlText.length] = ddl.options[i].text;
+            ddlValue[ddlValue.length] = ddl.options[i].value;
+        }
+    }
+    window.onload = CacheItems;
+
+    function FilterItems(value) {
+        ddl.options.length = 0;
+        for (var i = 0; i < ddlText.length; i++) {
+            if (ddlText[i].toLowerCase().indexOf(value) != -1) {
+                AddItem(ddlText[i], ddlValue[i]);
+            }
+        }
+        lblMesg.innerHTML = ddl.options.length + " items found.";
+        if (ddl.options.length == 0) {
+            AddItem("No items found.", "");
+        }
+    }
+
+    function AddItem(text, value) {
+        var opt = document.createElement("option");
+        opt.text = text;
+        opt.value = value;
+        ddl.options.add(opt);
+    }
+
     </script>
     <h2><%--<%: Title %>.--%></h2>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -66,23 +98,32 @@
                                     </div>
                                 </td>
                                 <td style="width: 30%; height: 100%; text-align: center; vertical-align: top;">
-                                    <div style="width: 100%; height: 100% vertical-align: top;">
-                                        <table style="width: 100%; height: 100%; vertical-align: top;">
+                                    <div style="width: 100%; height: 100%; vertical-align: top;">
+                                        <table style="width: 100%; height: 100%;">
                                             <tr style="background-color: #C0C0C0">
                                                 <td colspan="3" style="text-align: left;"><b>&nbsp;<asp:Label ID="Label21" runat="server" Text="Componentes"></asp:Label>
                                                 </b>&nbsp;</td>
                                             </tr>
-                                            <tr style="vertical-align: central;">
+                                            <tr style="vertical-align: top;">
+                                                <td>
+                
+                                                </td>
+                                                <td>
+                                                    <asp:TextBox Width="100%" Height="20px" ID="txtSearch" runat="server" onkeyup = "FilterItems(this.value)"></asp:TextBox>
+                                                </td>
+                                                <td rowspan="2" style="vertical-align: central;">
+                                                    <asp:Button ID="Button3" runat="server" class="btn btn-primary" Text="Agregar" />
+                                                </td>
+                                            </tr>
+                                            <tr style="vertical-align: top;">
                                                 <td>
                                                     <asp:Label ID="Label11" runat="server" Text="Componente"></asp:Label>&nbsp;
                                                 </td>
                                                 <td>
-                                                    <asp:DropDownList ID="DDComponente" runat="server">
+                                                    <asp:DropDownList Width="100%" ID="DDComponente" runat="server">
                                                     </asp:DropDownList>&nbsp;
                                                 </td>
-                                                <td colspan="2" style="vertical-align: central;">
-                                                    <asp:Button ID="Button3" runat="server" class="btn btn-primary" Text="Agregar" />
-                                                </td>
+
                                             </tr>
 
                                         </table>
@@ -162,9 +203,9 @@
                                         <div style="width: 100%; height: 35px;">
 
                                             <table style="width: 100%; text-align: right; height: 37px;">
-                                                <tr><td>
-
-                                                    </td></tr>
+                                                <tr>
+                                                    <td></td>
+                                                </tr>
 
                                                 <tr>
                                                     <td>
