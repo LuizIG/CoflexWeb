@@ -21,6 +21,7 @@ Public Class ResumenEstimaciones
                     For Each Version As JObject In Versions
                         Version.Remove("Items")
                         Version.Add("ClientName", Quotation.GetValue("ClientName").Value(Of String))
+                        Version.Add("CoflexId", Quotation.GetValue("CoflexId").Value(Of String))
                         Select Case Quotation.GetValue("Status").Value(Of Integer)
                             Case 0
                                 Version.Add("QStatus", "Abierta")

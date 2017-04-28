@@ -57,6 +57,15 @@
     <h2><%--<%: Title %>.--%></h2>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
+
+<%--     <div style="text-align: center;">
+                <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DynamicLayout="true">
+                    <ProgressTemplate>
+                        <img src="../Images/progress.gif" />
+                    </ProgressTemplate>
+                </asp:UpdateProgress>
+
+            </div>--%>
             <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
                 <asp:View ID="View1" runat="server">
 

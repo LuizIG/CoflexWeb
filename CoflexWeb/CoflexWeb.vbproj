@@ -196,6 +196,7 @@
     <None Include="My Project\PublishProfiles\localWeb.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Images\logo.png" />
+    <Content Include="Images\progress.gif" />
     <Content Include="logo.png" />
     <Content Include="LogViewExample.aspx" />
     <Content Include="Scripts\bootstrap.js" />

@@ -8,7 +8,7 @@
 
     <asp:GridView ID="GridUsers" AutoGenerateColumns="False" class="table" runat="server">
         <Columns>
-            <asp:BoundField DataField="QuotationsId" HeaderText="Cotización" />
+            <asp:BoundField DataField="CoflexId" HeaderText="Cotización" />
             <asp:BoundField DataField="User" HeaderText="Vendedor" />
             <asp:BoundField DataField="ClientName" HeaderText="Cliente" />
             <asp:BoundField DataField="QStatus" HeaderText="Estatus Cotización" />
