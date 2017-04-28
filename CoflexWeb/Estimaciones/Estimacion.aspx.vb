@@ -1249,19 +1249,20 @@ Public Class Estimacion
             Dim costoUnitario As Double = CDbl(e.Row.Cells(3).Text.Replace("$", ""))
             Dim cantidad As Double = CDbl(txCantidad.Text.Replace("$", ""))
             Dim margen As Double = CDbl(txMargin.Text.Replace("$", ""))
-            e.Row.Cells(8).Text = FormatCurrency(costoUnitario * cantidad * (1 + (margen / 100)))
+            e.Row.Cells(9).Text = FormatCurrency(costoUnitario * cantidad * (1 + (margen / 100)))
             'Acumulando el monto
             Suma += costoUnitario * cantidad * (1 + (margen / 100))
             SumaCotizacion += costoUnitario * cantidad
             SumaMargen += (costoUnitario * cantidad * (1 + (margen / 100)) - costoUnitario * cantidad)
-            e.Row.Cells(9).Text = FormatCurrency((costoUnitario * cantidad * (1 + (margen / 100))) / CDbl(Tv_Exchange.Text))
+            e.Row.Cells(10).Text = FormatCurrency((costoUnitario * cantidad * (1 + (margen / 100))) / CDbl(Tv_Exchange.Text))
+            e.Row.Cells(8).Text = FormatCurrency((costoUnitario * cantidad * ((margen / 100))))
         ElseIf (e.Row.RowType = DataControlRowType.Footer) Then
             e.Row.Cells(6).Text = FormatCurrency(SumaCotizacion)
 
             margen_ganancia.InnerHtml = "<h4>Margen de Ganancia: " & FormatCurrency(SumaMargen) & "</h4>"
 
-            e.Row.Cells(8).Text = FormatCurrency(Suma)
-            e.Row.Cells(9).Text = FormatCurrency(Suma / CDbl(Tv_Exchange.Text))
+            e.Row.Cells(9).Text = FormatCurrency(Suma)
+            e.Row.Cells(10).Text = FormatCurrency(Suma / CDbl(Tv_Exchange.Text))
         End If
     End Sub
 

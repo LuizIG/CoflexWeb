@@ -440,22 +440,23 @@
                                 <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo Unitario" DataField="UnitaryCost" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.0000}" HtmlEncode="False" />
                                 <asp:BoundField ItemStyle-Width="10%" HeaderText="Unidad de Medida" Visible="false" DataField="UOFM" />
 
-                                <asp:TemplateField ItemStyle-Width="10%" HeaderText="Cantidad">
+                                <asp:TemplateField ItemStyle-Width="10%" HeaderText="Cantidad" Visible="false" >
                                     <ItemTemplate>
                                         <asp:TextBox ID="TBQuantity" Width="70px" Text='<%# Bind("QUANTITY_I") %>' runat="server"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
 
-                                <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo Cotización" DataField="FinalCost" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.0000}" HtmlEncode="False" />
+                                <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo Cotización" Visible="false" DataField="FinalCost" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.0000}" HtmlEncode="False" />
 
-                                <asp:TemplateField ItemStyle-Width="10%" HeaderText="Margen (%)">
+                                <asp:TemplateField ItemStyle-Width="10%" HeaderText="Throughput (%)">
                                     <ItemTemplate>
                                         <asp:TextBox ID="TVMargin" Width="70px" Text='<%# Bind("Margin") %>' runat="server"></asp:TextBox>
                                     </ItemTemplate>
 
                                 </asp:TemplateField>
-                                <asp:BoundField ItemStyle-Width="10%" HeaderText="Precio de Venta (Pesos)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.0000}" HtmlEncode="False"></asp:BoundField>
-                                <asp:BoundField ItemStyle-Width="10%" HeaderText="Precio de Venta (Dólares)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.0000}" HtmlEncode="False"></asp:BoundField>
+                                <asp:BoundField ItemStyle-Width="10%" HeaderText="Throughput" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False"></asp:BoundField>
+                                <asp:BoundField ItemStyle-Width="10%" HeaderText="Precio de Venta (Pesos)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False"></asp:BoundField>
+                                <asp:BoundField ItemStyle-Width="10%" HeaderText="Precio de Venta (Dólares)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False"></asp:BoundField>
                             </Columns>
                             <HeaderStyle BackColor="#C0C0C0" />
                             <FooterStyle BackColor="#C0C0C0" />
