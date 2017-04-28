@@ -440,7 +440,7 @@
                                 <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo Unitario" DataField="UnitaryCost" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.0000}" HtmlEncode="False" />
                                 <asp:BoundField ItemStyle-Width="10%" HeaderText="Unidad de Medida" Visible="false" DataField="UOFM" />
 
-                                <asp:TemplateField ItemStyle-Width="10%" HeaderText="Cantidad" Visible="false" >
+                                <asp:TemplateField ItemStyle-Width="10%" HeaderText="Cantidad" Visible="false">
                                     <ItemTemplate>
                                         <asp:TextBox ID="TBQuantity" Width="70px" Text='<%# Bind("QUANTITY_I") %>' runat="server"></asp:TextBox>
                                     </ItemTemplate>
@@ -529,84 +529,111 @@
                 <asp:View ID="View4" runat="server">
 
                     <div class="well well-lg">
-                    <asp:Panel ID="pnlContents" runat="server">
-                        <table style="width: 70%">
-                            <tr style="text-align: right">
-                                <td colspan="4">
-                                    <asp:Button ID="Button11" class="btn btn-primary" OnClientClick="return PrintPanel();" runat="server" Text="Imprimir" />&nbsp;&nbsp;&nbsp;
-                                <asp:Button ID="Button10" class="btn btn-primary" runat="server" Text="Regresar" />
+                        <asp:Panel ID="pnlContents" runat="server">
+                            <table style="width: 100%">
+                                <tr style="text-align: right">
+                                    <td colspan="4">
+                                        <asp:Button ID="Button11" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel();" runat="server" Text="Imprimir" />&nbsp;&nbsp;&nbsp;
+                                <asp:Button ID="Button10" class="btn btn-primary hidden-print" runat="server" Text="Regresar" />
 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="4"></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="logo.png" />
-                                </td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td width="70%">
+                                        <img src="logo.png" class="visible-print-block" />&nbsp;
+                                    </td>
 
-                                <td>&nbsp;
-                                </td>
-                                <td colspan="2" style="border-bottom-color: #003366; border-bottom-width: medium; border-bottom-style: solid; text-align: right; color: #000080;">Cotización
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>&nbsp;
-                                </td>
+                                    <td>&nbsp;
+                                    </td>
+                                    <td colspan="2" style="border-bottom-color: #003366; border-bottom-width: medium; border-bottom-style: solid; text-align: right; color: #000080;">Cotización
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;
+                                    </td>
 
-                                <td>&nbsp;
-                                </td>
-                                <td>Fecha
-                                </td>
-                                <td>
-                                    <asp:Label ID="Label23" runat="server"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>&nbsp;
-                                </td>
+                                    <td>&nbsp;
+                                    </td>
+                                    <td><b>
+                                        <asp:Label ID="Label28" runat="server">Fecha</asp:Label></b>
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="Label23" runat="server"></asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;
+                                    </td>
 
-                                <td>&nbsp;
-                                </td>
-                                <td>Numero de<br />
-                                    Cotización
-                                </td>
-                                <td>Cotización
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="4"></td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" style="border-style: solid; border-width: thin thin medium thin; text-align: left; color: #000080; border-top-color: #003366;">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" style="border-style: solid; border-width: medium 0px 0px 0px; text-align: left; border-top-color: #003366;">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" style="border-style: solid; border-width: medium 0px 0px 0px; text-align: left; border-top-color: #003366;">
-                                    <asp:GridView class="table" ID="GridViewCotiza" Width="100%" AutoGenerateColumns="False" runat="server" ShowFooter="True">
-                                        <Columns>
-                                            <asp:BoundField ItemStyle-Width="20%" HeaderText="Numero de Parte" DataField="SkuComponente">
-                                                <ItemStyle Width="20%" BorderStyle="Solid" />
-                                            </asp:BoundField>
-                                            <asp:BoundField ItemStyle-Width="50%" HeaderText="Descripción" DataField="ITEMDESC">
-                                                <ItemStyle Width="50%" />
-                                            </asp:BoundField>
-                                            <asp:BoundField ItemStyle-Width="30%" DataField="UnitaryCost" HeaderText="Precio Unitario (Pesos)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.0000}" HtmlEncode="False" FooterText="Precios más IVA">
-                                                <ItemStyle CssClass="t-cost" Width="30%" />
-                                            </asp:BoundField>
-                                        </Columns>
-                                        <FooterStyle Font-Bold="True" HorizontalAlign="Left" />
-                                    </asp:GridView>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" style="border-style: solid; border-width: medium 0px 0px 0px; text-align: left; color: #000080; border-top-color: #003366;">&nbsp;</td>
-                            </tr>
-                        </table>
-                    </asp:Panel>
+                                    <td>&nbsp;
+                                    </td>
+                                    <td><b>
+                                        <asp:Label ID="Label29" runat="server">Numero de<br />
+                                        Cotización</asp:Label></b>
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="Label24" runat="server">#######</asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="border-style: solid; border-width: thin thin medium thin; text-align: left; color: #000080; border-top-color: #003366;">
+
+                                        <b>
+                                            <asp:Label ID="Label25" ForeColor="Black" runat="server">Villarreal División Equipos<br />Atención a: Carlos López&nbsp;</asp:Label>
+                                        </b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="border-style: solid; border-width: medium 0px 0px 0px; text-align: left; border-top-color: #003366;">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="border-style: solid; border-width: medium 0px 0px 0px; text-align: left; border-top-color: #003366;">
+                                        <asp:GridView class="table" ID="GridViewCotiza" Width="100%" AutoGenerateColumns="False" runat="server" ShowFooter="True">
+                                            <Columns>
+                                                <asp:BoundField ItemStyle-Width="20%" HeaderText="Numero de Parte" DataField="SkuComponente">
+                                                    <ItemStyle Width="20%" BorderStyle="Solid" />
+                                                </asp:BoundField>
+                                                <asp:BoundField ItemStyle-Width="50%" HeaderText="Descripción" DataField="ITEMDESC">
+                                                    <ItemStyle Width="60%" />
+                                                </asp:BoundField>
+                                                <asp:BoundField ItemStyle-Width="20%" DataField="UnitaryCost" HeaderText="Precio Unitario (Pesos)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" FooterText="Precios más IVA">
+                                                    <ItemStyle CssClass="t-cost" Width="30%" />
+                                                </asp:BoundField>
+                                            </Columns>
+                                            <FooterStyle Font-Bold="True" HorizontalAlign="Left" />
+                                        </asp:GridView>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="border-style: solid; border-width: medium 0px 0px 0px; text-align: left; color: #000080; border-top-color: #003366;">
+                                        <table style="width: 100%; color: black">
+                                            <tr>
+                                                <td style="width: 20%"><b>
+                                                    <asp:Label ID="Label26" runat="server">Oferta valida</asp:Label></b></td>
+                                                <td>
+                                                    <asp:Label ID="Label27" runat="server">30 días</asp:Label></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <%--                                   <tr>
+                                    <td colspan="4"></td>
+                                </tr>--%>
+                                <%--  <tr>
+                                    <td colspan="4" style="border-style: solid; border-width: thin thin medium thin; text-align: left; color: #000080; border-top-color: #003366;">
+                                        
+                                        <asp:Label ID="Label26" ForeColor="Black" runat="server">Villarreal División Equipos<br />Atención a: Carlos López&nbsp;</asp:Label>
+
+                                    </td>
+                                </tr>--%>
+                            </table>
+                        </asp:Panel>
                     </div>
 
                 </asp:View>

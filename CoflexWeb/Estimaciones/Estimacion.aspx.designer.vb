@@ -698,6 +698,15 @@ Partial Public Class Estimacion
     Protected WithEvents Button10 As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
+    '''Label28 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label28 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''Label23 control.
     '''</summary>
     '''<remarks>
@@ -707,6 +716,33 @@ Partial Public Class Estimacion
     Protected WithEvents Label23 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''Label29 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label29 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''Label24 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label24 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''Label25 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label25 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''GridViewCotiza control.
     '''</summary>
     '''<remarks>
@@ -714,4 +750,22 @@ Partial Public Class Estimacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents GridViewCotiza As Global.System.Web.UI.WebControls.GridView
+    
+    '''<summary>
+    '''Label26 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label26 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''Label27 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label27 As Global.System.Web.UI.WebControls.Label
 End Class

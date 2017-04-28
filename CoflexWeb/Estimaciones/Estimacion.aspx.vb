@@ -678,9 +678,9 @@ Public Class Estimacion
             Me.TextBox4.Text = reng("UOFM")
             Me.TextBox7.Text = reng("CURRCOST")
             Me.TextBox5.Text = reng("STNDCOST")
-            Me.TextBox6.Text = reng("FinalCost")
+            Me.TextBox6.Text = Math.Round(reng("FinalCost"), 2)
             If Math.Round((reng("FinalCost") / reng("QUANTITY_I")), 4) <> reng("STNDCOST") And Math.Round((reng("FinalCost") / reng("QUANTITY_I")), 4) <> reng("CURRCOST") Then
-                Me.TextBox8.Text = (reng("FinalCost") / reng("QUANTITY_I"))
+                Me.TextBox8.Text = Math.Round((reng("FinalCost") / reng("QUANTITY_I")), 2)
                 Me.RadioButton3.Checked = True
                 Me.RadioButton1.Checked = False
                 Me.RadioButton2.Checked = False
@@ -721,7 +721,7 @@ Public Class Estimacion
                         End If
                         dr2("Result") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
                         dr2("FinalCost") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
-                        Me.TextBox6.Text = dr("Result")
+                        Me.TextBox6.Text = Math.Round(dr("Result"), 2)
                     Next
                 ElseIf dr("Nivel1") > 0 And dr("Nivel2") = 0 And dr("Nivel3") = 0 Then
                     Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and SkuArticulo = '" & dr("SkuArticulo") & "'")
@@ -735,7 +735,7 @@ Public Class Estimacion
                         End If
                         dr2("Result") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
                         dr2("FinalCost") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
-                        Me.TextBox6.Text = dr("Result")
+                        Me.TextBox6.Text = Math.Round(dr("Result"), 2)
                     Next
                 ElseIf dr("Nivel1") > 0 And dr("Nivel2") > 0 And dr("Nivel3") = 0 Then
                     Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and Nivel2 = " & dr("Nivel2") & " and SkuArticulo = '" & dr("SkuArticulo") & "'")
@@ -749,7 +749,7 @@ Public Class Estimacion
                         End If
                         dr2("Result") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
                         dr2("FinalCost") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
-                        Me.TextBox6.Text = dr("Result")
+                        Me.TextBox6.Text = Math.Round(dr("Result"), 2)
                     Next
                 ElseIf dr("Nivel1") > 0 And dr("Nivel2") > 0 And dr("Nivel3") > 0 Then
                     Dim rows2 = Table.[Select]("Nivel1 = " & dr("Nivel1") & " and Nivel2 = " & dr("Nivel2") & " and Nivel3 = " & dr("Nivel3") & " and SkuArticulo = '" & dr("SkuArticulo") & "'")
@@ -763,7 +763,7 @@ Public Class Estimacion
                         End If
                         dr2("Result") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
                         dr2("FinalCost") = dr2("QUANTITY_I") * ((dr2("RACost") * dr2("STNDCOST")) + (dr2("RBCost") * dr2("CURRCOST")))
-                        Me.TextBox6.Text = dr("Result")
+                        Me.TextBox6.Text = Math.Round(dr("Result"), 2)
                     Next
                 End If
 
