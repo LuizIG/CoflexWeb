@@ -169,7 +169,6 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="About.aspx" />
     <Content Include="Acceso.aspx" />
     <Content Include="Account\logo.png" />
     <Content Include="Account\PerfilUsuario.aspx" />
@@ -193,6 +192,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="WebForm1.aspx" />
     <None Include="My Project\PublishProfiles\CoflexWebPublish.pubxml" />
     <None Include="My Project\PublishProfiles\localWeb.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -292,13 +292,6 @@
     <Compile Include="App_Code\ItemsComponents.vb" />
     <Compile Include="App_Start\BundleConfig.vb" />
     <Compile Include="App_Start\RouteConfig.vb" />
-    <Compile Include="About.aspx.designer.vb">
-      <DependentUpon>About.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="About.aspx.vb">
-      <DependentUpon>About.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
     <Compile Include="CoflexWebServices.vb" />
     <Compile Include="Default.aspx.designer.vb">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -384,6 +377,13 @@
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.vb">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.vb">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.vb">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
