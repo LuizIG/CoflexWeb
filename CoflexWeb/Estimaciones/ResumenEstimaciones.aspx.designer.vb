@@ -14,13 +14,13 @@ Option Explicit On
 Partial Public Class ResumenEstimaciones
     
     '''<summary>
-    '''Control GridUsers.
+    '''Control tableQuotations.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents GridUsers As Global.System.Web.UI.WebControls.GridView
+    Protected WithEvents tableQuotations As Global.System.Web.UI.HtmlControls.HtmlTable
     
     '''<summary>
     '''Control div_response.

@@ -54,30 +54,53 @@ Public Class ResumenEstimaciones
                     Next
                 Next
                 Dim Table As DataTable = JsonConvert.DeserializeObject(Of DataTable)(arrayLimpio.ToString)
-                GridUsers.DataSource = Table
-                GridUsers.DataBind()
+
+                For Each row As DataRow In Table.Rows
+                    tableQuotations.Rows.Add(GetRow(row))
+                Next
+
             End If
         End If
     End Sub
 
-    Private Sub GridUsers_DataBound(sender As Object, e As EventArgs) Handles GridUsers.DataBound
-        For i As Integer = GridUsers.Rows.Count - 1 To 1 Step -1
-            Dim row As GridViewRow = GridUsers.Rows(i)
-            Dim previousRow As GridViewRow = GridUsers.Rows(i - 1)
-            For j As Integer = 0 To row.Cells.Count - 1
-                If row.Cells(j).Text = previousRow.Cells(j).Text And row.Cells(0).Text = previousRow.Cells(0).Text Then
-                    If (j <> 6) Then
-                        If previousRow.Cells(j).RowSpan = 0 Then
-                            If row.Cells(j).RowSpan = 0 Then
-                                previousRow.Cells(j).RowSpan += 2
-                            Else
-                                previousRow.Cells(j).RowSpan = row.Cells(j).RowSpan + 1
-                            End If
-                            row.Cells(j).Visible = False
-                        End If
-                    End If
-                End If
-            Next
-        Next
-    End Sub
+
+    Private Function GetRow(ByVal row As DataRow) As HtmlTableRow
+        Dim rowString As New HtmlTableRow
+
+        Dim cell1 As New HtmlTableCell
+        cell1.InnerText = row("CoflexId").ToString
+
+        Dim cell2 As New HtmlTableCell
+        cell2.InnerText = row("User").ToString
+
+        Dim cell3 As New HtmlTableCell
+        cell3.InnerText = row("ClientName").ToString
+
+        Dim cell4 As New HtmlTableCell
+        cell4.InnerText = row("QStatus").ToString
+
+        Dim cell5 As New HtmlTableCell
+        cell5.InnerText = row("VersionNumber").ToString
+
+        Dim cell6 As New HtmlTableCell
+        cell6.InnerText = row("Date").ToString
+
+        Dim cell7 As New HtmlTableCell
+        cell7.InnerText = row("VStatus").ToString
+
+        Dim cell8 As New HtmlTableCell
+        cell8.InnerHtml = row("ActionEdit").ToString
+
+        rowString.Cells.Add(cell1)
+        rowString.Cells.Add(cell2)
+        rowString.Cells.Add(cell3)
+        rowString.Cells.Add(cell4)
+        rowString.Cells.Add(cell5)
+        rowString.Cells.Add(cell6)
+        rowString.Cells.Add(cell7)
+        rowString.Cells.Add(cell8)
+
+        Return rowString
+    End Function
+
 End Class
