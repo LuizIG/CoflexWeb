@@ -9,7 +9,6 @@ Public Class Acceso
     End Sub
 
     Protected Sub LogIn(sender As Object, e As EventArgs)
-        progressbar.InnerHtml = ShowProgressBar()
         Dim Consulta = CoflexWebServices.doPostRequest(CoflexWebServices.LOGIN, "grant_type=password&username=" & Me.UserName.Text & "&password=" & Me.Password.Text, "application/x-www-form-urlencoded")
         Dim o = JObject.Parse(Consulta)
         Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
@@ -26,7 +25,6 @@ Public Class Acceso
             Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
             error_msg.InnerHtml = GetErrorDiv(errorMessage)
         End If
-        progressbar.InnerHtml = ""
     End Sub
 End Class
 

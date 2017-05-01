@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="vb" CodeBehind="Default.aspx.vb" Inherits="CoflexWeb.Acceso" %>
+﻿<%@ Page Title="" Language="vb" CodeBehind="Index.aspx.vb" Inherits="CoflexWeb.Acceso" %>
 
 <!DOCTYPE html>
 
@@ -18,14 +18,6 @@
 
         body {
             padding-top: 0px !important;
-        }
-
-        .showprogress {
-            visibility: visible;
-        }
-
-        .hideprogress {
-            visibility: hidden;
         }
     </style>
     <webopt:BundleReference runat="server" Path="~/Content/css" />
@@ -53,15 +45,16 @@
                 <%--Scripts del sitio--%>
             </Scripts>
         </asp:ScriptManager>
-        <asp:UpdatePanel runat="server" ID="updDiv2" UpdateMode="Conditional">
-            <ContentTemplate>
-                <div id="progressbar" runat="server" style="width: 100%; height:8px"></div>
-            </ContentTemplate>
-        </asp:UpdatePanel>
 
         <asp:UpdatePanel ID="UpdatePanel" runat="server">
             <ContentTemplate>
-
+                <div style="text-align: center; height:8px">
+                    <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel" DynamicLayout="true">
+                        <ProgressTemplate>
+                            <div class='progress progress-striped active' style='height: 8px;'><div class='progress-bar' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width:100%'></div></div>
+                        </ProgressTemplate>
+                    </asp:UpdateProgress>
+                </div>
                 <div id="error_msg" runat="server" style="margin-left: 16px; margin-right: 16px;"></div>
                 <div>
                     <div class="col-sm-4"></div>

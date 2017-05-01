@@ -21,12 +21,13 @@
             }
         }
 
-        var ddlText, ddlValue, ddl, lblMesg;
+        var ddlText, ddlValue, ddl;
         function CacheItems() {
             ddlText = new Array();
             ddlValue = new Array();
             ddl = document.getElementById("<%=DDComponente.ClientID %>");
             for (var i = 0; i < ddl.options.length; i++) {
+                console.log(ddl.options[i].text + " " + ddl.options[i].value);
                 ddlText[ddlText.length] = ddl.options[i].text;
                 ddlValue[ddlValue.length] = ddl.options[i].value;
             }
@@ -39,10 +40,6 @@
                 if (ddlText[i].toLowerCase().indexOf(value) != -1) {
                     AddItem(ddlText[i], ddlValue[i]);
                 }
-            }
-            lblMesg.innerHTML = ddl.options.length + " items found.";
-            if (ddl.options.length == 0) {
-                AddItem("No items found.", "");
             }
         }
 
@@ -67,13 +64,27 @@
             }, 500);
             return false;
         }
+
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+
+        prm.add_endRequest(function () {
+            // re-bind your jQuery events here
+            ddl = document.getElementById("<%=DDComponente.ClientID %>");
+        });
     </script>
     <h2><%--<%: Title %>.--%></h2>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
+
             <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
                 <asp:View ID="View1" runat="server">
-
+                    <div style="text-align: center; height:8px; margin-top:16px;">
+                        <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DynamicLayout="true">
+                            <ProgressTemplate>
+                                <div class='progress progress-striped active' style='height: 8px;'><div class='progress-bar' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width:100%'></div></div>
+                            </ProgressTemplate>
+                        </asp:UpdateProgress>
+                    </div>
                     <div id="div_Response" runat="server"></div>
 
                     <div class="well well-lg">

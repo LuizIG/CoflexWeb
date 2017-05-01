@@ -41,6 +41,15 @@ Partial Public Class Estimacion
     Protected WithEvents View1 As Global.System.Web.UI.WebControls.View
     
     '''<summary>
+    '''Control UpdateProgress1.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents UpdateProgress1 As Global.System.Web.UI.UpdateProgress
+    
+    '''<summary>
     '''Control div_Response.
     '''</summary>
     '''<remarks>

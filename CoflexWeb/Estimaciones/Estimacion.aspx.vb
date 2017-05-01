@@ -1006,16 +1006,17 @@ Public Class Estimacion
 
             Next
 
-            Dim TBCantidad As TextBox = TryCast(row.FindControl("TBQuantity"), TextBox)
+
+
             Dim TBMargin As TextBox = TryCast(row.FindControl("TVMargin"), TextBox)
 
             Item.Add("Sku", sku)
             Item.Add("ItemDescription", reng("ITEMDESC").ToString)
-            Item.Add("Quantity", CDbl(TBCantidad.Text))
+            Item.Add("Quantity", 1.0)
             Item.Add("UM", reng("UOFM").ToString)
             Item.Add("Status", 0)
             Item.Add("ProfitMargin", CDbl(TBMargin.Text) / 100)
-            Item.Add("ItemsComponents", CreateItemComponents(sku, TBCantidad.Text))
+            Item.Add("ItemsComponents", CreateItemComponents(sku, "1.0"))
             ItemArray.Add(Item)
         Next
         Return ItemArray
