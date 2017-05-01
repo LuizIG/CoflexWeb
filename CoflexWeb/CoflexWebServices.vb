@@ -32,8 +32,6 @@ Namespace CoflexWeb.Services.Web
         Public Const DETAIL_COMPONENTS As String = "CoflexAPIExt/api/DetailComponets"
         Public Const CLIENTS As String = "CoflexAPIExt/api/Clients"
 
-        Public itemsLists As New ItemsComponentsCollection
-
         Public Function doPostRequest(url As String, data As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As String
             Dim request = createRequest(SERVER_HOST & url, "POST", contentType, token)
             sendData(request, data)
@@ -125,16 +123,13 @@ Namespace CoflexWeb.Services.Web
                 Try
                     errorJSON = JObject.Parse(resp)
                 Catch e As Exception
-
-                    StatusCode = 500
                     ErrorString = "{
                       'Message': 'Ocurrió un error en el servidor'
                     }"
-
                     Return "{" _
                     & """statusCode"":" & StatusCode & "," _
-                    & """errorMessage"":""" & ErrorString & """," _
-                    & """detail"":" & resp _
+                    & """errorMessage"":""Ocurrió un error en el servidor""," _
+                    & """detail"":" & ErrorString _
                     & "}"
                 End Try
 
