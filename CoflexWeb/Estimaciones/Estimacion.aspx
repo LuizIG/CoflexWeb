@@ -67,6 +67,20 @@
             }, 500);
             return false;
         }
+
+        function PrintPanel2() {
+            var panel = document.getElementById("<%=pnlContents2.ClientID %>");
+                    var printWindow = window.open('', '', 'height=400,width=800');
+                    printWindow.document.write('<html><head><title>DIV Contents</title>');
+                    printWindow.document.write('</head><body >');
+                    printWindow.document.write(panel.innerHTML);
+                    printWindow.document.write('</body></html>');
+                    printWindow.document.close();
+                    setTimeout(function () {
+                        printWindow.print();
+                    }, 500);
+                    return false;
+                }
     </script>
     <h2><%--<%: Title %>.--%></h2>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -393,6 +407,10 @@
                                                 </td>
                                                 <td>&nbsp;</td>
                                                 <td>
+                                                    <asp:Button ID="TreeView" class="btn btn-default" runat="server" Text="Configuración" />
+                                                </td>
+                                                <td>&nbsp;</td>
+                                                <td>
                                                     <asp:Button ID="Imprimir" class="btn btn-default" runat="server" Text="Imprimir" />
                                                 </td>
                                                 <td>&nbsp;</td>
@@ -622,21 +640,70 @@
                                         </table>
                                     </td>
                                 </tr>
-                                <%--                                   <tr>
-                                    <td colspan="4"></td>
-                                </tr>--%>
-                                <%--  <tr>
-                                    <td colspan="4" style="border-style: solid; border-width: thin thin medium thin; text-align: left; color: #000080; border-top-color: #003366;">
-                                        
-                                        <asp:Label ID="Label26" ForeColor="Black" runat="server">Villarreal División Equipos<br />Atención a: Carlos López&nbsp;</asp:Label>
-
-                                    </td>
-                                </tr>--%>
                             </table>
                         </asp:Panel>
                     </div>
 
                 </asp:View>
+                <asp:View ID="View5" runat="server">
+                    <div class="well well-lg">
+                        <asp:Panel ID="pnlContents2" runat="server">
+                            <table style="width: 100%">
+                                <tr style="text-align: right">
+                                    <td  colspan="2" width="50%">
+                                        <img src="logo.png" class="visible-print-block" />&nbsp;
+                                    </td>
+                                    <td colspan="2">
+                                        <asp:Button ID="Button12" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel2();" runat="server" Text="Imprimir" />&nbsp;&nbsp;&nbsp;
+                                <asp:Button ID="Button13" class="btn btn-primary hidden-print" runat="server" Text="Regresar" />
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">&nbsp;</td>
+                                </tr>
+                            </table>
+                            <asp:GridView class="table" ID="GridTreeView" Width="100%" AutoGenerateColumns="False" runat="server" ShowFooter="True">
+                                <Columns>
+                                    <asp:BoundField HeaderText="Articulo" DataField="SkuArticulo">
+                                        <ItemStyle BorderStyle="Solid" />
+                                    </asp:BoundField>
+                                    <asp:BoundField HeaderText="Numero de Parte" DataField="SkuComponente">
+                                        <ItemStyle BorderStyle="Solid" />
+                                    </asp:BoundField>
+                                    <asp:BoundField HeaderText="Descripción" DataField="ITEMDESC">
+                                        <ItemStyle />
+                                    </asp:BoundField>
+                                    <asp:BoundField HeaderText="Cantidad" DataField="Quantity_I">
+                                        <ItemStyle BorderStyle="Solid" />
+                                    </asp:BoundField>
+                                    <asp:BoundField HeaderText="Unidad" DataField="UofM">
+                                        <ItemStyle BorderStyle="Solid" />
+                                    </asp:BoundField>
+                                    <asp:BoundField HeaderText="Costo Estandar" DataField="STNDCOST">
+                                        <ItemStyle BorderStyle="Solid" />
+                                    </asp:BoundField>
+                                    <asp:BoundField HeaderText="Costo Actual" DataField="CURRCOST">
+                                        <ItemStyle BorderStyle="Solid" />
+                                    </asp:BoundField>
+                                    <asp:BoundField HeaderText="Total" DataField="Result">
+                                        <ItemStyle BorderStyle="Solid" />
+                                    </asp:BoundField>
+                                    <asp:BoundField HeaderText="Nivel1" DataField="Nivel1">
+                                        <ItemStyle BorderStyle="Solid" />
+                                    </asp:BoundField>
+                                    <asp:BoundField HeaderText="Nivel2" DataField="Nivel2">
+                                        <ItemStyle BorderStyle="Solid" />
+                                    </asp:BoundField>
+                                    <asp:BoundField HeaderText="Nivel3" DataField="Nivel3">
+                                        <ItemStyle BorderStyle="Solid" />
+                                    </asp:BoundField>
+                                </Columns>
+                            </asp:GridView>
+                        </asp:Panel>
+                    </div>
+                </asp:View>
+
             </asp:MultiView>
 
         </ContentTemplate>

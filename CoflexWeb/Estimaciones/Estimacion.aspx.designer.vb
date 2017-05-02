@@ -500,6 +500,15 @@ Partial Public Class Estimacion
     Protected WithEvents BtnRecalcular As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
+    '''TreeView control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents TreeView As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''Imprimir control.
     '''</summary>
     '''<remarks>
@@ -768,4 +777,49 @@ Partial Public Class Estimacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Label27 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''View5 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents View5 As Global.System.Web.UI.WebControls.View
+    
+    '''<summary>
+    '''pnlContents2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlContents2 As Global.System.Web.UI.WebControls.Panel
+    
+    '''<summary>
+    '''Button12 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Button12 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''Button13 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Button13 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''GridTreeView control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents GridTreeView As Global.System.Web.UI.WebControls.GridView
 End Class
