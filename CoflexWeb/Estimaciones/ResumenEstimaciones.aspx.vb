@@ -56,50 +56,41 @@ Public Class ResumenEstimaciones
                 Dim Table As DataTable = JsonConvert.DeserializeObject(Of DataTable)(arrayLimpio.ToString)
 
                 For Each row As DataRow In Table.Rows
-                    tableQuotations.Rows.Add(GetRow(row))
+                    tableQuotations.InnerHtml &= GetRow(row)
                 Next
-
             End If
         End If
     End Sub
 
 
-    Private Function GetRow(ByVal row As DataRow) As HtmlTableRow
-        Dim rowString As New HtmlTableRow
-
-        Dim cell1 As New HtmlTableCell
-        cell1.InnerText = row("CoflexId").ToString
-
-        Dim cell2 As New HtmlTableCell
-        cell2.InnerText = row("User").ToString
-
-        Dim cell3 As New HtmlTableCell
-        cell3.InnerText = row("ClientName").ToString
-
-        Dim cell4 As New HtmlTableCell
-        cell4.InnerText = row("QStatus").ToString
-
-        Dim cell5 As New HtmlTableCell
-        cell5.InnerText = row("VersionNumber").ToString
-
-        Dim cell6 As New HtmlTableCell
-        cell6.InnerText = row("Date").ToString
-
-        Dim cell7 As New HtmlTableCell
-        cell7.InnerText = row("VStatus").ToString
-
-        Dim cell8 As New HtmlTableCell
-        cell8.InnerHtml = row("ActionEdit").ToString
-
-        rowString.Cells.Add(cell1)
-        rowString.Cells.Add(cell2)
-        rowString.Cells.Add(cell3)
-        rowString.Cells.Add(cell4)
-        rowString.Cells.Add(cell5)
-        rowString.Cells.Add(cell6)
-        rowString.Cells.Add(cell7)
-        rowString.Cells.Add(cell8)
-
+    Private Function GetRow(ByVal row As DataRow) As String
+        Dim rowString As String
+        rowString = "<tr>"
+        rowString &= "<td>"
+        rowString &= row("CoflexId").ToString
+        rowString &= "</td>"
+        rowString &= "<td>"
+        rowString &= row("User").ToString
+        rowString &= "</td>"
+        rowString &= "<td>"
+        rowString &= row("ClientName").ToString
+        rowString &= "</td>"
+        rowString &= "<td>"
+        rowString &= row("QStatus").ToString
+        rowString &= "</td>"
+        rowString &= "<td>"
+        rowString &= row("VersionNumber").ToString
+        rowString &= "</td>"
+        rowString &= "<td>"
+        rowString &= row("Date").ToString
+        rowString &= "</td>"
+        rowString &= "<td>"
+        rowString &= row("VStatus").ToString
+        rowString &= "</td>"
+        rowString &= "<td class='action'>"
+        rowString &= row("ActionEdit").ToString
+        rowString &= "</td>"
+        rowString &= "</tr>"
         Return rowString
     End Function
 

@@ -20,7 +20,7 @@ Partial Public Class ResumenEstimaciones
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents tableQuotations As Global.System.Web.UI.HtmlControls.HtmlTable
+    Protected WithEvents tableQuotations As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
     '''Control div_response.

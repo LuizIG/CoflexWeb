@@ -2,13 +2,27 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('#table .action').each(function () {
+                    var text = $(this).text()
+                    $(this).html(text);
+                });
+                $('#table').css("display", "block");
+            }, 1000);
+        });
+    </script>
+
     <div style="position: relative; right: 0px; width: 100%; text-align: right; margin-top:32px">
         <a href="Estimacion.aspx" class="btn btn-primary" role="button">Nueva Estimacion</a>
     </div>
     <div class="divider" style="margin-top: 16px; margin-bottom: 16px"></div>
 
 
-    <table id="tableQuotations" runat="server" 
+    <table style="display:none" id="table" 
 			     data-toggle="table"
 			     data-search="true"
 			     data-filter-control="true" 
@@ -26,6 +40,7 @@
                 <th data-field="action" data-sortable="false"></th>
 		    </tr>
 	    </thead>
+        <tbody id="tableQuotations" runat="server"></tbody>
     </table>
 
     <div id="div_response" runat="server"></div>
