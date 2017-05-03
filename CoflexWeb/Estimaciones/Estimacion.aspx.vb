@@ -1320,4 +1320,16 @@ Public Class Estimacion
     Protected Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
         Me.MultiView1.ActiveViewIndex = 1
     End Sub
+
+    Protected Sub TreeView_Click(sender As Object, e As EventArgs) Handles TreeView.Click
+        Me.MultiView1.ActiveViewIndex = 4
+        Dim Table As DataTable = DirectCast(Session("treeView"), DataTable)
+        GridTreeView.DataSource = Table
+        GridTreeView.DataBind()
+
+    End Sub
+
+    Protected Sub Button13_Click(sender As Object, e As EventArgs) Handles Button13.Click
+        Me.MultiView1.ActiveViewIndex = 1
+    End Sub
 End Class

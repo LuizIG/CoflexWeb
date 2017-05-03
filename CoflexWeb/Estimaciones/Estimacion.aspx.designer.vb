@@ -509,6 +509,15 @@ Partial Public Class Estimacion
     Protected WithEvents BtnRecalcular As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
+    '''Control TreeView.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents TreeView As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''Control Imprimir.
     '''</summary>
     '''<remarks>
@@ -777,4 +786,49 @@ Partial Public Class Estimacion
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents Label27 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''Control View5.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents View5 As Global.System.Web.UI.WebControls.View
+    
+    '''<summary>
+    '''Control pnlContents2.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents pnlContents2 As Global.System.Web.UI.WebControls.Panel
+    
+    '''<summary>
+    '''Control Button12.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Button12 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''Control Button13.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Button13 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''Control GridTreeView.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents GridTreeView As Global.System.Web.UI.WebControls.GridView
 End Class
