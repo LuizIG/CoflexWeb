@@ -13,14 +13,30 @@
                 });
                 $('#table').css("display", "block");
             }, 1000);
+
+
+            var $result = $('#eventsResult');
+
+            $('#table').on('all.bs.table', function (e, name, args) {
+                console.log('Event:', name, ', data:', args);
+            })
+            .on('sort.bs.table', function (e, name, order) {
+                alert("aewfawefawef");
+            })
+            .on('search.bs.table', function (e, text) {
+                $result.text('Event: search.bs.table');
+            });
+
         });
     </script>
+
+
 
     <div style="position: relative; right: 0px; width: 100%; text-align: right; margin-top:32px">
         <a href="Estimacion.aspx" class="btn btn-primary" role="button">Nueva Estimacion</a>
     </div>
     <div class="divider" style="margin-top: 16px; margin-bottom: 16px"></div>
-
+        <div id="eventsResult"></div>
 
     <table style="display:none" id="table" 
 			     data-toggle="table"
