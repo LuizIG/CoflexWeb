@@ -88,9 +88,9 @@ Public Class ResumenEstimaciones
         rowString &= "<td>"
         rowString &= row("VStatus").ToString
         rowString &= "</td>"
-        rowString &= "<td class='action'>"
-        rowString &= row("ActionEdit").ToString
-        rowString &= "</td>"
+        'rowString &= "<td class='action'>"
+        'rowString &= row("ActionEdit").ToString
+        'rowString &= "</td>"
         rowString &= "</tr>"
         Return rowString
     End Function

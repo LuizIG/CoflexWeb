@@ -71,19 +71,19 @@
             // re-bind your jQuery events here
             ddl = document.getElementById("<%=DDComponente.ClientID %>");
         });
-        function PrintPanel2() {
-            var panel = document.getElementById("<%=pnlContents2.ClientID %>");
-                    var printWindow = window.open('', '', 'height=400,width=800');
-                    printWindow.document.write('<html><head><title>DIV Contents</title>');
-                    printWindow.document.write('</head><body >');
-                    printWindow.document.write(panel.innerHTML);
-                    printWindow.document.write('</body></html>');
-                    printWindow.document.close();
-                    setTimeout(function () {
-                        printWindow.print();
-                    }, 500);
-                    return false;
-                }
+            function PrintPanel2() {
+                var panel = document.getElementById("<%=pnlContents2.ClientID %>");
+                var printWindow = window.open('', '', 'height=400,width=800');
+                printWindow.document.write('<html><head><title>DIV Contents</title>');
+                printWindow.document.write('</head><body >');
+                printWindow.document.write(panel.innerHTML);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+                setTimeout(function () {
+                    printWindow.print();
+                }, 500);
+                return false;
+            }
     </script>
     <h2><%--<%: Title %>.--%></h2>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -91,10 +91,12 @@
 
             <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
                 <asp:View ID="View1" runat="server">
-                    <div style="text-align: center; height:8px; margin-top:16px;">
+                    <div style="text-align: center; height: 8px; margin-top: 16px;">
                         <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DynamicLayout="true">
                             <ProgressTemplate>
-                                <div class='progress progress-striped active' style='height: 8px;'><div class='progress-bar' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width:100%'></div></div>
+                                <div class='progress progress-striped active' style='height: 8px;'>
+                                    <div class='progress-bar' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width: 100%'></div>
+                                </div>
                             </ProgressTemplate>
                         </asp:UpdateProgress>
                     </div>
@@ -119,9 +121,9 @@
                                                     <asp:DropDownList ID="DDCliente" Width="100%" runat="server" AutoPostBack="True">
                                                     </asp:DropDownList>
                                                 </td>
-                                                <td rowspan="2" style="vertical-align: top;">
+                                               <%-- <td rowspan="2" style="vertical-align: top;">
                                                     <asp:Button ID="Button2" class="btn btn-primary" runat="server" Text="Agregar" />
-                                                </td>
+                                                </td>--%>
                                             </tr>
                                             <tr>
                                                 <td>
@@ -147,9 +149,9 @@
                                                 <td>
                                                     <asp:TextBox Width="100%" Height="20px" ID="txtSearch" runat="server" onkeyup="FilterItems(this.value)"></asp:TextBox>
                                                 </td>
-                                                <td rowspan="2" style="vertical-align: central;">
+                                               <%-- <td rowspan="2" style="vertical-align: central;">
                                                     <asp:Button ID="Button3" runat="server" class="btn btn-primary" Text="Agregar" />
-                                                </td>
+                                                </td>--%>
                                             </tr>
                                             <tr style="vertical-align: top;">
                                                 <td>
@@ -185,10 +187,10 @@
                                                     <asp:Button ID="Button6" runat="server" class="btn btn-primary" Text="Nuevo" />&nbsp;
 
                                                 </td>
-                                                <td style="vertical-align: central;">
+                                               <%-- <td style="vertical-align: central;">
                                                     <asp:Button ID="Button7" runat="server" class="btn btn-primary" Text="Agregar" />&nbsp;
 
-                                                </td>
+                                                </td>--%>
                                             </tr>
 
                                         </table>
@@ -206,9 +208,15 @@
                                         <table>
                                             <tr>
                                                 <td>
-                                                    <asp:Button ID="Button5" class="btn btn-primary" runat="server" Text="Continuar" />
-
+                                                    <asp:Button ID="ButtonAllAgregar" runat="server" class="btn btn-primary" Text="Agregar" />&nbsp;
                                                 </td>
+                                                <td style="text-align: right;">
+                                                    <asp:Button ID="Button1" class="btn btn-primary" runat="server" Text="Actualizar" />&nbsp;
+                                                </td>
+                                                <td>
+                                                    <asp:Button ID="Button4" runat="server" class="btn btn-primary" Text="Remover" />&nbsp;
+                                                </td>
+
                                             </tr>
                                         </table>
                                     </div>
@@ -236,21 +244,15 @@
                                                 </asp:TreeView>
                                             </asp:Panel>
                                         </div>
-                                        <div style="width: 100%; height: 35px;">
+                                        <%--<div style="width: 100%; height: 35px;">
 
                                             <table style="width: 100%; text-align: right; height: 37px;">
                                                 <tr>
                                                     <td></td>
                                                 </tr>
 
-                                                <tr>
-                                                    <td>
-                                                        <asp:Button ID="Button4" runat="server" class="btn btn-primary" Text="Remover" />
-
-                                                    </td>
-                                                </tr>
                                             </table>
-                                        </div>
+                                        </div>--%>
                                     </td>
                                     <td style="vertical-align: top; width: 50%; height: 100%;">
                                         <br />
@@ -345,17 +347,25 @@
                                                 </tr>
                                             </table>
                                         </div>
-                                        <div style="width: 100%">
+                                        <%--<div style="width: 100%">
                                             <table style="width: 100%">
-                                                <tr>
-                                                    <td style="text-align: right;">
-                                                        <asp:Button ID="Button1" class="btn btn-primary" runat="server" Text="Actualizar" />&nbsp;
-                                                    </td>
-                                                </tr>
                                             </table>
-                                        </div>
+                                        </div>--%>
                                     </td>
                                 </tr>
+                            </table>
+                        </div>
+                        <div style="width: 100%; text-align:right; height: 35px;">
+
+                            <table style="width:100%; text-align: right; height: 37px;">
+                                <tr>
+                                 
+                                    <td><asp:Button ID="ButtonBack" class="btn btn-primary" runat="server" Text="Cancelar" />&nbsp;
+                                        <asp:Button ID="Button5" class="btn btn-primary" runat="server" Text="Continuar" />&nbsp;
+
+                                    </td>
+                                </tr>
+
                             </table>
                         </div>
                     </div>
@@ -651,7 +661,7 @@
                         <asp:Panel ID="pnlContents2" runat="server">
                             <table style="width: 100%">
                                 <tr style="text-align: right">
-                                    <td  colspan="2" width="50%">
+                                    <td colspan="2" width="50%">
                                         <img src="logo.png" class="visible-print-block" />&nbsp;
                                     </td>
                                     <td colspan="2">

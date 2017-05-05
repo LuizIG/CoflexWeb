@@ -36,7 +36,7 @@
                 <th data-field="version" data-filter-control="select" data-sortable="true">Versión</th>
                 <th data-field="date" data-filter-control="select" data-sortable="true">Fecha</th>
                 <th data-field="qversionstatus" data-filter-control="select" data-sortable="true">Estatus Versión</th>
-                <th data-field="action" data-sortable="false">Acción</th>
+                <%--<th data-field="action" data-sortable="false">Acción</th>--%>
 		    </tr>
 	    </thead>
         <tbody id="tableQuotations" runat="server"></tbody>

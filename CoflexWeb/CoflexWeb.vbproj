@@ -170,7 +170,7 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Index.aspx" />
+    <Content Include="Default.aspx" />
     <Content Include="Account\logo.png" />
     <Content Include="Account\PerfilUsuario.aspx" />
     <Content Include="Account\Registro.aspx" />
@@ -245,11 +245,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Index.aspx.designer.vb">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="Default.aspx.designer.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Index.aspx.vb">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="Default.aspx.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Account\PerfilUsuario.aspx.designer.vb">

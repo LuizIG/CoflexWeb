@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="vb" CodeBehind="Index.aspx.vb" Inherits="CoflexWeb.Acceso" %>
+﻿<%@ Page Title="" Language="vb" CodeBehind="Default.aspx.vb" Inherits="CoflexWeb.Acceso" %>
 
 <!DOCTYPE html>
 
