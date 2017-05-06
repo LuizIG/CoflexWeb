@@ -121,7 +121,7 @@
                                                     <asp:DropDownList ID="DDCliente" Width="100%" runat="server" AutoPostBack="True">
                                                     </asp:DropDownList>
                                                 </td>
-                                               <%-- <td rowspan="2" style="vertical-align: top;">
+                                                <%-- <td rowspan="2" style="vertical-align: top;">
                                                     <asp:Button ID="Button2" class="btn btn-primary" runat="server" Text="Agregar" />
                                                 </td>--%>
                                             </tr>
@@ -149,7 +149,7 @@
                                                 <td>
                                                     <asp:TextBox Width="100%" Height="20px" ID="txtSearch" runat="server" onkeyup="FilterItems(this.value)"></asp:TextBox>
                                                 </td>
-                                               <%-- <td rowspan="2" style="vertical-align: central;">
+                                                <%-- <td rowspan="2" style="vertical-align: central;">
                                                     <asp:Button ID="Button3" runat="server" class="btn btn-primary" Text="Agregar" />
                                                 </td>--%>
                                             </tr>
@@ -187,7 +187,7 @@
                                                     <asp:Button ID="Button6" runat="server" class="btn btn-primary" Text="Nuevo" />&nbsp;
 
                                                 </td>
-                                               <%-- <td style="vertical-align: central;">
+                                                <%-- <td style="vertical-align: central;">
                                                     <asp:Button ID="Button7" runat="server" class="btn btn-primary" Text="Agregar" />&nbsp;
 
                                                 </td>--%>
@@ -355,12 +355,13 @@
                                 </tr>
                             </table>
                         </div>
-                        <div style="width: 100%; text-align:right; height: 35px;">
+                        <div style="width: 100%; text-align: right; height: 35px;">
 
-                            <table style="width:100%; text-align: right; height: 37px;">
+                            <table style="width: 100%; text-align: right; height: 37px;">
                                 <tr>
-                                 
-                                    <td><asp:Button ID="ButtonBack" class="btn btn-primary" runat="server" Text="Cancelar" />&nbsp;
+
+                                    <td>
+                                        <asp:Button ID="ButtonBack" class="btn btn-primary" runat="server" Text="Cancelar" />&nbsp;
                                         <asp:Button ID="Button5" class="btn btn-primary" runat="server" Text="Continuar" />&nbsp;
 
                                     </td>

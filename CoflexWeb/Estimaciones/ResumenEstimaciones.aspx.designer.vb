@@ -14,6 +14,51 @@ Option Explicit On
 Partial Public Class ResumenEstimaciones
     
     '''<summary>
+    '''ButtonIndicadores control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ButtonIndicadores As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''ButtonPrintEstim control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ButtonPrintEstim As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''ButtonReasignar control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ButtonReasignar As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''ButtonEstimacionGo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ButtonEstimacionGo As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''pnlContents3 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlContents3 As Global.System.Web.UI.WebControls.Panel
+    
+    '''<summary>
     '''tableQuotations control.
     '''</summary>
     '''<remarks>

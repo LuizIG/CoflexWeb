@@ -95,4 +95,7 @@ Public Class ResumenEstimaciones
         Return rowString
     End Function
 
+    Protected Sub ButtonEstimacionGo_Click(sender As Object, e As EventArgs) Handles ButtonEstimacionGo.Click
+        Response.Redirect("/Estimaciones/Estimacion.aspx")
+    End Sub
 End Class
