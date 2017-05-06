@@ -54,7 +54,7 @@
         function PrintPanel() {
             var panel = document.getElementById("<%=pnlContents.ClientID %>");
             var printWindow = window.open('', '', 'height=400,width=800');
-            printWindow.document.write('<html><head><title>DIV Contents</title>');
+            printWindow.document.write('<html><head><title></title>');
             printWindow.document.write('</head><body >');
             printWindow.document.write(panel.innerHTML);
             printWindow.document.write('</body></html>');
@@ -74,7 +74,7 @@
             function PrintPanel2() {
                 var panel = document.getElementById("<%=pnlContents2.ClientID %>");
                 var printWindow = window.open('', '', 'height=400,width=800');
-                printWindow.document.write('<html><head><title>DIV Contents</title>');
+                printWindow.document.write('<html><head><title></title>');
                 printWindow.document.write('</head><body >');
                 printWindow.document.write(panel.innerHTML);
                 printWindow.document.write('</body></html>');
@@ -254,6 +254,7 @@
                                             </table>
                                         </div>--%>
                                     </td>
+                                    <td>&nbsp;</td>
                                     <td style="vertical-align: top; width: 50%; height: 100%;">
                                         <br />
                                         <div style="vertical-align: top; width: 100%">
@@ -278,7 +279,7 @@
 
                                                     </td>
                                                     <td colspan="3">
-                                                        <textarea id="TextArea1" style="width: 100%" disabled runat="server"></textarea>
+                                                        <textarea id="TextArea1" style="width: 100%; max-width: 1000px !important" disabled runat="server"></textarea>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -372,6 +373,16 @@
                     </div>
                 </asp:View>
                 <asp:View ID="View2" runat="server">
+                    <div style="text-align: center; height: 8px; margin-top: 16px;">
+                        <asp:UpdateProgress ID="UpdateProgress2" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DynamicLayout="true">
+                            <ProgressTemplate>
+                                <div class='progress progress-striped active' style='height: 8px;'>
+                                    <div class='progress-bar' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width: 100%'></div>
+                                </div>
+                            </ProgressTemplate>
+                        </asp:UpdateProgress>
+                    </div>
+                    <div id="div1" runat="server"></div>
 
                     <div class="well well-lg" style="margin-top: 32px">
                         <div id="myModal" class="modal fade" role="dialog">
@@ -419,47 +430,20 @@
                                                 </td>
                                                 <td>&nbsp;</td>
                                                 <td>
-                                                    <asp:Button ID="TreeView" class="btn btn-default" runat="server" Text="Configuración" />
+                                                    <asp:Button ID="TreeView" class="btn btn-default" runat="server" Text="Imprimir Reporte" />
                                                 </td>
                                                 <td>&nbsp;</td>
                                                 <td>
                                                     <asp:Button ID="Imprimir" class="btn btn-default" runat="server" Text="Imprimir" />
                                                 </td>
-                                                <td>&nbsp;</td>
-                                                <td>
-                                                    <asp:Button ID="Guardar" class="btn btn-primary" runat="server" Text="Guardar" />
-                                                </td>
-                                                <td>&nbsp;</td>
-                                                <td>
-                                                    <asp:Button ID="Versionar" class="btn btn-primary" runat="server" Text="Versionar" />
-
-                                                </td>
-                                                <td>&nbsp;</td>
-                                                <td>
-                                                    <asp:Button ID="Cotizar" class="btn btn-default" runat="server" Text="Cotizar" />
-
-                                                </td>
-                                                <td>&nbsp;</td>
-                                                <td>
-                                                    <asp:Button ID="Regresar" class="btn btn-primary" runat="server" Text="Regresar" />
-
-                                                </td>
-                                                <td>&nbsp;</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Cambiar Estatus</button>
-                                                </td>
                                             </tr>
                                         </table>
                                     </div>
-
                                 </td>
-
                             </tr>
                             <tr>
-
                                 <div id="margen_ganancia" runat="server"></div>
                             </tr>
-
                         </table>
                         <br />
                         <asp:GridView class="table" ID="GridSummary" Width="100%" AutoGenerateColumns="False" runat="server" ShowFooter="True">
@@ -491,86 +475,128 @@
                             <HeaderStyle BackColor="#C0C0C0" />
                             <FooterStyle BackColor="#C0C0C0" />
                         </asp:GridView>
+                        <div style="width: 100%; text-align: right;">
+
+                            <table style="float: right;">
+                                <tr>
+                                    <td>
+                                        <asp:Button ID="Regresar" class="btn btn-primary" runat="server" Text="Regresar" />
+
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        <asp:Button ID="Guardar" class="btn btn-primary" runat="server" Text="Guardar" />
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        <asp:Button ID="Versionar" class="btn btn-primary" runat="server" Text="Versionar" />
+
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Cambiar Estatus</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
 
 
 
                 </asp:View>
                 <asp:View ID="View3" runat="server">
-                    <table style="width: 100%">
-                        <tr>
-                            <td>
-                                <div style="float: right">
-                                    <table>
-                                        <tr>
-                                            <td style="text-align: right">
-                                                <asp:Button ID="Button9" class="btn btn-primary" runat="server" Text="Regresar" />
-                                            </td>
-                                            <td>&nbsp;
-                                            </td>
-                                            <td>
-                                                <asp:Button ID="Button8" class="btn btn-primary" runat="server" Text="Agregar" />
-                                            </td>
-                                        </tr>
-                                    </table>
+                    <div style="text-align: center; height: 8px; margin-top: 16px;">
+                        <asp:UpdateProgress ID="UpdateProgress3" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DynamicLayout="true">
+                            <ProgressTemplate>
+                                <div class='progress progress-striped active' style='height: 8px;'>
+                                    <div class='progress-bar' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width: 100%'></div>
                                 </div>
-                            </td>
-                        </tr>
-                    </table>
+                            </ProgressTemplate>
+                        </asp:UpdateProgress>
+                    </div>
+                    <div id="div2" runat="server"></div>
 
-                    <br />
-                    <div style="vertical-align: top; width: 100%">
+                    <div class="well well-lg" style="vertical-align: top; width: 100%">
                         <table>
                             <tr>
                                 <td>
                                     <asp:Label ID="Label14" runat="server" Text="Sku Componente"></asp:Label>
 
                                 </td>
+                                <td></td>
                                 <td>
                                     <asp:TextBox ID="txtSkuComponente" Enabled="true" runat="server"></asp:TextBox>
+                                    <%--<asp:RequiredFieldValidator runat="server" ControlToValidate="txtSkuComponente"
+                                        CssClass="text-danger" ErrorMessage="Campo requerido." />--%>
                                     &nbsp;</td>
-                                <td></td>
-                                <td></td>
+                                <td colspan="3"></td>
+
                             </tr>
-                            <tr>
+                            <tr style="height: 70px; align-content: center; vertical-align: central">
                                 <td>
                                     <asp:Label ID="Label15" runat="server" Text="Descripción"></asp:Label></td>
-                                <td colspan="3">
-                                    <textarea id="txtItemDesc" style="width: 100%" runat="server"></textarea></td>
+                                <td>&nbsp;</td>
+                                <td colspan="4">
+                                    <textarea id="txtItemDesc" style="width: 100%; height: 90%; max-width: 1000px !important" runat="server"></textarea></td>
                             </tr>
                             <tr>
                                 <td>
                                     <asp:Label ID="Label17" runat="server" Text="Unidad de Medida"></asp:Label>
                                 </td>
+                                <td>&nbsp;</td>
                                 <td>
                                     <asp:TextBox ID="txtUofm" Enabled="true" runat="server"></asp:TextBox>
                                     &nbsp;</td>
                                 <td>
                                     <asp:Label ID="Label18" runat="server" Text="Costo"></asp:Label>
                                 </td>
+                                <td>&nbsp;</td>
                                 <td>
                                     <asp:TextBox ID="txtStndCost" Enabled="true" runat="server"></asp:TextBox>
                                 </td>
                             </tr>
                         </table>
+                        <br />
+                        <table style="width: 100%">
+                            <tr>
+                                <td>
+                                    <div style="float: right">
+                                        <table>
+                                            <tr>
+                                                <td style="text-align: right">
+                                                    <asp:Button ID="Button9" class="btn btn-primary" runat="server" Text="Regresar" />
+                                                </td>
+                                                <td>&nbsp;
+                                                </td>
+                                                <td>
+                                                    <asp:Button ID="Button8" class="btn btn-primary" runat="server" Text="Guardar" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
-
                 </asp:View>
                 <asp:View ID="View4" runat="server">
 
                     <div class="well well-lg">
-                        <asp:Panel ID="pnlContents" runat="server">
-                            <table style="width: 100%">
-                                <tr style="text-align: right">
-                                    <td colspan="4">
-                                        <asp:Button ID="Button11" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel();" runat="server" Text="Imprimir" />&nbsp;&nbsp;&nbsp;
+
+                        <table style="width: 100%">
+                            <tr style="text-align: right">
+                                <td colspan="4">
+                                    <asp:Button ID="Button11" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel();" runat="server" Text="Imprimir" />&nbsp;&nbsp;&nbsp;
                                 <asp:Button ID="Button10" class="btn btn-primary hidden-print" runat="server" Text="Regresar" />
 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4">&nbsp;</td>
-                                </tr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">&nbsp;</td>
+                            </tr>
+                        </table>
+                        <asp:Panel ID="pnlContents" runat="server">
+                            <table style="width: 100%">
                                 <tr>
                                     <td width="70%">
                                         <img src="logo.png" class="visible-print-block" />&nbsp;
@@ -659,25 +685,34 @@
                 </asp:View>
                 <asp:View ID="View5" runat="server">
                     <div class="well well-lg">
+                        <%--<asp:Panel ID="pnlContents2" runat="server">--%>
+                        <table style="width: 100%">
+                            <tr style="text-align: right">
+                                <td colspan="2" width="50%">
+                                    <img src="logo.png" class="visible-print-block" />&nbsp;
+                                </td>
+                                <td colspan="2">
+                                    <asp:Button ID="Button12" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel2();" runat="server" Text="Imprimir" />
+                                    &nbsp;
+                                        <asp:Button ID="Button13" class="btn btn-primary hidden-print" runat="server" Text="Regresar" />
+                                </td>
+                            </tr>
+                        </table>
                         <asp:Panel ID="pnlContents2" runat="server">
                             <table style="width: 100%">
-                                <tr style="text-align: right">
-                                    <td colspan="2" width="50%">
-                                        <img src="logo.png" class="visible-print-block" />&nbsp;
-                                    </td>
-                                    <td colspan="2">
-                                        <asp:Button ID="Button12" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel2();" runat="server" Text="Imprimir" />&nbsp;&nbsp;&nbsp;
-                                <asp:Button ID="Button13" class="btn btn-primary hidden-print" runat="server" Text="Regresar" />
-
+                                <tr class="visible-print-block" style="text-align: left">
+                                    <td colspan="4" width="50%">
+                                        <img src="logo.png" />&nbsp;
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="4">&nbsp;</td>
                                 </tr>
                             </table>
-                            <asp:GridView class="table" ID="GridTreeView" Width="100%" AutoGenerateColumns="False" runat="server" ShowFooter="True">
+                            <asp:GridView class="table" ID="GridTreeView" Width="100%" AutoGenerateColumns="False" runat="server" ShowFooter="True" Style="margin-right: 0px">
                                 <Columns>
                                     <asp:BoundField HeaderText="Articulo" DataField="SkuArticulo">
+                                        <ControlStyle Width="90px" />
                                         <ItemStyle BorderStyle="Solid" />
                                     </asp:BoundField>
                                     <asp:BoundField HeaderText="Numero de Parte" DataField="SkuComponente">
