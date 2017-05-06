@@ -39,6 +39,12 @@
         <asp:Button ID="ButtonEstimacionGo" class="btn btn-primary" runat="server" Text="Nueva Estimacion" />
     </div>
     <%--<div class="divider" style="margin-top: 16px; margin-bottom: 16px"></div>--%>
+
+    <p id="date_filter">
+        <span id="date-label-from" class="date-label">Desde: </span><input class="date_range_filter date" type="text" id="datepicker_from" />
+        <span id="date-label-to" class="date-label">Hasta:<input class="date_range_filter date" type="text" id="datepicker_to" />
+    </p>
+
     <asp:Panel ID="pnlContents3" runat="server">
         <table style="width: 100%">
             <tr style="text-align: right">
@@ -49,12 +55,12 @@
         </table>
         <table id="table"
             data-toggle="table"
-            data-search="true"
             data-filter-control="true"
             data-click-to-select="true"
             data-toolbar="#toolbar">
             <thead style="background-color: #C0C0C0">
                 <tr>
+                    <th data-field="state" data-checkbox="true"></th>
                     <th data-field="quotation" data-filter-control="input" data-sortable="true">Cotización</th>
                     <th data-field="vendor" data-filter-control="select" data-sortable="true">Vendedor</th>
                     <th data-field="client" data-filter-control="select" data-sortable="true">Cliente</th>

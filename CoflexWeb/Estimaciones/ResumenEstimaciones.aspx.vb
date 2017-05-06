@@ -56,17 +56,22 @@ Public Class ResumenEstimaciones
                 Next
                 Dim Table As DataTable = JsonConvert.DeserializeObject(Of DataTable)(arrayLimpio.ToString)
 
+                Dim index As Integer = 0
                 For Each row As DataRow In Table.Rows
-                    tableQuotations.InnerHtml &= GetRow(row)
+                    tableQuotations.InnerHtml &= GetRow(row, index)
+                    index = index + 1
                 Next
             End If
         End If
     End Sub
 
 
-    Private Function GetRow(ByVal row As DataRow) As String
+    Private Function GetRow(ByVal row As DataRow, ByVal index As Integer) As String
         Dim rowString As String
         rowString = "<tr>"
+        rowString &= "<td class='bs-checkbox'>"
+        rowString &= "<input data-index='" & index & "' name='btSelectItem' type='checkbox'>"
+        rowString &= "</td>"
         rowString &= "<td id='" & row("QuotationsId").ToString & "," & row("Id").ToString & "'>"
         rowString &= row("CoflexId").ToString
         rowString &= "</td>"
@@ -88,9 +93,6 @@ Public Class ResumenEstimaciones
         rowString &= "<td>"
         rowString &= row("VStatus").ToString
         rowString &= "</td>"
-        'rowString &= "<td class='action'>"
-        'rowString &= row("ActionEdit").ToString
-        'rowString &= "</td>"
         rowString &= "</tr>"
         Return rowString
     End Function
