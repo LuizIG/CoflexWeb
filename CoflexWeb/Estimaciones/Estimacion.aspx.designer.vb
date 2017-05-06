@@ -446,6 +446,24 @@ Partial Public Class Estimacion
     Protected WithEvents View2 As Global.System.Web.UI.WebControls.View
     
     '''<summary>
+    '''UpdateProgress2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdateProgress2 As Global.System.Web.UI.UpdateProgress
+    
+    '''<summary>
+    '''div1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents div1 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''status_actual control.
     '''</summary>
     '''<remarks>
@@ -518,42 +536,6 @@ Partial Public Class Estimacion
     Protected WithEvents Imprimir As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''Guardar control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Guardar As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''Versionar control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Versionar As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''Cotizar control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Cotizar As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''Regresar control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Regresar As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
     '''margen_ganancia control.
     '''</summary>
     '''<remarks>
@@ -572,6 +554,33 @@ Partial Public Class Estimacion
     Protected WithEvents GridSummary As Global.System.Web.UI.WebControls.GridView
     
     '''<summary>
+    '''Regresar control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Regresar As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''Guardar control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Guardar As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''Versionar control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Versionar As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''View3 control.
     '''</summary>
     '''<remarks>
@@ -581,22 +590,22 @@ Partial Public Class Estimacion
     Protected WithEvents View3 As Global.System.Web.UI.WebControls.View
     
     '''<summary>
-    '''Button9 control.
+    '''UpdateProgress3 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Button9 As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents UpdateProgress3 As Global.System.Web.UI.UpdateProgress
     
     '''<summary>
-    '''Button8 control.
+    '''div2 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Button8 As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents div2 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
     '''Label14 control.
@@ -671,6 +680,24 @@ Partial Public Class Estimacion
     Protected WithEvents txtStndCost As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''Button9 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Button9 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''Button8 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Button8 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''View4 control.
     '''</summary>
     '''<remarks>
@@ -678,15 +705,6 @@ Partial Public Class Estimacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents View4 As Global.System.Web.UI.WebControls.View
-    
-    '''<summary>
-    '''pnlContents control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents pnlContents As Global.System.Web.UI.WebControls.Panel
     
     '''<summary>
     '''Button11 control.
@@ -705,6 +723,15 @@ Partial Public Class Estimacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Button10 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''pnlContents control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlContents As Global.System.Web.UI.WebControls.Panel
     
     '''<summary>
     '''Label28 control.
@@ -788,15 +815,6 @@ Partial Public Class Estimacion
     Protected WithEvents View5 As Global.System.Web.UI.WebControls.View
     
     '''<summary>
-    '''pnlContents2 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents pnlContents2 As Global.System.Web.UI.WebControls.Panel
-    
-    '''<summary>
     '''Button12 control.
     '''</summary>
     '''<remarks>
@@ -813,6 +831,15 @@ Partial Public Class Estimacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Button13 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''pnlContents2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlContents2 As Global.System.Web.UI.WebControls.Panel
     
     '''<summary>
     '''GridTreeView control.
