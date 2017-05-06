@@ -87,8 +87,8 @@ Public Class ResumenEstimaciones
         rowString &= "<td>"
         rowString &= row("VersionNumber").ToString
         rowString &= "</td>"
-        rowString &= "<td>"
-        rowString &= row("Date").ToString
+        rowString &= "<td class='date'>"
+        rowString &= row("Date").ToString.Split(" ")(0)
         rowString &= "</td>"
         rowString &= "<td>"
         rowString &= row("VStatus").ToString

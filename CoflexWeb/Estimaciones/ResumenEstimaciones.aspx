@@ -2,6 +2,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
+    <link href="../Content/bootstrap-datepicker.css" rel="stylesheet" />
+    <script src="../Scripts/bootstrap-datepicker.js"></script>
     <script type="text/javascript">
 
 
@@ -11,6 +13,31 @@
                 var qv = customerId.split(",");
                 window.location.href = "Estimacion.aspx?q=" + qv[0] + "&v=" + qv[1];
             });
+
+            $('.input-daterange').datepicker({
+                format: "dd/mm/yyyy",
+
+            }).on("hide", function (e) {
+
+                $('#table > tbody  > tr').each(function () {
+
+                    var dateInRowStr = $(this).find('td:eq(6)').text();
+                    var dateInRow = new Date(dateInRowStr.split("/")[2], dateInRowStr.split("/")[1] - 1, dateInRowStr.split("/")[0]);
+
+                    var dateInitStr = $("#init_date").val();
+                    var dateInit = new Date(dateInitStr.split("/")[2], dateInitStr.split("/")[1] - 1, dateInitStr.split("/")[0]);
+
+                    var dateLastStr = $("#last_date").val();
+                    var dateLast = new Date(dateLastStr.split("/")[2], dateLastStr.split("/")[1] - 1, dateLastStr.split("/")[0]);
+
+
+                    if (dateInRow >= dateInit && dateInRow <= dateLast) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });;
         });
 
          function PrintPanel3() {
@@ -40,10 +67,11 @@
     </div>
     <%--<div class="divider" style="margin-top: 16px; margin-bottom: 16px"></div>--%>
 
-    <p id="date_filter">
-        <span id="date-label-from" class="date-label">Desde: </span><input class="date_range_filter date" type="text" id="datepicker_from" />
-        <span id="date-label-to" class="date-label">Hasta:<input class="date_range_filter date" type="text" id="datepicker_to" />
-    </p>
+    <div style="width:400px;" class="input-daterange input-group" id="datepicker">
+        <input id="init_date" type="text" class="input-sm form-control" name="start" />
+        <span class="input-group-addon">a</span>
+        <input id="last_date" type="text" class="input-sm form-control" name="end" />
+    </div>
 
     <asp:Panel ID="pnlContents3" runat="server">
         <table style="width: 100%">

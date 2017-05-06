@@ -28,6 +28,7 @@
     <!-- Latest compiled and minified Locales -->
     <script src="https://rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/filter-control/bootstrap-table-filter-control.js"></script>
+
 </head>
 <body>
     <form runat="server">
