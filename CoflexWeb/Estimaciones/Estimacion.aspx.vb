@@ -79,6 +79,8 @@ Public Class Estimacion
 
             If VersionId IsNot Nothing Then
 
+                DDCliente.Enabled = False 'Previene que se cambie el cliente
+
                 Dim QuotationResponse = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS & "/" & Request.QueryString("q"),, Session("access_token"))
 
                 o = JObject.Parse(QuotationResponse)
