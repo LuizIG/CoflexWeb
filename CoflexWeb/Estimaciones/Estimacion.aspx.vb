@@ -1046,23 +1046,26 @@ Public Class Estimacion
         If e.Row.RowType = DataControlRowType.DataRow Then
             Dim txCantidad = TryCast(e.Row.FindControl("TBQuantity"), TextBox)
             Dim txMargin = TryCast(e.Row.FindControl("TVMargin"), TextBox)
+            Dim txShipping = TryCast(e.Row.FindControl("TVShipping"), TextBox)
             Dim costoUnitario As Double = CDbl(e.Row.Cells(3).Text.Replace("$", ""))
             Dim cantidad As Double = CDbl(txCantidad.Text.Replace("$", ""))
             Dim margen As Double = CDbl(txMargin.Text.Replace("$", ""))
-            e.Row.Cells(9).Text = FormatCurrency(costoUnitario * cantidad * (1 + (margen / 100)))
+            Dim shipping As Double = CDbl(txShipping.Text.Replace("$", ""))
+
             'Acumulando el monto
-            Suma += costoUnitario * cantidad * (1 + (margen / 100))
-            SumaCotizacion += costoUnitario * cantidad
-            SumaMargen += (costoUnitario * cantidad * (1 + (margen / 100)) - costoUnitario * cantidad)
-            e.Row.Cells(10).Text = FormatCurrency((costoUnitario * cantidad * (1 + (margen / 100))) / CDbl(Tv_Exchange.Text))
-            e.Row.Cells(8).Text = FormatCurrency((costoUnitario * cantidad * ((margen / 100))))
+            Suma += costoUnitario * cantidad * (1 + (margen / 100)) + shipping
+            SumaCotizacion += costoUnitario * cantidad + shipping
+            SumaMargen += (costoUnitario + shipping * cantidad * (1 + (margen / 100)) - costoUnitario + shipping * cantidad)
+
+            e.Row.Cells(9).Text = FormatCurrency((costoUnitario + shipping * cantidad * ((margen / 100))))
+            e.Row.Cells(10).Text = FormatCurrency(costoUnitario * cantidad * (1 + (margen / 100)) + shipping)
+            e.Row.Cells(11).Text = FormatCurrency((costoUnitario * cantidad * (1 + (margen / 100)) + shipping) / CDbl(Tv_Exchange.Text))
+
         ElseIf (e.Row.RowType = DataControlRowType.Footer) Then
             e.Row.Cells(6).Text = FormatCurrency(SumaCotizacion)
-
             margen_ganancia.InnerHtml = "<h4>Margen de Ganancia: " & FormatCurrency(SumaMargen) & "</h4>"
-
-            e.Row.Cells(9).Text = FormatCurrency(Suma)
-            e.Row.Cells(10).Text = FormatCurrency(Suma / CDbl(Tv_Exchange.Text))
+            e.Row.Cells(10).Text = FormatCurrency(Suma)
+            e.Row.Cells(11).Text = FormatCurrency(Suma / CDbl(Tv_Exchange.Text))
         End If
     End Sub
 

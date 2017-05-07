@@ -9,7 +9,7 @@
 
         $(document).ready(function () {
             $('#MainContent_tableQuotations tr').on('click', function (event) {
-                var customerId = $(this).find("td").eq(0).attr("id");
+                var customerId = $(this).find("td").eq(1).attr("id");
                 var qv = customerId.split(",");
                 window.location.href = "Estimacion.aspx?q=" + qv[0] + "&v=" + qv[1];
             });
@@ -84,7 +84,7 @@
         <table id="table"
             data-toggle="table"
             data-filter-control="true"
-            data-click-to-select="true"
+            data-click-to-select="false"
             data-toolbar="#toolbar">
             <thead style="background-color: #C0C0C0">
                 <tr>
