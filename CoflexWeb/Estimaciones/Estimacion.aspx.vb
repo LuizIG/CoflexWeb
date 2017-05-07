@@ -847,6 +847,7 @@ Public Class Estimacion
             Item.Add("RACost", CInt(reng("RACost").ToString))
             Item.Add("RBCost", CInt(reng("RBCost").ToString))
             Item.Add("FinalCost", CDbl(reng("FinalCost").ToString))
+            Item.Add("Shipping", CDbl(reng("Shipping").ToString))
             ItemComponentsArray.Add(Item)
         Next
         Return ItemComponentsArray
@@ -1049,17 +1050,17 @@ Public Class Estimacion
             Dim txShipping = TryCast(e.Row.FindControl("TVShipping"), TextBox)
             Dim costoUnitario As Double = CDbl(e.Row.Cells(3).Text.Replace("$", ""))
             Dim cantidad As Double = CDbl(txCantidad.Text.Replace("$", ""))
-            Dim margen As Double = CDbl(txMargin.Text.Replace("$", ""))
+            Dim margen As Double = CDbl(txMargin.Text.Replace("$", "")) / 100
             Dim shipping As Double = CDbl(txShipping.Text.Replace("$", ""))
 
             'Acumulando el monto
-            Suma += costoUnitario * cantidad * (1 + (margen / 100)) + shipping
-            SumaCotizacion += costoUnitario * cantidad + shipping
-            SumaMargen += (costoUnitario + shipping * cantidad * (1 + (margen / 100)) - costoUnitario + shipping * cantidad)
+            Suma += (costoUnitario + shipping) * cantidad * (1 + (margen))
+            SumaCotizacion += (costoUnitario + shipping) * cantidad
+            SumaMargen += ((costoUnitario + shipping) * cantidad * (1 + (margen)) - (costoUnitario + shipping) * cantidad)
 
-            e.Row.Cells(9).Text = FormatCurrency((costoUnitario + shipping * cantidad * ((margen / 100))))
-            e.Row.Cells(10).Text = FormatCurrency(costoUnitario * cantidad * (1 + (margen / 100)) + shipping)
-            e.Row.Cells(11).Text = FormatCurrency((costoUnitario * cantidad * (1 + (margen / 100)) + shipping) / CDbl(Tv_Exchange.Text))
+            e.Row.Cells(9).Text = FormatCurrency((costoUnitario + shipping) * margen)
+            e.Row.Cells(10).Text = FormatCurrency((costoUnitario + shipping) * (1 + margen))
+            e.Row.Cells(11).Text = FormatCurrency(((costoUnitario + shipping) * (1 + (margen))) / CDbl(Tv_Exchange.Text))
 
         ElseIf (e.Row.RowType = DataControlRowType.Footer) Then
             e.Row.Cells(6).Text = FormatCurrency(SumaCotizacion)
@@ -1078,11 +1079,12 @@ Public Class Estimacion
         For Each reng As DataRowView In dv
             For Each renglon As GridViewRow In GridSummary.Rows
                 If (reng("SkuArticulo") = renglon.Cells(0).Text) Then
-                    Dim TBCantidad As TextBox = TryCast(renglon.FindControl("TBQuantity"), TextBox)
                     Dim TBMargin As TextBox = TryCast(renglon.FindControl("TVMargin"), TextBox)
-                    reng("QUANTITY_I") = CDbl(TBCantidad.Text)
+                    Dim TBShipping As TextBox = TryCast(renglon.FindControl("TVShipping"), TextBox)
+                    reng("QUANTITY_I") = CDbl(1)
                     reng("Margin") = CDbl(TBMargin.Text)
-                    reng("FinalCost") = CDbl(TBCantidad.Text) * (reng("UnitaryCost"))
+                    reng("Shipping") = CDbl(TBShipping.Text.Replace("$", ""))
+                    reng("FinalCost") = (reng("UnitaryCost"))
                 End If
             Next
         Next
