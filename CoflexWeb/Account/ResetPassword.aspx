@@ -13,7 +13,7 @@
                 </p>
                 <asp:ValidationSummary runat="server" ShowModelStateErrors="true" CssClass="text-danger" />
                 <div class="form-group">
-                    <asp:Label runat="server" ID="CurrentPasswordLabel" AssociatedControlID="CurrentPassword" CssClass="col-md-2 control-label">Current password</asp:Label>
+                    <asp:Label runat="server" ID="CurrentPasswordLabel" AssociatedControlID="CurrentPassword" CssClass="col-md-2 control-label">Contraseña actual</asp:Label>
                     <div class="col-md-10">
                         <asp:TextBox runat="server" ID="CurrentPassword" TextMode="Password" CssClass="form-control" />
                         <asp:RequiredFieldValidator runat="server" ControlToValidate="CurrentPassword"
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <asp:Label runat="server" ID="NewPasswordLabel" AssociatedControlID="NewPassword" CssClass="col-md-2 control-label">New password</asp:Label>
+                    <asp:Label runat="server" ID="NewPasswordLabel" AssociatedControlID="NewPassword" CssClass="col-md-2 control-label">Nueva contraseña</asp:Label>
                     <div class="col-md-10">
                         <asp:TextBox runat="server" ID="NewPassword" TextMode="Password" CssClass="form-control" />
                         <asp:RequiredFieldValidator runat="server" ControlToValidate="NewPassword"
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <asp:Label runat="server" ID="ConfirmNewPasswordLabel" AssociatedControlID="ConfirmNewPassword" CssClass="col-md-2 control-label">Confirm new password</asp:Label>
+                    <asp:Label runat="server" ID="ConfirmNewPasswordLabel" AssociatedControlID="ConfirmNewPassword" CssClass="col-md-2 control-label">Confirmar nueva contraseña</asp:Label>
                     <div class="col-md-10">
                         <asp:TextBox runat="server" ID="ConfirmNewPassword" TextMode="Password" CssClass="form-control" />
                         <asp:RequiredFieldValidator runat="server" ControlToValidate="ConfirmNewPassword"

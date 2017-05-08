@@ -110,7 +110,7 @@
                                     <div style="width: 100%; vertical-align: top;">
                                         <table style="width: 100%;">
                                             <tr style="background-color: #C0C0C0">
-                                                <td colspan="3" style="text-align: left;"><b>&nbsp;<asp:Label ID="Label20" runat="server" Text="Articulos"></asp:Label>
+                                                <td colspan="3" style="text-align: left;"><b>&nbsp;<asp:Label ID="Label20" runat="server" Text="Artículo"></asp:Label>
                                                 </b>&nbsp;</td>
                                             </tr>
                                             <tr>
@@ -127,7 +127,7 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <asp:Label ID="Label8" runat="server" Text="Articulo"></asp:Label>&nbsp;
+                                                    <asp:Label ID="Label8" runat="server" Text="Artículo"></asp:Label>&nbsp;
                                                 </td>
                                                 <td>
                                                     <asp:DropDownList ID="DDArticulo" Width="100%" runat="server"></asp:DropDownList>
@@ -187,10 +187,6 @@
                                                     <asp:Button ID="Button6" runat="server" class="btn btn-primary" Text="Nuevo" />&nbsp;
 
                                                 </td>
-                                                <%-- <td style="vertical-align: central;">
-                                                    <asp:Button ID="Button7" runat="server" class="btn btn-primary" Text="Agregar" />&nbsp;
-
-                                                </td>--%>
                                             </tr>
 
                                         </table>
@@ -244,33 +240,25 @@
                                                 </asp:TreeView>
                                             </asp:Panel>
                                         </div>
-                                        <%--<div style="width: 100%; height: 35px;">
-
-                                            <table style="width: 100%; text-align: right; height: 37px;">
-                                                <tr>
-                                                    <td></td>
-                                                </tr>
-
-                                            </table>
-                                        </div>--%>
+                                       
                                     </td>
                                     <td>&nbsp;</td>
-                                    <td style="vertical-align: top; width: 50%; height: 100%;">
+                                    <td style="vertical-align: top; width: 50%; height: 100%; background-color:#C0C0C0">
                                         <br />
-                                        <div style="vertical-align: top; width: 100%">
+                                        <div style="vertical-align: top; width: 100%;">
                                             <table class="nav-justified">
                                                 <tr>
                                                     <td>
-                                                        <asp:Label ID="Label1" runat="server" Text="Sku Articulo"></asp:Label>&nbsp;
+                                                        <asp:Label ID="Label1" runat="server" Text="SKU Artículo"></asp:Label>&nbsp;
                                                     </td>
                                                     <td>
                                                         <asp:TextBox ID="TextBox1" Width="70%" Enabled="false" runat="server"></asp:TextBox>
                                                     </td>
-                                                    <td>
-                                                        <asp:Label ID="Label2" runat="server" Text="Sku Componente"></asp:Label>&nbsp;
+                                                    <td style="width:120px">
+                                                        <asp:Label ID="Label2" runat="server" Text="SKU Componente"></asp:Label>&nbsp;
                                                     </td>
                                                     <td>
-                                                        <asp:TextBox ID="TextBox2" Enabled="false" Width="70%" runat="server"></asp:TextBox>
+                                                        <asp:TextBox ID="TextBox2" Enabled="false" Width="90%" runat="server"></asp:TextBox>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -348,10 +336,6 @@
                                                 </tr>
                                             </table>
                                         </div>
-                                        <%--<div style="width: 100%">
-                                            <table style="width: 100%">
-                                            </table>
-                                        </div>--%>
                                     </td>
                                 </tr>
                             </table>
@@ -367,6 +351,9 @@
 
                                     </td>
                                 </tr>
+                                <caption>
+                                    well well-lg
+                                </caption>
 
                             </table>
                         </div>
@@ -434,7 +421,7 @@
                                                 </td>
                                                 <td>&nbsp;</td>
                                                 <td>
-                                                    <asp:Button ID="Imprimir" class="btn btn-default" runat="server" Text="Imprimir" />
+                                                    <asp:Button ID="Imprimir" class="btn btn-default" runat="server" Text="Imprimir Cotizacion" />
                                                 </td>
                                             </tr>
                                         </table>

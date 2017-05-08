@@ -1464,6 +1464,6 @@ Public Class Estimacion
     End Sub
 
     Protected Sub ButtonBack_Click(sender As Object, e As EventArgs) Handles ButtonBack.Click
-
+        Response.Redirect(Me.Page.AppRelativeVirtualPath & "?" & Me.Page.ClientQueryString)
     End Sub
 End Class

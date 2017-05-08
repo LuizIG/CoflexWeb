@@ -74,14 +74,14 @@
                         <AnonymousTemplate>
                             <ul class="nav navbar-nav navbar-right">
                                 <%--<li><a runat="server" href="~/Account/Register">Register</a></li>--%>
-                                <li><a runat="server" href="~/Estimaciones/ResumenEstimaciones">Estimaciones</a></li>
+                                <li><a runat="server" href="~/Estimaciones/ResumenEstimaciones">Cotizaciones</a></li>
                                 <li><a runat="server" href="~/Account/Usuarios">Usuarios</a></li>
-                                <li><a runat="server" href="~/Account/ResetPassword">Password</a></li>
-                                <li><a runat="server" href="~/Account/Roles">Roles</a></li>
+                                <%--<li><a runat="server" href="~/Account/Roles">Roles</a></li>--%>
+                                <li><a runat="server" href="~/Account/ResetPassword">Cambiar contraseña</a></li>
                                 <%If Session("access_token") = Nothing Then %>
-                                <li><a runat="server" id="LogInA" href="~/Acceso">Log in</a></li>
+                                <li><a runat="server" id="LogInA" href="~/Acceso">Iniciar sesión</a></li>
                                 <%else %>
-                                <li><a runat="server" id="A1" href="~/Exit">Log out</a></li>
+                                <li><a runat="server" id="A1" href="~/Exit">Cerrar sesión</a></li>
                                 <% End IF %>
                             </ul>
                         </AnonymousTemplate>
