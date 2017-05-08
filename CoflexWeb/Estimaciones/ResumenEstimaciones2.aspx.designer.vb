@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class ResumenEstimaciones
+Partial Public Class ResumenEstimaciones2
     
     '''<summary>
     '''div1 control.
@@ -21,6 +21,15 @@ Partial Public Class ResumenEstimaciones
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents div1 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''GridUsers control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents GridUsers As Global.System.Web.UI.WebControls.GridView
     
     '''<summary>
     '''ButtonIndicadores control.

@@ -193,6 +193,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Estimaciones\ResumenEstimaciones2.aspx" />
     <Content Include="Main.aspx" />
     <Content Include="Estimaciones\Cotizacion.aspx" />
     <Content Include="Estimaciones\Estimacion.aspx" />
@@ -315,6 +316,13 @@
     <Compile Include="App_Start\BundleConfig.vb" />
     <Compile Include="App_Start\RouteConfig.vb" />
     <Compile Include="CoflexWebServices.vb" />
+    <Compile Include="Estimaciones\ResumenEstimaciones2.aspx.designer.vb">
+      <DependentUpon>ResumenEstimaciones2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Estimaciones\ResumenEstimaciones2.aspx.vb">
+      <DependentUpon>ResumenEstimaciones2.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Main.aspx.designer.vb">
       <DependentUpon>Main.aspx</DependentUpon>
     </Compile>
