@@ -351,9 +351,6 @@
 
                                     </td>
                                 </tr>
-                                <caption>
-                                    well well-lg
-                                </caption>
 
                             </table>
                         </div>
