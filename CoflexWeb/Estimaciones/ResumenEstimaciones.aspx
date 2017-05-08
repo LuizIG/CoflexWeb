@@ -103,7 +103,7 @@
             <asp:Button ID="ButtonEstimacionGo" class="btn btn-primary" runat="server" Text="Nueva cotización" />
         </div>
 
-        <div style="width: 400px;" class="input-daterange input-group" id="datepicker">
+        <div style="width: 400px; display:none" class="input-daterange input-group" id="datepicker">
             <input id="init_date" type="text" class="input-sm form-control" name="start" />
             <span class="input-group-addon">a</span>
             <input id="last_date" type="text" class="input-sm form-control" name="end" />
@@ -132,7 +132,6 @@
                         <th data-field="version" data-filter-control="select" data-sortable="true">Versión</th>
                         <th data-field="date" data-filter-control="select" data-sortable="true">Fecha</th>
                         <th data-field="qversionstatus" data-filter-control="select" data-sortable="true">Estatus Versión</th>
-                        <%--<th data-field="action" data-sortable="false">Acción</th>--%>
                     </tr>
                 </thead>
                 <tbody id="tableQuotations" runat="server"></tbody>
