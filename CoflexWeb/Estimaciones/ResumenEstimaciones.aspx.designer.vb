@@ -32,15 +32,6 @@ Partial Public Class ResumenEstimaciones
     Protected WithEvents ButtonIndicadores As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''Control ButtonPrintEstim.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ButtonPrintEstim As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
     '''Control ButtonEstimacionGo.
     '''</summary>
     '''<remarks>

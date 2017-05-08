@@ -96,10 +96,8 @@
 
         <div style="position: relative; right: 0px; width: 100%; text-align: right; margin-top: 32px">
             <asp:Button ID="ButtonIndicadores" class="btn btn-primary" runat="server" Text="Indicadores" />&nbsp;
-        <asp:Button ID="ButtonPrintEstim" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel3();" runat="server" Text="Imprimir" />&nbsp;
-        <%--<a href="Estimacion.aspx" class="btn btn-primary" role="button">Nueva Estimacion</a>--%>
+
             <a id="btn_reasignar" data-role="button" class="btn btn-primary">Reasignar</a>
-            <%--<asp:Button ID="ButtonReasignar" class="btn btn-primary" runat="server" Text="Reasignar" />&nbsp;--%>
             <asp:Button ID="ButtonEstimacionGo" class="btn btn-primary" runat="server" Text="Nueva cotización" />
         </div>
 
@@ -132,7 +130,6 @@
                         <th data-field="version" data-filter-control="select" data-sortable="true">Versión</th>
                         <th data-field="date" data-filter-control="select" data-sortable="true">Fecha</th>
                         <th data-field="qversionstatus" data-filter-control="select" data-sortable="true">Estatus Versión</th>
-                        <%--<th data-field="action" data-sortable="false">Acción</th>--%>
                     </tr>
                 </thead>
                 <tbody id="tableQuotations" runat="server"></tbody>
