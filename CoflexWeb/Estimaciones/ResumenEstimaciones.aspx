@@ -2,8 +2,6 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-    <link href="../Content/bootstrap-datepicker.css" rel="stylesheet" />
-    <script src="../Scripts/bootstrap-datepicker.js"></script>
     <script type="text/javascript">
 
 
@@ -17,31 +15,6 @@
                     window.location.href = "Estimacion.aspx?q=" + qv[0] + "&v=" + qv[1];
                 }
             });
-
-            $('.input-daterange').datepicker({
-                format: "dd/mm/yyyy",
-
-            }).on("hide", function (e) {
-
-                $('#table > tbody  > tr').each(function () {
-
-                    var dateInRowStr = $(this).find('td:eq(6)').text();
-                    var dateInRow = new Date(dateInRowStr.split("/")[2], dateInRowStr.split("/")[1] - 1, dateInRowStr.split("/")[0]);
-
-                    var dateInitStr = $("#init_date").val();
-                    var dateInit = new Date(dateInitStr.split("/")[2], dateInitStr.split("/")[1] - 1, dateInitStr.split("/")[0]);
-
-                    var dateLastStr = $("#last_date").val();
-                    var dateLast = new Date(dateLastStr.split("/")[2], dateLastStr.split("/")[1] - 1, dateLastStr.split("/")[0]);
-
-                    if (dateInRow >= dateInit && dateInRow <= dateLast) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
-                    }
-                });
-            });;
-
 
             $("#btn_reasignar").on("click", function () {
                 var idQuotations = [];
@@ -57,7 +30,6 @@
                     $("#MainContent_quotations_reasign").val(idQuotations);
                     $("#myModal").modal();
                 } else {
-                    alert("no");
                     $("#error_container").css("display", "block");
                     $("#error_description").text("Selecciona la (s) cotizaciones que vas a reasignar.");
                 }
@@ -103,12 +75,6 @@
             <asp:Button ID="ButtonEstimacionGo" class="btn btn-primary" runat="server" Text="Nueva cotización" />
         </div>
 
-        <div style="width: 400px; display:none" class="input-daterange input-group" id="datepicker">
-            <input id="init_date" type="text" class="input-sm form-control" name="start" />
-            <span class="input-group-addon">a</span>
-            <input id="last_date" type="text" class="input-sm form-control" name="end" />
-        </div>
-
         <asp:Panel ID="pnlContents3" runat="server">
             <table style="width: 100%">
                 <tr style="text-align: right">
@@ -126,12 +92,12 @@
                     <tr>
                         <th data-field="state" data-checkbox="true"></th>
                         <th data-field="quotation" data-filter-control="input" data-sortable="true">Cotización</th>
-                        <th data-field="vendor" data-filter-control="select" data-sortable="true">Vendedor</th>
-                        <th data-field="client" data-filter-control="select" data-sortable="true">Cliente</th>
-                        <th data-field="status" data-filter-control="select" data-sortable="true">Estatus Cotización</th>
-                        <th data-field="version" data-filter-control="select" data-sortable="true">Versión</th>
-                        <th data-field="date" data-filter-control="select" data-sortable="true">Fecha</th>
-                        <th data-field="qversionstatus" data-filter-control="select" data-sortable="true">Estatus Versión</th>
+                        <th data-field="vendor" data-filter-control="input" data-sortable="true">Vendedor</th>
+                        <th data-field="client" data-filter-control="input" data-sortable="true">Cliente</th>
+                        <th data-field="status" data-filter-control="input" data-sortable="true">Estatus Cotización</th>
+                        <th data-field="version" data-filter-control="input" data-sortable="true">Versión</th>
+                        <th data-field="date" data-filter-control="input" data-sortable="true">Fecha</th>
+                        <th data-field="qversionstatus" data-filter-control="input" data-sortable="true">Estatus Versión</th>
                     </tr>
                 </thead>
                 <tbody id="tableQuotations" runat="server"></tbody>
