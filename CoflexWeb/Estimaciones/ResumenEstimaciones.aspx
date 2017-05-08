@@ -52,7 +52,15 @@
                         x++;
                     }
                 });
-                alert(idQuotations);
+
+                if (idQuotations.length > 0) {
+                    $("#MainContent_quotations_reasign").val(idQuotations);
+                    $("#myModal").modal();
+                } else {
+                    alert("no");
+                    $("#error_container").css("display", "block");
+                    $("#error_description").text("Selecciona la (s) cotizaciones que vas a reasignar.");
+                }
             });
 
         });
@@ -76,7 +84,12 @@
     <div style="text-align: center; height: 16px; margin-top: 16px;">
       
     </div>
-    <div id="div1" runat="server"></div>
+    <div id="div1"  runat="server"></div>
+
+       <div id="error_container" style="display:none" class="alert alert-danger alert-dismissable fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Ups!</strong> <div id="error_description"></div>
+      </div>
 
     <div class="well well-lg">
 
@@ -85,7 +98,7 @@
             <asp:Button ID="ButtonIndicadores" class="btn btn-primary" runat="server" Text="Indicadores" />&nbsp;
         <asp:Button ID="ButtonPrintEstim" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel3();" runat="server" Text="Imprimir" />&nbsp;
         <%--<a href="Estimacion.aspx" class="btn btn-primary" role="button">Nueva Estimacion</a>--%>
-            <a id="btn_reasignar" data-role="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Reasignar</a>
+            <a id="btn_reasignar" data-role="button" class="btn btn-primary">Reasignar</a>
             <%--<asp:Button ID="ButtonReasignar" class="btn btn-primary" runat="server" Text="Reasignar" />&nbsp;--%>
             <asp:Button ID="ButtonEstimacionGo" class="btn btn-primary" runat="server" Text="Nueva cotización" />
         </div>
@@ -135,7 +148,7 @@
                         <h4 class="modal-title">Reasignar</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Estatus Actual</p>
+                        <p>Selecciona un vendedor</p>
                         <asp:DropDownList ID="DDUsers" runat="server"></asp:DropDownList>
                     </div>
                     <div class="modal-footer">
@@ -146,6 +159,7 @@
 
             </div>
         </div>
+        <input type="hidden" id="quotations_reasign" runat="server" />
         <div id="div_response" runat="server"></div>
     </div>
 

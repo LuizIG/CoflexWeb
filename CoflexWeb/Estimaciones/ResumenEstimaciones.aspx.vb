@@ -67,6 +67,13 @@ Public Class ResumenEstimaciones
                 statusCode = o.GetValue("statusCode").Value(Of Integer)
                 If (statusCode >= 200 And statusCode < 400) Then
                     detail = o.GetValue("detail").Value(Of JArray)
+
+                    For Each Vendedor As JObject In detail
+                        Vendedor.Remove("Claims")
+                        Vendedor.Remove("Logins")
+                        Vendedor.Remove("Roles")
+                    Next
+
                     Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
                     Me.DDUsers.DataSource = Table
                     Me.DDUsers.DataValueField = "Id"
@@ -112,4 +119,35 @@ Public Class ResumenEstimaciones
     Protected Sub ButtonEstimacionGo_Click(sender As Object, e As EventArgs) Handles ButtonEstimacionGo.Click
         Response.Redirect("/Estimaciones/Estimacion.aspx")
     End Sub
+
+    Private Sub BTN_ACEPTAR_1_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR_1.Click
+
+        Dim quotations = quotations_reasign.Value.Split(",")
+
+        For Each Q In quotations
+
+            If Q IsNot Nothing And Q <> "" Then
+
+                Dim response = CoflexWebServices.doPutRequest(CoflexWebServices.QUOTATIONS & "/" & Q & "?UserId=" & DDUsers.SelectedValue, "{}",, Session("access_token"))
+
+                Dim o = JObject.Parse(response)
+                Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+                If (statusCode >= 200 And statusCode < 400) Then
+
+
+                End If
+            End If
+
+        Next
+
+        Response.Redirect("ResumenEstimaciones.aspx")
+
+    End Sub
+
+
 End Class
+
+
+
+
+
