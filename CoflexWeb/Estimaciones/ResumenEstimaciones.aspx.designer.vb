@@ -68,6 +68,24 @@ Partial Public Class ResumenEstimaciones
     Protected WithEvents tableQuotations As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
+    '''Control DDUsers.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents DDUsers As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''Control BTN_ACEPTAR_1.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents BTN_ACEPTAR_1 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''Control div_response.
     '''</summary>
     '''<remarks>

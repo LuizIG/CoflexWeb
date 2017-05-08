@@ -99,6 +99,7 @@ Public Class Estimacion
 
                     Status = detail.GetValue("Status").Value(Of Integer)
 
+                    DDEstatus.Items.Clear()
 
                     Select Case Status
                         Case 0

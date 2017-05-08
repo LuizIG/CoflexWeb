@@ -8,10 +8,14 @@
 
 
         $(document).ready(function () {
-            $('#MainContent_tableQuotations tr').on('click', function (event) {
-                var customerId = $(this).find("td").eq(1).attr("id");
-                var qv = customerId.split(",");
-                window.location.href = "Estimacion.aspx?q=" + qv[0] + "&v=" + qv[1];
+            $('#MainContent_tableQuotations tr td').on('click', function (event) {
+                if ($(this).index() == 0) {
+
+                } else {
+                    var customerId = $(this).parent().find("td").eq(1).attr("id");
+                    var qv = customerId.split(",");
+                    window.location.href = "Estimacion.aspx?q=" + qv[0] + "&v=" + qv[1];
+                }
             });
 
             $('.input-daterange').datepicker({
@@ -30,7 +34,6 @@
                     var dateLastStr = $("#last_date").val();
                     var dateLast = new Date(dateLastStr.split("/")[2], dateLastStr.split("/")[1] - 1, dateLastStr.split("/")[0]);
 
-
                     if (dateInRow >= dateInit && dateInRow <= dateLast) {
                         $(this).show();
                     } else {
@@ -38,20 +41,34 @@
                     }
                 });
             });;
+
+
+            $("#btn_reasignar").on("click", function () {
+                var idQuotations = [];
+                var x = 0;
+                $('#table > tbody  > tr').each(function () {
+                    if ($(this).find('td:eq(0) input').is(':checked')) {
+                        idQuotations[x] = $(this).find('td:eq(1)').attr("id").split(",")[0];
+                        x++;
+                    }
+                });
+                alert(idQuotations);
+            });
+
         });
 
-         function PrintPanel3() {
-                var panel = document.getElementById("<%=pnlContents3.ClientID %>");
-                var printWindow = window.open('', '', 'height=400,width=800');
-                printWindow.document.write('<html><head><title>DIV Contents</title>');
-                printWindow.document.write('</head><body >');
-                printWindow.document.write(panel.innerHTML);
-                printWindow.document.write('</body></html>');
-                printWindow.document.close();
-                setTimeout(function () {
-                    printWindow.print();
-                }, 500);
-                return false;
+        function PrintPanel3() {
+            var panel = document.getElementById("<%=pnlContents3.ClientID %>");
+             var printWindow = window.open('', '', 'height=400,width=800');
+             printWindow.document.write('<html><head><title>DIV Contents</title>');
+             printWindow.document.write('</head><body >');
+             printWindow.document.write(panel.innerHTML);
+             printWindow.document.write('</body></html>');
+             printWindow.document.close();
+             setTimeout(function () {
+                 printWindow.print();
+             }, 500);
+             return false;
          }
 
     </script>
@@ -62,12 +79,13 @@
         <asp:Button ID="ButtonIndicadores" class="btn btn-primary" runat="server" Text="Indicadores" />&nbsp;
         <asp:Button ID="ButtonPrintEstim" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel3();" runat="server" Text="Imprimir" />&nbsp;
         <%--<a href="Estimacion.aspx" class="btn btn-primary" role="button">Nueva Estimacion</a>--%>
+        <a id="btn_reasignar" data-role="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Reasignar</a>
         <asp:Button ID="ButtonReasignar" class="btn btn-primary" runat="server" Text="Reasignar" />&nbsp;
         <asp:Button ID="ButtonEstimacionGo" class="btn btn-primary" runat="server" Text="Nueva Estimacion" />
     </div>
     <%--<div class="divider" style="margin-top: 16px; margin-bottom: 16px"></div>--%>
 
-    <div style="width:400px;" class="input-daterange input-group" id="datepicker">
+    <div style="width: 400px;" class="input-daterange input-group" id="datepicker">
         <input id="init_date" type="text" class="input-sm form-control" name="start" />
         <span class="input-group-addon">a</span>
         <input id="last_date" type="text" class="input-sm form-control" name="end" />
@@ -102,5 +120,26 @@
             <tbody id="tableQuotations" runat="server"></tbody>
         </table>
     </asp:Panel>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Reasignar</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Estatus Actual</p>
+                    <asp:DropDownList  id="DDUsers" runat="server"></asp:DropDownList>
+                </div>
+                <div class="modal-footer">
+                    <asp:Button Text="Cancelar" runat="server" type="button" class="btn btn-danger" data-dismiss="modal" />
+                    <asp:Button ID="BTN_ACEPTAR_1" Text="Aceptar" runat="server" type="button" class="btn btn-success" />
+                </div>
+            </div>
+
+        </div>
+    </div>
     <div id="div_response" runat="server"></div>
 </asp:Content>

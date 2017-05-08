@@ -61,6 +61,18 @@ Public Class ResumenEstimaciones
                     tableQuotations.InnerHtml &= GetRow(row, index)
                     index = index + 1
                 Next
+
+                Response = doGetRequest(USERS_BY_LEADERS,, Session("access_token"))
+                o = JObject.Parse(Response)
+                statusCode = o.GetValue("statusCode").Value(Of Integer)
+                If (statusCode >= 200 And statusCode < 400) Then
+                    detail = o.GetValue("detail").Value(Of JArray)
+                    Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+                    Me.DDUsers.DataSource = Table
+                    Me.DDUsers.DataValueField = "Id"
+                    Me.DDUsers.DataTextField = "Name"
+                    Me.DDUsers.DataBind()
+                End If
             End If
         End If
     End Sub

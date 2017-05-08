@@ -24,6 +24,7 @@ Namespace CoflexWeb.Services.Web
         Public Const QUOTATIONS_VERSION As String = "CoflexAPI/api/QuotationVersions"
         Public Const NEW_COMPONENTES As String = "CoflexAPI/api/NewComponents"
         Public Const LEADERS As String = "CoflexAPI/api/Account/Leaders"
+        Public Const USERS_BY_LEADERS As String = "CoflexAPI/api/Account/UsersByLeader"
 
         'Enpoints Externos
         Public Const ITEM As String = "CoflexAPIExt/api/Items"
