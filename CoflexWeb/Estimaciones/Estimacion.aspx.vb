@@ -226,9 +226,29 @@ Public Class Estimacion
 
                     Session("Margin") = TableMargin
 
+                    If DDCliente.SelectedValue <> "Seleccionar" Then
+                        Dim value As String = DDCliente.Items(DDCliente.SelectedIndex).Value
+
+                        jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM & "?ClientId=" & value,, Session("access_token"))
+                        o = JObject.Parse(jsonResponse)
+                        statusCode = o.GetValue("statusCode").Value(Of Integer)
+                        If (statusCode >= 200 And statusCode < 400) Then
+                            Dim detailArray = o.GetValue("detail").Value(Of JArray)
+                            Table = JsonConvert.DeserializeObject(Of DataTable)(detailArray.ToString)
+                            Me.DDArticulo.DataSource = Table
+                            Me.DDArticulo.DataValueField = "PPN_I"
+                            Me.DDArticulo.DataTextField = "PPN_I"
+                            Me.DDArticulo.DataBind()
+                        End If
+
+                        If Me.TreeView1.Nodes.Count > 0 Then
+                            DDCliente.Enabled = False
+                        End If
+
+                        Me.DDArticulo.Items.Insert(0, "Seleccionar")
+                    End If
 
                 End If
-            Else
 
             End If
 
