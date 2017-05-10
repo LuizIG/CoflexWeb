@@ -94,8 +94,8 @@
     <div class="well well-lg">
 
 
-        <div style="position: relative; right: 0px; width: 100%; text-align: right; margin-top: 32px">
-            <asp:Button ID="Button1" runat="server" Text="Button" />
+        <div style="position: relative; right: 0px; width: 100%; text-align: right">
+            <asp:Button ID="Button1" class="btn btn-primary" runat="server" Text="Filtrar" />
             <asp:Button ID="ButtonIndicadores" class="btn btn-primary" runat="server" Text="Indicadores" />&nbsp;
         <asp:Button ID="ButtonPrintEstim" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel3();" runat="server" Text="Imprimir" />&nbsp;
         <%--<a href="Estimacion.aspx" class="btn btn-primary" role="button">Nueva Estimacion</a>--%>
@@ -105,20 +105,16 @@
         </div>
 
 
-        <table style="border-style: solid; border-color: #C0C0C0; width: 100%; align-items: center">
+        <table style="width: 100%; margin-top:16px">
             <tr style="vertical-align: top;">
-                <td style="width: 30%; text-align: center; vertical-align: central;">
-                    <asp:DropDownList ID="DDCotizacion" runat="server"></asp:DropDownList>&nbsp;
-                    <asp:DropDownList ID="DDVendedor" runat="server"></asp:DropDownList>&nbsp;
-                    <asp:DropDownList ID="DDCliente" runat="server"></asp:DropDownList>&nbsp;
-                    <asp:DropDownList ID="DDStatusCotiza" runat="server"></asp:DropDownList>&nbsp;
-                    <asp:DropDownList ID="DDVersion" runat="server"></asp:DropDownList>&nbsp;
-                    <asp:Label ID="Label5" runat="server" Text="Fecha"></asp:Label>&nbsp;
-                    <asp:TextBox ID="txtFecIni" runat="server"></asp:TextBox>&nbsp;
-                    <asp:TextBox ID="txtFecFin" runat="server"></asp:TextBox>&nbsp;
-                     <asp:Label ID="Label6" runat="server" Text="Estatus versión"></asp:Label>&nbsp;
-                    <asp:DropDownList ID="DDStatusVersion" runat="server"></asp:DropDownList>&nbsp;
-                </td>
+                <td></td>
+                <td><asp:DropDownList ID="DDCotizacion" runat="server"></asp:DropDownList></td>
+                <td><asp:DropDownList ID="DDVendedor" runat="server"></asp:DropDownList></td>
+                <td><asp:DropDownList ID="DDCliente" runat="server"></asp:DropDownList></td>
+                <td><asp:DropDownList ID="DDStatusCotiza" runat="server"></asp:DropDownList></td>
+                <td><asp:DropDownList ID="DDVersion" runat="server"></asp:DropDownList></td>
+                <td><asp:TextBox ID="txtFecIni" runat="server"></asp:TextBox><br /><asp:TextBox ID="txtFecFin" runat="server"></asp:TextBox></td>
+                <td><asp:DropDownList ID="DDStatusVersion" runat="server"></asp:DropDownList></td>
             </tr>
         </table>
       

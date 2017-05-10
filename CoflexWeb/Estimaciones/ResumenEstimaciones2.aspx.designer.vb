@@ -104,15 +104,6 @@ Partial Public Class ResumenEstimaciones2
     Protected WithEvents DDVersion As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''Control Label5.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents Label5 As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
     '''Control txtFecIni.
     '''</summary>
     '''<remarks>
@@ -129,15 +120,6 @@ Partial Public Class ResumenEstimaciones2
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents txtFecFin As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''Control Label6.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents Label6 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
     '''Control DDStatusVersion.
