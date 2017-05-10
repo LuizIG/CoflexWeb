@@ -113,7 +113,15 @@
                 <td><asp:DropDownList ID="DDCliente" runat="server"></asp:DropDownList></td>
                 <td><asp:DropDownList ID="DDStatusCotiza" runat="server"></asp:DropDownList></td>
                 <td><asp:DropDownList ID="DDVersion" runat="server"></asp:DropDownList></td>
-                <td><asp:TextBox ID="txtFecIni" runat="server"></asp:TextBox><br /><asp:TextBox ID="txtFecFin" runat="server"></asp:TextBox></td>
+                <td>
+                    
+                    
+                    <div class="input-daterange input-group" id="datepicker">
+                        <asp:TextBox ID="txtFecIni" runat="server"></asp:TextBox><br />
+                        <asp:TextBox ID="txtFecFin" runat="server"></asp:TextBox>
+                    </div>
+                    
+                </td>
                 <td><asp:DropDownList ID="DDStatusVersion" runat="server"></asp:DropDownList></td>
             </tr>
         </table>
@@ -140,11 +148,7 @@
 
 
 
-        <div style="width: 400px;" class="input-daterange input-group" id="datepicker">
-            <input id="init_date" type="text" class="input-sm form-control" name="start" />
-            <span class="input-group-addon">a</span>
-            <input id="last_date" type="text" class="input-sm form-control" name="end" />
-        </div>
+
 
         <asp:Panel ID="pnlContents3" runat="server">
             <table style="width: 100%">

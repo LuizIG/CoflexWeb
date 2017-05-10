@@ -1,7 +1,8 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="ResumenEstimaciones.aspx.vb" Inherits="CoflexWeb.ResumenEstimaciones" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
+<script src="../Scripts/bootstrap-datepicker.js"></script>
+    <script src="../Scripts/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript">
 
 
