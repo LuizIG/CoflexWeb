@@ -446,7 +446,7 @@
 
                                 <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo Cotización" Visible="false" DataField="FinalCost" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" />
                                 
-                                <asp:TemplateField ItemStyle-Width="10%" HeaderText="Costo de Flete"  ItemStyle-CssClass="t-cost">
+                                <asp:TemplateField ItemStyle-Width="10%" visible="false" HeaderText="Costo de Flete"  ItemStyle-CssClass="t-cost">
                                     <ItemTemplate>
                                         <asp:TextBox ID="TVShipping" Width="70px" Text='<%#DataBinder.Eval(Container.DataItem, "Shipping", "${0:###,###,##0.00}")%>' runat="server"></asp:TextBox>
                                     </ItemTemplate>

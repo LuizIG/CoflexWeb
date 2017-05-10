@@ -93,6 +93,17 @@
 
     <div class="well well-lg">
 
+
+        <div style="position: relative; right: 0px; width: 100%; text-align: right; margin-top: 32px">
+            <asp:Button ID="ButtonIndicadores" class="btn btn-primary" runat="server" Text="Indicadores" />&nbsp;
+        <asp:Button ID="ButtonPrintEstim" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel3();" runat="server" Text="Imprimir" />&nbsp;
+        <%--<a href="Estimacion.aspx" class="btn btn-primary" role="button">Nueva Estimacion</a>--%>
+            <a id="btn_reasignar" data-role="button" class="btn btn-primary">Reasignar</a>
+            <%--<asp:Button ID="ButtonReasignar" class="btn btn-primary" runat="server" Text="Reasignar" />&nbsp;--%>
+            <asp:Button ID="ButtonEstimacionGo" class="btn btn-primary" runat="server" Text="Nueva cotización" />
+        </div>
+
+
         <table style="border-style: solid; border-color: #C0C0C0; width: 100%; align-items: center">
             <tr style="vertical-align: top;">
                 <td style="width: 30%; text-align: center; vertical-align: central;">
@@ -116,14 +127,6 @@
             </tr>
         </table>
       
-        <div style="position: relative; right: 0px; width: 100%; text-align: right; margin-top: 32px">
-            <asp:Button ID="ButtonIndicadores" class="btn btn-primary" runat="server" Text="Indicadores" />&nbsp;
-        <asp:Button ID="ButtonPrintEstim" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel3();" runat="server" Text="Imprimir" />&nbsp;
-        <%--<a href="Estimacion.aspx" class="btn btn-primary" role="button">Nueva Estimacion</a>--%>
-            <a id="btn_reasignar" data-role="button" class="btn btn-primary">Reasignar</a>
-            <%--<asp:Button ID="ButtonReasignar" class="btn btn-primary" runat="server" Text="Reasignar" />&nbsp;--%>
-            <asp:Button ID="ButtonEstimacionGo" class="btn btn-primary" runat="server" Text="Nueva cotización" />
-        </div>
 
         <asp:GridView ID="GridQuotations" AutoGenerateColumns="False" class="table" runat="server">
             <Columns>
@@ -136,10 +139,10 @@
                 <asp:BoundField DataField="CoflexId" HeaderText="Cotización" />
                 <asp:BoundField DataField="vendor" HeaderText="Vendedor" />
                 <asp:BoundField DataField="clientName" HeaderText="Cliente" />
-                <asp:BoundField DataField="status" HeaderText="Estatus cotización" />
+                <asp:BoundField DataField="QuotationStatusName" HeaderText="Estatus cotización" />
                 <asp:BoundField DataField="versionNumber" HeaderText="Versión" />
                 <asp:BoundField DataField="date" HeaderText="Fecha" />
-                <asp:BoundField DataField="VStatus" HeaderText="Estatus versión" />
+                <asp:BoundField DataField="QuotationVersionStatusName" HeaderText="Estatus versión" />
             </Columns>
             <HeaderStyle BackColor="#C0C0C0" />
         </asp:GridView>
