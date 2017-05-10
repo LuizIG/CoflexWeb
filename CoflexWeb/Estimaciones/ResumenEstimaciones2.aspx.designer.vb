@@ -23,6 +23,15 @@ Partial Public Class ResumenEstimaciones2
     Protected WithEvents div1 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
+    '''Control Button1.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Button1 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''Control ButtonIndicadores.
     '''</summary>
     '''<remarks>
@@ -50,94 +59,49 @@ Partial Public Class ResumenEstimaciones2
     Protected WithEvents ButtonEstimacionGo As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''Control Label11.
+    '''Control DDCotizacion.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents Label11 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents DDCotizacion As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''Control txtCotizacion.
+    '''Control DDVendedor.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents txtCotizacion As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents DDVendedor As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''Control Label1.
+    '''Control DDCliente.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents DDCliente As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''Control txtVendedor.
+    '''Control DDStatusCotiza.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents txtVendedor As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents DDStatusCotiza As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''Control Label2.
+    '''Control DDVersion.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents Label2 As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''Control txtCliente.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents txtCliente As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''Control Label3.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents Label3 As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''Control txtStatusCotiza.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents txtStatusCotiza As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''Control Label4.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents Label4 As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''Control txtVersion.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents txtVersion As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents DDVersion As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''Control Label5.
@@ -176,22 +140,13 @@ Partial Public Class ResumenEstimaciones2
     Protected WithEvents Label6 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''Control txtStatusVersion.
+    '''Control DDStatusVersion.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents txtStatusVersion As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''Control Button1.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents Button1 As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents DDStatusVersion As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''Control GridQuotations.

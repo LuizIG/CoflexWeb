@@ -19,9 +19,29 @@ Public Class ResumenEstimaciones2
                 Me.GridQuotations.DataSource = Table
                 Me.GridQuotations.DataBind()
 
+
+                'Llenamos los filtros
+                FillFilter(DDCotizacion, Table, "CoflexId")
+                FillFilter(DDVendedor, Table, "vendor")
+                FillFilter(DDCliente, Table, "clientName")
+                FillFilter(DDStatusCotiza, Table, "QuotationStatusName")
+                FillFilter(DDVersion, Table, "versionNumber")
+                FillFilter(DDStatusVersion, Table, "QuotationVersionStatusName")
             End If
         End If
     End Sub
+
+    Private Sub FillFilter(ByRef combo As DropDownList, ByVal Table As DataTable, ByVal Coumn As String)
+        Dim view As New DataView(Table)
+
+        combo.DataSource = view.ToTable(True, Coumn)
+        combo.DataValueField = Coumn
+        combo.DataTextField = Coumn
+        combo.DataBind()
+        combo.Items.Insert(0, New ListItem("Seleccionar", ""))
+
+    End Sub
+
 
     Protected Sub ButtonEstimacionGo_Click(sender As Object, e As EventArgs) Handles ButtonEstimacionGo.Click
         Response.Redirect("/Estimaciones/Estimacion.aspx")
@@ -57,29 +77,29 @@ Public Class ResumenEstimaciones2
             Dim dt As DataTable = DirectCast(ViewState("CurrentTable"), DataTable)
             Dim Qstring As String = "   "
 
-            If Me.txtCotizacion.Text <> "" Then
+            If Me.DDCotizacion.SelectedValue <> ""  Then
                 ''rows2 = dt.[Select]("CoflexId like '" & Me.txtCotizacion.Text & "%'")
-                Qstring = Qstring + "CoflexId like '" & Me.txtCotizacion.Text & "%' and"
+                Qstring = Qstring + "CoflexId like '" & Me.DDCotizacion.SelectedValue & "%' and"
             End If
 
-            If Me.txtVendedor.Text <> "" Then
+            If Me.DDVendedor.SelectedValue <> "" Then
                 ''rows2 = dt.[Select]("vendor like '%" & Me.txtVendedor.Text & "%'")
-                Qstring = Qstring + " vendor like '%" & Me.txtVendedor.Text & "%' and"
+                Qstring = Qstring + " vendor like '%" & Me.DDVendedor.SelectedValue & "%' and"
             End If
 
-            If Me.txtCliente.Text <> "" Then
+            If Me.DDCliente.SelectedValue <> "" Then
                 ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
-                Qstring = Qstring + " clientName like '%" & Me.txtCliente.Text & "%' and"
+                Qstring = Qstring + " clientName like '%" & Me.DDCliente.SelectedValue & "%' and"
             End If
 
-            If Me.txtStatusCotiza.Text <> "" Then
+            If Me.DDStatusCotiza.SelectedValue <> "" Then
                 ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
-                Qstring = Qstring + " status = '" & Me.txtStatusCotiza.Text & "' and"
+                Qstring = Qstring + " status = '" & Me.DDStatusCotiza.SelectedValue & "' and"
             End If
 
-            If Me.txtVersion.Text <> "" Then
+            If Me.DDVersion.SelectedValue <> "" Then
                 ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
-                Qstring = Qstring + " VersionNumber = '" & Me.txtVersion.Text & "' and"
+                Qstring = Qstring + " VersionNumber = '" & Me.DDVersion.SelectedValue & "' and"
             End If
 
             If Me.txtFecIni.Text <> "" And Me.txtFecFin.Text <> "" Then
@@ -87,9 +107,9 @@ Public Class ResumenEstimaciones2
                 Qstring = Qstring + " Date >= '" & Me.txtFecIni.Text & "' and Date <= '" & Me.txtFecFin.Text & "' and"
             End If
 
-            If Me.txtStatusVersion.Text <> "" Then
+            If Me.DDStatusVersion.SelectedValue <> "" Then
                 ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
-                Qstring = Qstring + " VStatus = '" & Me.txtStatusVersion.Text & "' and"
+                Qstring = Qstring + " VStatus = '" & Me.DDStatusVersion.SelectedValue & "' and"
             End If
 
             Qstring = Left(Qstring, Qstring.Length - 3)
