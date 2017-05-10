@@ -93,20 +93,29 @@
 
     <div class="well well-lg">
 
-        <asp:GridView ID="GridUsers" AutoGenerateColumns="False" class="table" runat="server">
-            <Columns>
-                <asp:BoundField DataField="quotation" HeaderText="Cotización" />
-                <asp:BoundField DataField="vendor" HeaderText="Vendedor" />
-                <asp:BoundField DataField="client" HeaderText="Cliente" />
-                <asp:BoundField DataField="status" HeaderText="Estatus cotización" />
-                <asp:BoundField DataField="version" HeaderText="Versión" />
-                <asp:BoundField DataField="date" HeaderText="Fecha" />
-                <asp:BoundField DataField="qversionstatus" HeaderText="Estatus versión" />
-            </Columns>
-            <HeaderStyle BackColor="#C0C0C0" />
-        </asp:GridView>
-
-
+        <table style="border-style: solid; border-color: #C0C0C0; width: 100%; align-items: center">
+            <tr style="vertical-align: top;">
+                <td style="width: 30%; text-align: center; vertical-align: central;">
+                    <asp:Label ID="Label11" runat="server" Text="Cotización"></asp:Label>&nbsp;
+                    <asp:TextBox ID="txtCotizacion" runat="server"></asp:TextBox>&nbsp;
+                    <asp:Label ID="Label1" runat="server" Text="Vendedor"></asp:Label>&nbsp;
+                    <asp:TextBox ID="txtVendedor" runat="server"></asp:TextBox>&nbsp;
+                    <asp:Label ID="Label2" runat="server" Text="Cliente"></asp:Label>&nbsp;
+                    <asp:TextBox ID="txtCliente" runat="server"></asp:TextBox>&nbsp;
+                    <asp:Label ID="Label3" runat="server" Text="Estatus cotizzación"></asp:Label>&nbsp;
+                    <asp:TextBox ID="txtStatusCotiza" runat="server"></asp:TextBox>&nbsp;<br />
+                    <asp:Label ID="Label4" runat="server" Text="Versión"></asp:Label>&nbsp;
+                    <asp:TextBox ID="txtVersion" runat="server"></asp:TextBox>&nbsp;
+                    <asp:Label ID="Label5" runat="server" Text="Fecha"></asp:Label>&nbsp;
+                    <asp:TextBox ID="txtFecIni" runat="server"></asp:TextBox>&nbsp;
+                    <asp:TextBox ID="txtFecFin" runat="server"></asp:TextBox>&nbsp;
+                     <asp:Label ID="Label6" runat="server" Text="Estatus versión"></asp:Label>&nbsp;
+                    <asp:TextBox ID="txtStatusVersion" runat="server"></asp:TextBox>&nbsp;
+                    <asp:Button ID="Button1" runat="server" Text="Button" />
+                </td>
+            </tr>
+        </table>
+      
         <div style="position: relative; right: 0px; width: 100%; text-align: right; margin-top: 32px">
             <asp:Button ID="ButtonIndicadores" class="btn btn-primary" runat="server" Text="Indicadores" />&nbsp;
         <asp:Button ID="ButtonPrintEstim" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel3();" runat="server" Text="Imprimir" />&nbsp;
@@ -115,6 +124,27 @@
             <%--<asp:Button ID="ButtonReasignar" class="btn btn-primary" runat="server" Text="Reasignar" />&nbsp;--%>
             <asp:Button ID="ButtonEstimacionGo" class="btn btn-primary" runat="server" Text="Nueva cotización" />
         </div>
+
+        <asp:GridView ID="GridQuotations" AutoGenerateColumns="False" class="table" runat="server">
+            <Columns>
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <asp:CheckBox name="chGBQuot"  runat="server"></asp:CheckBox>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:BoundField DataField="Id" HeaderText="Id" Visible="false" />
+                <asp:BoundField DataField="CoflexId" HeaderText="Cotización" />
+                <asp:BoundField DataField="vendor" HeaderText="Vendedor" />
+                <asp:BoundField DataField="clientName" HeaderText="Cliente" />
+                <asp:BoundField DataField="status" HeaderText="Estatus cotización" />
+                <asp:BoundField DataField="versionNumber" HeaderText="Versión" />
+                <asp:BoundField DataField="date" HeaderText="Fecha" />
+                <asp:BoundField DataField="VStatus" HeaderText="Estatus versión" />
+            </Columns>
+            <HeaderStyle BackColor="#C0C0C0" />
+        </asp:GridView>
+
+
 
         <div style="width: 400px;" class="input-daterange input-group" id="datepicker">
             <input id="init_date" type="text" class="input-sm form-control" name="start" />

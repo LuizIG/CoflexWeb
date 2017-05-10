@@ -8,79 +8,85 @@ Public Class ResumenEstimaciones2
     Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
         MyBase.Page_Load(sender, e)
         If Not IsPostBack Then
-            Dim Response = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS, , Session("access_token"))
+            Dim Response = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS_SUMMARY, , Session("access_token"))
             Dim o = JObject.Parse(Response)
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
             If (statusCode >= 200 And statusCode < 400) Then
                 Dim detail = o.GetValue("detail").Value(Of JArray)
 
                 Dim arrayLimpio = New JArray
-                For Each Quotation As JObject In detail
-                    Dim Client = Quotation.GetValue("AspNetUsersView").Value(Of JObject)
-                    Dim UserName As String = Client.GetValue("Name").Value(Of String) & " " & Client.GetValue("PaternalSurname").Value(Of String) & " " & Client.GetValue("MaternalSurname").Value(Of String)
-                    Dim Versions = Quotation.GetValue("QuotationVersions").Value(Of JArray)
-                    For Each Version As JObject In Versions
-                        Version.Remove("Items")
-                        Version.Add("ClientName", Quotation.GetValue("ClientName").Value(Of String))
-                        Version.Add("CoflexId", Quotation.GetValue("CoflexId").Value(Of String))
-                        Select Case Quotation.GetValue("Status").Value(Of Integer)
-                            Case 0
-                                Version.Add("QStatus", "Abierta")
-                            Case 1
-                                Version.Add("QStatus", "Cerrada")
-                            Case 2
-                                Version.Add("QStatus", "Cancelada")
-                        End Select
-                        Version.Add("User", UserName)
+                Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+                ViewState("CurrentTable") = Table
+                Me.GridQuotations.DataSource = Table
+                Me.GridQuotations.DataBind()
 
 
-                        Select Case Version.GetValue("Status").Value(Of Integer)
-                            Case 0
-                                Version.Add("VStatus", "Abierta")
-                                Version.Add("ActionEdit", "Editar")
-                            Case 1
-                                Version.Add("VStatus", "Propuesta Cerrada")
-                                Version.Add("ActionEdit", "Ver")
-                            Case 2
-                                Version.Add("VStatus", "Propuesta Descartada")
-                                Version.Add("ActionEdit", "Ver")
-                            Case 3
-                                Version.Add("VStatus", "Aceptada")
-                                Version.Add("ActionEdit", "Ver")
-                            Case 4
-                                Version.Add("VStatus", "Cancelada")
-                                Version.Add("ActionEdit", "Ver")
-                        End Select
+                'For Each Quotation As JObject In detail
+                '    Dim Client = Quotation.GetValue("AspNetUsersView").Value(Of JObject)
+                '    Dim UserName As String = Client.GetValue("Name").Value(Of String) & " " & Client.GetValue("PaternalSurname").Value(Of String) & " " & Client.GetValue("MaternalSurname").Value(Of String)
+                '    Dim Versions = Quotation.GetValue("QuotationVersions").Value(Of JArray)
+                '    For Each Version As JObject In Versions
+                '        Version.Remove("Items")
+                '        Version.Add("ClientName", Quotation.GetValue("ClientName").Value(Of String))
+                '        Version.Add("CoflexId", Quotation.GetValue("CoflexId").Value(Of String))
+                '        Select Case Quotation.GetValue("Status").Value(Of Integer)
+                '            Case 0
+                '                Version.Add("QStatus", "Abierta")
+                '            Case 1
+                '                Version.Add("QStatus", "Cerrada")
+                '            Case 2
+                '                Version.Add("QStatus", "Cancelada")
+                '        End Select
+                '        Version.Add("User", UserName)
 
-                        arrayLimpio.Add(Version)
-                    Next
-                Next
-                Dim Table As DataTable = JsonConvert.DeserializeObject(Of DataTable)(arrayLimpio.ToString)
 
-                Dim index As Integer = 0
-                For Each row As DataRow In Table.Rows
-                    tableQuotations.InnerHtml &= GetRow(row, index)
-                    index = index + 1
-                Next
+                '        Select Case Version.GetValue("Status").Value(Of Integer)
+                '            Case 0
+                '                Version.Add("VStatus", "Abierta")
+                '                Version.Add("ActionEdit", "Editar")
+                '            Case 1
+                '                Version.Add("VStatus", "Propuesta Cerrada")
+                '                Version.Add("ActionEdit", "Ver")
+                '            Case 2
+                '                Version.Add("VStatus", "Propuesta Descartada")
+                '                Version.Add("ActionEdit", "Ver")
+                '            Case 3
+                '                Version.Add("VStatus", "Aceptada")
+                '                Version.Add("ActionEdit", "Ver")
+                '            Case 4
+                '                Version.Add("VStatus", "Cancelada")
+                '                Version.Add("ActionEdit", "Ver")
+                '        End Select
 
-                Response = doGetRequest(USERS_BY_LEADERS,, Session("access_token"))
-                o = JObject.Parse(Response)
-                statusCode = o.GetValue("statusCode").Value(Of Integer)
-                If (statusCode >= 200 And statusCode < 400) Then
-                    detail = o.GetValue("detail").Value(Of JArray)
+                '        arrayLimpio.Add(Version)
+                '    Next
+                'Next
+                'Dim Table As DataTable = JsonConvert.DeserializeObject(Of DataTable)(arrayLimpio.ToString)
 
-                    For Each Vendedor As JObject In detail
-                        Vendedor.Remove("Claims")
-                        Vendedor.Remove("Logins")
-                        Vendedor.Remove("Roles")
-                    Next
+                'Dim index As Integer = 0
+                'For Each row As DataRow In Table.Rows
+                '    tableQuotations.InnerHtml &= GetRow(row, index)
+                '    index = index + 1
+                'Next
 
-                    Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
-                    Me.DDUsers.DataSource = Table
-                    Me.DDUsers.DataValueField = "Id"
-                    Me.DDUsers.DataTextField = "Name"
-                    Me.DDUsers.DataBind()
-                End If
+                'Response = doGetRequest(USERS_BY_LEADERS,, Session("access_token"))
+                'o = JObject.Parse(Response)
+                'statusCode = o.GetValue("statusCode").Value(Of Integer)
+                'If (statusCode >= 200 And statusCode < 400) Then
+                '    detail = o.GetValue("detail").Value(Of JArray)
+
+                '    For Each Vendedor As JObject In detail
+                '        Vendedor.Remove("Claims")
+                '        Vendedor.Remove("Logins")
+                '        Vendedor.Remove("Roles")
+                '    Next
+
+                '    Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+                '    Me.DDUsers.DataSource = Table
+                '    Me.DDUsers.DataValueField = "Id"
+                '    Me.DDUsers.DataTextField = "Name
+                '    Me.DDUsers.DataBind()
+                'End If
             End If
         End If
     End Sub
@@ -144,7 +150,58 @@ Public Class ResumenEstimaciones2
 
     End Sub
 
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
+        If ViewState("CurrentTable") IsNot Nothing Then
+            Dim dt As DataTable = DirectCast(ViewState("CurrentTable"), DataTable)
+            Dim Qstring As String = "   "
+
+            If Me.txtCotizacion.Text <> "" Then
+                ''rows2 = dt.[Select]("CoflexId like '" & Me.txtCotizacion.Text & "%'")
+                Qstring = Qstring + "CoflexId like '" & Me.txtCotizacion.Text & "%' and"
+            End If
+
+            If Me.txtVendedor.Text <> "" Then
+                ''rows2 = dt.[Select]("vendor like '%" & Me.txtVendedor.Text & "%'")
+                Qstring = Qstring + " vendor like '%" & Me.txtVendedor.Text & "%' and"
+            End If
+
+            If Me.txtCliente.Text <> "" Then
+                ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
+                Qstring = Qstring + " clientName like '%" & Me.txtCliente.Text & "%' and"
+            End If
+
+            If Me.txtStatusCotiza.Text <> "" Then
+                ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
+                Qstring = Qstring + " status = '" & Me.txtStatusCotiza.Text & "' and"
+            End If
+
+            If Me.txtVersion.Text <> "" Then
+                ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
+                Qstring = Qstring + " VersionNumber = '" & Me.txtVersion.Text & "' and"
+            End If
+
+            If Me.txtFecIni.Text <> "" And Me.txtFecFin.Text <> "" Then
+                ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
+                Qstring = Qstring + " Date >= '" & Me.txtFecIni.Text & "' and Date <= '" & Me.txtFecFin.Text & "' and"
+            End If
+
+            If Me.txtStatusVersion.Text <> "" Then
+                ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
+                Qstring = Qstring + " VStatus = '" & Me.txtStatusVersion.Text & "' and"
+            End If
+
+            Qstring = Left(Qstring, Qstring.Length - 3)
+            Dim rows2 = dt.[Select](Qstring)
+
+            Dim dt1 As DataTable = rows2.CopyToDataTable()
+            Me.GridQuotations.DataSource = dt1
+            Me.GridQuotations.DataBind()
+
+        End If
+
+
+    End Sub
 End Class
 
 
