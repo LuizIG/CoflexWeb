@@ -68,7 +68,7 @@
         function PrintPanel3() {
             var panel = document.getElementById("<%=pnlContents3.ClientID %>");
             var printWindow = window.open('', '', 'height=400,width=800');
-            printWindow.document.write('<html><head><title>DIV Contents</title>');
+            printWindow.document.write('<html><head><title></title>');
             printWindow.document.write('</head><body >');
             printWindow.document.write(panel.innerHTML);
             printWindow.document.write('</body></html>');
@@ -80,128 +80,129 @@
         }
 
     </script>
+    <h2><%--<%: Title %>.--%></h2>
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
 
-    <div style="text-align: center; height: 16px; margin-top: 16px;">
-    </div>
-    <div id="div1" runat="server"></div>
+            <%--<div style="text-align: center; height: 16px; margin-top: 16px;">
+    </div>--%>
+            <%--<div id="div1" runat="server"></div>--%>
 
-    <div id="error_container" style="display: none" class="alert alert-danger alert-dismissable fade in">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Ups!</strong>
-        <div id="error_description"></div>
-    </div>
+            <div id="error_container" style="display: none" class="alert alert-danger alert-dismissable fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Ups!</strong>
+                <div id="error_description"></div>
+            </div>
 
-    <div class="well well-lg">
+            <div style="text-align: center; height: 8px; margin-top: 16px;">
+                <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DynamicLayout="true">
+                    <ProgressTemplate>
+                        <div class='progress progress-striped active' style='height: 8px;'>
+                            <div class='progress-bar' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width: 100%'></div>
+                        </div>
+                    </ProgressTemplate>
+                </asp:UpdateProgress>
+            </div>
 
+            <div id="div2" runat="server"></div>
 
-        <div style="position: relative; right: 0px; width: 100%; text-align: right">
-            <asp:Button ID="Button1" class="btn btn-primary" runat="server" Text="Filtrar" />
-            <asp:Button ID="ButtonIndicadores" class="btn btn-primary" runat="server" Text="Indicadores" />&nbsp;
-        <asp:Button ID="ButtonPrintEstim" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel3();" runat="server" Text="Imprimir" />&nbsp;
-        <%--<a href="Estimacion.aspx" class="btn btn-primary" role="button">Nueva Estimacion</a>--%>
-            <a id="btn_reasignar" data-role="button" class="btn btn-primary">Reasignar</a>
-            <%--<asp:Button ID="ButtonReasignar" class="btn btn-primary" runat="server" Text="Reasignar" />&nbsp;--%>
-            <asp:Button ID="ButtonEstimacionGo" class="btn btn-primary" runat="server" Text="Nueva cotización" />
-        </div>
+            <div class="well well-lg">
 
-
-        <table style="width: 100%; margin-top:16px">
-            <tr style="vertical-align: top;">
-                <td></td>
-                <td><asp:DropDownList ID="DDCotizacion" runat="server"></asp:DropDownList></td>
-                <td><asp:DropDownList ID="DDVendedor" runat="server"></asp:DropDownList></td>
-                <td><asp:DropDownList ID="DDCliente" runat="server"></asp:DropDownList></td>
-                <td><asp:DropDownList ID="DDStatusCotiza" runat="server"></asp:DropDownList></td>
-                <td><asp:DropDownList ID="DDVersion" runat="server"></asp:DropDownList></td>
-                <td>
-                    
-                    
-                    <div class="input-daterange input-group" id="datepicker">
-                        <asp:TextBox ID="txtFecIni" runat="server"></asp:TextBox><br />
-                        <asp:TextBox ID="txtFecFin" runat="server"></asp:TextBox>
-                    </div>
-                    
-                </td>
-                <td><asp:DropDownList ID="DDStatusVersion" runat="server"></asp:DropDownList></td>
-            </tr>
-        </table>
-      
-
-        <asp:GridView ID="GridQuotations" AutoGenerateColumns="False" class="table" runat="server">
-            <Columns>
-                <asp:TemplateField>
-                    <ItemTemplate>
-                        <asp:CheckBox name="chGBQuot"  runat="server"></asp:CheckBox>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:BoundField DataField="Id" HeaderText="Id" Visible="false" />
-                <asp:BoundField DataField="CoflexId" HeaderText="Cotización" />
-                <asp:BoundField DataField="vendor" HeaderText="Vendedor" />
-                <asp:BoundField DataField="clientName" HeaderText="Cliente" />
-                <asp:BoundField DataField="QuotationStatusName" HeaderText="Estatus cotización" />
-                <asp:BoundField DataField="versionNumber" HeaderText="Versión" />
-                <asp:BoundField DataField="date" HeaderText="Fecha" />
-                <asp:BoundField DataField="QuotationVersionStatusName" HeaderText="Estatus versión" />
-            </Columns>
-            <HeaderStyle BackColor="#C0C0C0" />
-        </asp:GridView>
-
-
-
-
-
-        <asp:Panel ID="pnlContents3" runat="server">
-            <table style="width: 100%">
-                <tr style="text-align: right">
-                    <td colspan="2" width="50%">
-                        <img src="logo.png" class="visible-print-block" />&nbsp;
-                    </td>
-                </tr>
-            </table>
-            <table id="table"
-                data-toggle="table"
-                data-filter-control="true"
-                data-click-to-select="false"
-                data-toolbar="#toolbar">
-                <thead style="background-color: #C0C0C0">
-                    <tr>
-                        <th data-field="state" data-checkbox="true"></th>
-                        <th data-field="quotation" data-filter-control="input" data-sortable="true">Cotización</th>
-                        <th data-field="vendor" data-filter-control="select" data-sortable="true">Vendedor</th>
-                        <th data-field="client" data-filter-control="select" data-sortable="true">Cliente</th>
-                        <th data-field="status" data-filter-control="select" data-sortable="true">Estatus Cotización</th>
-                        <th data-field="version" data-filter-control="select" data-sortable="true">Versión</th>
-                        <th data-field="date" data-filter-control="select" data-sortable="true">Fecha</th>
-                        <th data-field="qversionstatus" data-filter-control="select" data-sortable="true">Estatus Versión</th>
-                        <%--<th data-field="action" data-sortable="false">Acción</th>--%>
-                    </tr>
-                </thead>
-                <tbody id="tableQuotations" runat="server"></tbody>
-            </table>
-        </asp:Panel>
-        <div id="myModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Reasignar</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Selecciona un vendedor</p>
-                        <asp:DropDownList ID="DDUsers" runat="server"></asp:DropDownList>
-                    </div>
-                    <div class="modal-footer">
-                        <asp:Button Text="Cancelar" runat="server" type="button" class="btn btn-danger" data-dismiss="modal" />
-                        <asp:Button ID="BTN_ACEPTAR_1" Text="Aceptar" runat="server" type="button" class="btn btn-success" />
-                    </div>
+                <div style="position: relative; right: 0px; width: 100%; text-align: right">
+                    <asp:Button ID="Button1" class="btn btn-primary" runat="server" Text="Filtrar" />&nbsp;
+                    <asp:Button ID="ButtonIndicadores" class="btn btn-primary" runat="server" Text="Indicadores" />&nbsp;
+                    <asp:Button ID="ButtonPrintEstim" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel3();" runat="server" Text="Imprimir" />&nbsp;
+                    <%--<a href="Estimacion.aspx" class="btn btn-primary" role="button">Nueva Estimacion</a>--%>
+                    <a id="btn_reasignar" data-role="button" class="btn btn-primary">Reasignar</a>
+                    <%--<asp:Button ID="ButtonReasignar" class="btn btn-primary" runat="server" Text="Reasignar" />&nbsp;--%>
+                    <asp:Button ID="ButtonEstimacionGo" class="btn btn-primary" runat="server" Text="Nueva cotización" />
                 </div>
 
-            </div>
-        </div>
-        <input type="hidden" id="quotations_reasign" runat="server" />
-        <div id="div_response" runat="server"></div>
-    </div>
+                <table style="width: 100%; margin-top: 16px">
+                    <tr style="vertical-align: top;">
+                        <td></td>
+                        <td>
+                            <asp:DropDownList ID="DDCotizacion" runat="server"></asp:DropDownList></td>
+                        <td>
+                            <asp:DropDownList ID="DDVendedor" runat="server"></asp:DropDownList></td>
+                        <td>
+                            <asp:DropDownList ID="DDCliente" runat="server"></asp:DropDownList></td>
+                        <td>
+                            <asp:DropDownList ID="DDStatusCotiza" runat="server"></asp:DropDownList></td>
+                        <td>
+                            <asp:DropDownList ID="DDVersion" runat="server"></asp:DropDownList></td>
+                        <td>
 
+
+                            <div class="input-daterange input-group" id="datepicker">
+                                <asp:TextBox ID="txtFecIni" runat="server"></asp:TextBox><br />
+                                <asp:TextBox ID="txtFecFin" runat="server"></asp:TextBox>
+                            </div>
+
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="DDStatusVersion" runat="server"></asp:DropDownList></td>
+                    </tr>
+                </table>
+
+
+                <asp:Panel ID="pnlContents3" runat="server">
+                    <table style="width: 100%">
+                                <tr class="visible-print-block" style="text-align: left">
+                                    <td colspan="4" width="50%">
+                                        <img src="logo.png" />&nbsp;
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">&nbsp;</td>
+                                </tr>
+                            </table>
+                    <asp:GridView ID="GridQuotations" AutoGenerateColumns="False" class="table" runat="server">
+                        <Columns>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:CheckBox name="chGBQuot" runat="server"></asp:CheckBox>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="Id" HeaderText="Id" Visible="false" />
+                            <asp:BoundField DataField="CoflexId" HeaderText="Cotización" />
+                            <asp:BoundField DataField="vendor" HeaderText="Vendedor" />
+                            <asp:BoundField DataField="clientName" HeaderText="Cliente" />
+                            <asp:BoundField DataField="QuotationStatusName" HeaderText="Estatus cotización" />
+                            <asp:BoundField DataField="versionNumber" HeaderText="Versión" />
+                            <asp:BoundField DataField="date" HeaderText="Fecha" />
+                            <asp:BoundField DataField="QuotationVersionStatusName" HeaderText="Estatus versión" />
+                        </Columns>
+                        <HeaderStyle BackColor="#C0C0C0" />
+                    </asp:GridView>
+                </asp:Panel>
+
+
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Reasignar</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Selecciona un vendedor</p>
+                                <asp:DropDownList ID="DDUsers" runat="server"></asp:DropDownList>
+                            </div>
+                            <div class="modal-footer">
+                                <asp:Button Text="Cancelar" runat="server" type="button" class="btn btn-danger" data-dismiss="modal" />
+                                <asp:Button ID="BTN_ACEPTAR_1" Text="Aceptar" runat="server" type="button" class="btn btn-success" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <input type="hidden" id="quotations_reasign" runat="server" />
+                <div id="div_response" runat="server"></div>
+            </div>
+
+        </ContentTemplate>
+    </asp:UpdatePanel>
 </asp:Content>
