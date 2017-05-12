@@ -328,14 +328,6 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>&nbsp;&nbsp;<asp:Label ID="Label19" runat="server" Text="Actual"></asp:Label></td>
-                                                    <td colspan="2">
-                                                        <asp:RadioButton ID="RadioButton2" GroupName="tipoCosto" runat="server" />
-                                                        &nbsp;<asp:TextBox ID="TextBox7" Enabled="false" runat="server"></asp:TextBox>&nbsp;
-                                                    </td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
                                                     <td>&nbsp;&nbsp;<asp:Label ID="Label6" runat="server" Visible="false" Text="Compuesto"></asp:Label>&nbsp;</td>
                                                     <td colspan="2">
                                                         <asp:RadioButton ID="RadioButton3" Enabled="false" Visible="false" GroupName="tipoCosto" runat="server" />&nbsp;
@@ -344,6 +336,15 @@
                                                     </td>
                                                     <td></td>
                                                 </tr>
+                                                <tr style="visibility:hidden ">
+                                                    <td>&nbsp;&nbsp;<asp:Label ID="Label19" Visible="false"  runat="server" Text="Actual"></asp:Label></td>
+                                                    <td colspan="2">
+                                                        <asp:RadioButton ID="RadioButton2" Visible="false"  GroupName="tipoCosto" runat="server" />
+                                                        &nbsp;<asp:TextBox ID="TextBox7" Visible="false"  Enabled="false" runat="server"></asp:TextBox>&nbsp;
+                                                    </td>
+                                                    <td></td>
+                                                </t>
+                                                
                                                 <tr>
                                                     <td colspan="4">&nbsp;</td>
                                                 </tr>
