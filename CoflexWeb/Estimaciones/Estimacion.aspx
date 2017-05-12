@@ -138,7 +138,7 @@
                                                 </b>&nbsp;</td>
                                             </tr>
                                             <tr>
-                                                <td>
+                                                <td style="text-align:left">
                                                     <asp:Label ID="Label9" runat="server" Text="Cliente"></asp:Label>&nbsp;
                                                 </td>
                                                 <td>
@@ -150,7 +150,7 @@
                                                 </td>--%>
                                             </tr>
                                             <tr>
-                                                <td>
+                                                <td  style="text-align:left">
                                                     <asp:Label ID="Label8" runat="server" Text="Artículo"></asp:Label>&nbsp;
                                                 </td>
                                                 <td>
@@ -168,21 +168,21 @@
                                                 <td colspan="3" style="text-align: left;"><b>&nbsp;<asp:Label ID="Label21" runat="server" Text="Componentes"></asp:Label>
                                                 </b>&nbsp;</td>
                                             </tr>
-                                            <tr>
-                                                <td>&nbsp;</td>
+                                            <tr style="text-align:left">
+                                                <td><asp:Label ID="Label35" Width="90%" runat="server" Text="Filtro"></asp:Label>&nbsp;</td>
                                                 <td>
-                                                    <asp:TextBox Width="100%" ID="txtSearch" runat="server" onkeyup="FilterItems(this.value)"></asp:TextBox>
+                                                    <asp:TextBox Width="90%" ID="txtSearch" runat="server" onkeyup="FilterItems(this.value)"></asp:TextBox>
                                                 </td>
                                                 <%-- <td rowspan="2" style="vertical-align: central;">
                                                     <asp:Button ID="Button3" runat="server" class="btn btn-primary" Text="Agregar" />
                                                 </td>--%>
                                             </tr>
                                             <tr>
-                                                <td>
-                                                    <asp:Label ID="Label11" runat="server" Text="Componente"></asp:Label>&nbsp;
+                                                <td  style="text-align:left">
+                                                    <asp:Label ID="Label11" Width="90%" runat="server" Text="Componente"></asp:Label>&nbsp;
                                                 </td>
-                                                <td>
-                                                    <asp:DropDownList ID="DDComponente" runat="server">
+                                                <td  style="text-align:left">
+                                                    <asp:DropDownList Width="90%" ID="DDComponente" runat="server">
                                                     </asp:DropDownList>&nbsp;
                                                 </td>
 
@@ -199,11 +199,11 @@
                                                 </b>&nbsp;</td>
                                             </tr>
                                             <tr>
-                                                <td>
+                                                <td  style="text-align:left">
                                                     <asp:Label ID="Label12" runat="server" Text="Elemento"></asp:Label>&nbsp;
                                                 </td>
                                                 <td>
-                                                    <asp:DropDownList ID="DDElemento" runat="server">
+                                                    <asp:DropDownList ID="DDElemento" Width="90%" runat="server">
                                                     </asp:DropDownList>&nbsp;
                                                 </td>
                                                 <td style="vertical-align: central;">

@@ -158,6 +158,15 @@ Partial Public Class Estimacion
     Protected WithEvents Label21 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''Label35 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label35 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''txtSearch control.
     '''</summary>
     '''<remarks>
