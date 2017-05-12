@@ -19,34 +19,14 @@
             });
 
             $('.input-daterange').datepicker({
-                format: "dd/mm/yyyy",
-
-            }).on("hide", function (e) {
-
-                $('#table > tbody  > tr').each(function () {
-
-                    var dateInRowStr = $(this).find('td:eq(6)').text();
-                    var dateInRow = new Date(dateInRowStr.split("/")[2], dateInRowStr.split("/")[1] - 1, dateInRowStr.split("/")[0]);
-
-                    var dateInitStr = $("#init_date").val();
-                    var dateInit = new Date(dateInitStr.split("/")[2], dateInitStr.split("/")[1] - 1, dateInitStr.split("/")[0]);
-
-                    var dateLastStr = $("#last_date").val();
-                    var dateLast = new Date(dateLastStr.split("/")[2], dateLastStr.split("/")[1] - 1, dateLastStr.split("/")[0]);
-
-                    if (dateInRow >= dateInit && dateInRow <= dateLast) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
-                    }
-                });
-            });;
+                format: "dd/mm/yyyy"
+            });
 
 
             $("#btn_reasignar").on("click", function () {
                 var idQuotations = [];
                 var x = 0;
-                $('#table > tbody  > tr').each(function () {
+                $('#MainContent_GridQuotations > tbody  > tr').each(function () {
                     if ($(this).find('td:eq(0) input').is(':checked')) {
                         idQuotations[x] = $(this).find('td:eq(1)').attr("id").split(",")[0];
                         x++;
@@ -57,7 +37,6 @@
                     $("#MainContent_quotations_reasign").val(idQuotations);
                     $("#myModal").modal();
                 } else {
-                    alert("no");
                     $("#error_container").css("display", "block");
                     $("#error_description").text("Selecciona la (s) cotizaciones que vas a reasignar.");
                 }
@@ -148,7 +127,7 @@
 
                 </table>
 
-                <div style="position: relative; right: 0px; width: 100%; text-align: right">
+                <div style="position: relative; right: 0px; width: 100%; text-align: right; margin-top:16px">
                     <asp:Button ID="Button1" class="btn btn-primary" runat="server" Text="Filtrar" />
                     <asp:Button ID="ButtonIndicadores" class="btn btn-primary" runat="server" Text="Indicadores" />&nbsp;
                     <asp:Button ID="ButtonPrintEstim" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel3();" runat="server" Text="Imprimir" />&nbsp;
