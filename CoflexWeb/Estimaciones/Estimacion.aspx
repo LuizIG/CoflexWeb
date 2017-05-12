@@ -105,6 +105,31 @@
                     <div class="well well-lg">
 
                         <table style="border-style: solid; border-color: #C0C0C0; width: 100%; align-items: center">
+                            <tr style="vertical-align: top; background-color: #C0C0C0;">
+                                <td style="width: 50%; text-align: left ; vertical-align: top;">
+                                    <b>&nbsp;<asp:Label ID="Label30" runat="server" Text="Cliente"></asp:Label>
+                                    </b>&nbsp;
+                                </td><td colspan="2" style="width: 50%; text-align: left; vertical-align: top;">
+                                    <b>&nbsp;<asp:Label ID="Label31" runat="server" Text="Prospecto"></asp:Label>
+                                    </b>&nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:50%">
+                                    &nbsp;<asp:DropDownList ID="DDClienteCotiza" Width="100%" runat="server" AutoPostBack="True">
+                                                    </asp:DropDownList>&nbsp;
+                                </td>
+                                <td style="width:40%">
+                                    &nbsp;<asp:DropDownList ID="DDProspecto" Enabled="false"  Width="100%" runat="server" AutoPostBack="True">
+                                                    </asp:DropDownList>&nbsp;
+                                </td>
+                                <td style="width:10%; text-align:center ">
+                                    <asp:Button ID="BtnNuevoPros" runat="server" class="btn btn-primary" Text="Nuevo" />
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                        <table style="border-style: solid; border-color: #C0C0C0; width: 100%; align-items: center">
                             <tr style="vertical-align: top;">
                                 <td style="width: 30%; text-align: center; vertical-align: top;">
                                     <div style="width: 100%; vertical-align: top;">
@@ -137,9 +162,9 @@
                                         </table>
                                     </div>
                                 </td>
-                                <td style="width: 30%; height: 100%; text-align: center; vertical-align: top;">
-                                    <div style="width: 100%; height: 100%; vertical-align: top;">
-                                        <table style="width: 100%; height: 100%;">
+                                <td style="width: 30%; text-align: center; vertical-align: top;">
+                                    <div style="width: 100%; vertical-align: top;">
+                                        <table style="width: 100%;">
                                             <tr style="background-color: #C0C0C0">
                                                 <td colspan="3" style="text-align: left;"><b>&nbsp;<asp:Label ID="Label21" runat="server" Text="Componentes"></asp:Label>
                                                 </b>&nbsp;</td>
@@ -170,7 +195,7 @@
                                 </td>
                                 <td style="border-right-style: solid; border-color: #C0C0C0; width: 30%; text-align: center; vertical-align: top">
                                     <div style="width: 100%; vertical-align: top;">
-                                        <table style="width: 100%; height: 100%; vertical-align: top;">
+                                        <table style="width: 100%; vertical-align: top;">
                                             <tr style="background-color: #C0C0C0">
                                                 <td colspan="4" style="text-align: left;"><b>&nbsp;<asp:Label ID="Label22" runat="server" Text="Elemento"></asp:Label>
                                                 </b>&nbsp;</td>
@@ -240,10 +265,10 @@
                                                 </asp:TreeView>
                                             </asp:Panel>
                                         </div>
-                                       
+
                                     </td>
                                     <td>&nbsp;</td>
-                                    <td style="vertical-align: top; width: 50%; height: 100%; background-color:#C0C0C0">
+                                    <td style="vertical-align: top; width: 50%; height: 100%; background-color: #C0C0C0">
                                         <br />
                                         <div style="vertical-align: top; width: 100%;">
                                             <table class="nav-justified">
@@ -254,7 +279,7 @@
                                                     <td>
                                                         <asp:TextBox ID="TextBox1" Width="70%" Enabled="false" runat="server"></asp:TextBox>
                                                     </td>
-                                                    <td style="width:120px">
+                                                    <td style="width: 120px">
                                                         <asp:Label ID="Label2" runat="server" Text="SKU Componente"></asp:Label>&nbsp;
                                                     </td>
                                                     <td>
@@ -445,8 +470,8 @@
                                 </asp:TemplateField>
 
                                 <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo Cotización" Visible="false" DataField="FinalCost" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" />
-                                
-                                <asp:TemplateField ItemStyle-Width="10%" visible="false" HeaderText="Costo de Flete"  ItemStyle-CssClass="t-cost">
+
+                                <asp:TemplateField ItemStyle-Width="10%" Visible="false" HeaderText="Costo de Flete" ItemStyle-CssClass="t-cost">
                                     <ItemTemplate>
                                         <asp:TextBox ID="TVShipping" Width="70px" Text='<%#DataBinder.Eval(Container.DataItem, "Shipping", "${0:###,###,##0.00}")%>' runat="server"></asp:TextBox>
                                     </ItemTemplate>

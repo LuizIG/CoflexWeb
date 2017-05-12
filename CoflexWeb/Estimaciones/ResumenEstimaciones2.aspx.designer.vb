@@ -14,6 +14,15 @@ Option Explicit On
 Partial Public Class ResumenEstimaciones2
     
     '''<summary>
+    '''Control UpdatePanel1.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents UpdatePanel1 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
     '''Control div1.
     '''</summary>
     '''<remarks>
@@ -194,13 +203,13 @@ Partial Public Class ResumenEstimaciones2
     Protected WithEvents ButtonEstimacionGo As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''Control GridQuotations.
+    '''Control UpdateProgress1.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents GridQuotations As Global.System.Web.UI.WebControls.GridView
+    Protected WithEvents UpdateProgress1 As Global.System.Web.UI.UpdateProgress
     
     '''<summary>
     '''Control pnlContents3.
@@ -212,13 +221,22 @@ Partial Public Class ResumenEstimaciones2
     Protected WithEvents pnlContents3 As Global.System.Web.UI.WebControls.Panel
     
     '''<summary>
-    '''Control tableQuotations.
+    '''Control GridQuotations.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents tableQuotations As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents GridQuotations As Global.System.Web.UI.WebControls.GridView
+    
+    '''<summary>
+    '''Control div2.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents div2 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
     '''Control DDUsers.
