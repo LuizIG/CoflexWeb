@@ -767,6 +767,88 @@
                     </div>
                 </asp:View>
 
+
+                 <asp:View ID="View6" runat="server">
+                    <div style="text-align: center; height: 8px; margin-top: 16px;">
+                        <asp:UpdateProgress ID="UpdateProgress4" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DynamicLayout="true">
+                            <ProgressTemplate>
+                                <div class='progress progress-striped active' style='height: 8px;'>
+                                    <div class='progress-bar' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width: 100%'></div>
+                                </div>
+                            </ProgressTemplate>
+                        </asp:UpdateProgress>
+                    </div>
+                    <div id="div3" runat="server"></div>
+
+                    <div class="well well-lg" style="vertical-align: top; width: 100%">
+                        <table>
+                            <tr>
+                                <td style="width:60px">
+                                    <asp:Label ID="Label32" runat="server" Text="Nombre"></asp:Label>
+
+                                </td>
+                                <td></td>
+                                <td  style="width:350px">
+                                    <asp:TextBox ID="txtProsComName" Width="95%" MaxLength="4" Enabled="true" runat="server"></asp:TextBox>
+                                    <%--<asp:RequiredFieldValidator runat="server" ControlToValidate="txtSkuComponente"
+                                        CssClass="text-danger" ErrorMessage="Campo requerido." />--%>
+                                    &nbsp;</td>
+
+                            </tr>
+                            <tr style="height: 70px; align-content: center; vertical-align: central">
+                                <td>
+                                    <asp:Label ID="Label33" runat="server" Text="Dirección"></asp:Label></td>
+                                <td>&nbsp;</td>
+                                <td style="width: 350px">
+                                    <textarea id="txtProsAddress" style="width: 100%; height: 90%; max-width: 1000px !important" runat="server"></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Label ID="Label36" runat="server" Text="Contacto"></asp:Label>
+
+                                </td>
+                                <td></td>
+                                <td style="width: 350px">
+                                    <asp:TextBox ID="txtProsContactName" Width="95%" Enabled="true" runat="server"></asp:TextBox>
+                                    <%--<asp:RequiredFieldValidator runat="server" ControlToValidate="txtSkuComponente"
+                                        CssClass="text-danger" ErrorMessage="Campo requerido." />--%>
+                                    &nbsp;</td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Label ID="Label34" runat="server" Text="Telefono"></asp:Label>
+                                </td>
+                                <td>&nbsp;</td>
+                                <td style="width: 350px">
+                                    <asp:TextBox ID="txtProsPhoneNumber" runat="server"></asp:TextBox>
+                                    &nbsp;</td>
+                            </tr>
+                        </table>
+                        <br />
+                        <table style="width: 100%">
+                            <tr>
+                                <td>
+                                    <div style="float: right">
+                                        <table>
+                                            <tr>
+                                                <td style="text-align: right">
+                                                    <asp:Button ID="Button2" class="btn btn-primary" runat="server" Text="Regresar" />
+                                                </td>
+                                                <td>&nbsp;
+                                                </td>
+                                                <td>
+                                                    <asp:Button ID="Button3" class="btn btn-primary" runat="server" Text="Guardar" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </asp:View>
+
             </asp:MultiView>
 
         </ContentTemplate>
