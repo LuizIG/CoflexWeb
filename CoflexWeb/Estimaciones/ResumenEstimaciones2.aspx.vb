@@ -21,12 +21,7 @@ Public Class ResumenEstimaciones2
 
 
                 'Llenamos los filtros
-                FillFilter(DDCotizacion, Table, "CoflexId")
-                FillFilter(DDVendedor, Table, "vendor")
-                FillFilter(DDCliente, Table, "clientName")
-                FillFilter(DDStatusCotiza, Table, "QuotationStatusName")
-                FillFilter(DDVersion, Table, "versionNumber")
-                FillFilter(DDStatusVersion, Table, "QuotationVersionStatusName")
+
             End If
         End If
     End Sub
@@ -77,9 +72,9 @@ Public Class ResumenEstimaciones2
             Dim dt As DataTable = DirectCast(ViewState("CurrentTable"), DataTable)
             Dim Qstring As String = "   "
 
-            If Me.DDCotizacion.SelectedValue <> ""  Then
+            If Me.txtCotizacion.Text <> "" Then
                 ''rows2 = dt.[Select]("CoflexId like '" & Me.txtCotizacion.Text & "%'")
-                Qstring = Qstring + "CoflexId like '" & Me.DDCotizacion.SelectedValue & "%' and"
+                Qstring = Qstring + "CoflexId like '" & Me.txtCotizacion.Text & "%' and"
             End If
 
             If Me.DDVendedor.SelectedValue <> "" Then
@@ -87,9 +82,9 @@ Public Class ResumenEstimaciones2
                 Qstring = Qstring + " vendor like '%" & Me.DDVendedor.SelectedValue & "%' and"
             End If
 
-            If Me.DDCliente.SelectedValue <> "" Then
+            If Me.txtCliente.Text <> "" Then
                 ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
-                Qstring = Qstring + " clientName like '%" & Me.DDCliente.SelectedValue & "%' and"
+                Qstring = Qstring + " clientName like '%" & Me.txtCliente.Text & "%' and"
             End If
 
             If Me.DDStatusCotiza.SelectedValue <> "" Then
@@ -97,14 +92,14 @@ Public Class ResumenEstimaciones2
                 Qstring = Qstring + " status = '" & Me.DDStatusCotiza.SelectedValue & "' and"
             End If
 
-            If Me.DDVersion.SelectedValue <> "" Then
+            If Me.txtVersion.Text <> "" Then
                 ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
-                Qstring = Qstring + " VersionNumber = '" & Me.DDVersion.SelectedValue & "' and"
+                Qstring = Qstring + " VersionNumber = '" & Me.txtVersion.Text & "' and"
             End If
 
-            If Me.txtFecIni.Text <> "" And Me.txtFecFin.Text <> "" Then
+            If Me.TextBox1.Text <> "" And Me.TextBox2.Text <> "" Then
                 ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
-                Qstring = Qstring + " Date >= '" & Me.txtFecIni.Text & "' and Date <= '" & Me.txtFecFin.Text & "' and"
+                Qstring = Qstring + " Date >= '" & Me.TextBox1.Text & "' and Date <= '" & Me.TextBox2.Text & "' and"
             End If
 
             If Me.DDStatusVersion.SelectedValue <> "" Then

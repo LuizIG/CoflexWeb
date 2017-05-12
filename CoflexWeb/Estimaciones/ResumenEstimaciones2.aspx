@@ -93,6 +93,31 @@
 
     <div class="well well-lg">
 
+        <table style="border-style: solid; border-color: #C0C0C0; width: 100%; align-items: center">
+             <tr style="vertical-align: top;">
+                 <td style="width: 30%; text-align: center; vertical-align: central;">
+                     <asp:Label ID="Label11" runat="server" Text="Cotización"></asp:Label>&nbsp;
+                     <asp:TextBox ID="txtCotizacion" runat="server"></asp:TextBox>&nbsp;
+                     <asp:Label ID="Label1" runat="server" Text="Vendedor"></asp:Label>&nbsp;
+                     <asp:DropDownList ID="DDVendedor" runat="server"></asp:DropDownList>&nbsp;
+                     <asp:Label ID="Label2" runat="server" Text="Cliente"></asp:Label>&nbsp;
+                     <asp:TextBox ID="txtCliente" runat="server"></asp:TextBox>&nbsp;
+                     <asp:Label ID="Label3" runat="server" Text="Estatus cotización"></asp:Label>&nbsp;
+                     <asp:DropDownList ID="DDStatusCotiza" runat="server"></asp:DropDownList>&nbsp;<br />
+                     <asp:Label ID="Label4" runat="server" Text="Versión"></asp:Label>&nbsp;
+                     <asp:TextBox ID="txtVersion" runat="server"></asp:TextBox>&nbsp;
+                     <asp:Label ID="Label5" runat="server" Text="Fecha"></asp:Label>&nbsp;
+
+                     <div class="input-daterange input-group" id="datepicker">
+                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>&nbsp;
+                        <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>&nbsp;
+                     </div>
+
+                     <asp:Label ID="Label6" runat="server" Text="Estatus versión"></asp:Label>&nbsp;
+                     <asp:DropDownList ID="DDStatusVersion" runat="server"></asp:DropDownList>&nbsp;
+                 </td>
+             </tr>
+         </table>
 
         <div style="position: relative; right: 0px; width: 100%; text-align: right">
             <asp:Button ID="Button1" class="btn btn-primary" runat="server" Text="Filtrar" />
@@ -104,7 +129,7 @@
             <asp:Button ID="ButtonEstimacionGo" class="btn btn-primary" runat="server" Text="Nueva cotización" />
         </div>
 
-
+        <%--  
         <table style="width: 100%; margin-top:16px">
             <tr style="vertical-align: top;">
                 <td></td>
@@ -125,7 +150,7 @@
                 <td><asp:DropDownList ID="DDStatusVersion" runat="server"></asp:DropDownList></td>
             </tr>
         </table>
-      
+      --%>
 
         <asp:GridView ID="GridQuotations" AutoGenerateColumns="False" class="table" runat="server">
             <Columns>
