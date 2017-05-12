@@ -44,9 +44,9 @@ Public Class ResumenEstimaciones2
                     Me.DDVendedor.Items.Insert(0, New ListItem("Seleccionar", ""))
 
                     DDStatusVersion.Items.Add(New ListItem("Seleccionar", ""))
-                    DDStatusVersion.Items.Add(New ListItem("Abierta", "0"))
-                    DDStatusVersion.Items.Add(New ListItem("Propuesta Cerrada", "1"))
-                    DDStatusVersion.Items.Add(New ListItem("Propuesta Descartada", "2"))
+                    DDStatusVersion.Items.Add(New ListItem("Abierta", "Abierta"))
+                    DDStatusVersion.Items.Add(New ListItem("Propuesta Cerrada", "Propuesta Cerrada"))
+                    DDStatusVersion.Items.Add(New ListItem("Propuesta Descartada", "Propuesta Descartada"))
                     DDStatusVersion.Items.Add(New ListItem("Aceptada", "3"))
                     DDStatusVersion.Items.Add(New ListItem("Cancelar Cotizacion", "4"))
 
