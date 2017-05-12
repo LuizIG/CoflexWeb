@@ -19,14 +19,44 @@ Public Class ResumenEstimaciones2
                 Me.GridQuotations.DataSource = Table
                 Me.GridQuotations.DataBind()
 
+                Response = doGetRequest(USERS_BY_LEADERS,, Session("access_token"))
+                o = JObject.Parse(Response)
+                statusCode = o.GetValue("statusCode").Value(Of Integer)
+                If (statusCode >= 200 And statusCode < 400) Then
+                    detail = o.GetValue("detail").Value(Of JArray)
 
-                'Llenamos los filtros
-                FillFilter(DDCotizacion, Table, "CoflexId")
-                FillFilter(DDVendedor, Table, "vendor")
-                FillFilter(DDCliente, Table, "clientName")
-                FillFilter(DDStatusCotiza, Table, "QuotationStatusName")
-                FillFilter(DDVersion, Table, "versionNumber")
-                FillFilter(DDStatusVersion, Table, "QuotationVersionStatusName")
+                    For Each Vendedor As JObject In detail
+                        Vendedor.Remove("Claims")
+                        Vendedor.Remove("Logins")
+                        Vendedor.Remove("Roles")
+                    Next
+
+                    Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+                    Me.DDUsers.DataSource = Table
+                    Me.DDUsers.DataValueField = "Id"
+                    Me.DDUsers.DataTextField = "Name"
+                    Me.DDUsers.DataBind()
+
+                    Me.DDVendedor.DataSource = Table
+                    Me.DDVendedor.DataValueField = "Id"
+                    Me.DDVendedor.DataTextField = "Name"
+                    Me.DDVendedor.DataBind()
+                    Me.DDVendedor.Items.Insert(0, New ListItem("Seleccionar", ""))
+
+                    DDStatusVersion.Items.Add(New ListItem("Seleccionar", ""))
+                    DDStatusVersion.Items.Add(New ListItem("Abierta", "0"))
+                    DDStatusVersion.Items.Add(New ListItem("Propuesta Cerrada", "1"))
+                    DDStatusVersion.Items.Add(New ListItem("Propuesta Descartada", "2"))
+                    DDStatusVersion.Items.Add(New ListItem("Aceptada", "3"))
+                    DDStatusVersion.Items.Add(New ListItem("Cancelar Cotizacion", "4"))
+
+                    DDStatusCotiza.Items.Add(New ListItem("Seleccionar", ""))
+                    DDStatusCotiza.Items.Add(New ListItem("Abierta", "0"))
+                    DDStatusCotiza.Items.Add(New ListItem("Propuesta Cerrada", "1"))
+                    DDStatusCotiza.Items.Add(New ListItem("Propuesta Descartada", "2"))
+
+                    'Llenamos los filtros
+                End If
             End If
         End If
     End Sub
@@ -49,13 +79,13 @@ Public Class ResumenEstimaciones2
 
     Private Sub BTN_ACEPTAR_1_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR_1.Click
 
-        Dim quotations = quotations_reasign.Value.Split(",")
+        Dim quotations = quotations_reasign.Value.Split(", ")
 
         For Each Q In quotations
 
             If Q IsNot Nothing And Q <> "" Then
 
-                Dim response = CoflexWebServices.doPutRequest(CoflexWebServices.QUOTATIONS & "/" & Q & "?UserId=" & DDUsers.SelectedValue, "{}",, Session("access_token"))
+                Dim response = CoflexWebServices.doPutRequest(CoflexWebServices.QUOTATIONS & " / " & Q & "?UserId=" & DDUsers.SelectedValue, "{}",, Session("access_token"))
 
                 Dim o = JObject.Parse(response)
                 Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
@@ -77,9 +107,9 @@ Public Class ResumenEstimaciones2
             Dim dt As DataTable = DirectCast(ViewState("CurrentTable"), DataTable)
             Dim Qstring As String = "   "
 
-            If Me.DDCotizacion.SelectedValue <> ""  Then
+            If Me.txtCotizacion.Text <> "" Then
                 ''rows2 = dt.[Select]("CoflexId like '" & Me.txtCotizacion.Text & "%'")
-                Qstring = Qstring + "CoflexId like '" & Me.DDCotizacion.SelectedValue & "%' and"
+                Qstring = Qstring + "CoflexId like '" & Me.txtCotizacion.Text & "%' and"
             End If
 
             If Me.DDVendedor.SelectedValue <> "" Then
@@ -87,9 +117,9 @@ Public Class ResumenEstimaciones2
                 Qstring = Qstring + " vendor like '%" & Me.DDVendedor.SelectedValue & "%' and"
             End If
 
-            If Me.DDCliente.SelectedValue <> "" Then
+            If Me.txtCliente.Text <> "" Then
                 ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
-                Qstring = Qstring + " clientName like '%" & Me.DDCliente.SelectedValue & "%' and"
+                Qstring = Qstring + " clientName like '%" & Me.txtCliente.Text & "%' and"
             End If
 
             If Me.DDStatusCotiza.SelectedValue <> "" Then
@@ -97,14 +127,14 @@ Public Class ResumenEstimaciones2
                 Qstring = Qstring + " status = '" & Me.DDStatusCotiza.SelectedValue & "' and"
             End If
 
-            If Me.DDVersion.SelectedValue <> "" Then
+            If Me.txtVersion.Text <> "" Then
                 ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
-                Qstring = Qstring + " VersionNumber = '" & Me.DDVersion.SelectedValue & "' and"
+                Qstring = Qstring + " VersionNumber = '" & Me.txtVersion.Text & "' and"
             End If
 
-            If Me.txtFecIni.Text <> "" And Me.txtFecFin.Text <> "" Then
+            If Me.TextBox1.Text <> "" And Me.TextBox2.Text <> "" Then
                 ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
-                Qstring = Qstring + " Date >= '" & Me.txtFecIni.Text & "' and Date <= '" & Me.txtFecFin.Text & "' and"
+                Qstring = Qstring + " Date >= '" & Me.TextBox1.Text & "' and Date <= '" & Me.TextBox2.Text & "' and"
             End If
 
             If Me.DDStatusVersion.SelectedValue <> "" Then
