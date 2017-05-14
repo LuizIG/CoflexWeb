@@ -19,6 +19,8 @@ Public Class ResumenEstimaciones2
                 Me.GridQuotations.DataSource = Table
                 Me.GridQuotations.DataBind()
 
+                GridQuotations.EmptyDataText = "No se encontraron cotizaciones"
+
                 Response = doGetRequest(USERS_BY_LEADERS,, Session("access_token"))
                 o = JObject.Parse(Response)
                 statusCode = o.GetValue("statusCode").Value(Of Integer)
@@ -38,38 +40,29 @@ Public Class ResumenEstimaciones2
                     Me.DDUsers.DataBind()
 
                     Me.DDVendedor.DataSource = Table
-                    Me.DDVendedor.DataValueField = "Id"
+                    Me.DDVendedor.DataValueField = "Name"
                     Me.DDVendedor.DataTextField = "Name"
                     Me.DDVendedor.DataBind()
                     Me.DDVendedor.Items.Insert(0, New ListItem("Seleccionar", ""))
 
+
+                    'CASE dbo.QuotationVersions.Status WHEN 0 THEN 'Abierta' WHEN 1 THEN 'Propuesta Cerrada' WHEN 2 THEN 'Propuesta Descartada' WHEN 3 THEN 'Aceptada' WHEN 4 THEN 'Cancelada' END
                     DDStatusVersion.Items.Add(New ListItem("Seleccionar", ""))
-                    DDStatusVersion.Items.Add(New ListItem("Abierta", "Abierta"))
-                    DDStatusVersion.Items.Add(New ListItem("Propuesta Cerrada", "Propuesta Cerrada"))
-                    DDStatusVersion.Items.Add(New ListItem("Propuesta Descartada", "Propuesta Descartada"))
-                    DDStatusVersion.Items.Add(New ListItem("Aceptada", "3"))
-                    DDStatusVersion.Items.Add(New ListItem("Cancelar Cotizacion", "4"))
+                    DDStatusVersion.Items.Add(New ListItem("Abierta", 0))
+                    DDStatusVersion.Items.Add(New ListItem("Propuesta Cerrada", 1))
+                    DDStatusVersion.Items.Add(New ListItem("Propuesta Descartada", 2))
+                    DDStatusVersion.Items.Add(New ListItem("Aceptada", 3))
+                    DDStatusVersion.Items.Add(New ListItem("Cancelada", 4))
 
                     DDStatusCotiza.Items.Add(New ListItem("Seleccionar", ""))
-                    DDStatusCotiza.Items.Add(New ListItem("Abierta", "0"))
-                    DDStatusCotiza.Items.Add(New ListItem("Propuesta Cerrada", "1"))
-                    DDStatusCotiza.Items.Add(New ListItem("Propuesta Descartada", "2"))
+                    DDStatusCotiza.Items.Add(New ListItem("Abierta", 0))
+                    DDStatusCotiza.Items.Add(New ListItem("Cerrada", 1))
+                    DDStatusCotiza.Items.Add(New ListItem("Cancelada", 2))
 
                     'Llenamos los filtros
                 End If
             End If
         End If
-    End Sub
-
-    Private Sub FillFilter(ByRef combo As DropDownList, ByVal Table As DataTable, ByVal Coumn As String)
-        Dim view As New DataView(Table)
-
-        combo.DataSource = view.ToTable(True, Coumn)
-        combo.DataValueField = Coumn
-        combo.DataTextField = Coumn
-        combo.DataBind()
-        combo.Items.Insert(0, New ListItem("Seleccionar", ""))
-
     End Sub
 
 
@@ -85,7 +78,7 @@ Public Class ResumenEstimaciones2
 
             If Q IsNot Nothing And Q <> "" Then
 
-                Dim response = CoflexWebServices.doPutRequest(CoflexWebServices.QUOTATIONS & " / " & Q & "?UserId=" & DDUsers.SelectedValue, "{}",, Session("access_token"))
+                Dim response = CoflexWebServices.doPutRequest(CoflexWebServices.QUOTATIONS & "/" & Q & "?UserId=" & DDUsers.SelectedValue, "{}",, Session("access_token"))
 
                 Dim o = JObject.Parse(response)
                 Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
@@ -97,7 +90,7 @@ Public Class ResumenEstimaciones2
 
         Next
 
-        Response.Redirect("ResumenEstimaciones.aspx")
+        Response.Redirect(Request.RawUrl)
 
     End Sub
 
@@ -124,7 +117,7 @@ Public Class ResumenEstimaciones2
 
             If Me.DDStatusCotiza.SelectedValue <> "" Then
                 ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
-                Qstring = Qstring + " status = '" & Me.DDStatusCotiza.SelectedValue & "' and"
+                Qstring = Qstring + " status = " & Me.DDStatusCotiza.SelectedValue & " and"
             End If
 
             If Me.txtVersion.Text <> "" Then
@@ -139,19 +132,37 @@ Public Class ResumenEstimaciones2
 
             If Me.DDStatusVersion.SelectedValue <> "" Then
                 ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
-                Qstring = Qstring + " VStatus = '" & Me.DDStatusVersion.SelectedValue & "' and"
+                Qstring = Qstring + " VStatus = " & Me.DDStatusVersion.SelectedValue & " and"
             End If
 
             Qstring = Left(Qstring, Qstring.Length - 3)
             Dim rows2 = dt.[Select](Qstring)
 
-            Dim dt1 As DataTable = rows2.CopyToDataTable()
-            Me.GridQuotations.DataSource = dt1
-            Me.GridQuotations.DataBind()
-
+            If (rows2.Count > 0) Then
+                Dim dt1 As DataTable = rows2.CopyToDataTable()
+                Me.GridQuotations.DataSource = dt1
+                Me.GridQuotations.DataBind()
+            Else
+                Dim dt1 As DataTable = dt.Clone
+                Me.GridQuotations.DataSource = dt1
+                Me.GridQuotations.DataBind()
+            End If
         End If
+    End Sub
+
+    Private Sub GridQuotations_DataBound(sender As Object, e As GridViewRowEventArgs) Handles GridQuotations.RowDataBound
+        If e.Row.RowType = DataControlRowType.DataRow Then
 
 
+            Dim rowView As DataRowView = DirectCast(e.Row.DataItem, DataRowView)
+
+            ' Retrieve the EventTypeID value for the current row. 
+
+
+            Dim q As Integer = Convert.ToInt32(rowView("Id"))
+            Dim v As Integer = Convert.ToInt32(rowView("IdVersion"))
+            e.Row.Attributes("id") = q & "," & v
+        End If
     End Sub
 End Class
 

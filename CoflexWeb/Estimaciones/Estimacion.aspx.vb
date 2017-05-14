@@ -850,6 +850,11 @@ Public Class Estimacion
     Private Function CreateQuotation() As JObject
         Dim Quotation As New JObject
         Quotation.Add("ClientId", DDCliente.SelectedValue)
+
+        If (DDProspecto.SelectedValue <> "Seleccionar") Then
+            Quotation.Add("ProspectId", CInt(DDProspecto.SelectedValue))
+        End If
+
         Quotation.Add("ClientName", DDCliente.SelectedItem.Text)
         Quotation.Add("QuotationVersions", CreateQuotationVersion())
         Return Quotation

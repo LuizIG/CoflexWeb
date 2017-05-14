@@ -7,12 +7,14 @@
     <script type="text/javascript">
 
 
-        $(document).ready(function () {
-            $('#MainContent_tableQuotations tr td').on('click', function (event) {
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+
+        function bindQuery() {
+            $('#MainContent_GridQuotations tr td').on('click', function (event) {
                 if ($(this).index() == 0) {
 
                 } else {
-                    var customerId = $(this).parent().find("td").eq(1).attr("id");
+                    var customerId = $(this).parent().attr("id");
                     var qv = customerId.split(",");
                     window.location.href = "Estimacion.aspx?q=" + qv[0] + "&v=" + qv[1];
                 }
@@ -25,10 +27,14 @@
 
             $("#btn_reasignar").on("click", function () {
                 var idQuotations = [];
+                alert("reasignar");
                 var x = 0;
                 $('#MainContent_GridQuotations > tbody  > tr').each(function () {
+
                     if ($(this).find('td:eq(0) input').is(':checked')) {
-                        idQuotations[x] = $(this).find('td:eq(1)').attr("id").split(",")[0];
+                        alert("isCheched");
+
+                        idQuotations[x] = $(this).attr("id").split(",")[0];
                         x++;
                     }
                 });
@@ -41,22 +47,30 @@
                     $("#error_description").text("Selecciona la (s) cotizaciones que vas a reasignar.");
                 }
             });
+        }
 
+        prm.add_endRequest(function () {
+            // re-bind your jQuery events here
+            bindQuery();
+        });
+
+        $(document).ready(function () {
+            bindQuery();
         });
 
         function PrintPanel3() {
             var panel = document.getElementById("<%=pnlContents3.ClientID %>");
-            var printWindow = window.open('', '', 'height=400,width=800');
-            printWindow.document.write('<html><head><title></title>');
-            printWindow.document.write('</head><body >');
-            printWindow.document.write(panel.innerHTML);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            setTimeout(function () {
-                printWindow.print();
-            }, 500);
-            return false;
-        }
+                var printWindow = window.open('', '', 'height=400,width=800');
+                printWindow.document.write('<html><head><title></title>');
+                printWindow.document.write('</head><body >');
+                printWindow.document.write(panel.innerHTML);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+                setTimeout(function () {
+                    printWindow.print();
+                }, 500);
+                return false;
+            }
 
     </script>
     <h2><%--<%: Title %>.--%></h2>
@@ -77,7 +91,7 @@
 
                 <table style="border-style: solid; border-color: #C0C0C0; width: 100%;">
                     <tr style="vertical-align: top;">
-                        <td >
+                        <td>
                             <asp:Label ID="Label11" runat="server" Text="Cotización"></asp:Label>&nbsp;
                             <asp:TextBox ID="txtCotizacion" runat="server"></asp:TextBox>&nbsp;
                         </td>
@@ -106,16 +120,16 @@
                         </td>
                         <td colspan="2">
 
-                            
 
-                             <div class="input-daterange input-group" id="datepicker">
-                                 <asp:Label ID="Label5" runat="server" Text="Fecha"></asp:Label>&nbsp;
+
+                            <div class="input-daterange input-group" id="datepicker">
+                                <asp:Label ID="Label5" runat="server" Text="Fecha"></asp:Label>&nbsp;
                                  <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>&nbsp;
                                 <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>&nbsp;
-                             </div>
+                            </div>
 
                         </td>
-                  
+
 
 
                         <td>
@@ -127,7 +141,7 @@
 
                 </table>
 
-                <div style="position: relative; right: 0px; width: 100%; text-align: right; margin-top:16px">
+                <div style="position: relative; right: 0px; width: 100%; text-align: right; margin-top: 16px">
                     <asp:Button ID="Button1" class="btn btn-primary" runat="server" Text="Filtrar" />
                     <asp:Button ID="ButtonIndicadores" class="btn btn-primary" runat="server" Text="Indicadores" />&nbsp;
                     <asp:Button ID="ButtonPrintEstim" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel3();" runat="server" Text="Imprimir" />&nbsp;
@@ -166,6 +180,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="Id" HeaderText="Id" Visible="false" />
+                            <asp:BoundField DataField="IdVersion" HeaderText="IdVersion" Visible="false" />
                             <asp:BoundField DataField="CoflexId" HeaderText="Cotización" />
                             <asp:BoundField DataField="vendor" HeaderText="Vendedor" />
                             <asp:BoundField DataField="clientName" HeaderText="Cliente" />
