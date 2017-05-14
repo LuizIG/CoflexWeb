@@ -106,24 +106,23 @@
 
                         <table style="border-style: solid; border-color: #C0C0C0; width: 100%; align-items: center">
                             <tr style="vertical-align: top; background-color: #C0C0C0;">
-                                <td style="width: 50%; text-align: left ; vertical-align: top;">
+                                <td style="width: 50%; text-align: left; vertical-align: top;">
                                     <b>&nbsp;<asp:Label ID="Label30" runat="server" Text="Cliente"></asp:Label>
                                     </b>&nbsp;
-                                </td><td colspan="2" style="width: 50%; text-align: left; vertical-align: top;">
+                                </td>
+                                <td colspan="2" style="width: 50%; text-align: left; vertical-align: top;">
                                     <b>&nbsp;<asp:Label ID="Label31" runat="server" Text="Prospecto"></asp:Label>
                                     </b>&nbsp;
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width:50%">
-                                    &nbsp;<asp:DropDownList ID="DDClienteCotiza" Width="100%" runat="server" AutoPostBack="True">
-                                                    </asp:DropDownList>&nbsp;
+                                <td style="width: 50%">&nbsp;<asp:DropDownList ID="DDClienteCotiza" Width="100%" runat="server" AutoPostBack="True">
+                                </asp:DropDownList>&nbsp;
                                 </td>
-                                <td style="width:40%">
-                                    &nbsp;<asp:DropDownList ID="DDProspecto" Enabled="false"  Width="100%" runat="server" AutoPostBack="True">
-                                                    </asp:DropDownList>&nbsp;
+                                <td style="width: 40%">&nbsp;<asp:DropDownList ID="DDProspecto" Enabled="false" Width="100%" runat="server" AutoPostBack="True">
+                                </asp:DropDownList>&nbsp;
                                 </td>
-                                <td style="width:10%; text-align:center ">
+                                <td style="width: 10%; text-align: center">
                                     <asp:Button ID="BtnNuevoPros" runat="server" class="btn btn-primary" Text="Nuevo" />
                                 </td>
                             </tr>
@@ -139,11 +138,11 @@
                                                 </b>&nbsp;</td>
                                             </tr>
                                             <tr>
-                                                <td>
+                                                <td style="text-align:left">
                                                     <asp:Label ID="Label9" runat="server" Text="Cliente"></asp:Label>&nbsp;
                                                 </td>
                                                 <td>
-                                                    <asp:DropDownList ID="DDCliente" Width="100%" runat="server" AutoPostBack="True">
+                                                    <asp:DropDownList ID="DDCliente" Width="90%" runat="server" AutoPostBack="True">
                                                     </asp:DropDownList>
                                                 </td>
                                                 <%-- <td rowspan="2" style="vertical-align: top;">
@@ -151,11 +150,11 @@
                                                 </td>--%>
                                             </tr>
                                             <tr>
-                                                <td>
+                                                <td  style="text-align:left">
                                                     <asp:Label ID="Label8" runat="server" Text="Artículo"></asp:Label>&nbsp;
                                                 </td>
                                                 <td>
-                                                    <asp:DropDownList ID="DDArticulo" Width="100%" runat="server"></asp:DropDownList>
+                                                    <asp:DropDownList ID="DDArticulo" Width="90%" runat="server"></asp:DropDownList>
                                                 </td>
                                             </tr>
 
@@ -169,28 +168,27 @@
                                                 <td colspan="3" style="text-align: left;"><b>&nbsp;<asp:Label ID="Label21" runat="server" Text="Componentes"></asp:Label>
                                                 </b>&nbsp;</td>
                                             </tr>
-                                            <tr style="vertical-align: top;">
-                                                <td></td>
+                                            <tr style="text-align:left">
+                                                <td><asp:Label ID="Label35" Width="90%" runat="server" Text="Filtro"></asp:Label>&nbsp;</td>
                                                 <td>
-                                                    <asp:TextBox Width="100%" Height="20px" ID="txtSearch" runat="server" onkeyup="FilterItems(this.value)"></asp:TextBox>
+                                                    <asp:TextBox Width="90%" ID="txtSearch" runat="server" onkeyup="FilterItems(this.value)"></asp:TextBox>
                                                 </td>
                                                 <%-- <td rowspan="2" style="vertical-align: central;">
                                                     <asp:Button ID="Button3" runat="server" class="btn btn-primary" Text="Agregar" />
                                                 </td>--%>
                                             </tr>
-                                            <tr style="vertical-align: top;">
-                                                <td>
-                                                    <asp:Label ID="Label11" runat="server" Text="Componente"></asp:Label>&nbsp;
+                                            <tr>
+                                                <td  style="text-align:left">
+                                                    <asp:Label ID="Label11" Width="90%" runat="server" Text="Componente"></asp:Label>&nbsp;
                                                 </td>
-                                                <td>
-                                                    <asp:DropDownList Width="100%" ID="DDComponente" runat="server">
+                                                <td  style="text-align:left">
+                                                    <asp:DropDownList Width="90%" ID="DDComponente" runat="server">
                                                     </asp:DropDownList>&nbsp;
                                                 </td>
 
                                             </tr>
 
                                         </table>
-
                                     </div>
                                 </td>
                                 <td style="border-right-style: solid; border-color: #C0C0C0; width: 30%; text-align: center; vertical-align: top">
@@ -201,11 +199,11 @@
                                                 </b>&nbsp;</td>
                                             </tr>
                                             <tr>
-                                                <td>
+                                                <td  style="text-align:left">
                                                     <asp:Label ID="Label12" runat="server" Text="Elemento"></asp:Label>&nbsp;
                                                 </td>
                                                 <td>
-                                                    <asp:DropDownList ID="DDElemento" runat="server">
+                                                    <asp:DropDownList ID="DDElemento" Width="90%" runat="server">
                                                     </asp:DropDownList>&nbsp;
                                                 </td>
                                                 <td style="vertical-align: central;">
@@ -328,14 +326,6 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>&nbsp;&nbsp;<asp:Label ID="Label19" runat="server" Text="Actual"></asp:Label></td>
-                                                    <td colspan="2">
-                                                        <asp:RadioButton ID="RadioButton2" GroupName="tipoCosto" runat="server" />
-                                                        &nbsp;<asp:TextBox ID="TextBox7" Enabled="false" runat="server"></asp:TextBox>&nbsp;
-                                                    </td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
                                                     <td>&nbsp;&nbsp;<asp:Label ID="Label6" runat="server" Visible="false" Text="Compuesto"></asp:Label>&nbsp;</td>
                                                     <td colspan="2">
                                                         <asp:RadioButton ID="RadioButton3" Enabled="false" Visible="false" GroupName="tipoCosto" runat="server" />&nbsp;
@@ -344,6 +334,15 @@
                                                     </td>
                                                     <td></td>
                                                 </tr>
+                                                <tr style="visibility: hidden">
+                                                    <td>&nbsp;&nbsp;<asp:Label ID="Label19" Visible="false" runat="server" Text="Actual"></asp:Label></td>
+                                                    <td colspan="2">
+                                                        <asp:RadioButton ID="RadioButton2" Visible="false" GroupName="tipoCosto" runat="server" />
+                                                        &nbsp;<asp:TextBox ID="TextBox7" Visible="false" Enabled="false" runat="server"></asp:TextBox>&nbsp;
+                                                    </td>
+                                                    <td></td>
+                                                    </t>
+                                                
                                                 <tr>
                                                     <td colspan="4">&nbsp;</td>
                                                 </tr>
@@ -392,8 +391,7 @@
                         </asp:UpdateProgress>
                     </div>
                     <div id="div1" runat="server"></div>
-
-                    <div class="well well-lg" style="margin-top: 32px">
+                    <div class="well well-lg" >
                         <div id="myModal" class="modal fade" role="dialog">
                             <div class="modal-dialog">
 
@@ -492,23 +490,15 @@
                         </asp:GridView>
                         <div style="width: 100%; text-align: right;">
 
-                            <table style="float: right;">
+                            <table style="width: 100%; text-align: right;">
                                 <tr>
                                     <td>
                                         <asp:Button ID="Regresar" class="btn btn-primary" runat="server" Text="Regresar" />
-
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
+                                        
                                         <asp:Button ID="Guardar" class="btn btn-primary" runat="server" Text="Guardar" />
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
+                                       
                                         <asp:Button ID="Versionar" class="btn btn-primary" runat="server" Text="Versionar" />
-
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
+                                       
                                         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Cambiar Estatus</button>
                                     </td>
                                 </tr>
@@ -763,6 +753,86 @@
                                 </Columns>
                             </asp:GridView>
                         </asp:Panel>
+                    </div>
+                </asp:View>
+                <asp:View ID="View6" runat="server">
+                    <div style="text-align: center; height: 8px; margin-top: 16px;">
+                        <asp:UpdateProgress ID="UpdateProgress4" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DynamicLayout="true">
+                            <ProgressTemplate>
+                                <div class='progress progress-striped active' style='height: 8px;'>
+                                    <div class='progress-bar' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width: 100%'></div>
+                                </div>
+                            </ProgressTemplate>
+                        </asp:UpdateProgress>
+                    </div>
+                    <div id="div3" runat="server"></div>
+
+                    <div class="well well-lg" style="vertical-align: top; width: 100%">
+                        <table>
+                            <tr>
+                                <td style="width: 60px">
+                                    <asp:Label ID="Label32" runat="server" Text="Nombre"></asp:Label>
+
+                                </td>
+                                <td></td>
+                                <td style="width: 350px">
+                                    <asp:TextBox ID="txtProsComName" Width="95%" MaxLength="250" Enabled="true" runat="server"></asp:TextBox>
+                                    <%--<asp:RequiredFieldValidator runat="server" ControlToValidate="txtSkuComponente"
+                                        CssClass="text-danger" ErrorMessage="Campo requerido." />--%>
+                                    &nbsp;</td>
+
+                            </tr>
+                            <tr style="height: 70px; align-content: center; vertical-align: central">
+                                <td>
+                                    <asp:Label ID="Label33" runat="server" Text="Dirección"></asp:Label></td>
+                                <td>&nbsp;</td>
+                                <td style="width: 350px">
+                                    <textarea id="txtProsAddress" style="width: 100%; height: 90%; max-width: 500 !important" runat="server"></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Label ID="Label36" runat="server" Text="Contacto"></asp:Label>
+
+                                </td>
+                                <td></td>
+                                <td style="width: 350px">
+                                    <asp:TextBox ID="txtProsContactName" MaxLength="250" Width="95%" Enabled="true" runat="server"></asp:TextBox>
+                                    <%--<asp:RequiredFieldValidator runat="server" ControlToValidate="txtSkuComponente"
+                                        CssClass="text-danger" ErrorMessage="Campo requerido." />--%>
+                                    &nbsp;</td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Label ID="Label34" runat="server" Text="Telefono"></asp:Label>
+                                </td>
+                                <td>&nbsp;</td>
+                                <td style="width: 350px">
+                                    <asp:TextBox ID="txtProsPhoneNumber" MaxLength="20" runat="server"></asp:TextBox>
+                                    &nbsp;</td>
+                            </tr>
+                        </table>
+                        <br />
+                        <table style="width: 100%">
+                            <tr>
+                                <td>
+                                    <div style="float: right">
+                                        <table>
+                                            <tr>
+                                                <td style="text-align: right">
+                                                    <asp:Button ID="Button2" class="btn btn-primary" runat="server" Text="Regresar" />
+                                                </td>
+                                                <td>&nbsp;
+                                                </td>
+                                                <td>
+                                                    <asp:Button ID="Button3" class="btn btn-primary" runat="server" Text="Guardar" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </asp:View>
 

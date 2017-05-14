@@ -74,15 +74,23 @@ Public Class Estimacion
                 Me.DDClienteCotiza.DataTextField = "ClientName"
                 Me.DDClienteCotiza.DataBind()
             End If
-
             Me.DDClienteCotiza.Items.Insert(0, "Seleccionar")
             Me.DDClienteCotiza.Items.Insert(1, "Prospecto")
             Me.DDClienteCotiza.Items(1).Value = "PROSP"
 
 
+            jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.PROSPECTS,, Session("access_token"))
+            o = JObject.Parse(jsonResponse)
+            statusCode = o.GetValue("statusCode").Value(Of Integer)
+            If (statusCode >= 200 And statusCode < 400) Then
+                Dim detail = o.GetValue("detail").Value(Of JArray)
+                Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+                Me.DDProspecto.DataSource = Table
+                Me.DDProspecto.DataValueField = "Id"
+                Me.DDProspecto.DataTextField = "CompanyName"
+                Me.DDProspecto.DataBind()
+            End If
             Me.DDProspecto.Items.Insert(0, "Seleccionar")
-
-
 
             jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.NEW_COMPONENTES,, Session("access_token"))
             o = JObject.Parse(jsonResponse)
@@ -1114,29 +1122,6 @@ Public Class Estimacion
     End Sub
 
     Private Sub DDCliente_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDCliente.SelectedIndexChanged
-        '''''Dim value As String = DDCliente.Items(DDCliente.SelectedIndex).Value
-
-        '''''Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM & "?ClientId=" & value,, Session("access_token"))
-        '''''Dim o = JObject.Parse(jsonResponse)
-        '''''Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
-        '''''If (statusCode >= 200 And statusCode < 400) Then
-        '''''    Dim detail = o.GetValue("detail").Value(Of JArray)
-        '''''    Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
-        '''''    Me.DDArticulo.DataSource = Table
-        '''''    Me.DDArticulo.DataValueField = "PPN_I"
-        '''''    Me.DDArticulo.DataTextField = "PPN_I"
-        '''''    Me.DDArticulo.DataBind()
-        '''''End If
-
-        ''''''If Me.TreeView1.Nodes.Count > 0 Then
-        ''''''    DDCliente.Enabled = False
-        ''''''End If
-
-        '''''Me.DDArticulo.Items.Insert(0, "Seleccionar")
-
-
-        ''---------------------------
-        ''---------------------------
         If DDCliente.SelectedValue <> "Seleccionar" Then
             Dim value As String = DDCliente.Items(DDCliente.SelectedIndex).Value
 
@@ -1608,7 +1593,55 @@ Public Class Estimacion
             Me.DDProspecto.Enabled = True
         Else
             Me.DDProspecto.Enabled = False
+            Me.DDProspecto.SelectedIndex = 0
         End If
 
+    End Sub
+
+    Protected Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Me.MultiView1.ActiveViewIndex = 0
+    End Sub
+
+    Protected Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Dim Elemento As New JObject
+
+        With Elemento
+            .Add("CompanyName", Me.txtProsComName.Text)
+            .Add("Address", Me.txtProsAddress.Value)
+            .Add("ContactName", Me.txtProsContactName.Text)
+            .Add("PhoneNumber", Me.txtProsPhoneNumber.Text)
+        End With
+
+        Dim jsonResponse = CoflexWebServices.doPostRequest(CoflexWebServices.PROSPECTS, Elemento.ToString,, Session("access_token"))
+        Dim o = JObject.Parse(jsonResponse)
+        Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+        If (statusCode >= 200 And statusCode < 400) Then
+            '' Me.ErrorMessage.Text = "Usuario Registrado"
+        Else
+            Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
+            ''Me.ErrorMessage.Text = errorMessage
+        End If
+
+        Me.DDProspecto.Dispose()
+
+        jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.PROSPECTS,, Session("access_token"))
+        o = JObject.Parse(jsonResponse)
+        statusCode = o.GetValue("statusCode").Value(Of Integer)
+        If (statusCode >= 200 And statusCode < 400) Then
+            Dim detail = o.GetValue("detail").Value(Of JArray)
+            Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+            Me.DDProspecto.DataSource = Table
+            Me.DDProspecto.DataValueField = "Id"
+            Me.DDProspecto.DataTextField = "CompanyName"
+            Me.DDProspecto.DataBind()
+        End If
+
+        Me.DDProspecto.Items.Insert(0, "Seleccionar")
+
+        Me.MultiView1.ActiveViewIndex = 0
+    End Sub
+
+    Protected Sub BtnNuevoPros_Click(sender As Object, e As EventArgs) Handles BtnNuevoPros.Click
+        Me.MultiView1.ActiveViewIndex = 5
     End Sub
 End Class

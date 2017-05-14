@@ -77,15 +77,25 @@
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
 
-            <div style="text-align: center; height: 16px; margin-top: 16px;">
-            </div>
-            <div id="div1" runat="server"></div>
+            <%--<div style="text-align: center; margin-top: 16px;">
+            </div>--%>
+                <div style="text-align: center; height: 8px; margin-top: 16px;">
+                    <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DynamicLayout="true">
+                        <ProgressTemplate>
+                            <div class='progress progress-striped active' style='height: 8px;'>
+                                <div class='progress-bar' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width: 100%'></div>
+                            </div>
+                        </ProgressTemplate>
+                    </asp:UpdateProgress>
+                </div>
 
             <div id="error_container" style="display: none" class="alert alert-danger alert-dismissable fade in">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <strong>Ups!</strong>
                 <div id="error_description"></div>
             </div>
+
+            <div id="div1" runat="server"></div>
 
             <div class="well well-lg">
 
@@ -151,15 +161,6 @@
                     <asp:Button ID="ButtonEstimacionGo" class="btn btn-primary" runat="server" Text="Nueva cotización" />
                 </div>
 
-                <div style="text-align: center; height: 8px; margin-top: 16px;">
-                    <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DynamicLayout="true">
-                        <ProgressTemplate>
-                            <div class='progress progress-striped active' style='height: 8px;'>
-                                <div class='progress-bar' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width: 100%'></div>
-                            </div>
-                        </ProgressTemplate>
-                    </asp:UpdateProgress>
-                </div>
 
                 <asp:Panel ID="pnlContents3" runat="server">
                     <table style="width: 100%">
