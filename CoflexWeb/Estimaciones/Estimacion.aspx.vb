@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Globalization
 Imports CoflexWeb.CoflexWeb.Services.Web
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
@@ -16,6 +17,8 @@ Public Class Estimacion
     Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
         MyBase.Page_Load(sender, e)
         If Not IsPostBack Then
+
+            Session("Status") = 0
 
             Me.DDArticulo.Items.Clear()
             Me.DDCliente.Items.Clear()
@@ -110,7 +113,7 @@ Public Class Estimacion
 
             If VersionId IsNot Nothing Then
 
-                DDCliente.Enabled = False 'Previene que se cambie el cliente
+                DDClienteCotiza.Enabled = False 'Previene que se cambie el cliente
 
                 Dim QuotationResponse = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS & "/" & Request.QueryString("q"),, Session("access_token"))
 
@@ -119,7 +122,10 @@ Public Class Estimacion
                 If (statusCode >= 200 And statusCode < 400) Then
                     Dim detail = o.GetValue("detail").Value(Of JObject)
                     Dim ClientId = detail.GetValue("ClientId").Value(Of String)
-                    DDCliente.SelectedValue = ClientId
+                    DDClienteCotiza.SelectedValue = ClientId
+                    Dim CoflexId = detail.GetValue("CoflexId").Value(Of String)
+                    TB_COTIZACION.Text = CoflexId
+
                 End If
 
                 Dim ResponseVersions = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS_VERSION & "/" & VersionId,, Session("access_token"))
@@ -130,10 +136,16 @@ Public Class Estimacion
 
                     Status = detail.GetValue("Status").Value(Of Integer)
 
+                    Session("Status") = Status
+
+                    Dim versionNumber = detail.GetValue("VersionNumber").Value(Of Integer)
+                    TB_VERSION.Text = versionNumber
+
                     DDEstatus.Items.Clear()
 
                     Select Case Status
                         Case 0
+                            TB_ESTATUS.Text = "Abierta"
                             status_actual.InnerText = "Abierta"
                             DDEstatus.Items.Add(New ListItem("Abierta", "0"))
                             DDEstatus.Items.Add(New ListItem("Propuesta Cerrada", "1"))
@@ -141,17 +153,44 @@ Public Class Estimacion
                             DDEstatus.Items.Add(New ListItem("Aceptada", "3"))
                             DDEstatus.Items.Add(New ListItem("Cancelar Cotizacion", "4"))
                         Case 1
+                            TB_ESTATUS.Text = "Propuesta Cerrada"
                             status_actual.InnerText = "Propuesta Cerrada"
                             DDEstatus.Items.Add(New ListItem("Propuesta Cerrada", "1"))
+                            DDEstatus.Items.Add(New ListItem("Aceptada", "3"))
                             DDEstatus.Items.Add(New ListItem("Cancelar Cotizacion", "4"))
                         Case 2
+                            TB_ESTATUS.Text = "Propuesta Descartada"
                             status_actual.InnerText = "Propuesta Descartada"
                             DDEstatus.Items.Add(New ListItem("Propuesta Descartada", "2"))
-                            DDEstatus.Items.Add(New ListItem("4", "Cancelar Cotizacion"))
+                            DDEstatus.Items.Add(New ListItem("Cancelar Cotizacion", "4"))
                         Case 3
+                            TB_ESTATUS.Text = "Aceptada"
                             status_actual.InnerText = "Aceptada"
-                            DDEstatus.Items.Add(New ListItem("3", "Aceptada"))
+                            DDEstatus.Items.Add(New ListItem("Aceptada", "3"))
+
+                        Case 4
+                            TB_ESTATUS.Text = "Cancelada"
                     End Select
+
+
+                    If Status > 0 Then
+                        ButtonAllAgregar.CssClass = "btn btn-primary disabled"
+                        Button1.CssClass = "btn btn-primary disabled"
+                        Button4.CssClass = "btn btn-primary disabled"
+                        BtnRecalcular.CssClass = "btn btn-success disabled"
+                        Guardar.CssClass = "btn btn-primary disabled"
+                        Tv_Exchange.Enabled = False
+                        If Status >= 3 Then
+                            Versionar.CssClass = "btn btn-primary disabled"
+                        End If
+                    Else
+                        ButtonAllAgregar.CssClass = "btn btn-primary"
+                        Button1.CssClass = "btn btn-primary"
+                        Button4.CssClass = "btn btn-primary"
+                        BtnRecalcular.CssClass = "btn btn-success"
+                        Guardar.CssClass = "btn btn-primary"
+                        Tv_Exchange.Enabled = True
+                    End If
 
 
                     Tv_Exchange.Text = detail.GetValue("ExchangeRate").Value(Of String)
@@ -325,7 +364,16 @@ Public Class Estimacion
                 End If
             End If
 
+            If Request.QueryString("r") IsNot Nothing Then
+                'Se redirigio por guardar nuevas cotizaciones
+                ContinueMethod()
 
+                result_div_ok.Style.Add("display", "block")
+                result_div_error.Style.Add("display", "none")
+                div_description_ok.InnerText = "La cotización se guardó correctamente"
+
+
+            End If
 
 
             '    If (Session("tables") Is Nothing) Then
@@ -337,6 +385,10 @@ Public Class Estimacion
     End Sub
 
     Protected Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        ContinueMethod()
+    End Sub
+
+    Private Sub ContinueMethod()
         If Session("treeView") IsNot Nothing Then
             Me.MultiView1.ActiveViewIndex = 1
             Suma = 0
@@ -778,7 +830,8 @@ Public Class Estimacion
     Private Sub Versionar_Click(sender As Object, e As EventArgs) Handles Versionar.Click
 
         'Si no existe la cotizacion, crea una nueva
-        If (Status < 3) Then 'Solo 0
+
+        If (Session("Status") < 3) Then 'Solo 0
             Dim IdQuotaion As String = Request.QueryString("q")
             If IdQuotaion Is Nothing Then
                 Dim ResponseServer = doPostRequest(QUOTATIONS, CreateQuotation.ToString,, Session("access_token"))
@@ -796,7 +849,8 @@ Public Class Estimacion
                     Dim quotationID As String = version.GetValue("QuotationsId").Value(Of Integer) & ""
                     Dim versionID As String = version.GetValue("Id").Value(Of Integer) & ""
 
-                    Response.Redirect("Estimacion?q=" & quotationID & "&v=" & versionID)
+                    'Se creo una nueva cotizacion
+                    Response.Redirect("Estimacion?q=" & quotationID & "&v=" & versionID & "&r=1")
 
                 Else
 
@@ -807,27 +861,30 @@ Public Class Estimacion
                 Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
                 If (statusCode >= 200 And statusCode < 400) Then
                     Dim QuotationCreated = o.GetValue("detail").Value(Of JObject)
-                    Response.Redirect("Estimacion?q=" & IdQuotaion & "&v=" & QuotationCreated.GetValue("Id").Value(Of Integer))
+                    'Se creo una nueva version
+                    Response.Redirect("Estimacion?q=" & IdQuotaion & "&v=" & QuotationCreated.GetValue("Id").Value(Of Integer) & "&r=2")
                 End If
             End If
         End If
     End Sub
 
     Private Sub Guardar_Click(sender As Object, e As EventArgs) Handles Guardar.Click
-        If (Status = 0) Then 'Solo 0
+        If (Session("Status") = 0) Then 'Solo 0
             Dim IdQuotaionVersion As String = Request.QueryString("v")
             If IdQuotaionVersion IsNot Nothing Then
                 Dim Response = doPutRequest(QUOTATIONS_VERSION & "/" & IdQuotaionVersion, CreateQuotationVersion(IdQuotaionVersion).ToString)
                 Dim o = JObject.Parse(Response)
                 Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
                 If (statusCode >= 200 And statusCode < 400) Then
-
                     Dim QuotationCreated = o.GetValue("detail").Value(Of JObject)
-
+                    result_div_ok.Style.Add("display", "block")
+                    result_div_error.Style.Add("display", "none")
+                    div_description_ok.InnerText = "La cotización se guardó correctamente"
                 Else
-
+                    result_div_ok.Style.Add("display", "none")
+                    result_div_error.Style.Add("display", "block")
+                    div_description.InnerText = "Ocurrió un error al guardar la cotización"
                 End If
-                Console.Write(Response)
             Else
                 Dim ResponseServer = doPostRequest(QUOTATIONS, CreateQuotation.ToString,, Session("access_token"))
                 Console.Write(Response)
@@ -843,27 +900,37 @@ Public Class Estimacion
 
                     Dim quotationID As String = version.GetValue("QuotationsId").Value(Of Integer) & ""
                     Dim versionID As String = version.GetValue("Id").Value(Of Integer) & ""
-
-                    Response.Redirect("Estimacion?q=" & quotationID & "&v=" & versionID)
+                    'Se guardo una nueva cotizacion
+                    Response.Redirect("Estimacion?q=" & quotationID & "&v=" & versionID & "&r=1")
 
                 Else
-
+                    result_div_ok.Style.Add("display", "none")
+                    result_div_error.Style.Add("display", "block")
+                    div_description.InnerText = "Ocurrió un error al guardar la cotización"
                 End If
             End If
+
+        Else
+            result_div_ok.Style.Add("display", "none")
+            result_div_error.Style.Add("display", "block")
+            div_description.InnerText = "Esta cotización ya no puede modificarse"
+
         End If
+
+
 
 
     End Sub
 
     Private Function CreateQuotation() As JObject
         Dim Quotation As New JObject
-        Quotation.Add("ClientId", DDCliente.SelectedValue)
+        Quotation.Add("ClientId", DDClienteCotiza.SelectedValue)
 
         If (DDProspecto.SelectedValue <> "Seleccionar") Then
             Quotation.Add("ProspectId", CInt(DDProspecto.SelectedValue))
         End If
 
-        Quotation.Add("ClientName", DDCliente.SelectedItem.Text)
+        Quotation.Add("ClientName", DDClienteCotiza.SelectedItem.Text)
         Quotation.Add("QuotationVersions", CreateQuotationVersion())
         Return Quotation
     End Function
@@ -1176,20 +1243,27 @@ Public Class Estimacion
             Dim margen As Double = CDbl(txMargin.Text.Replace("$", "")) / 100
             Dim shipping As Double = CDbl(txShipping.Text.Replace("$", ""))
 
+            If (Session("Status") > 0) Then
+                txMargin.Enabled = False
+            Else
+                txMargin.Enabled = True
+            End If
+
+
             'Acumulando el monto
             Suma += (costoUnitario + shipping) * cantidad * (1 + (margen))
             SumaCotizacion += (costoUnitario + shipping) * cantidad
             SumaMargen += ((costoUnitario + shipping) * cantidad * (1 + (margen)) - (costoUnitario + shipping) * cantidad)
 
-            e.Row.Cells(9).Text = FormatCurrency((costoUnitario + shipping) * margen)
-            e.Row.Cells(10).Text = FormatCurrency((costoUnitario + shipping) * (1 + margen))
-            e.Row.Cells(11).Text = FormatCurrency(((costoUnitario + shipping) * (1 + (margen))) / CDbl(Tv_Exchange.Text))
+            e.Row.Cells(9).Text = ((costoUnitario + shipping) * margen).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(10).Text = ((costoUnitario + shipping) * (1 + margen)).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(11).Text = (((costoUnitario + shipping) * (1 + (margen))) / CDbl(Tv_Exchange.Text)).ToString("C2", New CultureInfo("es-MX"))
 
         ElseIf (e.Row.RowType = DataControlRowType.Footer) Then
             e.Row.Cells(6).Text = FormatCurrency(SumaCotizacion)
-            margen_ganancia.InnerHtml = "<h4>Margen de Ganancia: " & FormatCurrency(SumaMargen) & "</h4>"
-            e.Row.Cells(10).Text = FormatCurrency(Suma)
-            e.Row.Cells(11).Text = FormatCurrency(Suma / CDbl(Tv_Exchange.Text))
+            margen_ganancia.InnerHtml = "<h4>Margen de Ganancia: " & SumaMargen.ToString("C2", New CultureInfo("es-MX")) & "</h4>"
+            e.Row.Cells(10).Text = (Suma).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(11).Text = (Suma / CDbl(Tv_Exchange.Text)).ToString("C2", New CultureInfo("es-MX"))
         End If
     End Sub
 
@@ -1206,7 +1280,14 @@ Public Class Estimacion
                     Dim TBShipping As TextBox = TryCast(renglon.FindControl("TVShipping"), TextBox)
                     reng("QUANTITY_I") = CDbl(1)
                     reng("Margin") = CDbl(TBMargin.Text)
-                    reng("Shipping") = CDbl(TBShipping.Text.Replace("$", ""))
+
+                    If (TBShipping.Text = "") Then
+                        reng("Shipping") = CDbl("0")
+                    Else
+                        reng("Shipping") = CDbl(TBShipping.Text.Replace("$", ""))
+                    End If
+
+
                     reng("FinalCost") = (reng("UnitaryCost"))
                 End If
             Next
@@ -1224,8 +1305,52 @@ Public Class Estimacion
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
             If (statusCode >= 200 And statusCode < 400) Then
                 Me.Status = CInt(STATUS)
-                Response.Redirect("ResumenEstimaciones.aspx")
+                result_div_ok.Style.Add("display", "block")
+                result_div_error.Style.Add("display", "none")
+                div_description_ok.InnerText = "Se cambió el estatus correctamente"
+                Select Case STATUS
+                    Case 0
+                        TB_ESTATUS.Text = "Abierta"
+                    Case 1
+                        TB_ESTATUS.Text = "Propuesta Cerrada"
+                    Case 2
+                        TB_ESTATUS.Text = "Propuesta Cancelada"
+                    Case 3
+                        TB_ESTATUS.Text = "Aceptada"
+                    Case 4
+                        TB_ESTATUS.Text = "Cancelada"
+                End Select
+                Session("Status") = STATUS
+
+                If STATUS > 0 Then
+                    ButtonAllAgregar.CssClass = "btn btn-primary disabled"
+                    Button1.CssClass = "btn btn-primary disabled"
+                    Button4.CssClass = "btn btn-primary disabled"
+                    BtnRecalcular.CssClass = "btn btn-success disabled"
+                    Guardar.CssClass = "btn btn-primary disabled"
+                    Tv_Exchange.Enabled = False
+
+                    If STATUS >= 3 Then
+                        Versionar.CssClass = "btn btn-primary disabled"
+                    End If
+
+                Else
+                    ButtonAllAgregar.CssClass = "btn btn-primary"
+                    Button1.CssClass = "btn btn-primary"
+                    Button4.CssClass = "btn btn-primary"
+                    BtnRecalcular.CssClass = "btn btn-success"
+                    Guardar.CssClass = "btn btn-primary"
+                    Tv_Exchange.Enabled = True
+                End If
+
+                ContinueMethod()
+
+            Else
+                result_div_ok.Style.Add("display", "none")
+                result_div_error.Style.Add("display", "block")
+                div_description.InnerText = "Ocurrió un error al guardar el estatus"
             End If
+            ScriptManager.RegisterClientScriptBlock(UpdatePanel1, UpdatePanel1.GetType, "script", "hideDiv();", True)
         End If
     End Sub
 

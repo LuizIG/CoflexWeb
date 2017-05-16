@@ -50,6 +50,11 @@
             ddl.options.add(opt);
         }
 
+        function hideDiv() {
+            $(".modal-backdrop").css("display", "none");
+            $('body').removeClass("modal-open");
+        }
+
 
         function PrintPanel() {
             var panel = document.getElementById("<%=pnlContents.ClientID %>");
@@ -88,7 +93,23 @@
     <h2><%--<%: Title %>.--%></h2>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
+            <div class="well well-sm">
+                <table>
 
+                    <tr>
+                        <th>Cotización</th>
+                        <th>Versión</th>
+                        <th>Estatus</th>
+                    </tr>
+                    <tr>
+                        <th><asp:TextBox ID="TB_COTIZACION" Width="70%" Enabled="false" runat="server"></asp:TextBox></th>
+                        <th><asp:TextBox ID="TB_VERSION" Width="70%" Enabled="false" runat="server"></asp:TextBox></th>
+                        <th><asp:TextBox ID="TB_ESTATUS" Width="70%" Enabled="false" runat="server"></asp:TextBox></th>
+                    </tr>
+
+                
+                </table>
+            </div>
             <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
                 <asp:View ID="View1" runat="server">
                     <div style="text-align: center; height: 8px; margin-top: 16px;">
@@ -392,6 +413,17 @@
                     </div>
                     <div id="div1" runat="server"></div>
                     <div class="well well-lg" >
+
+                        <div id="result_div_error" runat="server" style="display:none" class="alert alert-danger alert-dismissable fade in">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <div runat="server" id="div_description"></div>
+                        </div>
+
+                        <div id="result_div_ok" runat="server" style="display:none" class="alert alert-success alert-dismissable fade in">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <div runat="server" id="div_description_ok"></div>
+                        </div>
+
                         <div id="myModal" class="modal fade" role="dialog">
                             <div class="modal-dialog">
 
@@ -481,9 +513,9 @@
                                     </ItemTemplate>
 
                                 </asp:TemplateField>
-                                <asp:BoundField ItemStyle-Width="10%" HeaderText="Throughput" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False"></asp:BoundField>
-                                <asp:BoundField ItemStyle-Width="10%" HeaderText="Precio de Venta (Pesos)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False"></asp:BoundField>
-                                <asp:BoundField ItemStyle-Width="10%" HeaderText="Precio de Venta (Dólares)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False"></asp:BoundField>
+                                <asp:BoundField ItemStyle-Width="10%" HeaderText="Throughput" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" />
+                                <asp:BoundField ItemStyle-Width="10%" HeaderText="Precio de Venta (Pesos)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" />
+                                <asp:BoundField ItemStyle-Width="10%" HeaderText="Precio de Venta (Dólares)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" />
                             </Columns>
                             <HeaderStyle BackColor="#C0C0C0" />
                             <FooterStyle BackColor="#C0C0C0" />
