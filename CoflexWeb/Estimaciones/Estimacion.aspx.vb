@@ -1370,7 +1370,7 @@ Public Class Estimacion
         Label24.Text = TB_COTIZACION.Text
         Label43.Text = TB_COTIZACION.Text
 
-        If DDClienteCotiza.SelectedValue = "Prospecto" Then
+        If DDClienteCotiza.SelectedValue = "PROSP" Then
             lblDDClienteCotiza.Text = DDProspecto.SelectedItem.ToString
             lblDDClienteCotizaENG.Text = DDProspecto.SelectedItem.ToString
         Else
