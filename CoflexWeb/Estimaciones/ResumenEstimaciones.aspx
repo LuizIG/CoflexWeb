@@ -31,7 +31,7 @@
                 $('#MainContent_GridQuotations > tbody  > tr').each(function () {
 
                     if ($(this).find('td:eq(0) input').is(':checked')) {
-                         idQuotations[x] = $(this).attr("id").split(",")[0];
+                        idQuotations[x] = $(this).attr("id").split(",")[0];
                         x++;
                     }
                 });
@@ -96,38 +96,44 @@
 
             <div class="well well-lg">
                 <table style="border-style: solid; border-color: #C0C0C0; width: 100%;">
+                    <tr style="vertical-align: top; background-color: #C0C0C0;">
+                                <td style="width: 100%; text-align: left; vertical-align: top;" colspan="8">
+                                    <b>&nbsp;<asp:Label ID="Label30" runat="server" Text="Filtro"></asp:Label>
+                                    </b>&nbsp;
+                                </td>
+                                
+                            </tr>
                     <tr style="vertical-align: top;">
-                        <td>
+                        <td style="width: 72px;">
                             <asp:Label ID="Label11" runat="server" Text="Cotización"></asp:Label>&nbsp;
                         </td>
                         <td>
-                            <asp:TextBox ID="txtCotizacion" Width="60%" runat="server"></asp:TextBox>&nbsp;
+                            <asp:TextBox ID="txtCotizacion" Style="width: 85px; height:90%" runat="server"></asp:TextBox>&nbsp;
                         </td>
 
-                        <td>
+                        <td style="width: 72px;">
                             <asp:Label ID="Label1" runat="server" Text="Vendedor"></asp:Label>&nbsp;
                         </td>
                         <td>
-                            <asp:DropDownList ID="DDVendedor" Width="60%" runat="server"></asp:DropDownList>&nbsp;
+                            <asp:DropDownList ID="DDVendedor" Style="width: 200px;" runat="server"></asp:DropDownList>&nbsp;
 
                         </td>
-                        <td>
+                        <td style="width: 110px;">
                             <asp:Label ID="Label2" runat="server" Text="Cliente"></asp:Label>&nbsp;
                         </td>
                         <td>
-                            <asp:TextBox ID="txtCliente" Width="60%" runat="server"></asp:TextBox>&nbsp;
+                            <asp:TextBox ID="txtCliente" Style="width: 140px; height:90%" runat="server"></asp:TextBox>&nbsp;
                         </td>
-                        <td>&nbsp;</td>
+                        <td style="width: 120px;">&nbsp;</td>
                         <td>&nbsp;</td>
 
                     </tr>
-
                     <tr>
-                        <td>
+                        <td style="width: 72px;">
                             <asp:Label ID="Label4" runat="server" Text="Versión"></asp:Label>&nbsp;
                         </td>
                         <td>
-                            <asp:TextBox ID="txtVersion" Width="60%" runat="server"></asp:TextBox>&nbsp;
+                            <asp:TextBox ID="txtVersion" Style="width: 85px; height:90%" runat="server"></asp:TextBox>&nbsp;
                         </td>
                         <td>
 
@@ -142,21 +148,21 @@
                         &nbsp;
                         </div>
 
-            </td>
+                        </td>
                         <td>
                             <asp:Label ID="Label6" runat="server" Text="Estatus versión"></asp:Label>&nbsp;
                         </td>
-            <td>
-                <asp:DropDownList ID="DDStatusVersion" Width="90%" runat="server"></asp:DropDownList>&nbsp;
+                        <td>
+                            <asp:DropDownList ID="DDStatusVersion" Style="width: 140px;" runat="server"></asp:DropDownList>&nbsp;
 
-            </td>
-            <td>
-                <asp:Label ID="Label3" runat="server" Text="Estatus cotización"></asp:Label>&nbsp;
-            </td>
-            <td>
-                <asp:DropDownList ID="DDStatusCotiza" Width="90%" runat="server"></asp:DropDownList>&nbsp;
-            </td>
-            </tr>
+                        </td>
+                        <td>
+                            <asp:Label ID="Label3" runat="server" Text="Estatus cotización"></asp:Label>&nbsp;
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="DDStatusCotiza" Style="width: 100px;" runat="server"></asp:DropDownList>&nbsp;
+                        </td>
+                    </tr>
 
                 </table>
 
@@ -171,39 +177,39 @@
                 </div>
 
 
-            <asp:Panel ID="pnlContents3" runat="server">
-                <table style="width: 100%">
-                    <tr class="visible-print-block" style="text-align: left">
-                        <td colspan="4" width="50%">
-                            <img src="logo.png" />&nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">&nbsp;</td>
-                    </tr>
-                </table>
-                <asp:GridView ID="GridQuotations" AutoGenerateColumns="False" class="table" runat="server">
-                    <Columns>
-                        <asp:TemplateField>
-                            <ItemTemplate>
-                                <asp:CheckBox name="chGBQuot" runat="server"></asp:CheckBox>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:BoundField DataField="Id" HeaderText="Id" Visible="false" />
-                        <asp:BoundField DataField="IdVersion" HeaderText="IdVersion" Visible="false" />
-                        <asp:BoundField DataField="CoflexId" HeaderText="Cotización" />
-                        <asp:BoundField DataField="vendor" HeaderText="Vendedor" />
-                        <asp:BoundField DataField="clientName" HeaderText="Cliente" />
-                        <asp:BoundField DataField="QuotationStatusName" HeaderText="Estatus cotización" />
-                        <asp:BoundField DataField="versionNumber" HeaderText="Versión" />
-                        <asp:BoundField DataField="date" HeaderText="Fecha" />
-                        <asp:BoundField DataField="QuotationVersionStatusName" HeaderText="Estatus versión" />
-                    </Columns>
-                    <HeaderStyle BackColor="#C0C0C0" />
-                </asp:GridView>
-            </asp:Panel>
+                <asp:Panel ID="pnlContents3" runat="server">
+                    <table style="width: 100%">
+                        <tr class="visible-print-block" style="text-align: left">
+                            <td colspan="4" width="50%">
+                                <img src="logo.png" />&nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">&nbsp;</td>
+                        </tr>
+                    </table>
+                    <asp:GridView ID="GridQuotations" AutoGenerateColumns="False" class="table" runat="server">
+                        <Columns>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:CheckBox name="chGBQuot" runat="server"></asp:CheckBox>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="Id" HeaderText="Id" Visible="false" />
+                            <asp:BoundField DataField="IdVersion" HeaderText="IdVersion" Visible="false" />
+                            <asp:BoundField DataField="CoflexId" HeaderText="Cotización" />
+                            <asp:BoundField DataField="vendor" HeaderText="Vendedor" />
+                            <asp:BoundField DataField="clientName" HeaderText="Cliente" />
+                            <asp:BoundField DataField="QuotationStatusName" HeaderText="Estatus cotización" />
+                            <asp:BoundField DataField="versionNumber" HeaderText="Versión" />
+                            <asp:BoundField DataField="date" HeaderText="Fecha" />
+                            <asp:BoundField DataField="QuotationVersionStatusName" HeaderText="Estatus versión" />
+                        </Columns>
+                        <HeaderStyle BackColor="#C0C0C0" />
+                    </asp:GridView>
+                </asp:Panel>
 
-
+            </div>
 
 
             <div id="div2" runat="server"></div>

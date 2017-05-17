@@ -607,7 +607,7 @@ Public Class Estimacion
         If Split(scTreeView, "|")(1) = 0 Then
             Me.Label6.Visible = True
             Me.TextBox8.Visible = True
-            Me.RadioButton3.Visible = True
+            Me.RadioButton3.Visible = False
             Me.TextBox8.Text = 0
             Me.TextBox3.Enabled = False
         Else
@@ -1366,7 +1366,7 @@ Public Class Estimacion
         GridViewCotiza.DataBind()
 
         Me.Label23.Text = Today
-
+        Label24.Text = TB_COTIZACION.Text
     End Sub
 
     Protected Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click

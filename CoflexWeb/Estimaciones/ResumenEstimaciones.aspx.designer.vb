@@ -41,6 +41,15 @@ Partial Public Class ResumenEstimaciones
     Protected WithEvents div1 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
+    '''Control Label30.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Label30 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''Control Label11.
     '''</summary>
     '''<remarks>
