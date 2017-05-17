@@ -15,6 +15,7 @@ Public Class ResumenEstimaciones
                 Dim detail = o.GetValue("detail").Value(Of JArray)
 
                 Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+                Table.DefaultView.Sort = "date desc"
                 ViewState("CurrentTable") = Table
                 Me.GridQuotations.DataSource = Table
                 Me.GridQuotations.DataBind()
@@ -139,6 +140,7 @@ Public Class ResumenEstimaciones
 
             If (rows2.Count > 0) Then
                 Dim dt1 As DataTable = rows2.CopyToDataTable()
+                dt1.DefaultView.Sort = "date desc"
                 Me.GridQuotations.DataSource = dt1
                 Me.GridQuotations.DataBind()
             Else

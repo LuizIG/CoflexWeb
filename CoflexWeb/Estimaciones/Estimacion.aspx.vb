@@ -418,7 +418,7 @@ Public Class Estimacion
                     If dvMargin.Count > 0 Then
                         row("Margin") = dvMargin(0)("margin") * 100
                     Else
-                        row("Margin") = 0.35 * 100
+                        row("Margin") = System.Configuration.ConfigurationManager.AppSettings("Throughput") * 100
                     End If
                     row("UnitaryCost") = CDbl(row("FinalCost")) / CDbl(row("QUANTITY_I"))
                 Next
@@ -428,7 +428,7 @@ Public Class Estimacion
                     dv.Table.Columns.Add("Margin", GetType(Double))
                 End If
                 For Each row In dv
-                    row("Margin") = 0.35 * 100
+                    row("Margin") = System.Configuration.ConfigurationManager.AppSettings("Throughput") * 100
                     row("UnitaryCost") = CDbl(row("FinalCost")) / CDbl(row("QUANTITY_I"))
                 Next
 

@@ -302,7 +302,7 @@
                                                         <asp:Label ID="Label2" runat="server" Text="SKU Componente"></asp:Label>&nbsp;
                                                     </td>
                                                     <td>
-                                                        <asp:TextBox ID="TextBox2" Enabled="false" Width="90%" runat="server"></asp:TextBox>
+                                                        <asp:TextBox ID="TextBox2" Enabled="false" Width="80%" runat="server"></asp:TextBox>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -311,7 +311,7 @@
 
                                                     </td>
                                                     <td colspan="3">
-                                                        <textarea id="TextArea1" style="width: 100%; max-width: 1000px !important" disabled runat="server"></textarea>
+                                                        <textarea id="TextArea1" style="width: 93%; max-width: 1000px !important" disabled runat="server"></textarea>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -327,7 +327,7 @@
                                                         <asp:Label ID="Label5" runat="server" Text="Unidad de Medida"></asp:Label>&nbsp;
                                                     </td>
                                                     <td>
-                                                        <asp:TextBox ID="TextBox4" Enabled="false" Width="70%" runat="server"></asp:TextBox>
+                                                        <asp:TextBox ID="TextBox4" Enabled="false" Width="80%" runat="server"></asp:TextBox>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -794,7 +794,7 @@
                                     <td colspan="4">&nbsp;</td>
                                 </tr>
                             </table>
-                            <asp:GridView class="table" ID="GridTreeView" Width="100%" AutoGenerateColumns="False" runat="server" ShowFooter="True" Style="margin-right: 0px">
+                            <asp:GridView class="table" ID="GridTreeView" Width="100%" AutoGenerateColumns="False" runat="server" Style="margin-right: 0px">
                                 <Columns>
                                     <asp:BoundField HeaderText="Articulo" DataField="SkuArticulo">
                                         <ControlStyle Width="90px" />

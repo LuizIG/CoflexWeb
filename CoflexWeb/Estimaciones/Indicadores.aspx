@@ -3,6 +3,35 @@
 <%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
+      <link href="../Content/bootstrap-datepicker.css" rel="stylesheet" />
+    <script src="../Scripts/bootstrap-datepicker.js"></script>
+    <script type="text/javascript">
+
+
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+
+
+        function bindQuery() {
+           
+            $('.input-daterange').datepicker({
+                format: "mm/dd/yyyy"
+            });
+
+        }
+
+        prm.add_endRequest(function () {
+            // re-bind your jQuery events here
+            bindQuery();
+        });
+
+
+        $(document).ready(function () {
+            bindQuery();
+        });
+
+        
+    </script>
+
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
 
@@ -27,23 +56,23 @@
 
                     </tr>
                     <tr>
-                       
+
                         <td>
                             <div class="input-daterange input-group" id="datepicker">
                                 <asp:Label ID="Label7" runat="server" Text="Fecha"></asp:Label>
                             &nbsp;
                         </td>
                         <td>
-                            <asp:TextBox ID="TextBox1" Style="width: 87px; height: 90%" runat="server"></asp:TextBox>&nbsp;
+                            <div class="input-daterange input-group" id="datepicker">
+                                <asp:TextBox ID="TextBox1" Style="width: 87px; height: 90%"  runat="server"></asp:TextBox>&nbsp;
                                 <asp:Label ID="Label8" runat="server" Text="a"></asp:Label>&nbsp;
                                 <asp:TextBox ID="TextBox2" Style="width: 87px; height: 90%" runat="server"></asp:TextBox>
-                            &nbsp;
+                                &nbsp;
+                            </div>
 
                         </td>
-                        <td style="width:75%">
-                          
-                        </td>
-                     
+                        <td style="width: 75%"></td>
+
                     </tr>
 
                 </table>
@@ -255,20 +284,20 @@
                         <td colspan="3">&nbsp;</td>
                     </tr>--%>
                 </table>
-                  <div style="width: 100%; text-align: right; height: 35px;">
+                <div style="width: 100%; text-align: right; height: 35px;">
 
-                            <table style="width: 100%; text-align: right; height: 37px;">
-                                <tr>
+                    <table style="width: 100%; text-align: right; height: 37px;">
+                        <tr>
 
-                                    <td>
-                                        <asp:Button ID="ButtonBack" class="btn btn-primary" runat="server" Text="Regresar" />&nbsp;
+                            <td>
+                                <asp:Button ID="ButtonBack" class="btn btn-primary" runat="server" Text="Regresar" />&nbsp;
                                      
 
-                                    </td>
-                                </tr>
+                            </td>
+                        </tr>
 
-                            </table>
-                        </div>
+                    </table>
+                </div>
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
