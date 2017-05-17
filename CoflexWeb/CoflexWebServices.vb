@@ -36,6 +36,8 @@ Namespace CoflexWeb.Services.Web
         Public Const COMPONENT As String = "CoflexAPIExt/api/Components"
         Public Const DETAIL_COMPONENTS As String = "CoflexAPIExt/api/DetailComponets"
         Public Const CLIENTS As String = "CoflexAPIExt/api/Clients"
+        Public Const EXCHANGE_RATE As String = "CoflexAPIExt/api/ExchangeRate/"
+
 
         Public Function doPostRequest(url As String, data As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As String
             Dim request = createRequest(SERVER_HOST & url, "POST", contentType, token)
