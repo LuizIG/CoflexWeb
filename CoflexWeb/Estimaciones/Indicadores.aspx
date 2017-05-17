@@ -18,7 +18,41 @@
             <div id="div_Response" runat="server"></div>
 
             <div class="well well-lg" style="width: 100%; text-align: center">
+                <table style="border-style: solid; border-color: #C0C0C0; width: 100%;">
+                    <tr style="vertical-align: top; background-color: #C0C0C0;">
+                        <td style="width: 100%; text-align: left; vertical-align: top;" colspan="8">
+                            <b>&nbsp;<asp:Label ID="Label30" runat="server" Text="Filtro"></asp:Label>
+                            </b>&nbsp;
+                        </td>
 
+                    </tr>
+                    <tr>
+                       
+                        <td>
+                            <div class="input-daterange input-group" id="datepicker">
+                                <asp:Label ID="Label7" runat="server" Text="Fecha"></asp:Label>
+                            &nbsp;
+                        </td>
+                        <td>
+                            <asp:TextBox ID="TextBox1" Style="width: 87px; height: 90%" runat="server"></asp:TextBox>&nbsp;
+                                <asp:Label ID="Label8" runat="server" Text="a"></asp:Label>&nbsp;
+                                <asp:TextBox ID="TextBox2" Style="width: 87px; height: 90%" runat="server"></asp:TextBox>
+                            &nbsp;
+
+                        </td>
+                        <td style="width:75%">
+                          
+                        </td>
+                     
+                    </tr>
+
+                </table>
+
+                <div style="position: relative; right: 0px; width: 100%; text-align: right; margin-top: 16px">
+                    <asp:Button ID="Button1" class="btn btn-primary" runat="server" Text="Filtrar" />
+                </div>
+                <br />
+                <div id="div1" runat="server"></div>
                 <table style="width: 100%; text-align: center">
                     <tr>
                         <td>
@@ -86,7 +120,7 @@
                             <b>&nbsp;<asp:Label ID="Label2" runat="server" Text="Monto total de margen"></asp:Label></b>&nbsp;
                         </td>
                         <td>
-                            <b>&nbsp;<asp:Label ID="Label3" runat="server" Text=""></asp:Label></b>&nbsp;
+                            <b>&nbsp;<asp:Label ID="Label3" runat="server" Text="Cotizaciones por Margen"></asp:Label></b>&nbsp;
                         </td>
                     </tr>
                     <tr>
@@ -118,9 +152,29 @@
                                 </ChartAreas>
                             </asp:Chart>
                         </td>
-                        <td>&nbsp;</td>
+                        <td>
+                            <asp:Chart ID="Chart7" runat="server" Palette="None" PaletteCustomColors="DodgerBlue; Maroon; DarkGreen; DarkGoldenrod; DarkSlateGray; Indigo; DimGray">
+                                <Series>
+                                    <asp:Series Name="Series1"></asp:Series>
+                                    <asp:Series Name="Series2"></asp:Series>
+                                    <asp:Series Name="Series3"></asp:Series>
+                                    <asp:Series Name="Series4"></asp:Series>
+                                </Series>
+                                <ChartAreas>
+                                    <asp:ChartArea Name="ChartArea1">
+                                        <AxisX>
+                                            <MajorGrid Enabled="false" />
+                                        </AxisX>
+                                    </asp:ChartArea>
+                                </ChartAreas>
+                                <Legends>
+                                    <asp:Legend Name="Legend1" AutoFitMinFontSize="6" Font="Microsoft Sans Serif, 6pt" IsTextAutoFit="False">
+                                    </asp:Legend>
+                                </Legends>
+                            </asp:Chart>
+                        </td>
                     </tr>
-                    <tr>
+                    <%-- <tr>
                         <td colspan="3">&nbsp;</td>
                     </tr>
                     <tr>
@@ -135,20 +189,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <asp:Chart ID="Chart7" runat="server" Palette="None" PaletteCustomColors="DodgerBlue; Maroon; DarkGreen; DarkGoldenrod; DarkSlateGray; Indigo; DimGray">
-                                <Series>
-                                    <asp:Series Name="Series1"></asp:Series>
-                                </Series>
-                                <ChartAreas>
-                                    <asp:ChartArea Name="ChartArea1">
-                                        <AxisX>
-                                            <MajorGrid Enabled="false" />
-                                        </AxisX>
-                                    </asp:ChartArea>
-                                </ChartAreas>
-                            </asp:Chart>
-                        </td>
+                     
                         <td>
                             <asp:Chart ID="Chart8" runat="server" Palette="None" PaletteCustomColors="DodgerBlue; Maroon; DarkGreen; DarkGoldenrod; DarkSlateGray; Indigo; DimGray">
                                 <Series>
@@ -212,8 +253,22 @@
                     </tr>
                     <tr>
                         <td colspan="3">&nbsp;</td>
-                    </tr>
+                    </tr>--%>
                 </table>
+                  <div style="width: 100%; text-align: right; height: 35px;">
+
+                            <table style="width: 100%; text-align: right; height: 37px;">
+                                <tr>
+
+                                    <td>
+                                        <asp:Button ID="ButtonBack" class="btn btn-primary" runat="server" Text="Regresar" />&nbsp;
+                                     
+
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>

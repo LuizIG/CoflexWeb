@@ -192,7 +192,7 @@
                                             <tr style="text-align:left">
                                                 <td><asp:Label ID="Label35" Width="90%" runat="server" Text="Filtro"></asp:Label>&nbsp;</td>
                                                 <td>
-                                                    <asp:TextBox Width="90%" ID="txtSearch" runat="server" onkeyup="FilterItems(this.value)"></asp:TextBox>
+                                                    <asp:TextBox Width="90%" height="90%" ID="txtSearch" runat="server" onkeyup="FilterItems(this.value)"></asp:TextBox>
                                                 </td>
                                                 <%-- <td rowspan="2" style="vertical-align: central;">
                                                     <asp:Button ID="Button3" runat="server" class="btn btn-primary" Text="Agregar" />
@@ -298,7 +298,7 @@
                                                     <td>
                                                         <asp:TextBox ID="TextBox1" Width="70%" Enabled="false" runat="server"></asp:TextBox>
                                                     </td>
-                                                    <td style="width: 120px">
+                                                    <td style="width: 130px">&nbsp;
                                                         <asp:Label ID="Label2" runat="server" Text="SKU Componente"></asp:Label>&nbsp;
                                                     </td>
                                                     <td>
@@ -320,10 +320,10 @@
 
                                                     </td>
                                                     <td>
-                                                        <asp:TextBox ID="TextBox3" onkeypress="CheckNumeric(event);" runat="server"></asp:TextBox>
+                                                        <asp:TextBox ID="TextBox3" Width="70%" onkeypress="CheckNumeric(event);" runat="server"></asp:TextBox>
 
                                                     </td>
-                                                    <td>
+                                                    <td>&nbsp;
                                                         <asp:Label ID="Label5" runat="server" Text="Unidad de Medida"></asp:Label>&nbsp;
                                                     </td>
                                                     <td>
@@ -340,8 +340,8 @@
                                                 <tr>
                                                     <td>&nbsp;&nbsp;<asp:Label ID="Label13" runat="server" Text="Estandar"></asp:Label>&nbsp;</td>
                                                     <td colspan="2">
-                                                        <asp:RadioButton ID="RadioButton1" GroupName="tipoCosto" runat="server" />&nbsp;
-                                                <asp:TextBox ID="TextBox5" Enabled="false" runat="server"></asp:TextBox>&nbsp;
+                                                        <asp:RadioButton ID="RadioButton1" Visible="false" GroupName="tipoCosto" runat="server" />
+                                                <asp:TextBox ID="TextBox5" Enabled="false" Width="40%" runat="server"></asp:TextBox>&nbsp;
                                                     </td>
                                                     <td>&nbsp;<br />
                                                     </td>
@@ -349,8 +349,8 @@
                                                 <tr>
                                                     <td>&nbsp;&nbsp;<asp:Label ID="Label6" runat="server" Visible="false" Text="Compuesto"></asp:Label>&nbsp;</td>
                                                     <td colspan="2">
-                                                        <asp:RadioButton ID="RadioButton3" Enabled="false" Visible="false" GroupName="tipoCosto" runat="server" />&nbsp;
-                                                <asp:TextBox ID="TextBox8" Enabled="false" Visible="false" runat="server"></asp:TextBox>&nbsp;
+                                                        <asp:RadioButton ID="RadioButton3" Enabled="false" Visible="false" GroupName="tipoCosto" runat="server" />
+                                                <asp:TextBox ID="TextBox8" Enabled="false" Visible="false" Width="40%" runat="server"></asp:TextBox>&nbsp;
                                             
                                                     </td>
                                                     <td></td>
@@ -708,9 +708,57 @@
                                         <table style="width: 100%; color: black">
                                             <tr>
                                                 <td style="width: 20%"><b>
-                                                    <asp:Label ID="Label26" runat="server">Oferta valida</asp:Label></b></td>
+                                                    <asp:Label ID="Label37" runat="server">Configuración de los productos</asp:Label></b></td>
+                                              
+                                            </tr>
+                                            <tr>
                                                 <td>
-                                                    <asp:Label ID="Label27" runat="server">30 días</asp:Label></td>
+                                                    <textarea id="TextArea1" style="width: 100%; max-width: 1200px !important"  rows="10"></textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td colspan="4" style="border-style: solid; border-width: medium 0px 0px 0px; text-align: left; color: #000080; border-top-color: #003366;">
+                                        <table style="width: 100%; color: black">
+                                            <tr>
+                                                <td style="width: 20%"><b>
+                                                    <asp:Label ID="Label38" runat="server">Tiempos de entrega</asp:Label></b></td>
+                                                <td>&nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                  <td>
+                                                    <asp:Label ID="Label39" runat="server">Orden de entrega</asp:Label></td>
+                                                <td>
+                                                    <asp:TextBox ID="TextBox9" style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></td>
+                                            </tr>
+                                              <tr>
+                                                <td>&nbsp;</td><td>&nbsp;</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="border-style: solid; border-width: medium 0px 0px 0px; text-align: left; color: #000080; border-top-color: #003366;">
+                                        <table style="width: 100%; color: black">
+                                            <tr>
+                                                <td style="width: 20%"><b>
+                                                    <asp:Label ID="Label26" runat="server">Término de entrega</asp:Label></b></td>
+                                                <td>
+                                                    <asp:TextBox ID="TextBox10" style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></td>
+                                            </tr>
+                                             <tr>
+                                                <td style="width: 20%"><b>
+                                                    <asp:Label ID="Label27" runat="server">Oferta válida</asp:Label></b></td>
+                                                <td>
+                                                    <asp:TextBox ID="TextBox11" style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></td>
+                                            </tr>
+                                              <tr>
+                                                <td>&nbsp;</td><td>&nbsp;</td>
                                             </tr>
                                         </table>
                                     </td>
