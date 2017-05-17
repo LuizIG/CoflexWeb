@@ -48,8 +48,4 @@ Public Class Roles
             Me.response.InnerText = errorMessage
         End If
     End Sub
-
-    Protected Sub BtnSend_Click(sender As Object, e As EventArgs) Handles BtnSend.Click
-        AddNewRole(Me.RoleName.Text)
-    End Sub
 End Class

@@ -27,14 +27,11 @@
 
             $("#btn_reasignar").on("click", function () {
                 var idQuotations = [];
-                alert("reasignar");
                 var x = 0;
                 $('#MainContent_GridQuotations > tbody  > tr').each(function () {
 
                     if ($(this).find('td:eq(0) input').is(':checked')) {
-                        alert("isCheched");
-
-                        idQuotations[x] = $(this).attr("id").split(",")[0];
+                         idQuotations[x] = $(this).attr("id").split(",")[0];
                         x++;
                     }
                 });
