@@ -142,9 +142,9 @@
                         </td>
                         <td>
                         <div class="input-daterange input-group" id="datepicker">
-                            <asp:TextBox ID="TextBox1" Width="20%" runat="server"></asp:TextBox>&nbsp;
+                            <asp:TextBox ID="TextBox1" Width="23%" runat="server"></asp:TextBox>&nbsp;
                                 <asp:Label ID="Label7" runat="server" Text="a"></asp:Label>&nbsp;
-                                <asp:TextBox ID="TextBox2" Width="20%" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TextBox2" Width="23%" runat="server"></asp:TextBox>
                         &nbsp;
                         </div>
 
@@ -202,7 +202,7 @@
                             <asp:BoundField DataField="clientName" HeaderText="Cliente" />
                             <asp:BoundField DataField="QuotationStatusName" HeaderText="Estatus cotización" />
                             <asp:BoundField DataField="versionNumber" HeaderText="Versión" />
-                            <asp:BoundField DataField="date" HeaderText="Fecha" />
+                            <asp:BoundField DataField="date" HeaderText="Fecha" DataFormatString="{0:dd-MM-yyyy}" />
                             <asp:BoundField DataField="QuotationVersionStatusName" HeaderText="Estatus versión" />
                         </Columns>
                         <HeaderStyle BackColor="#C0C0C0" />

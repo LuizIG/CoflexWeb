@@ -824,13 +824,31 @@ Partial Public Class Estimacion
     Protected WithEvents View4 As Global.System.Web.UI.WebControls.View
     
     '''<summary>
-    '''Button11 control.
+    '''Button7 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Button11 As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents Button7 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''btnEspanol control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnEspanol As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''btnEnglish control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnEnglish As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
     '''Button10 control.
@@ -887,13 +905,31 @@ Partial Public Class Estimacion
     Protected WithEvents Label24 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''Label25 control.
+    '''lblDDClienteCotiza control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Label25 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblDDClienteCotiza As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''Label40 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label40 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''txtAtencion control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtAtencion As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''GridViewCotiza control.
@@ -975,6 +1011,150 @@ Partial Public Class Estimacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents TextBox11 As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''pnlContents3 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlContents3 As Global.System.Web.UI.WebControls.Panel
+    
+    '''<summary>
+    '''Label25 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label25 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''Label41 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label41 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''Label42 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label42 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''Label43 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label43 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblDDClienteCotizaENG control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblDDClienteCotizaENG As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''Label45 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label45 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''TextBox12 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents TextBox12 As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''GridView1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents GridView1 As Global.System.Web.UI.WebControls.GridView
+    
+    '''<summary>
+    '''Label46 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label46 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''Label49 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label49 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''TextBox14 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents TextBox14 As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''Label50 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label50 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''TextBox15 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents TextBox15 As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''Label47 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label47 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''TextBox13 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents TextBox13 As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''View5 control.

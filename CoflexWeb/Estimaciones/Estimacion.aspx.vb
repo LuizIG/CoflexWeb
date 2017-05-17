@@ -418,7 +418,7 @@ Public Class Estimacion
                     If dvMargin.Count > 0 Then
                         row("Margin") = dvMargin(0)("margin") * 100
                     Else
-                        row("Margin") = 0.35 * 100
+                        row("Margin") = System.Configuration.ConfigurationManager.AppSettings("Throughput") * 100
                     End If
                     row("UnitaryCost") = CDbl(row("FinalCost")) / CDbl(row("QUANTITY_I"))
                 Next
@@ -428,7 +428,7 @@ Public Class Estimacion
                     dv.Table.Columns.Add("Margin", GetType(Double))
                 End If
                 For Each row In dv
-                    row("Margin") = 0.35 * 100
+                    row("Margin") = System.Configuration.ConfigurationManager.AppSettings("Throughput") * 100
                     row("UnitaryCost") = CDbl(row("FinalCost")) / CDbl(row("QUANTITY_I"))
                 Next
 
@@ -1366,7 +1366,17 @@ Public Class Estimacion
         GridViewCotiza.DataBind()
 
         Me.Label23.Text = Today
+        Me.Label41.Text = Today
         Label24.Text = TB_COTIZACION.Text
+        Label43.Text = TB_COTIZACION.Text
+
+        If DDClienteCotiza.SelectedValue = "Prospecto" Then
+            lblDDClienteCotiza.Text = DDProspecto.SelectedItem.ToString
+            lblDDClienteCotizaENG.Text = DDProspecto.SelectedItem.ToString
+        Else
+            lblDDClienteCotiza.Text = DDClienteCotiza.SelectedItem.ToString
+            lblDDClienteCotizaENG.Text = DDClienteCotiza.SelectedItem.ToString
+        End If
     End Sub
 
     Protected Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
@@ -1770,4 +1780,17 @@ Public Class Estimacion
         Me.MultiView1.ActiveViewIndex = 5
     End Sub
 
+    Protected Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+        If Me.pnlContents.Visible = True Then
+            Me.pnlContents.Visible = False
+            Me.pnlContents3.Visible = True
+            Me.btnEspanol.Visible = False
+            Me.btnEnglish.Visible = True
+        ElseIf Me.pnlContents3.Visible = True Then
+            Me.pnlContents.Visible = True
+            Me.pnlContents3.Visible = False
+            Me.btnEspanol.Visible = True
+            Me.btnEnglish.Visible = False
+        End If
+    End Sub
 End Class
