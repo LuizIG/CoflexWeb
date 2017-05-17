@@ -130,16 +130,17 @@
                             <asp:TextBox ID="txtVersion" Width="60%" runat="server"></asp:TextBox>&nbsp;
                         </td>
                         <td>
-                            <div class="input-daterange input-group" id="datepicker">
+
                                 <asp:Label ID="Label5" runat="server" Text="Fecha"></asp:Label>
                             &nbsp;
                         </td>
                         <td>
+                        <div class="input-daterange input-group" id="datepicker">
                             <asp:TextBox ID="TextBox1" Width="20%" runat="server"></asp:TextBox>&nbsp;
                                 <asp:Label ID="Label7" runat="server" Text="a"></asp:Label>&nbsp;
                                 <asp:TextBox ID="TextBox2" Width="20%" runat="server"></asp:TextBox>
                         &nbsp;
-            </div>
+                        </div>
 
             </td>
                         <td>
