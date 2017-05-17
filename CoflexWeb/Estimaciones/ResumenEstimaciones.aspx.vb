@@ -8,59 +8,18 @@ Public Class ResumenEstimaciones
     Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
         MyBase.Page_Load(sender, e)
         If Not IsPostBack Then
-            Dim Response = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS, , Session("access_token"))
+            Dim Response = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS_SUMMARY, , Session("access_token"))
             Dim o = JObject.Parse(Response)
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
             If (statusCode >= 200 And statusCode < 400) Then
                 Dim detail = o.GetValue("detail").Value(Of JArray)
-                Dim arrayLimpio = New JArray
-                For Each Quotation As JObject In detail
-                    Dim Client = Quotation.GetValue("AspNetUsersView").Value(Of JObject)
-                    Dim UserName As String = Client.GetValue("Name").Value(Of String) & " " & Client.GetValue("PaternalSurname").Value(Of String) & " " & Client.GetValue("MaternalSurname").Value(Of String)
-                    Dim Versions = Quotation.GetValue("QuotationVersions").Value(Of JArray)
-                    For Each Version As JObject In Versions
-                        Version.Remove("Items")
-                        Version.Add("ClientName", Quotation.GetValue("ClientName").Value(Of String))
-                        Version.Add("CoflexId", Quotation.GetValue("CoflexId").Value(Of String))
-                        Select Case Quotation.GetValue("Status").Value(Of Integer)
-                            Case 0
-                                Version.Add("QStatus", "Abierta")
-                            Case 1
-                                Version.Add("QStatus", "Cerrada")
-                            Case 2
-                                Version.Add("QStatus", "Cancelada")
-                        End Select
-                        Version.Add("User", UserName)
 
+                Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+                ViewState("CurrentTable") = Table
+                Me.GridQuotations.DataSource = Table
+                Me.GridQuotations.DataBind()
 
-                        Select Case Version.GetValue("Status").Value(Of Integer)
-                            Case 0
-                                Version.Add("VStatus", "Abierta")
-                                Version.Add("ActionEdit", "Editar")
-                            Case 1
-                                Version.Add("VStatus", "Propuesta Cerrada")
-                                Version.Add("ActionEdit", "Ver")
-                            Case 2
-                                Version.Add("VStatus", "Propuesta Descartada")
-                                Version.Add("ActionEdit", "Ver")
-                            Case 3
-                                Version.Add("VStatus", "Aceptada")
-                                Version.Add("ActionEdit", "Ver")
-                            Case 4
-                                Version.Add("VStatus", "Cancelada")
-                                Version.Add("ActionEdit", "Ver")
-                        End Select
-
-                        arrayLimpio.Add(Version)
-                    Next
-                Next
-                Dim Table As DataTable = JsonConvert.DeserializeObject(Of DataTable)(arrayLimpio.ToString)
-
-                Dim index As Integer = 0
-                For Each row As DataRow In Table.Rows
-                    tableQuotations.InnerHtml &= GetRow(row, index)
-                    index = index + 1
-                Next
+                GridQuotations.EmptyDataText = "No se encontraron cotizaciones"
 
                 Response = doGetRequest(USERS_BY_LEADERS,, Session("access_token"))
                 o = JObject.Parse(Response)
@@ -79,50 +38,40 @@ Public Class ResumenEstimaciones
                     Me.DDUsers.DataValueField = "Id"
                     Me.DDUsers.DataTextField = "Name"
                     Me.DDUsers.DataBind()
+
+                    Me.DDVendedor.DataSource = Table
+                    Me.DDVendedor.DataValueField = "Name"
+                    Me.DDVendedor.DataTextField = "Name"
+                    Me.DDVendedor.DataBind()
+                    Me.DDVendedor.Items.Insert(0, New ListItem("Seleccionar", ""))
+
+
+                    'CASE dbo.QuotationVersions.Status WHEN 0 THEN 'Abierta' WHEN 1 THEN 'Propuesta Cerrada' WHEN 2 THEN 'Propuesta Descartada' WHEN 3 THEN 'Aceptada' WHEN 4 THEN 'Cancelada' END
+                    DDStatusVersion.Items.Add(New ListItem("Seleccionar", ""))
+                    DDStatusVersion.Items.Add(New ListItem("Abierta", 0))
+                    DDStatusVersion.Items.Add(New ListItem("Propuesta Cerrada", 1))
+                    DDStatusVersion.Items.Add(New ListItem("Propuesta Descartada", 2))
+                    DDStatusVersion.Items.Add(New ListItem("Aceptada", 3))
+                    DDStatusVersion.Items.Add(New ListItem("Cancelada", 4))
+
+                    DDStatusCotiza.Items.Add(New ListItem("Seleccionar", ""))
+                    DDStatusCotiza.Items.Add(New ListItem("Abierta", 0))
+                    DDStatusCotiza.Items.Add(New ListItem("Cerrada", 1))
+                    DDStatusCotiza.Items.Add(New ListItem("Cancelada", 2))
+
+                    'Llenamos los filtros
                 End If
             End If
         End If
     End Sub
 
-
-    Private Function GetRow(ByVal row As DataRow, ByVal index As Integer) As String
-        Dim rowString As String
-        rowString = "<tr>"
-        rowString &= "<td class='bs-checkbox'>"
-        rowString &= "<input data-index='" & index & "' name='btSelectItem' type='checkbox'>"
-        rowString &= "</td>"
-        rowString &= "<td id='" & row("QuotationsId").ToString & "," & row("Id").ToString & "'>"
-        rowString &= row("CoflexId").ToString
-        rowString &= "</td>"
-        rowString &= "<td>"
-        rowString &= row("User").ToString
-        rowString &= "</td>"
-        rowString &= "<td>"
-        rowString &= row("ClientName").ToString
-        rowString &= "</td>"
-        rowString &= "<td>"
-        rowString &= row("QStatus").ToString
-        rowString &= "</td>"
-        rowString &= "<td>"
-        rowString &= row("VersionNumber").ToString
-        rowString &= "</td>"
-        rowString &= "<td class='date'>"
-        rowString &= row("Date").ToString.Split(" ")(0)
-        rowString &= "</td>"
-        rowString &= "<td>"
-        rowString &= row("VStatus").ToString
-        rowString &= "</td>"
-        rowString &= "</tr>"
-        Return rowString
-    End Function
-
     Protected Sub ButtonEstimacionGo_Click(sender As Object, e As EventArgs) Handles ButtonEstimacionGo.Click
-        Response.Redirect("~/Estimaciones/Estimacion.aspx")
+        Response.Redirect("/Estimaciones/Estimacion.aspx")
     End Sub
 
     Private Sub BTN_ACEPTAR_1_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR_1.Click
 
-        Dim quotations = quotations_reasign.Value.Split(",")
+        Dim quotations = quotations_reasign.Value.Split(", ")
 
         For Each Q In quotations
 
@@ -140,10 +89,84 @@ Public Class ResumenEstimaciones
 
         Next
 
-        Response.Redirect("ResumenEstimaciones.aspx")
+        Response.Redirect(Request.RawUrl)
 
     End Sub
 
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        If ViewState("CurrentTable") IsNot Nothing Then
+            Dim dt As DataTable = DirectCast(ViewState("CurrentTable"), DataTable)
+            Dim Qstring As String = "   "
+
+            If Me.txtCotizacion.Text <> "" Then
+                ''rows2 = dt.[Select]("CoflexId like '" & Me.txtCotizacion.Text & "%'")
+                Qstring = Qstring + "CoflexId like '" & Me.txtCotizacion.Text & "%' and"
+            End If
+
+            If Me.DDVendedor.SelectedValue <> "" Then
+                ''rows2 = dt.[Select]("vendor like '%" & Me.txtVendedor.Text & "%'")
+                Qstring = Qstring + " vendor like '%" & Me.DDVendedor.SelectedValue & "%' and"
+            End If
+
+            If Me.txtCliente.Text <> "" Then
+                ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
+                Qstring = Qstring + " clientName like '%" & Me.txtCliente.Text & "%' and"
+            End If
+
+            If Me.DDStatusCotiza.SelectedValue <> "" Then
+                ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
+                Qstring = Qstring + " status = " & Me.DDStatusCotiza.SelectedValue & " and"
+            End If
+
+            If Me.txtVersion.Text <> "" Then
+                ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
+                Qstring = Qstring + " VersionNumber = '" & Me.txtVersion.Text & "' and"
+            End If
+
+            If Me.TextBox1.Text <> "" And Me.TextBox2.Text <> "" Then
+                ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
+                Qstring = Qstring + " Date >= '" & Me.TextBox1.Text & "' and Date <= '" & Me.TextBox2.Text & "' and"
+            End If
+
+            If Me.DDStatusVersion.SelectedValue <> "" Then
+                ''rows2 = dt.[Select]("clientName like '%" & Me.txtCliente.Text & "%'")
+                Qstring = Qstring + " VStatus = " & Me.DDStatusVersion.SelectedValue & " and"
+            End If
+
+            Qstring = Left(Qstring, Qstring.Length - 3)
+            Dim rows2 = dt.[Select](Qstring)
+
+            If (rows2.Count > 0) Then
+                Dim dt1 As DataTable = rows2.CopyToDataTable()
+                Me.GridQuotations.DataSource = dt1
+                Me.GridQuotations.DataBind()
+            Else
+                Dim dt1 As DataTable = dt.Clone
+                Me.GridQuotations.DataSource = dt1
+                Me.GridQuotations.DataBind()
+            End If
+        End If
+    End Sub
+
+    Private Sub GridQuotations_DataBound(sender As Object, e As GridViewRowEventArgs) Handles GridQuotations.RowDataBound
+        If e.Row.RowType = DataControlRowType.DataRow Then
+
+
+            Dim rowView As DataRowView = DirectCast(e.Row.DataItem, DataRowView)
+
+            ' Retrieve the EventTypeID value for the current row. 
+
+
+            Dim q As Integer = Convert.ToInt32(rowView("Id"))
+            Dim v As Integer = Convert.ToInt32(rowView("IdVersion"))
+            e.Row.Attributes("id") = q & "," & v
+        End If
+    End Sub
+
+    Protected Sub ButtonIndicadores_Click(sender As Object, e As EventArgs) Handles ButtonIndicadores.Click
+        Response.Redirect("/Estimaciones/Indicadores.aspx")
+    End Sub
 
 End Class
 

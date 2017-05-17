@@ -1769,4 +1769,5 @@ Public Class Estimacion
     Protected Sub BtnNuevoPros_Click(sender As Object, e As EventArgs) Handles BtnNuevoPros.Click
         Me.MultiView1.ActiveViewIndex = 5
     End Sub
+
 End Class
