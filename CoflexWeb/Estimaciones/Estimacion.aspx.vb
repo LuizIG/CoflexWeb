@@ -122,6 +122,12 @@ Public Class Estimacion
                 If (statusCode >= 200 And statusCode < 400) Then
                     Dim detail = o.GetValue("detail").Value(Of JObject)
                     Dim ClientId = detail.GetValue("ClientId").Value(Of String)
+
+
+                    If ClientId = "PROSP" Then
+                        DDProspecto.SelectedValue = detail.GetValue("ProspectId").Value(Of Integer)
+                    End If
+
                     DDClienteCotiza.SelectedValue = ClientId
                     Dim CoflexId = detail.GetValue("CoflexId").Value(Of String)
                     TB_COTIZACION.Text = CoflexId
@@ -341,30 +347,40 @@ Public Class Estimacion
                 End If
 
             Else
-                If DDCliente.SelectedValue = "Seleccionar" Then
-                    Dim value As String = DDCliente.Items(DDCliente.SelectedIndex).Value
 
-                    jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM,, Session("access_token"))
-                    o = JObject.Parse(jsonResponse)
-                    statusCode = o.GetValue("statusCode").Value(Of Integer)
-                    If (statusCode >= 200 And statusCode < 400) Then
-                        Dim detailArray = o.GetValue("detail").Value(Of JArray)
-                        Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detailArray.ToString)
-                        Me.DDArticulo.DataSource = Table
-                        Me.DDArticulo.DataValueField = "PPN_I"
-                        Me.DDArticulo.DataTextField = "PPN_I"
-                        Me.DDArticulo.DataBind()
-                    End If
+                jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.EXCHANGE_RATE,, Session("access_token"))
+                o = JObject.Parse(jsonResponse)
+                statusCode = o.GetValue("statusCode").Value(Of Integer)
+                If (statusCode >= 200 And statusCode < 400) Then
+                    Dim d = o.GetValue("detail").Value(Of JObject)
 
-                    'If Me.TreeView1.Nodes.Count > 0 Then
-                    '    DDCliente.Enabled = False
-                    'End If
-
-                    Me.DDArticulo.Items.Insert(0, "Seleccionar")
+                    Tv_Exchange.Text = d.GetValue("MXN_to_DLLS").Value(Of String)
                 End If
-            End If
 
-            If Request.QueryString("r") IsNot Nothing Then
+                If DDCliente.SelectedValue = "Seleccionar" Then
+                        Dim value As String = DDCliente.Items(DDCliente.SelectedIndex).Value
+
+                        jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM,, Session("access_token"))
+                        o = JObject.Parse(jsonResponse)
+                        statusCode = o.GetValue("statusCode").Value(Of Integer)
+                        If (statusCode >= 200 And statusCode < 400) Then
+                            Dim detailArray = o.GetValue("detail").Value(Of JArray)
+                            Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detailArray.ToString)
+                            Me.DDArticulo.DataSource = Table
+                            Me.DDArticulo.DataValueField = "PPN_I"
+                            Me.DDArticulo.DataTextField = "PPN_I"
+                            Me.DDArticulo.DataBind()
+                        End If
+
+                        'If Me.TreeView1.Nodes.Count > 0 Then
+                        '    DDCliente.Enabled = False
+                        'End If
+
+                        Me.DDArticulo.Items.Insert(0, "Seleccionar")
+                    End If
+                End If
+
+                If Request.QueryString("r") IsNot Nothing Then
                 'Se redirigio por guardar nuevas cotizaciones
                 ContinueMethod()
 
@@ -928,9 +944,10 @@ Public Class Estimacion
 
         If (DDProspecto.SelectedValue <> "Seleccionar") Then
             Quotation.Add("ProspectId", CInt(DDProspecto.SelectedValue))
+            Quotation.Add("ClientName", DDProspecto.SelectedItem.Text)
+        Else
+            Quotation.Add("ClientName", DDClienteCotiza.SelectedItem.Text)
         End If
-
-        Quotation.Add("ClientName", DDClienteCotiza.SelectedItem.Text)
         Quotation.Add("QuotationVersions", CreateQuotationVersion())
         Return Quotation
     End Function
