@@ -67,7 +67,7 @@ Public Class ResumenEstimaciones
     End Sub
 
     Protected Sub ButtonEstimacionGo_Click(sender As Object, e As EventArgs) Handles ButtonEstimacionGo.Click
-        Response.Redirect("/Estimaciones/Estimacion.aspx")
+        Response.Redirect("~/Estimaciones/Estimacion.aspx")
     End Sub
 
     Private Sub BTN_ACEPTAR_1_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR_1.Click
@@ -167,7 +167,7 @@ Public Class ResumenEstimaciones
     End Sub
 
     Protected Sub ButtonIndicadores_Click(sender As Object, e As EventArgs) Handles ButtonIndicadores.Click
-        Response.Redirect("/Estimaciones/Indicadores.aspx")
+        Response.Redirect("~/Estimaciones/Indicadores.aspx")
     End Sub
 
 End Class
