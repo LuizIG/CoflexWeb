@@ -34,11 +34,6 @@ Public Class Indicadores2
                 Next
 
                 Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
-                'Me.DDUsers.DataSource = Table
-                'Me.DDUsers.DataValueField = "Id"
-                'Me.DDUsers.DataTextField = "Name"
-                'Me.DDUsers.DataBind()
-
                 Me.DDVendedor.DataSource = Table
                 Me.DDVendedor.DataValueField = "Name"
                 Me.DDVendedor.DataTextField = "Name"
@@ -69,8 +64,12 @@ Public Class Indicadores2
             End If
         Next
 
+        strCBPropuesta = Left(strCBPropuesta, strCBPropuesta.Length - 1)
+        strCBVersion = Left(strCBVersion, strCBVersion.Length - 1)
 
-        Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.INDICATORS & "?min=" & Me.TextBox1.Text & "&max=" & Me.TextBox2.Text,, Session("access_token"))
+
+
+        Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.INDICATORS & "?min=" & Me.TextBox1.Text & "&max=" & Me.TextBox2.Text & "&estatus=" & strCBPropuesta & "&estatusV=" & strCBVersion & "&vendedor=" & DDVendedor.SelectedValue & "&cliente=" & txtCliente.Text,, Session("access_token"))
         Dim o = JObject.Parse(jsonResponse)
         Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
         If (statusCode >= 200 And statusCode < 400) Then
