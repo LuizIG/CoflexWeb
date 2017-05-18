@@ -30,6 +30,7 @@ Namespace CoflexWeb.Services.Web
         Public Const QUOTATIONS_SUMMARY As String = "CoflexAPI/api/QuotationSummary"
         Public Const PROSPECTS As String = "CoflexAPI/api/Prospects"
         Public Const INDICATORS As String = "CoflexAPI/api/Indicator"
+        Public Const QUOTATION_COMMENTS As String = "CoflexAPI/api/Comments"
         ''api/Indicator?min={min}&max={max}
 
         'Enpoints Externos

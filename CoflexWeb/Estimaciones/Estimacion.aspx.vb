@@ -358,29 +358,29 @@ Public Class Estimacion
                 End If
 
                 If DDCliente.SelectedValue = "Seleccionar" Then
-                        Dim value As String = DDCliente.Items(DDCliente.SelectedIndex).Value
+                    Dim value As String = DDCliente.Items(DDCliente.SelectedIndex).Value
 
-                        jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM,, Session("access_token"))
-                        o = JObject.Parse(jsonResponse)
-                        statusCode = o.GetValue("statusCode").Value(Of Integer)
-                        If (statusCode >= 200 And statusCode < 400) Then
-                            Dim detailArray = o.GetValue("detail").Value(Of JArray)
-                            Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detailArray.ToString)
-                            Me.DDArticulo.DataSource = Table
-                            Me.DDArticulo.DataValueField = "PPN_I"
-                            Me.DDArticulo.DataTextField = "PPN_I"
-                            Me.DDArticulo.DataBind()
-                        End If
-
-                        'If Me.TreeView1.Nodes.Count > 0 Then
-                        '    DDCliente.Enabled = False
-                        'End If
-
-                        Me.DDArticulo.Items.Insert(0, "Seleccionar")
+                    jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM,, Session("access_token"))
+                    o = JObject.Parse(jsonResponse)
+                    statusCode = o.GetValue("statusCode").Value(Of Integer)
+                    If (statusCode >= 200 And statusCode < 400) Then
+                        Dim detailArray = o.GetValue("detail").Value(Of JArray)
+                        Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detailArray.ToString)
+                        Me.DDArticulo.DataSource = Table
+                        Me.DDArticulo.DataValueField = "PPN_I"
+                        Me.DDArticulo.DataTextField = "PPN_I"
+                        Me.DDArticulo.DataBind()
                     End If
-                End If
 
-                If Request.QueryString("r") IsNot Nothing Then
+                    'If Me.TreeView1.Nodes.Count > 0 Then
+                    '    DDCliente.Enabled = False
+                    'End If
+
+                    Me.DDArticulo.Items.Insert(0, "Seleccionar")
+                End If
+            End If
+
+            If Request.QueryString("r") IsNot Nothing Then
                 'Se redirigio por guardar nuevas cotizaciones
                 ContinueMethod()
 
@@ -1376,15 +1376,34 @@ Public Class Estimacion
         Me.MultiView1.ActiveViewIndex = 3
         Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
         dv.RowFilter = "Nivel1 = 0 and Nivel2 = 0 and Nivel3 = 0"
-        'Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
-        'Dim rows = dt2.[Select]("Nivel1 = 0 and Nivel2 = 0 and Nivel3 = 0")
-        'Table.ImportRow(rows(0))
         GridViewCotiza.DataSource = dv.ToTable
         GridViewCotiza.DataBind()
-
         GridViewCotizaENG.DataSource = dv.ToTable
         GridViewCotizaENG.DataBind()
 
+        If Request.QueryString("v") IsNot Nothing Then
+            Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATION_COMMENTS & "/" & Request.QueryString("v"),, Session("access_token"))
+            Dim o = JObject.Parse(jsonResponse)
+            Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+            If (statusCode >= 200 And statusCode < 400) Then
+                ''Dim detail = o.GetValue("detail").Value(Of JArray)
+                Dim detail = o.GetValue("detail").Value(Of JObject)
+                ''Dim StndCost = detail.GetValue("StndCost").Value(Of Double)
+
+                txtAtencionENG.Text = detail.GetValue("Atention").Value(Of String)
+                TextAreaENG.Text = detail.GetValue("Configuration").Value(Of String)
+                txtOrdenEntregaENG.Text = detail.GetValue("OrderDeliery").Value(Of String)
+                txtTerminoEntregaENG.Text = detail.GetValue("DeliveryTerms").Value(Of String)
+                txtOferValidaENG.Text = detail.GetValue("ValidOffer").Value(Of String)
+
+                txtAtencion.Text = detail.GetValue("Atention").Value(Of String)
+                TextArea.Text = detail.GetValue("Configuration").Value(Of String)
+                txtOrdenEntrega.Text = detail.GetValue("OrderDeliery").Value(Of String)
+                txtTerminoEntrega.Text = detail.GetValue("DeliveryTerms").Value(Of String)
+                txtOferValida.Text = detail.GetValue("ValidOffer").Value(Of String)
+            End If
+
+        End If
 
         Me.Label23.Text = Today
         Me.Label41.Text = Today
@@ -1825,6 +1844,40 @@ Public Class Estimacion
             txtTerminoEntrega.Text = txtTerminoEntregaENG.Text
             txtOferValida.Text = txtOferValidaENG.Text
         End If
+    End Sub
+
+    Protected Sub btnGuardaCotiza_Click(sender As Object, e As EventArgs) Handles btnGuardaCotiza.Click
+
+        If Request.QueryString("v") IsNot Nothing Then
+
+            Dim Elemento As New JObject
+            With Elemento
+                If Me.pnlContents.Visible = True Then
+                    .Add("Atention", Me.txtAtencion.Text)
+                    .Add("Configuration", Me.TextArea.Text)
+                    .Add("OrderDeliery", Me.txtOrdenEntrega.Text)
+                    .Add("DeliveryTerms", Me.txtTerminoEntrega.Text)
+                    .Add("ValidOffer", Me.txtOferValida.Text)
+                Else
+                    .Add("Atention", Me.txtAtencionENG.Text)
+                    .Add("Configuration", Me.TextAreaENG.Text)
+                    .Add("OrderDeliery", Me.txtOrdenEntregaENG.Text)
+                    .Add("DeliveryTerms", Me.txtTerminoEntregaENG.Text)
+                    .Add("ValidOffer", Me.txtOferValidaENG.Text)
+                End If
+            End With
+
+            Dim jsonResponse = CoflexWebServices.doPutRequest(CoflexWebServices.QUOTATION_COMMENTS & "/" & Request.QueryString("v"), Elemento.ToString,, Session("access_token"))
+            Dim o = JObject.Parse(jsonResponse)
+            Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+            If (statusCode >= 200 And statusCode < 400) Then
+                '' Me.ErrorMessage.Text = "Usuario Registrado"
+            Else
+                Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
+                ''Me.ErrorMessage.Text = errorMessage
+            End If
+        End If
+
     End Sub
 
 End Class

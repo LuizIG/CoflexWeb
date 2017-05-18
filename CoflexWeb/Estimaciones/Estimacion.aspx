@@ -670,6 +670,7 @@
                                     <asp:Button ID="Button7" class="btn btn-primary hidden-print" runat="server" Text="Idioma" />
                                     <asp:Button ID="btnEspanol" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel();" runat="server" Text="Imprimir" />
                                     <asp:Button ID="btnEnglish" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel3();" Visible="false" runat="server" Text="Imprimir" />
+                                    <asp:Button ID="btnGuardaCotiza" class="btn btn-primary hidden-print" runat="server" Text="Guardar" />
                                     <asp:Button ID="Button10" class="btn btn-primary hidden-print" runat="server" Text="Regresar" />
 
                                 </td>
@@ -764,7 +765,7 @@
                                                 <td style="color: #000080;">
                                                     <b>
                                                         <%--<textarea id="TextArea1" style="width: 100%; max-width: 1200px !important" autopostback="true" rows="10"></textarea>--%>
-                                                        <asp:TextBox ID="TextArea" Style="width: 100%; max-width: 1200px !important" TextMode="MultiLine" runat="server" Height="129px" Width="941px"></asp:TextBox>
+                                                        <asp:TextBox ID="TextArea" AutoPostBack="true"  Style="width: 100%; max-width: 1200px !important" TextMode="MultiLine" runat="server" Height="129px" Width="941px"></asp:TextBox>
                                                     </b>
                                                 </td>
                                             </tr>
@@ -907,7 +908,7 @@
                                                 <td style="color: #000080;">
                                                     <b>
                                                         <%--<textarea id="TextArea2" style="width: 100%; max-width: 1200px !important" rows="10"></textarea>--%>
-                                                        <asp:TextBox ID="TextAreaENG" Style="width: 100%; max-width: 1200px !important" TextMode="MultiLine" runat="server" Height="129px" Width="941px"></asp:TextBox>
+                                                        <asp:TextBox ID="TextAreaENG" AutoPostBack="true" Style="width: 100%; max-width: 1200px !important" TextMode="MultiLine" runat="server" Height="129px" Width="941px"></asp:TextBox>
                                                     </b>
                                                 </td>
                                             </tr>
