@@ -133,6 +133,6 @@ Public Class Indicadores
     End Sub
 
     Protected Sub ButtonBack_Click(sender As Object, e As EventArgs) Handles ButtonBack.Click
-        Response.Redirect("/Estimaciones/ResumenEstimaciones.aspx")
+        Response.Redirect("~/Estimaciones/ResumenEstimaciones.aspx")
     End Sub
 End Class

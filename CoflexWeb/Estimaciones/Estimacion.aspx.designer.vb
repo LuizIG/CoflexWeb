@@ -950,6 +950,15 @@ Partial Public Class Estimacion
     Protected WithEvents Label37 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''TextArea control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents TextArea As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
     '''Label38 control.
     '''</summary>
     '''<remarks>
@@ -968,13 +977,13 @@ Partial Public Class Estimacion
     Protected WithEvents Label39 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''TextBox9 control.
+    '''txtOrdenEntrega control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TextBox9 As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtOrdenEntrega As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''Label26 control.
@@ -986,13 +995,13 @@ Partial Public Class Estimacion
     Protected WithEvents Label26 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''TextBox10 control.
+    '''txtTerminoEntrega control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TextBox10 As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtTerminoEntrega As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''Label27 control.
@@ -1004,13 +1013,13 @@ Partial Public Class Estimacion
     Protected WithEvents Label27 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''TextBox11 control.
+    '''txtOferValida control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TextBox11 As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtOferValida As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''pnlContents3 control.
@@ -1076,22 +1085,22 @@ Partial Public Class Estimacion
     Protected WithEvents Label45 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''TextBox12 control.
+    '''txtAtencionENG control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TextBox12 As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtAtencionENG As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''GridView1 control.
+    '''GridViewCotizaENG control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents GridView1 As Global.System.Web.UI.WebControls.GridView
+    Protected WithEvents GridViewCotizaENG As Global.System.Web.UI.WebControls.GridView
     
     '''<summary>
     '''Label46 control.
@@ -1103,6 +1112,15 @@ Partial Public Class Estimacion
     Protected WithEvents Label46 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''TextAreaENG control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents TextAreaENG As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
     '''Label49 control.
     '''</summary>
     '''<remarks>
@@ -1112,13 +1130,13 @@ Partial Public Class Estimacion
     Protected WithEvents Label49 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''TextBox14 control.
+    '''txtOrdenEntregaENG control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TextBox14 As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtOrdenEntregaENG As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''Label50 control.
@@ -1130,13 +1148,13 @@ Partial Public Class Estimacion
     Protected WithEvents Label50 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''TextBox15 control.
+    '''txtTerminoEntregaENG control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TextBox15 As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtTerminoEntregaENG As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''Label47 control.
@@ -1148,13 +1166,13 @@ Partial Public Class Estimacion
     Protected WithEvents Label47 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''TextBox13 control.
+    '''txtOferValidaENG control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TextBox13 As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtOferValidaENG As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''View5 control.

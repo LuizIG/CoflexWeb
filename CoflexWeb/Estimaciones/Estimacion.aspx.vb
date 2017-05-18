@@ -1382,6 +1382,10 @@ Public Class Estimacion
         GridViewCotiza.DataSource = dv.ToTable
         GridViewCotiza.DataBind()
 
+        GridViewCotizaENG.DataSource = dv.ToTable
+        GridViewCotizaENG.DataBind()
+
+
         Me.Label23.Text = Today
         Me.Label41.Text = Today
         Label24.Text = TB_COTIZACION.Text
@@ -1803,11 +1807,24 @@ Public Class Estimacion
             Me.pnlContents3.Visible = True
             Me.btnEspanol.Visible = False
             Me.btnEnglish.Visible = True
+
+            txtAtencionENG.Text = txtAtencion.Text
+            TextAreaENG.Text = TextArea.Text
+            txtOrdenEntregaENG.Text = txtOrdenEntrega.Text
+            txtTerminoEntregaENG.Text = txtTerminoEntrega.Text
+            txtOferValidaENG.Text = txtOferValida.Text
         ElseIf Me.pnlContents3.Visible = True Then
             Me.pnlContents.Visible = True
             Me.pnlContents3.Visible = False
             Me.btnEspanol.Visible = True
             Me.btnEnglish.Visible = False
+
+            txtAtencion.Text = txtAtencionENG.Text
+            TextArea.Text = TextAreaENG.Text
+            txtOrdenEntrega.Text = txtOrdenEntregaENG.Text
+            txtTerminoEntrega.Text = txtTerminoEntregaENG.Text
+            txtOferValida.Text = txtOferValidaENG.Text
         End If
     End Sub
+
 End Class

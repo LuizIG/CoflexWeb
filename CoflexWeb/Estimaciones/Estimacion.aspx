@@ -109,8 +109,8 @@
                 }, 500);
                 return false;
             }
-        function PrintPanel3() {
-            var panel = document.getElementById("<%=pnlContents3.ClientID %>");
+            function PrintPanel3() {
+                var panel = document.getElementById("<%=pnlContents3.ClientID %>");
             var printWindow = window.open('', '', 'height=400,width=800');
             printWindow.document.write('<html><head><title></title>');
             printWindow.document.write('</head><body >');
@@ -142,12 +142,15 @@
                         <th>Estatus</th>
                     </tr>
                     <tr>
-                        <th><asp:TextBox ID="TB_COTIZACION" Width="70%" Enabled="false" runat="server"></asp:TextBox></th>
-                        <th><asp:TextBox ID="TB_VERSION" Width="70%" Enabled="false" runat="server"></asp:TextBox></th>
-                        <th><asp:TextBox ID="TB_ESTATUS" Width="70%" Enabled="false" runat="server"></asp:TextBox></th>
+                        <th>
+                            <asp:TextBox ID="TB_COTIZACION" Width="70%" Enabled="false" runat="server"></asp:TextBox></th>
+                        <th>
+                            <asp:TextBox ID="TB_VERSION" Width="70%" Enabled="false" runat="server"></asp:TextBox></th>
+                        <th>
+                            <asp:TextBox ID="TB_ESTATUS" Width="70%" Enabled="false" runat="server"></asp:TextBox></th>
                     </tr>
 
-                
+
                 </table>
             </div>
             <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
@@ -199,7 +202,7 @@
                                                 </b>&nbsp;</td>
                                             </tr>
                                             <tr>
-                                                <td style="text-align:left">
+                                                <td style="text-align: left">
                                                     <asp:Label ID="Label9" runat="server" Text="Cliente"></asp:Label>&nbsp;
                                                 </td>
                                                 <td>
@@ -211,7 +214,7 @@
                                                 </td>--%>
                                             </tr>
                                             <tr>
-                                                <td  style="text-align:left">
+                                                <td style="text-align: left">
                                                     <asp:Label ID="Label8" runat="server" Text="Artículo"></asp:Label>&nbsp;
                                                 </td>
                                                 <td>
@@ -229,20 +232,21 @@
                                                 <td colspan="3" style="text-align: left;"><b>&nbsp;<asp:Label ID="Label21" runat="server" Text="Componentes"></asp:Label>
                                                 </b>&nbsp;</td>
                                             </tr>
-                                            <tr style="text-align:left">
-                                                <td><asp:Label ID="Label35" Width="90%" runat="server" Text="Filtro"></asp:Label>&nbsp;</td>
+                                            <tr style="text-align: left">
                                                 <td>
-                                                    <asp:TextBox Width="90%" height="90%" ID="txtSearch" runat="server" onkeyup="FilterItems(this.value)"></asp:TextBox>
+                                                    <asp:Label ID="Label35" Width="90%" runat="server" Text="Filtro"></asp:Label>&nbsp;</td>
+                                                <td>
+                                                    <asp:TextBox Width="90%" Height="90%" ID="txtSearch" runat="server" onkeyup="FilterItems(this.value)"></asp:TextBox>
                                                 </td>
                                                 <%-- <td rowspan="2" style="vertical-align: central;">
                                                     <asp:Button ID="Button3" runat="server" class="btn btn-primary" Text="Agregar" />
                                                 </td>--%>
                                             </tr>
                                             <tr>
-                                                <td  style="text-align:left">
+                                                <td style="text-align: left">
                                                     <asp:Label ID="Label11" Width="90%" runat="server" Text="Componente"></asp:Label>&nbsp;
                                                 </td>
-                                                <td  style="text-align:left">
+                                                <td style="text-align: left">
                                                     <asp:DropDownList Width="90%" ID="DDComponente" runat="server">
                                                     </asp:DropDownList>&nbsp;
                                                 </td>
@@ -260,7 +264,7 @@
                                                 </b>&nbsp;</td>
                                             </tr>
                                             <tr>
-                                                <td  style="text-align:left">
+                                                <td style="text-align: left">
                                                     <asp:Label ID="Label12" runat="server" Text="Elemento"></asp:Label>&nbsp;
                                                 </td>
                                                 <td>
@@ -381,7 +385,7 @@
                                                     <td>&nbsp;&nbsp;<asp:Label ID="Label13" runat="server" Text="Estandar"></asp:Label>&nbsp;</td>
                                                     <td colspan="2">
                                                         <asp:RadioButton ID="RadioButton1" Visible="false" GroupName="tipoCosto" runat="server" />
-                                                <asp:TextBox ID="TextBox5" Enabled="false" Width="40%" runat="server"></asp:TextBox>&nbsp;
+                                                        <asp:TextBox ID="TextBox5" Enabled="false" Width="40%" runat="server"></asp:TextBox>&nbsp;
                                                     </td>
                                                     <td>&nbsp;<br />
                                                     </td>
@@ -390,7 +394,7 @@
                                                     <td>&nbsp;&nbsp;<asp:Label ID="Label6" runat="server" Visible="false" Text="Compuesto"></asp:Label>&nbsp;</td>
                                                     <td colspan="2">
                                                         <asp:RadioButton ID="RadioButton3" Enabled="false" Visible="false" GroupName="tipoCosto" runat="server" />
-                                                <asp:TextBox ID="TextBox8" Enabled="false" Visible="false" Width="40%" runat="server"></asp:TextBox>&nbsp;
+                                                        <asp:TextBox ID="TextBox8" Enabled="false" Visible="false" Width="40%" runat="server"></asp:TextBox>&nbsp;
                                             
                                                     </td>
                                                     <td></td>
@@ -452,14 +456,14 @@
                         </asp:UpdateProgress>
                     </div>
                     <div id="div1" runat="server"></div>
-                    <div class="well well-lg" >
+                    <div class="well well-lg">
 
-                        <div id="result_div_error" runat="server" style="display:none" class="alert alert-danger alert-dismissable fade in">
+                        <div id="result_div_error" runat="server" style="display: none" class="alert alert-danger alert-dismissable fade in">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             <div runat="server" id="div_description"></div>
                         </div>
 
-                        <div id="result_div_ok" runat="server" style="display:none" class="alert alert-success alert-dismissable fade in">
+                        <div id="result_div_ok" runat="server" style="display: none" class="alert alert-success alert-dismissable fade in">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             <div runat="server" id="div_description_ok"></div>
                         </div>
@@ -566,11 +570,11 @@
                                 <tr>
                                     <td>
                                         <asp:Button ID="Regresar" class="btn btn-primary" runat="server" Text="Regresar" />
-                                        
+
                                         <asp:Button ID="Guardar" class="btn btn-primary" runat="server" Text="Guardar" />
-                                       
+
                                         <asp:Button ID="Versionar" class="btn btn-primary" runat="server" Text="Versionar" />
-                                       
+
                                         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Cambiar Estatus</button>
                                     </td>
                                 </tr>
@@ -665,8 +669,8 @@
                                 <td colspan="4">
                                     <asp:Button ID="Button7" class="btn btn-primary hidden-print" runat="server" Text="Idioma" />
                                     <asp:Button ID="btnEspanol" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel();" runat="server" Text="Imprimir" />
-                                    <asp:Button ID="btnEnglish" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel3();" Visible="false"  runat="server" Text="Imprimir" />
-                                <asp:Button ID="Button10" class="btn btn-primary hidden-print" runat="server" Text="Regresar" />
+                                    <asp:Button ID="btnEnglish" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel3();" Visible="false" runat="server" Text="Imprimir" />
+                                    <asp:Button ID="Button10" class="btn btn-primary hidden-print" runat="server" Text="Regresar" />
 
                                 </td>
                             </tr>
@@ -723,7 +727,7 @@
                                             <asp:Label ID="lblDDClienteCotiza" ForeColor="Black" runat="server"></asp:Label>
                                             <br />
                                             <asp:Label ID="Label40" ForeColor="Black" runat="server">Atención a:&nbsp;</asp:Label>
-                                            <asp:TextBox ID="txtAtencion" Width="50%" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="txtAtencion" Width="50%" AutoPostBack="true" runat="server"></asp:TextBox>
                                         </b>
                                     </td>
                                 </tr>
@@ -754,11 +758,14 @@
                                             <tr>
                                                 <td style="width: 20%"><b>
                                                     <asp:Label ID="Label37" runat="server">Configuración de los productos</asp:Label></b></td>
-                                              
+
                                             </tr>
                                             <tr>
                                                 <td style="color: #000080;">
-                                                    <b><textarea id="TextArea1" style="width: 100%; max-width: 1200px !important"  rows="10"></textarea></b>
+                                                    <b>
+                                                        <%--<textarea id="TextArea1" style="width: 100%; max-width: 1200px !important" autopostback="true" rows="10"></textarea>--%>
+                                                        <asp:TextBox ID="TextArea" Style="width: 100%; max-width: 1200px !important" TextMode="MultiLine" runat="server" Height="129px" Width="941px"></asp:TextBox>
+                                                    </b>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -767,7 +774,7 @@
                                         </table>
                                     </td>
                                 </tr>
-                                 <tr>
+                                <tr>
                                     <td colspan="4" style="border-style: solid; border-width: medium 0px 0px 0px; text-align: left; color: #000080; border-top-color: #003366;">
                                         <table style="width: 100%; color: black">
                                             <tr>
@@ -776,13 +783,15 @@
                                                 <td>&nbsp;</td>
                                             </tr>
                                             <tr>
-                                                  <td>
+                                                <td>
                                                     <asp:Label ID="Label39" runat="server">Orden de entrega</asp:Label></td>
                                                 <td style="color: #000080;">
-                                                   <b> <asp:TextBox ID="TextBox9" style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
+                                                    <b>
+                                                        <asp:TextBox ID="txtOrdenEntrega" AutoPostBack="true" Style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
                                             </tr>
-                                              <tr>
-                                                <td>&nbsp;</td><td>&nbsp;</td>
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
                                             </tr>
                                         </table>
                                     </td>
@@ -794,23 +803,26 @@
                                                 <td style="width: 20%"><b>
                                                     <asp:Label ID="Label26" runat="server">Término de entrega</asp:Label></b></td>
                                                 <td style="color: #000080;">
-                                                    <b><asp:TextBox ID="TextBox10" style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
+                                                    <b>
+                                                        <asp:TextBox ID="txtTerminoEntrega" AutoPostBack="true" Style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
                                             </tr>
-                                             <tr>
+                                            <tr>
                                                 <td style="width: 20%"><b>
                                                     <asp:Label ID="Label27" runat="server">Oferta válida</asp:Label></b></td>
                                                 <td style="color: #000080;">
-                                                    <b><asp:TextBox ID="TextBox11" style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
+                                                    <b>
+                                                        <asp:TextBox ID="txtOferValida" AutoPostBack="true" Style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
                                             </tr>
-                                              <tr>
-                                                <td>&nbsp;</td><td>&nbsp;</td>
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
                                             </tr>
                                         </table>
                                     </td>
                                 </tr>
                             </table>
                         </asp:Panel>
-                   
+
                         <asp:Panel ID="pnlContents3" Visible="false" runat="server">
                             <table style="width: 100%">
                                 <tr>
@@ -858,7 +870,7 @@
                                             <asp:Label ID="lblDDClienteCotizaENG" ForeColor="Black" runat="server"></asp:Label>
                                             <br />
                                             <asp:Label ID="Label45" ForeColor="Black" runat="server">Atention to:&nbsp;</asp:Label>
-                                            <asp:TextBox ID="TextBox12" Width="50%" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="txtAtencionENG" AutoPostBack="true" Width="50%" runat="server"></asp:TextBox>
                                         </b>
                                     </td>
                                 </tr>
@@ -867,7 +879,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="4" style="border-style: solid; border-width: medium 0px 0px 0px; text-align: left; border-top-color: #003366;">
-                                        <asp:GridView class="table" ID="GridView1" Width="100%" AutoGenerateColumns="False" runat="server" ShowFooter="False">
+                                        <asp:GridView class="table" ID="GridViewCotizaENG" Width="100%" AutoGenerateColumns="False" runat="server" ShowFooter="False">
                                             <Columns>
                                                 <asp:BoundField ItemStyle-Width="20%" HeaderText="Item" DataField="SkuComponente">
                                                     <ItemStyle Width="20%" BorderStyle="Solid" />
@@ -889,11 +901,14 @@
                                             <tr>
                                                 <td style="width: 20%"><b>
                                                     <asp:Label ID="Label46" runat="server">Product Configuration</asp:Label></b></td>
-                                              
+
                                             </tr>
                                             <tr>
                                                 <td style="color: #000080;">
-                                                    <b><textarea id="TextArea1" style="width: 100%; max-width: 1200px !important"  rows="10"></textarea></b>
+                                                    <b>
+                                                        <%--<textarea id="TextArea2" style="width: 100%; max-width: 1200px !important" rows="10"></textarea>--%>
+                                                        <asp:TextBox ID="TextAreaENG" Style="width: 100%; max-width: 1200px !important" TextMode="MultiLine" runat="server" Height="129px" Width="941px"></asp:TextBox>
+                                                    </b>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -909,30 +924,34 @@
                                                 <td style="width: 20%"><b>
                                                     <asp:Label ID="Label49" runat="server">MOQ</asp:Label></b></td>
                                                 <td style="color: #000080;">
-                                                    <b><asp:TextBox ID="TextBox14" style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
+                                                    <b>
+                                                        <asp:TextBox ID="txtOrdenEntregaENG" AutoPostBack="true" Style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
                                             </tr>
-                                             <tr>
+                                            <tr>
                                                 <td style="width: 20%"><b>
                                                     <asp:Label ID="Label50" runat="server">Incoterm</asp:Label></b></td>
                                                 <td style="color: #000080;">
-                                                    <b><asp:TextBox ID="TextBox15" style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
+                                                    <b>
+                                                        <asp:TextBox ID="txtTerminoEntregaENG" AutoPostBack="true" Style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
                                             </tr>
                                             <tr>
                                                 <td style="width: 20%"><b>
                                                     <asp:Label ID="Label47" runat="server">Validity of Offer</asp:Label></b></td>
                                                 <td style="color: #000080;">
-                                                    <b><asp:TextBox ID="TextBox13" style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
+                                                    <b>
+                                                        <asp:TextBox ID="txtOferValidaENG" AutoPostBack="true" Style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
                                             </tr>
-                                              <tr>
-                                                <td>&nbsp;</td><td>&nbsp;</td>
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
                                             </tr>
                                         </table>
                                     </td>
                                 </tr>
                             </table>
                         </asp:Panel>
-                        
-                         </div>
+
+                    </div>
 
                 </asp:View>
                 <asp:View ID="View5" runat="server">
