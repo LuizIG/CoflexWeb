@@ -3,11 +3,13 @@ Imports System.IO
 Imports System.Net
 Imports System.Reflection
 Imports Newtonsoft.Json.Linq
+Imports System.Configuration
 
 Namespace CoflexWeb.Services.Web
     Public Module CoflexWebServices
 
-        Private Const SERVER_HOST As String = "http://62.151.178.139/DM"
+        Private SERVER_HOST As String = ConfigurationManager.AppSettings("url").ToString
+        ''http://62.151.178.139/DM
         'Private Const SERVER_HOST As String = "http://localhost/"
 
         Public Const LOGIN As String = "CoflexAPI/Token"

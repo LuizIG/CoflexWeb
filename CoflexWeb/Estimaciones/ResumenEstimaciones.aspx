@@ -6,6 +6,25 @@
     <script src="../Scripts/bootstrap-datepicker.js"></script>
     <script type="text/javascript">
 
+        function CheckNumericNumeric(e) {
+
+            if (window.event) // IE 
+            {
+                if ((e.keyCode < 48 || e.keyCode > 57) & e.keyCode != 8) {
+                    event.returnValue = false;
+                    return false;
+
+                }
+            }
+            else { // Fire Fox
+                if ((e.which < 48 || e.which > 57) & e.which != 8) {
+                    e.preventDefault();
+                    return false;
+
+                }
+            }
+        }
+
 
         var prm = Sys.WebForms.PageRequestManager.getInstance();
 
@@ -133,7 +152,7 @@
                             <asp:Label ID="Label4" runat="server" Text="Versión"></asp:Label>&nbsp;
                         </td>
                         <td>
-                            <asp:TextBox ID="txtVersion" Style="width: 85px; height:90%" runat="server"></asp:TextBox>&nbsp;
+                            <asp:TextBox ID="txtVersion" onkeypress="CheckNumericNumeric(event);" Style="width: 85px; height:90%" runat="server"></asp:TextBox>&nbsp;
                         </td>
                         <td>
 
