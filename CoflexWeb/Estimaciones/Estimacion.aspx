@@ -667,7 +667,7 @@
                         <table style="width: 100%">
                             <tr style="text-align: right">
                                 <td colspan="4">
-                                    <asp:Button ID="Button7" class="btn btn-primary hidden-print" runat="server" Text="Idioma" />
+                                    <asp:Button ID="Button7" class="btn btn-primary hidden-print" runat="server" Text="Id   ioma" />
                                     <asp:Button ID="btnEspanol" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel();" runat="server" Text="Imprimir" />
                                     <asp:Button ID="btnEnglish" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel3();" Visible="false" runat="server" Text="Imprimir" />
                                     <asp:Button ID="btnGuardaCotiza" class="btn btn-primary hidden-print" runat="server" Text="Guardar" />

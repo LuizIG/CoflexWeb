@@ -1382,6 +1382,7 @@ Public Class Estimacion
         GridViewCotizaENG.DataBind()
 
         If Request.QueryString("v") IsNot Nothing Then
+            btnGuardaCotiza.CssClass = "btn btn-primary"
             Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATION_COMMENTS & "/" & Request.QueryString("v"),, Session("access_token"))
             Dim o = JObject.Parse(jsonResponse)
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
@@ -1403,6 +1404,9 @@ Public Class Estimacion
                 txtOferValida.Text = detail.GetValue("ValidOffer").Value(Of String)
             End If
 
+        Else
+            btnGuardaCotiza.Enabled = False
+            btnGuardaCotiza.CssClass = "btn btn-primary disabled"
         End If
 
         Me.Label23.Text = Today

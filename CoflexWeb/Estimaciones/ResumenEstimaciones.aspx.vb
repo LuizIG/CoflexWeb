@@ -15,10 +15,13 @@ Public Class ResumenEstimaciones
                 Dim detail = o.GetValue("detail").Value(Of JArray)
 
                 Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
-                Table.DefaultView.Sort = "date desc"
-                ViewState("CurrentTable") = Table
-                Me.GridQuotations.DataSource = Table
-                Me.GridQuotations.DataBind()
+
+                If Table.Columns.Count > 0 Then
+                    Table.DefaultView.Sort = "date desc"
+                    ViewState("CurrentTable") = Table
+                    Me.GridQuotations.DataSource = Table
+                    Me.GridQuotations.DataBind()
+                End If
 
                 GridQuotations.EmptyDataText = "No se encontraron cotizaciones"
 
