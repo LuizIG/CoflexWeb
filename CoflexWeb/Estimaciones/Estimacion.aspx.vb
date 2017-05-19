@@ -185,6 +185,7 @@ Public Class Estimacion
                         Button4.CssClass = "btn btn-primary disabled"
                         BtnRecalcular.CssClass = "btn btn-success disabled"
                         Guardar.CssClass = "btn btn-primary disabled"
+                        Versionar.CssClass = "btn btn-primary disabled"
 
                         ButtonAllAgregar.Enabled = False
                         Button1.Enabled = False
@@ -201,6 +202,7 @@ Public Class Estimacion
                         Button4.CssClass = "btn btn-primary"
                         BtnRecalcular.CssClass = "btn btn-success"
                         Guardar.CssClass = "btn btn-primary"
+                        Versionar.CssClass = "btn btn-primary"
 
                         ButtonAllAgregar.Enabled = True
                         Button1.Enabled = True
@@ -1368,6 +1370,7 @@ Public Class Estimacion
                     Tv_Exchange.Enabled = False
 
                     If STATUS >= 3 Then
+                        Versionar.Enabled = False
                         Versionar.CssClass = "btn btn-primary disabled"
                     End If
 
@@ -1377,6 +1380,9 @@ Public Class Estimacion
                     Button4.CssClass = "btn btn-primary"
                     BtnRecalcular.CssClass = "btn btn-success"
                     Guardar.CssClass = "btn btn-primary"
+
+                    Versionar.Enabled = True
+                    Versionar.CssClass = "btn btn-primary"
 
                     ButtonAllAgregar.Enabled = True
                     Button1.Enabled = True
