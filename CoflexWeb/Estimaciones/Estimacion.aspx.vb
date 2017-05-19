@@ -185,9 +185,15 @@ Public Class Estimacion
                         Button4.CssClass = "btn btn-primary disabled"
                         BtnRecalcular.CssClass = "btn btn-success disabled"
                         Guardar.CssClass = "btn btn-primary disabled"
+
+                        ButtonAllAgregar.Enabled = False
+                        Button1.Enabled = False
+                        Button4.Enabled = False
+                        BtnRecalcular.Enabled = False
+                        Guardar.Enabled = False
                         Tv_Exchange.Enabled = False
                         If Status >= 3 Then
-                            Versionar.CssClass = "btn btn-primary disabled"
+                            Versionar.Enabled = False
                         End If
                     Else
                         ButtonAllAgregar.CssClass = "btn btn-primary"
@@ -195,6 +201,13 @@ Public Class Estimacion
                         Button4.CssClass = "btn btn-primary"
                         BtnRecalcular.CssClass = "btn btn-success"
                         Guardar.CssClass = "btn btn-primary"
+
+                        ButtonAllAgregar.Enabled = True
+                        Button1.Enabled = True
+                        Button4.Enabled = True
+                        BtnRecalcular.Enabled = True
+                        Guardar.Enabled = True
+
                         Tv_Exchange.Enabled = True
                     End If
 
@@ -1345,6 +1358,13 @@ Public Class Estimacion
                     Button4.CssClass = "btn btn-primary disabled"
                     BtnRecalcular.CssClass = "btn btn-success disabled"
                     Guardar.CssClass = "btn btn-primary disabled"
+
+                    ButtonAllAgregar.Enabled = False
+                    Button1.Enabled = False
+                    Button4.Enabled = False
+                    BtnRecalcular.Enabled = False
+                    Guardar.Enabled = False
+
                     Tv_Exchange.Enabled = False
 
                     If STATUS >= 3 Then
@@ -1357,6 +1377,13 @@ Public Class Estimacion
                     Button4.CssClass = "btn btn-primary"
                     BtnRecalcular.CssClass = "btn btn-success"
                     Guardar.CssClass = "btn btn-primary"
+
+                    ButtonAllAgregar.Enabled = True
+                    Button1.Enabled = True
+                    Button4.Enabled = True
+                    BtnRecalcular.Enabled = True
+                    Guardar.Enabled = True
+
                     Tv_Exchange.Enabled = True
                 End If
 
@@ -1382,6 +1409,7 @@ Public Class Estimacion
         GridViewCotizaENG.DataBind()
 
         If Request.QueryString("v") IsNot Nothing Then
+            btnGuardaCotiza.Enabled = True
             btnGuardaCotiza.CssClass = "btn btn-primary"
             Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATION_COMMENTS & "/" & Request.QueryString("v"),, Session("access_token"))
             Dim o = JObject.Parse(jsonResponse)
