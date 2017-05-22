@@ -112,7 +112,7 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - Preliminar 1904</p>
+                <p>&copy; <%: DateTime.Now.Year %> - v.22052017</p>
             </footer>
         </div>
 
