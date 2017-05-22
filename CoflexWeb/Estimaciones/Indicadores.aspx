@@ -72,7 +72,7 @@
 
                         </td>
                         <td>
-                            <asp:Label ID="Label4" runat="server" Text="Propuesta"></asp:Label>
+                            <asp:Label ID="Label4" runat="server" Text="Version"></asp:Label>
                         </td>
 
                         <td>
@@ -88,7 +88,7 @@
                             </div>
                         </td>
                           <td>
-                            <asp:Label ID="Label5" runat="server" Text="Version"></asp:Label>
+                            <asp:Label ID="Label5" runat="server" Text="Propuesta"></asp:Label>
                         </td>
                         <td>
                              <div style="text-align: left;">

@@ -8,7 +8,6 @@ Public Class Indicadores
 
     Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
 
-
         If Not IsPostBack Then
             Dim r As New Globalization.CultureInfo("es-us")
             r.NumberFormat.CurrencyDecimalSeparator = "."
@@ -18,8 +17,6 @@ Public Class Indicadores
 
             Me.TextBox1.Text = DateTime.Today.AddMonths(-1).AddDays(1 - DateTime.Today.Day)
             Me.TextBox2.Text = DateTime.Today.AddMonths(1).AddDays(-DateTime.Today.Day)
-
-            PrintGraph()
 
             Dim Response = doGetRequest(USERS_BY_LEADERS,, Session("access_token"))
             Dim o = JObject.Parse(Response)
@@ -35,11 +32,13 @@ Public Class Indicadores
 
                 Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
                 Me.DDVendedor.DataSource = Table
-                Me.DDVendedor.DataValueField = "Name"
+                Me.DDVendedor.DataValueField = "Id"
                 Me.DDVendedor.DataTextField = "Name"
                 Me.DDVendedor.DataBind()
                 Me.DDVendedor.Items.Insert(0, New ListItem("Seleccionar", ""))
             End If
+
+            PrintGraph()
 
         End If
     End Sub
@@ -48,7 +47,7 @@ Public Class Indicadores
 
         ''Dim selected As New List(Of ListItem)()
         Dim strCBPropuesta As String = ""
-        For Each item As ListItem In CBPropuesta.Items
+        For Each item As ListItem In CBVersion.Items
             If item.Selected Then
                 ''selected.Add(item)
                 strCBPropuesta = strCBPropuesta + item.Value.ToString + ","
@@ -57,7 +56,7 @@ Public Class Indicadores
 
         ''Dim selected As New List(Of ListItem)()
         Dim strCBVersion As String = ""
-        For Each item As ListItem In CBVersion.Items
+        For Each item As ListItem In CBPropuesta.Items
             If item.Selected Then
                 ''selected.Add(item)
                 strCBVersion = strCBVersion + item.Value.ToString + ","
@@ -67,9 +66,18 @@ Public Class Indicadores
         strCBPropuesta = Left(strCBPropuesta, strCBPropuesta.Length - 1)
         strCBVersion = Left(strCBVersion, strCBVersion.Length - 1)
 
+        Dim strtxtCliente As String = ""
+        If Trim(txtCliente.Text) <> "" Then
+            strtxtCliente = "&cliente=" & txtCliente.Text
+        End If
+
+        Dim strDDVendedor As String = ""
+        If Trim(DDVendedor.SelectedValue) <> "" Then
+            strDDVendedor = "&vendedor=" & DDVendedor.SelectedValue
+        End If
 
 
-        Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.INDICATORS & "?min=" & Me.TextBox1.Text & "&max=" & Me.TextBox2.Text & "&estatus=" & strCBPropuesta & "&estatusV=" & strCBVersion & "&vendedor=" & DDVendedor.SelectedValue & "&cliente=" & txtCliente.Text,, Session("access_token"))
+        Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.INDICATORS & "?min=" & Me.TextBox1.Text & "&max=" & Me.TextBox2.Text & "&estatus=" & strCBPropuesta & "&estatusV=" & strCBVersion & strDDVendedor & strtxtCliente,, Session("access_token"))
         Dim o = JObject.Parse(jsonResponse)
         Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
         If (statusCode >= 200 And statusCode < 400) Then
