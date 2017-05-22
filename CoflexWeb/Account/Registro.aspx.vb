@@ -60,6 +60,10 @@ Public Class Registro
                 If chkRow.Checked Then
                     Dim Rol As New JObject
 
+                    If (row.Cells(1).Text = "Vendedor") Then
+                        EsVendedor = True
+                    End If
+
                     If (row.Cells(1).Text = "Gerente de Ventas") Then
                         EsVendedor = True
                     End If
