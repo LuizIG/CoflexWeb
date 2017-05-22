@@ -7,7 +7,7 @@ Public Class Indicadores
     Inherits CoflexWebPage
 
     Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
-
+        MyBase.Page_Load(sender, e)
         If Not IsPostBack Then
             Dim r As New Globalization.CultureInfo("es-us")
             r.NumberFormat.CurrencyDecimalSeparator = "."
