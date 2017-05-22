@@ -49,7 +49,7 @@
             <div class="well well-lg" style="width: 100%; text-align: center">
                 <table style="border-style: solid; border-color: #C0C0C0; width: 100%;">
                     <tr style="vertical-align: top; background-color: #C0C0C0;">
-                        <td style="width: 100%; text-align: left; vertical-align: top;" colspan="8">
+                        <td style="width: 100%; text-align: left; vertical-align: top;" colspan="10">
                             <b>&nbsp;<asp:Label ID="Label30" runat="server" Text="Filtro"></asp:Label>
                             </b>&nbsp;
                         </td>
@@ -58,7 +58,7 @@
                     <tr>
 
                         <td>
-                            <div class="input-daterange input-group" id="datepicker">
+                            <%--<div class="input-daterange input-group" id="datepicker">--%>
                                 <asp:Label ID="Label7" runat="server" Text="Fecha"></asp:Label>
                             &nbsp;
                         </td>
@@ -71,7 +71,47 @@
                             </div>
 
                         </td>
-                        <td style="width: 75%"></td>
+                        <td>
+                            <asp:Label ID="Label4" runat="server" Text="Propuesta"></asp:Label>
+                        </td>
+
+                        <td>
+                            <div style="text-align: left;">
+                            <asp:CheckBoxList ID="CBPropuesta" runat="server" RepeatColumns="2"  TextAlign="right" >
+                                <asp:ListItem Text="Abierta" Value="0" Selected="True" ></asp:ListItem>
+                                <asp:ListItem Text="Cerrada" Value="1" Selected="True" ></asp:ListItem>
+                                <asp:ListItem Text="Descartada" Value="2" Selected="True" ></asp:ListItem>
+                                <asp:ListItem Text="Aceptada" Value="3" Selected="True" ></asp:ListItem>
+                                <asp:ListItem Text="Cancelada" Value="4" Selected="True" ></asp:ListItem>
+                            </asp:CheckBoxList>
+
+                            </div>
+                        </td>
+                          <td>
+                            <asp:Label ID="Label5" runat="server" Text="Version"></asp:Label>
+                        </td>
+                        <td>
+                             <div style="text-align: left;">
+                            <asp:CheckBoxList ID="CBVersion" runat="server"  TextAlign="right" >
+                                <asp:ListItem Text="Abierta" Value="0" Selected="True" ></asp:ListItem>
+                                <asp:ListItem Text="Cerrada" Value="1" Selected="True" ></asp:ListItem>
+                                <asp:ListItem Text="Cancelada" Value="2" Selected="True" ></asp:ListItem>
+                            </asp:CheckBoxList>
+
+                            </div>
+                        </td>
+                        <td>
+                            <asp:Label ID="Label6" runat="server" Text="Cliente"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtCliente" runat="server"></asp:TextBox>
+                        </td>
+                        <td>
+                            <asp:Label ID="Label9" runat="server" Text="Vendedor"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="DDVendedor" Style="width: 200px;" runat="server"></asp:DropDownList>&nbsp;
+                        </td>
 
                     </tr>
 

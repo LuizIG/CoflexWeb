@@ -21,12 +21,55 @@ Public Class Indicadores
 
             PrintGraph()
 
+            Dim Response = doGetRequest(USERS_BY_LEADERS,, Session("access_token"))
+            Dim o = JObject.Parse(Response)
+            Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+            If (statusCode >= 200 And statusCode < 400) Then
+                Dim detail = o.GetValue("detail").Value(Of JArray)
+
+                For Each Vendedor As JObject In detail
+                    Vendedor.Remove("Claims")
+                    Vendedor.Remove("Logins")
+                    Vendedor.Remove("Roles")
+                Next
+
+                Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+                Me.DDVendedor.DataSource = Table
+                Me.DDVendedor.DataValueField = "Name"
+                Me.DDVendedor.DataTextField = "Name"
+                Me.DDVendedor.DataBind()
+                Me.DDVendedor.Items.Insert(0, New ListItem("Seleccionar", ""))
+            End If
+
         End If
     End Sub
 
     Private Sub PrintGraph()
 
-        Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.INDICATORS & "?min=" & Me.TextBox1.Text & "&max=" & Me.TextBox2.Text,, Session("access_token"))
+        ''Dim selected As New List(Of ListItem)()
+        Dim strCBPropuesta As String = ""
+        For Each item As ListItem In CBPropuesta.Items
+            If item.Selected Then
+                ''selected.Add(item)
+                strCBPropuesta = strCBPropuesta + item.Value.ToString + ","
+            End If
+        Next
+
+        ''Dim selected As New List(Of ListItem)()
+        Dim strCBVersion As String = ""
+        For Each item As ListItem In CBVersion.Items
+            If item.Selected Then
+                ''selected.Add(item)
+                strCBVersion = strCBVersion + item.Value.ToString + ","
+            End If
+        Next
+
+        strCBPropuesta = Left(strCBPropuesta, strCBPropuesta.Length - 1)
+        strCBVersion = Left(strCBVersion, strCBVersion.Length - 1)
+
+
+
+        Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.INDICATORS & "?min=" & Me.TextBox1.Text & "&max=" & Me.TextBox2.Text & "&estatus=" & strCBPropuesta & "&estatusV=" & strCBVersion & "&vendedor=" & DDVendedor.SelectedValue & "&cliente=" & txtCliente.Text,, Session("access_token"))
         Dim o = JObject.Parse(jsonResponse)
         Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
         If (statusCode >= 200 And statusCode < 400) Then
