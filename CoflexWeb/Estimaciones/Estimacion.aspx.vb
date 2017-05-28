@@ -903,7 +903,7 @@ Public Class Estimacion
         If (Session("Status") = 0) Then 'Solo 0
             Dim IdQuotaionVersion As String = Request.QueryString("v")
             If IdQuotaionVersion IsNot Nothing Then
-                Dim Response = doPutRequest(QUOTATIONS_VERSION & "/" & IdQuotaionVersion, CreateQuotationVersion(IdQuotaionVersion).ToString)
+                Dim Response = doPutRequest(QUOTATIONS_VERSION & "/" & IdQuotaionVersion, CreateQuotationVersion(IdQuotaionVersion).ToString,, Session("access_token"))
                 Dim o = JObject.Parse(Response)
                 Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
                 If (statusCode >= 200 And statusCode < 400) Then
@@ -1008,6 +1008,7 @@ Public Class Estimacion
 
 
             Dim TBMargin As TextBox = TryCast(row.FindControl("TVMargin"), TextBox)
+            Dim TBDescAlt As TextBox = TryCast(row.FindControl("TBDescAlt"), TextBox)
 
             Item.Add("Sku", sku)
             Item.Add("ItemDescription", reng("ITEMDESC").ToString)
@@ -1015,13 +1016,13 @@ Public Class Estimacion
             Item.Add("UM", reng("UOFM").ToString)
             Item.Add("Status", 0)
             Item.Add("ProfitMargin", CDbl(TBMargin.Text) / 100)
-            Item.Add("ItemsComponents", CreateItemComponents(sku, "1.0"))
+            Item.Add("ItemsComponents", CreateItemComponents(sku, "1.0", TBDescAlt.Text))
             ItemArray.Add(Item)
         Next
         Return ItemArray
     End Function
 
-    Private Function CreateItemComponents(ByVal itemSku As String, ByVal cant As String) As JArray
+    Private Function CreateItemComponents(ByVal itemSku As String, ByVal cant As String, ByVal descAlt As String) As JArray
         Dim ItemComponentsArray As New JArray
         Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
         dv.RowFilter = "SkuArticulo = '" & itemSku & "'"
@@ -1030,8 +1031,11 @@ Public Class Estimacion
 
             If CInt(reng("Nivel1").ToString) = 0 And CInt(reng("Nivel2").ToString) = 0 And CInt(reng("Nivel3").ToString) = 0 Then
                 Item.Add("Quantity", CDbl(cant))
+                Item.Add("AltDescription", descAlt)
+                reng("AltDescription") = descAlt
             Else
                 Item.Add("Quantity", CDbl(reng("QUANTITY_I").ToString))
+                Item.Add("AltDescription", "")
             End If
 
             Item.Add("SkuComponent", reng("SkuComponente").ToString)
@@ -1270,7 +1274,7 @@ Public Class Estimacion
             Dim txCantidad = TryCast(e.Row.FindControl("TBQuantity"), TextBox)
             Dim txMargin = TryCast(e.Row.FindControl("TVMargin"), TextBox)
             Dim txShipping = TryCast(e.Row.FindControl("TVShipping"), TextBox)
-            Dim costoUnitario As Double = CDbl(e.Row.Cells(3).Text.Replace("$", ""))
+            Dim costoUnitario As Double = CDbl(e.Row.Cells(4).Text.Replace("$", ""))
             Dim cantidad As Double = CDbl(txCantidad.Text.Replace("$", ""))
             Dim margen As Double = CDbl(txMargin.Text.Replace("$", "")) / 100
             Dim shipping As Double = CDbl(txShipping.Text.Replace("$", ""))
@@ -1287,15 +1291,15 @@ Public Class Estimacion
             SumaCotizacion += (costoUnitario + shipping) * cantidad
             SumaMargen += ((costoUnitario + shipping) * cantidad * (1 + (margen)) - (costoUnitario + shipping) * cantidad)
 
-            e.Row.Cells(9).Text = ((costoUnitario + shipping) * margen).ToString("C2", New CultureInfo("es-MX"))
-            e.Row.Cells(10).Text = ((costoUnitario + shipping) * (1 + margen)).ToString("C2", New CultureInfo("es-MX"))
-            e.Row.Cells(11).Text = (((costoUnitario + shipping) * (1 + (margen))) / CDbl(Tv_Exchange.Text)).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(10).Text = ((costoUnitario + shipping) * margen).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(11).Text = ((costoUnitario + shipping) * (1 + margen)).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(12).Text = (((costoUnitario + shipping) * (1 + (margen))) / CDbl(Tv_Exchange.Text)).ToString("C2", New CultureInfo("es-MX"))
 
         ElseIf (e.Row.RowType = DataControlRowType.Footer) Then
-            e.Row.Cells(6).Text = FormatCurrency(SumaCotizacion)
+            e.Row.Cells(7).Text = FormatCurrency(SumaCotizacion)
             margen_ganancia.InnerHtml = "<h4>Margen de Ganancia: " & SumaMargen.ToString("C2", New CultureInfo("es-MX")) & "</h4>"
-            e.Row.Cells(10).Text = (Suma).ToString("C2", New CultureInfo("es-MX"))
-            e.Row.Cells(11).Text = (Suma / CDbl(Tv_Exchange.Text)).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(11).Text = (Suma).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(12).Text = (Suma / CDbl(Tv_Exchange.Text)).ToString("C2", New CultureInfo("es-MX"))
         End If
     End Sub
 

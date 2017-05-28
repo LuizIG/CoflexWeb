@@ -533,6 +533,13 @@
                             <Columns>
                                 <asp:BoundField ItemStyle-Width="20%" HeaderText="Sku" DataField="SkuComponente" />
                                 <asp:BoundField ItemStyle-Width="50%" HeaderText="Descripción" DataField="ITEMDESC" />
+
+                                <asp:TemplateField ItemStyle-Width="50%" HeaderText="Descripción Alternativa" Visible="true">
+                                    <ItemTemplate>
+                                        <asp:TextBox ID="TBDescAlt" Width="70px" Text='<%# Bind("AltDescription") %>' runat="server"></asp:TextBox>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+
                                 <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo Unitario (Sin Modificar)" Visible="false" DataField="RESULT" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" />
                                 <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo Unitario" DataField="UnitaryCost" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" />
                                 <asp:BoundField ItemStyle-Width="10%" HeaderText="Unidad de Medida" Visible="false" DataField="UOFM" />
