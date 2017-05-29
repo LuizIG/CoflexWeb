@@ -536,7 +536,7 @@
 
                                 <asp:TemplateField ItemStyle-Width="50%" HeaderText="Descripción Alternativa" Visible="true">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="TBDescAlt" Width="70px" Text='<%# Bind("AltDescription") %>' runat="server"></asp:TextBox>
+                                        <asp:TextBox ID="TBDescAlt" Width="100%" Text='<%# Bind("AltDescription") %>' runat="server"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
 
