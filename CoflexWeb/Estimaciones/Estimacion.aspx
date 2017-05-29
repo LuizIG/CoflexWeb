@@ -674,7 +674,7 @@
                         <table style="width: 100%">
                             <tr style="text-align: right">
                                 <td colspan="4">
-                                    <asp:Button ID="Button7" class="btn btn-primary hidden-print" runat="server" Text="Id   ioma" />
+                                    <asp:Button ID="Button7" class="btn btn-primary hidden-print" runat="server" Text="Idioma" />
                                     <asp:Button ID="btnEspanol" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel();" runat="server" Text="Imprimir" />
                                     <asp:Button ID="btnEnglish" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel3();" Visible="false" runat="server" Text="Imprimir" />
                                     <asp:Button ID="btnGuardaCotiza" class="btn btn-primary hidden-print" runat="server" Text="Guardar" />
@@ -750,6 +750,9 @@
                                                     <ItemStyle Width="20%" BorderStyle="Solid" />
                                                 </asp:BoundField>
                                                 <asp:BoundField ItemStyle-Width="50%" HeaderText="Descripción" DataField="ITEMDESC">
+                                                    <ItemStyle Width="60%" />
+                                                </asp:BoundField>
+                                                <asp:BoundField ItemStyle-Width="50%" HeaderText="Descripción alternativa" Visible="false" DataField="AltDescription">
                                                     <ItemStyle Width="60%" />
                                                 </asp:BoundField>
                                                 <asp:BoundField ItemStyle-Width="20%" DataField="UnitaryCost" HeaderText="Precio Unitario (Pesos)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" FooterText="Precios más IVA">
@@ -893,6 +896,9 @@
                                                     <ItemStyle Width="20%" BorderStyle="Solid" />
                                                 </asp:BoundField>
                                                 <asp:BoundField ItemStyle-Width="50%" HeaderText="Description" DataField="ITEMDESC">
+                                                    <ItemStyle Width="60%" />
+                                                </asp:BoundField>
+                                                <asp:BoundField ItemStyle-Width="50%" HeaderText="Description" Visible="false" DataField="AltDescription">
                                                     <ItemStyle Width="60%" />
                                                 </asp:BoundField>
                                                 <asp:BoundField ItemStyle-Width="20%" DataField="UnitaryCost" HeaderText="Unit Price (USD)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False">

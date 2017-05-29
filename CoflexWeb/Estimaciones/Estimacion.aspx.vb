@@ -1922,4 +1922,21 @@ Public Class Estimacion
 
     End Sub
 
+    Private Sub GridViewCotiza_DataBinding(sender As Object, e As GridViewRowEventArgs) Handles GridViewCotiza.RowDataBound, GridViewCotizaENG.RowDataBound
+        If e.Row.RowType = DataControlRowType.DataRow Then
+
+
+            Dim rowView As DataRowView = DirectCast(e.Row.DataItem, DataRowView)
+
+            ' Retrieve the EventTypeID value for the current row. 
+            Dim a As String = Convert.ToString(rowView("AltDescription"))
+
+            Dim textoAlterno = a
+
+            If (textoAlterno IsNot Nothing And textoAlterno <> "") Then
+                e.Row.Cells(1).Text = textoAlterno
+            End If
+
+        End If
+    End Sub
 End Class
