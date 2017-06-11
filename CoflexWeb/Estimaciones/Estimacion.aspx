@@ -1,6 +1,14 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="Estimacion.aspx.vb" Inherits="CoflexWeb.Estimacion" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
+    <style type="text/css">
+     .hidden
+     {
+         display:none;
+     }
+    </style>
+
     <script language="javascript" type="text/javascript">
         function CheckNumericNumeric(e) {
 
@@ -991,13 +999,13 @@
                                     <td colspan="4">&nbsp;</td>
                                 </tr>
                             </table>
-                            <asp:GridView class="table" ID="GridTreeView" Width="100%" AutoGenerateColumns="False" runat="server" Style="margin-right: 0px">
+                            <asp:GridView class="table" ID="GridTreeView" DataKeyNames="Nivel1,Nivel2,Nivel3" Width="100%" AutoGenerateColumns="False" runat="server" Style="margin-right: 0px">
                                 <Columns>
-                                    <asp:BoundField HeaderText="Articulo" DataField="SkuArticulo">
+                                    <asp:BoundField HeaderText="Articulo" Visible="false" DataField="SkuArticulo">
                                         <ControlStyle Width="90px" />
                                         <ItemStyle BorderStyle="Solid" />
                                     </asp:BoundField>
-                                    <asp:BoundField HeaderText="Numero de Parte" DataField="SkuComponente">
+                                    <asp:BoundField HeaderText="Artículo / Componente" DataField="SkuComponente">
                                         <ItemStyle BorderStyle="Solid" />
                                     </asp:BoundField>
                                     <asp:BoundField HeaderText="Descripción" DataField="ITEMDESC">
@@ -1009,22 +1017,25 @@
                                     <asp:BoundField HeaderText="Unidad" DataField="UofM">
                                         <ItemStyle BorderStyle="Solid" />
                                     </asp:BoundField>
-                                    <asp:BoundField HeaderText="Costo Estandar" DataField="STNDCOST">
+                                    <asp:BoundField HeaderText="Costo" DataField="STNDCOST">
                                         <ItemStyle BorderStyle="Solid" />
                                     </asp:BoundField>
-                                    <asp:BoundField HeaderText="Costo Actual" DataField="CURRCOST">
+                                    <asp:BoundField HeaderText="Costo Actual" Visible="false" DataField="CURRCOST">
                                         <ItemStyle BorderStyle="Solid" />
                                     </asp:BoundField>
                                     <asp:BoundField HeaderText="Total" DataField="Result">
                                         <ItemStyle BorderStyle="Solid" />
                                     </asp:BoundField>
-                                    <asp:BoundField HeaderText="Nivel1" DataField="Nivel1">
+                                    <asp:BoundField HeaderText="Nivel1" ItemStyle-Width="0px" Visible="false" DataField="Nivel1">
+                                       
                                         <ItemStyle BorderStyle="Solid" />
                                     </asp:BoundField>
-                                    <asp:BoundField HeaderText="Nivel2" DataField="Nivel2">
+                                    <asp:BoundField HeaderText="Nivel2" ItemStyle-Width="0px" Visible="false"  DataField="Nivel2">
+                                        
                                         <ItemStyle BorderStyle="Solid" />
                                     </asp:BoundField>
-                                    <asp:BoundField HeaderText="Nivel3" DataField="Nivel3">
+                                    <asp:BoundField HeaderText="Nivel3" ItemStyle-Width="0px" Visible="false"  DataField="Nivel3">
+                  
                                         <ItemStyle BorderStyle="Solid" />
                                     </asp:BoundField>
                                 </Columns>

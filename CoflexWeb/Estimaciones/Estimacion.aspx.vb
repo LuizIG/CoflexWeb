@@ -153,31 +153,31 @@ Public Class Estimacion
 
                     Select Case Status
                         Case 0
-                            TB_ESTATUS.Text = "Abierta"
-                            status_actual.InnerText = "Abierta"
-                            DDEstatus.Items.Add(New ListItem("Abierta", "0"))
-                            DDEstatus.Items.Add(New ListItem("Propuesta Cerrada", "1"))
-                            DDEstatus.Items.Add(New ListItem("Propuesta Descartada", "2"))
-                            DDEstatus.Items.Add(New ListItem("Aceptada", "3"))
-                            DDEstatus.Items.Add(New ListItem("Cancelar Cotizacion", "4"))
+                            TB_ESTATUS.Text = ABIERTA
+                            status_actual.InnerText = ABIERTA
+                            DDEstatus.Items.Add(New ListItem(ABIERTA, "0"))
+                            DDEstatus.Items.Add(New ListItem(ENVIADA, "1"))
+                            DDEstatus.Items.Add(New ListItem(RECHAZADA, "2"))
+                            DDEstatus.Items.Add(New ListItem(ACEPTADA, "3"))
+                            DDEstatus.Items.Add(New ListItem(CANCELADA, "4"))
                         Case 1
-                            TB_ESTATUS.Text = "Propuesta Cerrada"
-                            status_actual.InnerText = "Propuesta Cerrada"
-                            DDEstatus.Items.Add(New ListItem("Propuesta Cerrada", "1"))
-                            DDEstatus.Items.Add(New ListItem("Aceptada", "3"))
-                            DDEstatus.Items.Add(New ListItem("Cancelar Cotizacion", "4"))
+                            TB_ESTATUS.Text = ENVIADA
+                            status_actual.InnerText = ENVIADA
+                            DDEstatus.Items.Add(New ListItem(ENVIADA, "1"))
+                            DDEstatus.Items.Add(New ListItem(ACEPTADA, "3"))
+                            DDEstatus.Items.Add(New ListItem(CANCELADA, "4"))
                         Case 2
-                            TB_ESTATUS.Text = "Propuesta Descartada"
-                            status_actual.InnerText = "Propuesta Descartada"
-                            DDEstatus.Items.Add(New ListItem("Propuesta Descartada", "2"))
-                            DDEstatus.Items.Add(New ListItem("Cancelar Cotizacion", "4"))
+                            TB_ESTATUS.Text = RECHAZADA
+                            status_actual.InnerText = RECHAZADA
+                            DDEstatus.Items.Add(New ListItem(RECHAZADA, "2"))
+                            DDEstatus.Items.Add(New ListItem(CANCELADA, "4"))
                         Case 3
-                            TB_ESTATUS.Text = "Aceptada"
-                            status_actual.InnerText = "Aceptada"
-                            DDEstatus.Items.Add(New ListItem("Aceptada", "3"))
+                            TB_ESTATUS.Text = ACEPTADA
+                            status_actual.InnerText = ACEPTADA
+                            DDEstatus.Items.Add(New ListItem(ACEPTADA, "3"))
 
                         Case 4
-                            TB_ESTATUS.Text = "Cancelada"
+                            TB_ESTATUS.Text = CANCELADA
                     End Select
 
 
@@ -1360,15 +1360,15 @@ Public Class Estimacion
                 div_description_ok.InnerText = "Se cambió el estatus correctamente"
                 Select Case STATUS
                     Case 0
-                        TB_ESTATUS.Text = "Abierta"
+                        TB_ESTATUS.Text = ABIERTA
                     Case 1
-                        TB_ESTATUS.Text = "Propuesta Cerrada"
+                        TB_ESTATUS.Text = ENVIADA
                     Case 2
-                        TB_ESTATUS.Text = "Propuesta Cancelada"
+                        TB_ESTATUS.Text = RECHAZADA
                     Case 3
-                        TB_ESTATUS.Text = "Aceptada"
+                        TB_ESTATUS.Text = ACEPTADA
                     Case 4
-                        TB_ESTATUS.Text = "Cancelada"
+                        TB_ESTATUS.Text = CANCELADA
                 End Select
                 Session("Status") = STATUS
 
@@ -1952,5 +1952,37 @@ Public Class Estimacion
             End If
 
         End If
+    End Sub
+
+    Private Sub GridTreeView_RowDataBound(sender As Object, e As GridViewRowEventArgs) Handles GridTreeView.RowDataBound
+
+        If e.Row.RowType = DataControlRowType.DataRow Then
+            Dim lvl3 = CInt(GridTreeView.DataKeys(e.Row.RowIndex)("Nivel3"))
+
+            Dim articulo As String = e.Row.Cells(1).Text
+
+            If (lvl3 > 0) Then
+
+                articulo = "              - " & articulo
+
+            Else
+                Dim lvl2 = CInt(GridTreeView.DataKeys(e.Row.RowIndex)("Nivel2"))
+
+                If (lvl2 > 0) Then
+                    articulo = "         - " & articulo
+                Else
+
+                    Dim lvl1 = CInt(GridTreeView.DataKeys(e.Row.RowIndex)("Nivel1"))
+                    If (lvl1 > 0) Then
+                        articulo = "    - " & articulo
+                    End If
+                End If
+            End If
+
+            e.Row.Cells(1).Text = articulo
+
+        End If
+
+
     End Sub
 End Class
