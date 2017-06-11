@@ -577,7 +577,7 @@
 
                                         <asp:Button ID="Guardar" class="btn btn-primary" runat="server" Text="Guardar" />
 
-                                        <asp:Button ID="Versionar" class="btn btn-primary" runat="server" Text="Versionar" />
+                                        <asp:Button ID="Guardar Nueva Version" class="btn btn-primary" runat="server" Text="Versionar" />
 
                                         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Cambiar Estatus</button>
                                     </td>
