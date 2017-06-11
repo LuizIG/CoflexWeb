@@ -201,7 +201,6 @@
     <Content Include="Estimaciones\Cotizacion.aspx" />
     <Content Include="Estimaciones\Estimacion.aspx" />
     <Content Include="Estimaciones\logo.png" />
-    <Content Include="Estimaciones\ResumenEstimaciones3.aspx" />
     <Content Include="Exit.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -359,13 +358,6 @@
     </Compile>
     <Compile Include="Estimaciones\Estimacion.aspx.vb">
       <DependentUpon>Estimacion.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Estimaciones\ResumenEstimaciones3.aspx.designer.vb">
-      <DependentUpon>ResumenEstimaciones3.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Estimaciones\ResumenEstimaciones3.aspx.vb">
-      <DependentUpon>ResumenEstimaciones3.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Exit.aspx.designer.vb">
