@@ -11,6 +11,8 @@ Public Class Estimacion
     Private Suma As Double
     Private SumaCotizacion As Double
     Private SumaMargen As Double
+    Private SumaMargenPorcentaje As Double
+    Private RowsCount As Integer
 
     Private Status As Integer
 
@@ -425,6 +427,8 @@ Public Class Estimacion
             Suma = 0
             SumaCotizacion = 0
             SumaMargen = 0
+            SumaMargenPorcentaje = 0
+            RowsCount = 0
 
             Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
             dv.RowFilter = "Nivel1 = 0 and Nivel2 = 0 and Nivel3 = 0"
@@ -1279,6 +1283,7 @@ Public Class Estimacion
             Dim margen As Double = CDbl(txMargin.Text.Replace("$", "")) / 100
             Dim shipping As Double = CDbl(txShipping.Text.Replace("$", ""))
 
+
             If (Session("Status") > 0) Then
                 txMargin.Enabled = False
             Else
@@ -1290,7 +1295,8 @@ Public Class Estimacion
             Suma += (costoUnitario + shipping) * cantidad * (1 + (margen))
             SumaCotizacion += (costoUnitario + shipping) * cantidad
             SumaMargen += ((costoUnitario + shipping) * cantidad * (1 + (margen)) - (costoUnitario + shipping) * cantidad)
-
+            SumaMargenPorcentaje += margen
+            RowsCount = RowsCount + 1
             e.Row.Cells(10).Text = ((costoUnitario + shipping) * margen).ToString("C2", New CultureInfo("es-MX"))
             e.Row.Cells(11).Text = ((costoUnitario + shipping) * (1 + margen)).ToString("C2", New CultureInfo("es-MX"))
             e.Row.Cells(12).Text = (((costoUnitario + shipping) * (1 + (margen))) / CDbl(Tv_Exchange.Text)).ToString("C2", New CultureInfo("es-MX"))
@@ -1298,6 +1304,8 @@ Public Class Estimacion
         ElseIf (e.Row.RowType = DataControlRowType.Footer) Then
             e.Row.Cells(7).Text = FormatCurrency(SumaCotizacion)
             margen_ganancia.InnerHtml = "<h4>Margen de Ganancia: " & SumaMargen.ToString("C2", New CultureInfo("es-MX")) & "</h4>"
+            e.Row.Cells(9).Text = (SumaMargenPorcentaje * 100) / RowsCount & "%" '(Suma).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(10).Text = SumaMargen.ToString("C2", New CultureInfo("es-MX"))
             e.Row.Cells(11).Text = (Suma).ToString("C2", New CultureInfo("es-MX"))
             e.Row.Cells(12).Text = (Suma / CDbl(Tv_Exchange.Text)).ToString("C2", New CultureInfo("es-MX"))
         End If

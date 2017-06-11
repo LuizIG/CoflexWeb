@@ -2,7 +2,6 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <script language="javascript" type="text/javascript">
-
         function CheckNumericNumeric(e) {
 
             if (window.event) // IE 
@@ -558,13 +557,12 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
 
-                                <asp:TemplateField ItemStyle-Width="10%" HeaderText="Throughput (%)">
+                                <asp:TemplateField ItemStyle-Width="10%" HeaderText="Margen (%)">
                                     <ItemTemplate>
                                         <asp:TextBox ID="TVMargin" Width="70px" Text='<%# Bind("Margin") %>' runat="server"></asp:TextBox>
                                     </ItemTemplate>
-
                                 </asp:TemplateField>
-                                <asp:BoundField ItemStyle-Width="10%" HeaderText="Throughput" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" />
+                                <asp:BoundField ItemStyle-Width="10%" HeaderText="Margen" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" />
                                 <asp:BoundField ItemStyle-Width="10%" HeaderText="Precio de Venta (Pesos)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" />
                                 <asp:BoundField ItemStyle-Width="10%" HeaderText="Precio de Venta (Dólares)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" />
                             </Columns>
