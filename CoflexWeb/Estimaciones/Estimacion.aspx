@@ -389,7 +389,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>&nbsp;&nbsp;<asp:Label ID="Label6" runat="server" Visible="false" Text="Compuesto"></asp:Label>&nbsp;</td>
+                                                    <td>&nbsp;&nbsp;<asp:Label ID="Label6" runat="server" Visible="false" Text="Modificado"></asp:Label>&nbsp;</td>
                                                     <td colspan="2">
                                                         <asp:RadioButton ID="RadioButton3" Enabled="false" Visible="false" GroupName="tipoCosto" runat="server" />
                                                         <asp:TextBox ID="TextBox8" Enabled="false" Visible="false" Width="40%" runat="server"></asp:TextBox>&nbsp;
