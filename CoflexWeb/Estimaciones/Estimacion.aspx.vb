@@ -1226,6 +1226,12 @@ Public Class Estimacion
 
     Protected Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         Me.MultiView1.ActiveViewIndex = 2
+
+        txtSkuComponente.Text = ""
+        txtItemDesc.InnerText = ""
+        txtUofm.Text = ""
+        txtStndCost.Text = ""
+
     End Sub
 
     Private Sub DDCliente_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDCliente.SelectedIndexChanged
