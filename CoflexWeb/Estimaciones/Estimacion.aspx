@@ -96,6 +96,9 @@
             return false;
         }
 
+
+
+
         var prm = Sys.WebForms.PageRequestManager.getInstance();
 
         prm.add_endRequest(function () {
@@ -135,6 +138,13 @@
             // re-bind your jQuery events here
             ddl = document.getElementById("<%=DDComponente.ClientID %>");
         });
+
+        function clearCheckBox() {
+            $("[id*=TreeView1] input[type=checkbox]").each(function (index, value) {
+                $(this).attr('checked', false);
+            });
+        }
+
     </script>
     <h2><%--<%: Title %>.--%></h2>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -305,7 +315,6 @@
                                                 <td>
                                                     <asp:Button ID="Button4" runat="server" class="btn btn-primary" Text="Remover" />&nbsp;
                                                 </td>
-
                                             </tr>
                                         </table>
                                     </div>

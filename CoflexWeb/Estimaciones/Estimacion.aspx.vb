@@ -623,7 +623,7 @@ Public Class Estimacion
             'Else
             '    TreeView1.Nodes.Clear()
         End If
-
+        ScriptManager.RegisterClientScriptBlock(UpdatePanel1, UpdatePanel1.GetType, "script", "clearCheckBox();", True)
         'If Me.TreeView1.Nodes.Count > 0 Then
         '    DDCliente.Enabled = False
         'Else
@@ -782,6 +782,7 @@ Public Class Estimacion
 
         End If
 
+        ScriptManager.RegisterClientScriptBlock(UpdatePanel1, UpdatePanel1.GetType, "script", "clearCheckBox();", True)
 
     End Sub
 
@@ -1805,6 +1806,8 @@ Public Class Estimacion
 
             Me.DDElemento.SelectedIndex = 0
         End If
+
+        ScriptManager.RegisterClientScriptBlock(UpdatePanel1, UpdatePanel1.GetType, "script", "clearCheckBox();", True)
 
         'If Me.TreeView1.Nodes.Count > 0 Then
         '    DDCliente.Enabled = False
