@@ -285,9 +285,8 @@
 
                         <table style="width: 100%">
                             <tr>
-                                <td>&nbsp;</td>
                                 <td>
-                                    <div style="float: right;">
+                                    <div style="float: left;">
                                         <table>
                                             <tr>
                                                 <td>
