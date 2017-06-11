@@ -54,7 +54,6 @@
             ddlValue = new Array();
             ddl = document.getElementById("<%=DDComponente.ClientID %>");
             for (var i = 0; i < ddl.options.length; i++) {
-                console.log(ddl.options[i].text + " " + ddl.options[i].value);
                 ddlText[ddlText.length] = ddl.options[i].text;
                 ddlValue[ddlValue.length] = ddl.options[i].value;
             }
@@ -64,7 +63,7 @@
         function FilterItems(value) {
             ddl.options.length = 0;
             for (var i = 0; i < ddlText.length; i++) {
-                if (ddlText[i].toLowerCase().indexOf(value) != -1) {
+                if (ddlText[i].toLowerCase().indexOf(value) == 0) {
                     AddItem(ddlText[i], ddlValue[i]);
                 }
             }
