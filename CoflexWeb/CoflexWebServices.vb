@@ -41,6 +41,12 @@ Namespace CoflexWeb.Services.Web
         Public Const CLIENTS As String = "CoflexAPIExt/api/Clients"
         Public Const EXCHANGE_RATE As String = "CoflexAPIExt/api/ExchangeRate/"
 
+        'Estatus
+        Public Const ABIERTA As String = "Abierta"
+        Public Const ENVIADA As String = "Enviada"
+        Public Const CANCELADA As String = "Cancelada"
+        Public Const RECHAZADA As String = "Rechazada"
+        Public Const ACEPTADA As String = "Aceptada"
 
         Public Function doPostRequest(url As String, data As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As String
             Dim request = createRequest(SERVER_HOST & url, "POST", contentType, token)

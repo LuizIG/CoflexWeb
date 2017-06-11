@@ -52,11 +52,11 @@ Public Class ResumenEstimaciones
 
                     'CASE dbo.QuotationVersions.Status WHEN 0 THEN 'Abierta' WHEN 1 THEN 'Propuesta Cerrada' WHEN 2 THEN 'Propuesta Descartada' WHEN 3 THEN 'Aceptada' WHEN 4 THEN 'Cancelada' END
                     DDStatusVersion.Items.Add(New ListItem("Seleccionar", ""))
-                    DDStatusVersion.Items.Add(New ListItem("Abierta", 0))
-                    DDStatusVersion.Items.Add(New ListItem("Propuesta Cerrada", 1))
-                    DDStatusVersion.Items.Add(New ListItem("Propuesta Descartada", 2))
-                    DDStatusVersion.Items.Add(New ListItem("Aceptada", 3))
-                    DDStatusVersion.Items.Add(New ListItem("Cancelada", 4))
+                    DDStatusVersion.Items.Add(New ListItem(ABIERTA, 0))
+                    DDStatusVersion.Items.Add(New ListItem(ENVIADA, 1))
+                    DDStatusVersion.Items.Add(New ListItem(RECHAZADA, 2))
+                    DDStatusVersion.Items.Add(New ListItem(ACEPTADA, 3))
+                    DDStatusVersion.Items.Add(New ListItem(CANCELADA, 4))
 
                     DDStatusCotiza.Items.Add(New ListItem("Seleccionar", ""))
                     DDStatusCotiza.Items.Add(New ListItem("Abierta", 0))

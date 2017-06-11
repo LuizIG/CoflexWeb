@@ -79,8 +79,8 @@
                             <div style="text-align: left;">
                             <asp:CheckBoxList ID="CBPropuesta" runat="server" RepeatColumns="2"  TextAlign="right" >
                                 <asp:ListItem Text="Abierta" Value="0" Selected="True" ></asp:ListItem>
-                                <asp:ListItem Text="Cerrada" Value="1" Selected="True" ></asp:ListItem>
-                                <asp:ListItem Text="Descartada" Value="2" Selected="True" ></asp:ListItem>
+                                <asp:ListItem Text="Enviada" Value="1" Selected="True" ></asp:ListItem>
+                                <asp:ListItem Text="Rechazada" Value="2" Selected="True" ></asp:ListItem>
                                 <asp:ListItem Text="Aceptada" Value="3" Selected="True" ></asp:ListItem>
                                 <asp:ListItem Text="Cancelada" Value="4" Selected="True" ></asp:ListItem>
                             </asp:CheckBoxList>
