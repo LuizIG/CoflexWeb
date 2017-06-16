@@ -217,7 +217,7 @@ Public Class Estimacion
 
                     Dim exchange = detail.GetValue("ExchangeRate").Value(Of String)
 
-                    Tv_Exchange.Text = CDbl(exchange).ToString("C4", New CultureInfo("es-MX"))
+                    Tv_Exchange.Text = CDbl(exchange).ToString("C2", New CultureInfo("es-MX"))
                     Dim items = detail.GetValue("Items").Value(Of JArray)
 
                     Dim Table As DataTable
@@ -374,7 +374,7 @@ Public Class Estimacion
 
                     Dim exchange = d.GetValue("MXN_to_DLLS").Value(Of String)
 
-                    Tv_Exchange.Text = CDbl(exchange).ToString("C4", New CultureInfo("es-MX"))
+                    Tv_Exchange.Text = CDbl(exchange).ToString("C2", New CultureInfo("es-MX"))
                 End If
 
                 If DDCliente.SelectedValue = "Seleccionar" Then

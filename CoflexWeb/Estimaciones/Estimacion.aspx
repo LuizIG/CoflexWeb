@@ -100,15 +100,6 @@
             return false;
         }
 
-        function formatCurrency(total) {
-            var neg = false;
-            if (total < 0) {
-                neg = true;
-                total = Math.abs(total);
-            }
-            return (neg ? "-$" : '$') + parseFloat(total, 10).toFixed(4).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
-        }
-
         var prm = Sys.WebForms.PageRequestManager.getInstance();
 
         prm.add_endRequest(function () {
@@ -151,7 +142,7 @@
             $("#MainContent_Tv_Exchange").focusout(function () {
                 var amount = $(this).val().replace("$", "");
                 var n = amount;
-                var c = 4;
+                var c = 2;
                 var d = ".";
                 var t = ",";
                 var s = n < 0 ? "-" : "";
