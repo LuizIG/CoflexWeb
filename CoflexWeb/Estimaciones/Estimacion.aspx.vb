@@ -342,7 +342,7 @@ Public Class Estimacion
                     Else
                         Dim value As String = DDCliente.Items(DDCliente.SelectedIndex).Value
 
-                        jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM,, Session("access_token"))
+                        jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEMGROUP,, Session("access_token"))
                         o = JObject.Parse(jsonResponse)
                         statusCode = o.GetValue("statusCode").Value(Of Integer)
                         If (statusCode >= 200 And statusCode < 400) Then
@@ -377,7 +377,7 @@ Public Class Estimacion
                 If DDCliente.SelectedValue = "Seleccionar" Then
                     Dim value As String = DDCliente.Items(DDCliente.SelectedIndex).Value
 
-                    jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM,, Session("access_token"))
+                    jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEMGROUP,, Session("access_token"))
                     o = JObject.Parse(jsonResponse)
                     statusCode = o.GetValue("statusCode").Value(Of Integer)
                     If (statusCode >= 200 And statusCode < 400) Then
@@ -422,7 +422,7 @@ Public Class Estimacion
     End Sub
 
     Private Sub ContinueMethod()
-        If Session("treeView") IsNot Nothing Then
+        If Session("treeView") IsNot Nothing And TreeView1.Nodes.Count > 0 Then
             Me.MultiView1.ActiveViewIndex = 1
             Suma = 0
             SumaCotizacion = 0
@@ -612,7 +612,8 @@ Public Class Estimacion
                             dv.RowFilter = "Id = " & Split(myNode.Value, "|")(0) & " and SkuComponente = '" & Split(myNode.Value, "|")(2) & "'"
                             For Each reng As DataRowView In dv
                                 Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
-                                Dim rows = dt2.[Select]("Nivel1 = " & reng("Nivel1") & " and SkuArticulo = '" & reng("SkuArticulo") & "'")
+                                ''Dim rows = dt2.[Select]("Nivel1 = " & reng("Nivel1") & " and SkuArticulo = '" & reng("SkuArticulo") & "'")
+                                Dim rows = dt2.[Select]("SkuArticulo = '" & reng("SkuArticulo") & "'")
                                 For Each row In rows
                                     row.Delete()
                                 Next
@@ -1179,7 +1180,7 @@ Public Class Estimacion
         Else
             Dim value As String = DDCliente.Items(DDCliente.SelectedIndex).Value
 
-            Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM,, Session("access_token"))
+            Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEMGROUP,, Session("access_token"))
             Dim o = JObject.Parse(jsonResponse)
             Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
             If (statusCode >= 200 And statusCode < 400) Then
@@ -1231,7 +1232,7 @@ Public Class Estimacion
         ElseIf (e.Row.RowType = DataControlRowType.Footer) Then
             e.Row.Cells(7).Text = FormatCurrency(SumaCotizacion)
             margen_ganancia.InnerHtml = "<h4>Margen de Ganancia: " & SumaMargen.ToString("C2", New CultureInfo("es-MX")) & "</h4>"
-            e.Row.Cells(9).Text = (SumaMargenPorcentaje * 100) / RowsCount & "%" '(Suma).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(9).Text = ((SumaMargenPorcentaje * 100) / RowsCount).ToString("f2") & "%" '(Suma).ToString("C2", New CultureInfo("es-MX"))
             e.Row.Cells(10).Text = SumaMargen.ToString("C2", New CultureInfo("es-MX"))
             e.Row.Cells(11).Text = (Suma).ToString("C2", New CultureInfo("es-MX"))
             e.Row.Cells(12).Text = (Suma / CDbl(Tv_Exchange.Text)).ToString("C2", New CultureInfo("es-MX"))

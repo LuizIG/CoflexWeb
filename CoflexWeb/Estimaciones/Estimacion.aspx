@@ -574,7 +574,7 @@
 
                                 <asp:TemplateField ItemStyle-Width="10%" HeaderText="Margen (%)">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="TVMargin" Width="70px" Text='<%# Bind("Margin") %>' runat="server"></asp:TextBox>
+                                        <asp:TextBox ID="TVMargin" Width="70px" Text='<%# Bind("Margin", "{0:###,###,##0.00}") %>' runat="server"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:BoundField ItemStyle-Width="10%" HeaderText="Margen" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" />
