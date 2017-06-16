@@ -40,6 +40,7 @@ Namespace CoflexWeb.Services.Web
         Public Const DETAIL_COMPONENTS As String = "CoflexAPIExt/api/DetailComponets"
         Public Const CLIENTS As String = "CoflexAPIExt/api/Clients"
         Public Const EXCHANGE_RATE As String = "CoflexAPIExt/api/ExchangeRate/"
+        Public Const ITEMGROUP As String = "CoflexAPIExt/api/ItemsGroup/"
 
         'Estatus
         Public Const ABIERTA As String = "Abierta"

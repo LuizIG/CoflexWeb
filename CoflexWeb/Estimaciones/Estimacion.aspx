@@ -536,7 +536,6 @@
                         </div>
                         <table style="width: 100%">
                             <tr>
-
                                 <td colspan="4">
                                     <div style="float: left;">
                                         <table style="width: 100%">
@@ -544,7 +543,7 @@
                                                 <td>
                                                     <asp:Label ID="Label10" runat="server" Text="Tipo de Cambio: "></asp:Label></td>
                                                 <td>
-                                                    <asp:TextBox onkeypress="CheckNumeric(event);" ID="Tv_Exchange" runat="server">19.05</asp:TextBox>
+                                                    <asp:TextBox onkeypress="CheckNumeric(event);" ID="Tv_Exchange" runat="server"></asp:TextBox>
                                                 </td>
                                             </tr>
                                         </table>
@@ -604,7 +603,7 @@
 
                                 <asp:TemplateField ItemStyle-Width="10%" HeaderText="Margen (%)">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="TVMargin" Width="70px" Text='<%# Bind("Margin") %>' runat="server"></asp:TextBox>
+                                        <asp:TextBox ID="TVMargin" Width="70px" Text='<%# Bind("Margin", "{0:###,###,##0.00}") %>' runat="server"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:BoundField ItemStyle-Width="10%" HeaderText="Margen" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" />
