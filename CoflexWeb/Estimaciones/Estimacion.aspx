@@ -96,8 +96,14 @@
             return false;
         }
 
-
-
+        function formatCurrency(total) {
+            var neg = false;
+            if (total < 0) {
+                neg = true;
+                total = Math.abs(total);
+            }
+            return (neg ? "-$" : '$') + parseFloat(total, 10).toFixed(4).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
+        }
 
         var prm = Sys.WebForms.PageRequestManager.getInstance();
 
