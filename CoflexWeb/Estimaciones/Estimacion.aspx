@@ -688,8 +688,8 @@
                             <tr style="text-align: right">
                                 <td colspan="4">
                                     <asp:Button ID="Button7" class="btn btn-primary hidden-print" runat="server" Text="Idioma" />
-                                    <asp:Button ID="btnEspanol" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel();" runat="server" Text="Imprimir" />
-                                    <asp:Button ID="btnEnglish" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel3();" Visible="false" runat="server" Text="Imprimir" />
+                                    <asp:Button ID="btnEspanol" class="btn btn-primary hidden-print" runat="server" Text="Imprimir" />
+                                    <asp:Button ID="btnEnglish" class="btn btn-primary hidden-print" Visible="false" runat="server" Text="Imprimir" />
                                     <asp:Button ID="btnGuardaCotiza" class="btn btn-primary hidden-print" runat="server" Text="Guardar" />
                                     <asp:Button ID="Button10" class="btn btn-primary hidden-print" runat="server" Text="Regresar" />
 
@@ -748,7 +748,7 @@
                                             <asp:Label ID="lblDDClienteCotiza" ForeColor="Black" runat="server"></asp:Label>
                                             <br />
                                             <asp:Label ID="Label40" ForeColor="Black" runat="server">Atención a:&nbsp;</asp:Label>
-                                            <asp:TextBox ID="txtAtencion" Width="50%" AutoPostBack="true" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="txtAtencion" Width="50%" runat="server"></asp:TextBox>
                                         </b>
                                     </td>
                                 </tr>
@@ -788,7 +788,7 @@
                                                 <td style="color: #000080;">
                                                     <b>
                                                         <%--<textarea id="TextArea1" style="width: 100%; max-width: 1200px !important" autopostback="true" rows="10"></textarea>--%>
-                                                        <asp:TextBox ID="TextArea" AutoPostBack="true"  Style="width: 100%; max-width: 1200px !important" TextMode="MultiLine" runat="server" Height="129px" Width="941px"></asp:TextBox>
+                                                        <asp:TextBox ID="TextArea" Style="width: 100%; max-width: 1200px !important" TextMode="MultiLine" runat="server" Height="129px" Width="941px"></asp:TextBox>
                                                     </b>
                                                 </td>
                                             </tr>
@@ -811,7 +811,7 @@
                                                     <asp:Label ID="Label39" runat="server">Orden de entrega</asp:Label></td>
                                                 <td style="color: #000080;">
                                                     <b>
-                                                        <asp:TextBox ID="txtOrdenEntrega" AutoPostBack="true" Style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
+                                                        <asp:TextBox ID="txtOrdenEntrega" Style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
                                             </tr>
                                             <tr>
                                                 <td>&nbsp;</td>
@@ -828,14 +828,14 @@
                                                     <asp:Label ID="Label26" runat="server">Término de entrega</asp:Label></b></td>
                                                 <td style="color: #000080;">
                                                     <b>
-                                                        <asp:TextBox ID="txtTerminoEntrega" AutoPostBack="true" Style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
+                                                        <asp:TextBox ID="txtTerminoEntrega" Style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
                                             </tr>
                                             <tr>
                                                 <td style="width: 20%"><b>
                                                     <asp:Label ID="Label27" runat="server">Oferta válida</asp:Label></b></td>
                                                 <td style="color: #000080;">
                                                     <b>
-                                                        <asp:TextBox ID="txtOferValida" AutoPostBack="true" Style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
+                                                        <asp:TextBox ID="txtOferValida" Style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
                                             </tr>
                                             <tr>
                                                 <td>&nbsp;</td>
@@ -894,7 +894,7 @@
                                             <asp:Label ID="lblDDClienteCotizaENG" ForeColor="Black" runat="server"></asp:Label>
                                             <br />
                                             <asp:Label ID="Label45" ForeColor="Black" runat="server">Atention to:&nbsp;</asp:Label>
-                                            <asp:TextBox ID="txtAtencionENG" AutoPostBack="true" Width="50%" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="txtAtencionENG" Width="50%" runat="server"></asp:TextBox>
                                         </b>
                                     </td>
                                 </tr>
@@ -934,7 +934,7 @@
                                                 <td style="color: #000080;">
                                                     <b>
                                                         <%--<textarea id="TextArea2" style="width: 100%; max-width: 1200px !important" rows="10"></textarea>--%>
-                                                        <asp:TextBox ID="TextAreaENG" AutoPostBack="true" Style="width: 100%; max-width: 1200px !important" TextMode="MultiLine" runat="server" Height="129px" Width="941px"></asp:TextBox>
+                                                        <asp:TextBox ID="TextAreaENG" Style="width: 100%; max-width: 1200px !important" TextMode="MultiLine" runat="server" Height="129px" Width="941px"></asp:TextBox>
                                                     </b>
                                                 </td>
                                             </tr>
@@ -952,21 +952,21 @@
                                                     <asp:Label ID="Label49" runat="server">MOQ</asp:Label></b></td>
                                                 <td style="color: #000080;">
                                                     <b>
-                                                        <asp:TextBox ID="txtOrdenEntregaENG" AutoPostBack="true" Style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
+                                                        <asp:TextBox ID="txtOrdenEntregaENG" Style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
                                             </tr>
                                             <tr>
                                                 <td style="width: 20%"><b>
                                                     <asp:Label ID="Label50" runat="server">Incoterm</asp:Label></b></td>
                                                 <td style="color: #000080;">
                                                     <b>
-                                                        <asp:TextBox ID="txtTerminoEntregaENG" AutoPostBack="true" Style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
+                                                        <asp:TextBox ID="txtTerminoEntregaENG" Style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
                                             </tr>
                                             <tr>
                                                 <td style="width: 20%"><b>
                                                     <asp:Label ID="Label47" runat="server">Validity of Offer</asp:Label></b></td>
                                                 <td style="color: #000080;">
                                                     <b>
-                                                        <asp:TextBox ID="txtOferValidaENG" AutoPostBack="true" Style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
+                                                        <asp:TextBox ID="txtOferValidaENG" Style="width: 100%; max-width: 1000px !important" runat="server"></asp:TextBox></b></td>
                                             </tr>
                                             <tr>
                                                 <td>&nbsp;</td>
@@ -1025,10 +1025,10 @@
                                     <asp:BoundField HeaderText="Unidad" DataField="UofM">
                                         <ItemStyle BorderStyle="Solid" />
                                     </asp:BoundField>
-                                    <asp:BoundField HeaderText="Costo" DataField="STNDCOST">
+                                    <asp:BoundField HeaderText="Costo" DataField="StndCost">
                                         <ItemStyle BorderStyle="Solid" />
                                     </asp:BoundField>
-                                    <asp:BoundField HeaderText="Costo Actual" Visible="false" DataField="CURRCOST">
+                                    <asp:BoundField HeaderText="Costo Actual" Visible="false" DataField="CurrCost">
                                         <ItemStyle BorderStyle="Solid" />
                                     </asp:BoundField>
                                     <asp:BoundField HeaderText="Total" DataField="Result">

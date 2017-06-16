@@ -510,120 +510,130 @@ Public Class Estimacion
     End Function
 
     Protected Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        If TreeView1.CheckedNodes.Count > 0 Then
-            If TreeView1.Nodes.Count > 0 Then
-                For z = 0 To Me.TreeView1.Nodes.Count
-                    If z >= TreeView1.Nodes.Count Then
-                        Exit For
-                    End If
-                    Dim myNode = TreeView1.Nodes(z)
-
-                    If myNode.ChildNodes.Count > 0 Then
-                        For a = 0 To myNode.ChildNodes.Count
-                            If a >= myNode.ChildNodes.Count Then
-                                Exit For
-                            End If
-                            Dim childNodeA = myNode.ChildNodes(a)
-                            If childNodeA.Checked Then
-
-                                Dim Table As DataTable = DirectCast(Session("treeView"), DataTable)
-                                Dim dv As New DataView(Table)
-                                dv.RowFilter = "Id = " & Split(childNodeA.Value, "|")(0) & " and SkuComponente = '" & Split(childNodeA.Value, "|")(2) & "'"
-                                For Each reng As DataRowView In dv
-                                    Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
-                                    Dim rows = dt2.[Select]("Nivel1 = " & reng("Nivel1") & " and SkuArticulo = '" & reng("SkuArticulo") & "'")
-                                    For Each row In rows
-                                        row.Delete()
-                                    Next
-                                    treeViewTable(dt2)
-                                Next
 
 
-                                myNode.ChildNodes.Remove(childNodeA)
-                                a = a - 1
-                            Else
-                                If childNodeA.ChildNodes.Count > 0 Then
-                                    For b = 0 To childNodeA.ChildNodes.Count
-                                        If b >= childNodeA.ChildNodes.Count Then
-                                            Exit For
-                                        End If
-                                        Dim childNodeB = childNodeA.ChildNodes(b)
-                                        If childNodeB.Checked Then
+        Try
 
-                                            Dim Table As DataTable = DirectCast(Session("treeView"), DataTable)
-                                            Dim dv As New DataView(Table)
-                                            dv.RowFilter = "Id = " & Split(childNodeB.Value, "|")(0) & " and SkuComponente = '" & Split(childNodeB.Value, "|")(2) & "'"
-                                            For Each reng As DataRowView In dv
-                                                Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
-                                                Dim rows = dt2.[Select]("Nivel1 = " & reng("Nivel1") & " and Nivel2 = " & reng("Nivel2") & " and SkuArticulo = '" & reng("SkuArticulo") & "'")
-                                                For Each row In rows
-                                                    row.Delete()
-                                                Next
-                                                treeViewTable(dt2)
-                                            Next
+            If TreeView1.CheckedNodes.Count > 0 Then
+                If TreeView1.Nodes.Count > 0 Then
+                    For z = 0 To Me.TreeView1.Nodes.Count
+                        If z >= TreeView1.Nodes.Count Then
+                            Exit For
+                        End If
+                        Dim myNode = TreeView1.Nodes(z)
 
-
-                                            childNodeA.ChildNodes.Remove(childNodeB)
-                                            b = b - 1
-
-                                        Else
-                                            If childNodeB.ChildNodes.Count > 0 Then
-                                                For c = 0 To childNodeB.ChildNodes.Count
-                                                    If c >= childNodeB.ChildNodes.Count Then
-                                                        Exit For
-                                                    End If
-                                                    Dim childNodeC = childNodeB.ChildNodes(c)
-                                                    If childNodeC.Checked Then
-
-                                                        Dim Table As DataTable = DirectCast(Session("treeView"), DataTable)
-                                                        Dim dv As New DataView(Table)
-                                                        dv.RowFilter = "Id = " & Split(childNodeC.Value, "|")(0) & " and SkuComponente = '" & Split(childNodeC.Value, "|")(2) & "'"
-                                                        For Each reng As DataRowView In dv
-                                                            Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
-                                                            Dim rows = dt2.[Select]("Nivel1 = " & reng("Nivel1") & " and Nivel2 = " & reng("Nivel2") & " and Nivel3 = " & reng("Nivel3") & " and SkuArticulo = '" & reng("SkuArticulo") & "'")
-                                                            For Each row In rows
-                                                                row.Delete()
-                                                            Next
-                                                            treeViewTable(dt2)
-                                                        Next
-
-
-                                                        childNodeB.ChildNodes.Remove(childNodeC)
-                                                        c = c - 1
-                                                    End If
-                                                Next
-                                            End If
-
-                                        End If
-                                    Next
+                        If myNode.ChildNodes.Count > 0 Then
+                            For a = 0 To myNode.ChildNodes.Count
+                                If a >= myNode.ChildNodes.Count Then
+                                    Exit For
                                 End If
-                            End If
-                        Next
-                    End If
-                    ' Check whether the tree node is checked.
-                    If myNode.Checked Then
+                                Dim childNodeA = myNode.ChildNodes(a)
+                                If childNodeA.Checked Then
 
-                        Dim Table As DataTable = DirectCast(Session("treeView"), DataTable)
-                        Dim dv As New DataView(Table)
-                        dv.RowFilter = "Id = " & Split(myNode.Value, "|")(0) & " and SkuComponente = '" & Split(myNode.Value, "|")(2) & "'"
-                        For Each reng As DataRowView In dv
-                            Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
-                            Dim rows = dt2.[Select]("Nivel1 = " & reng("Nivel1") & " and SkuArticulo = '" & reng("SkuArticulo") & "'")
-                            For Each row In rows
-                                row.Delete()
+                                    Dim Table As DataTable = DirectCast(Session("treeView"), DataTable)
+                                    Dim dv As New DataView(Table)
+                                    dv.RowFilter = "Id = " & Split(childNodeA.Value, "|")(0) & " and SkuComponente = '" & Split(childNodeA.Value, "|")(2) & "'"
+                                    For Each reng As DataRowView In dv
+                                        Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
+                                        Dim rows = dt2.[Select]("Nivel1 = " & reng("Nivel1") & " and SkuArticulo = '" & reng("SkuArticulo") & "'")
+                                        For Each row In rows
+                                            row.Delete()
+                                        Next
+                                        treeViewTable(dt2)
+                                    Next
+
+
+                                    myNode.ChildNodes.Remove(childNodeA)
+                                    a = a - 1
+                                Else
+                                    If childNodeA.ChildNodes.Count > 0 Then
+                                        For b = 0 To childNodeA.ChildNodes.Count
+                                            If b >= childNodeA.ChildNodes.Count Then
+                                                Exit For
+                                            End If
+                                            Dim childNodeB = childNodeA.ChildNodes(b)
+                                            If childNodeB.Checked Then
+
+                                                Dim Table As DataTable = DirectCast(Session("treeView"), DataTable)
+                                                Dim dv As New DataView(Table)
+                                                dv.RowFilter = "Id = " & Split(childNodeB.Value, "|")(0) & " and SkuComponente = '" & Split(childNodeB.Value, "|")(2) & "'"
+                                                For Each reng As DataRowView In dv
+                                                    Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
+                                                    Dim rows = dt2.[Select]("Nivel1 = " & reng("Nivel1") & " and Nivel2 = " & reng("Nivel2") & " and SkuArticulo = '" & reng("SkuArticulo") & "'")
+                                                    For Each row In rows
+                                                        row.Delete()
+                                                    Next
+                                                    treeViewTable(dt2)
+                                                Next
+
+
+                                                childNodeA.ChildNodes.Remove(childNodeB)
+                                                b = b - 1
+
+                                            Else
+                                                If childNodeB.ChildNodes.Count > 0 Then
+                                                    For c = 0 To childNodeB.ChildNodes.Count
+                                                        If c >= childNodeB.ChildNodes.Count Then
+                                                            Exit For
+                                                        End If
+                                                        Dim childNodeC = childNodeB.ChildNodes(c)
+                                                        If childNodeC.Checked Then
+
+                                                            Dim Table As DataTable = DirectCast(Session("treeView"), DataTable)
+                                                            Dim dv As New DataView(Table)
+                                                            dv.RowFilter = "Id = " & Split(childNodeC.Value, "|")(0) & " and SkuComponente = '" & Split(childNodeC.Value, "|")(2) & "'"
+                                                            For Each reng As DataRowView In dv
+                                                                Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
+                                                                Dim rows = dt2.[Select]("Nivel1 = " & reng("Nivel1") & " and Nivel2 = " & reng("Nivel2") & " and Nivel3 = " & reng("Nivel3") & " and SkuArticulo = '" & reng("SkuArticulo") & "'")
+                                                                For Each row In rows
+                                                                    row.Delete()
+                                                                Next
+                                                                treeViewTable(dt2)
+                                                            Next
+
+
+                                                            childNodeB.ChildNodes.Remove(childNodeC)
+                                                            c = c - 1
+                                                        End If
+                                                    Next
+                                                End If
+
+                                            End If
+                                        Next
+                                    End If
+                                End If
                             Next
-                            treeViewTable(dt2)
-                        Next
-                        TreeView1.Nodes.Remove(myNode)
-                        z = z - 1
-                    End If
-                Next
+                        End If
+                        ' Check whether the tree node is checked.
+                        If myNode.Checked Then
 
+                            Dim Table As DataTable = DirectCast(Session("treeView"), DataTable)
+                            Dim dv As New DataView(Table)
+                            dv.RowFilter = "Id = " & Split(myNode.Value, "|")(0) & " and SkuComponente = '" & Split(myNode.Value, "|")(2) & "'"
+                            For Each reng As DataRowView In dv
+                                Dim dt2 As DataTable = DirectCast(Session("treeView"), DataTable)
+                                Dim rows = dt2.[Select]("Nivel1 = " & reng("Nivel1") & " and SkuArticulo = '" & reng("SkuArticulo") & "'")
+                                For Each row In rows
+                                    row.Delete()
+                                Next
+                                treeViewTable(dt2)
+                            Next
+                            TreeView1.Nodes.Remove(myNode)
+                            z = z - 1
+                        End If
+                    Next
+
+                End If
+                'Else
+                '    TreeView1.Nodes.Clear()
             End If
-            'Else
-            '    TreeView1.Nodes.Clear()
-        End If
-        ScriptManager.RegisterClientScriptBlock(UpdatePanel1, UpdatePanel1.GetType, "script", "clearCheckBox();", True)
+            ScriptManager.RegisterClientScriptBlock(UpdatePanel1, UpdatePanel1.GetType, "script", "clearCheckBox();", True)
+
+        Catch ex As Exception
+
+            ScriptManager.RegisterClientScriptBlock(UpdatePanel1, UpdatePanel1.GetType, "script", "clearCheckBox();", True)
+
+        End Try
         'If Me.TreeView1.Nodes.Count > 0 Then
         '    DDCliente.Enabled = False
         'Else
@@ -661,7 +671,7 @@ Public Class Estimacion
             Me.TextBox7.Text = reng("CURRCOST")
             Me.TextBox5.Text = reng("STNDCOST")
             Me.TextBox6.Text = Math.Round(reng("FinalCost"), 2)
-            If Math.Round((reng("FinalCost") / reng("QUANTITY_I")), 4) <> reng("STNDCOST") And Math.Round((reng("FinalCost") / reng("QUANTITY_I")), 4) <> reng("CURRCOST") Then
+            If Math.Round((reng("FinalCost") / reng("QUANTITY_I")), 4) <> reng("STNDCOST") And Math.Round((reng("FinalCost") / reng("QUANTITY_I")), 4) <> reng("CURRCOST").ToString Then
                 Me.TextBox8.Text = Math.Round((reng("FinalCost") / reng("QUANTITY_I")), 2)
                 Me.RadioButton3.Checked = True
                 Me.RadioButton1.Checked = False
@@ -764,7 +774,7 @@ Public Class Estimacion
 
 
             For Each reng As DataRow In rows22
-                If Math.Round((reng("FinalCost") / reng("QUANTITY_I")), 4) <> reng("STNDCOST") And Math.Round((reng("FinalCost") / reng("QUANTITY_I")), 4) <> reng("CURRCOST") Then
+                If Math.Round((reng("FinalCost") / reng("QUANTITY_I")), 4) <> reng("STNDCOST") And Math.Round((reng("FinalCost") / reng("QUANTITY_I")), 4) <> reng("CURRCOST").ToString Then
                     Me.TextBox8.Text = (reng("FinalCost") / reng("QUANTITY_I"))
                     Me.RadioButton3.Checked = True
                     Me.RadioButton1.Checked = False
@@ -1987,5 +1997,19 @@ Public Class Estimacion
         End If
 
 
+    End Sub
+
+    Protected Sub btnEspanol_Click(sender As Object, e As EventArgs) Handles btnEspanol.Click
+        'ScriptManager.RegisterStartupScript(Me, GetType(Page), "PrintPanel", "PrintPanel();});", True)
+        '' Page.ClientScript.RegisterStartupScript(Me.GetType(), "PrintPanel", "PrintPanel();", True)
+        ''ScriptManager.RegisterStartupScript(Me, [GetType](), "PrintPanel", "PrintPanel();", True)
+        ''ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "PrintPanel", "PrintPanel();", True)
+        ''ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "myFunction", "myFunction();", True)
+        ScriptManager.RegisterClientScriptBlock(UpdatePanel1, UpdatePanel1.GetType, "script", "PrintPanel();", True)
+    End Sub
+
+    Protected Sub btnEnglish_Click(sender As Object, e As EventArgs) Handles btnEnglish.Click
+        '' OnClientClick="return PrintPanel3();" 
+        ScriptManager.RegisterClientScriptBlock(UpdatePanel1, UpdatePanel1.GetType, "script", "PrintPanel3();", True)
     End Sub
 End Class
