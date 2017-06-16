@@ -124,9 +124,9 @@
             <div id="div1" runat="server"></div>
 
             <div class="well well-lg">
-                <table style="border-style: solid; border-color: #C0C0C0; width: 100%;">
+                <table id="table_resumen" style="border-style: solid; border-color: #C0C0C0; width: 100%;">
                     <tr style="vertical-align: top; background-color: #C0C0C0;">
-                                <td style="width: 100%; text-align: left; vertical-align: top;" colspan="8">
+                                <td style="width: 100%; text-align: left; vertical-align: top;" colspan="9">
                                     <b>&nbsp;<asp:Label ID="Label30" runat="server" Text="Filtro"></asp:Label>
                                     </b>&nbsp;
                                 </td>
@@ -143,7 +143,7 @@
                         <td style="width: 72px;">
                             <asp:Label ID="Label1" runat="server" Text="Vendedor"></asp:Label>&nbsp;
                         </td>
-                        <td>
+                        <td style="width: 220px;">
                             <asp:DropDownList ID="DDVendedor" Style="width: 200px;" runat="server"></asp:DropDownList>&nbsp;
 
                         </td>
@@ -155,6 +155,11 @@
                         </td>
                         <td style="width: 120px;">&nbsp;</td>
                         <td>&nbsp;</td>
+
+                        <td >
+                            <asp:Button ID="Button1" Width="100%" class="btn-xs btn-primary" runat="server" Text="Filtrar" />
+  
+                        </td>
 
                     </tr>
                     <tr>
@@ -169,11 +174,11 @@
                                 <asp:Label ID="Label5" runat="server" Text="Fecha"></asp:Label>
                             &nbsp;
                         </td>
-                        <td>
+                        <td style="width: 220px;">
                         <div class="input-daterange input-group" id="datepicker">
-                            <asp:TextBox ID="TextBox1" Width="23%" runat="server"></asp:TextBox>&nbsp;
+                            <asp:TextBox ID="TextBox1" Width="37%" runat="server"></asp:TextBox>&nbsp;
                                 <asp:Label ID="Label7" runat="server" Text="a"></asp:Label>&nbsp;
-                                <asp:TextBox ID="TextBox2" Width="23%" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TextBox2" Width="37%" runat="server"></asp:TextBox>
                         &nbsp;
                         </div>
 
@@ -191,18 +196,20 @@
                         <td>
                             <asp:DropDownList ID="DDStatusCotiza" Style="width: 100px;" runat="server"></asp:DropDownList>&nbsp;
                         </td>
+                         <td>
+                            <asp:Button ID="ButtonBorrarFiltros" Width="100%" class="btn-xs btn-primary" runat="server" Text="Borrar Filtros" />
+                         </td>
                     </tr>
 
                 </table>
 
-                <div style="position: relative; right: 0px; width: 100%; text-align: right; margin-top: 16px">
-                    <asp:Button ID="Button1" class="btn btn-primary" runat="server" Text="Filtrar" />
-                    <asp:Button ID="ButtonIndicadores" class="btn btn-primary" runat="server" Text="Indicadores" />&nbsp;
+                <div style="position: relative; right: 0px; width: 100%; text-align: left; margin-top: 16px">
+                    <asp:Button ID="ButtonEstimacionGo" class="btn btn-primary" runat="server" Text="Nueva cotización" />
                     <asp:Button ID="ButtonPrintEstim" class="btn btn-primary hidden-print" OnClientClick="return PrintPanel3();" runat="server" Text="Imprimir" />&nbsp;
                     <%--<a href="Estimacion.aspx" class="btn btn-primary" role="button">Nueva Estimacion</a>--%>
                     <a id="btn_reasignar" data-role="button" class="btn btn-primary">Reasignar Vendedor</a>
                     <%--<asp:Button ID="ButtonReasignar" class="btn btn-primary" runat="server" Text="Reasignar" />&nbsp;--%>
-                    <asp:Button ID="ButtonEstimacionGo" class="btn btn-primary" runat="server" Text="Nueva cotización" />
+
                 </div>
 
 

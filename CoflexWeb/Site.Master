@@ -75,6 +75,7 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <%--<li><a runat="server" href="~/Account/Register">Register</a></li>--%>
                                 <li><a runat="server" href="~/Estimaciones/ResumenEstimaciones">Cotizaciones</a></li>
+                                <li><a runat="server" href="~/Estimaciones/Indicadores.aspx">Indicadores</a></li>
                                 <li><a runat="server" href="~/Account/Usuarios">Usuarios</a></li>
                                 <%--<li><a runat="server" href="~/Account/Roles">Roles</a></li>--%>
                                 <li><a runat="server" href="~/Account/ResetPassword">Cambiar contraseña</a></li>

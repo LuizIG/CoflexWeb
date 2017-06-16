@@ -104,6 +104,15 @@ Partial Public Class ResumenEstimaciones
     Protected WithEvents txtCliente As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''Control Button1.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Button1 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''Control Label4.
     '''</summary>
     '''<remarks>
@@ -194,31 +203,13 @@ Partial Public Class ResumenEstimaciones
     Protected WithEvents DDStatusCotiza As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''Control Button1.
+    '''Control ButtonBorrarFiltros.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents Button1 As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''Control ButtonIndicadores.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ButtonIndicadores As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''Control ButtonPrintEstim.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ButtonPrintEstim As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents ButtonBorrarFiltros As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
     '''Control ButtonEstimacionGo.
@@ -228,6 +219,15 @@ Partial Public Class ResumenEstimaciones
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents ButtonEstimacionGo As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''Control ButtonPrintEstim.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents ButtonPrintEstim As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
     '''Control pnlContents3.

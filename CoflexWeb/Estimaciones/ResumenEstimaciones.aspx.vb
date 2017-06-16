@@ -98,7 +98,23 @@ Public Class ResumenEstimaciones
     End Sub
 
     Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Filtrar()
+    End Sub
 
+    Private Sub ButtonBorrarFiltros_Click(sender As Object, e As EventArgs) Handles ButtonBorrarFiltros.Click
+        Me.txtCotizacion.Text = ""
+        Me.DDVendedor.SelectedValue = ""
+        Me.txtCliente.Text = ""
+        Me.DDStatusCotiza.SelectedValue = ""
+        Me.txtVersion.Text = ""
+        Me.TextBox1.Text = ""
+        Me.TextBox2.Text = ""
+        Me.DDStatusVersion.SelectedValue = ""
+        Filtrar()
+    End Sub
+
+
+    Private Sub Filtrar()
         If ViewState("CurrentTable") IsNot Nothing Then
             Dim dt As DataTable = DirectCast(ViewState("CurrentTable"), DataTable)
             Dim Qstring As String = "   "
@@ -169,9 +185,6 @@ Public Class ResumenEstimaciones
         End If
     End Sub
 
-    Protected Sub ButtonIndicadores_Click(sender As Object, e As EventArgs) Handles ButtonIndicadores.Click
-        Response.Redirect("~/Estimaciones/Indicadores.aspx")
-    End Sub
 
 End Class
 
