@@ -215,8 +215,9 @@ Public Class Estimacion
                         Tv_Exchange.Enabled = True
                     End If
 
+                    Dim exchange = detail.GetValue("ExchangeRate").Value(Of String)
 
-                    Tv_Exchange.Text = detail.GetValue("ExchangeRate").Value(Of String)
+                    Tv_Exchange.Text = CDbl(exchange).ToString("C4", New CultureInfo("es-MX"))
                     Dim items = detail.GetValue("Items").Value(Of JArray)
 
                     Dim Table As DataTable
@@ -371,7 +372,9 @@ Public Class Estimacion
                 If (statusCode >= 200 And statusCode < 400) Then
                     Dim d = o.GetValue("detail").Value(Of JObject)
 
-                    Tv_Exchange.Text = d.GetValue("MXN_to_DLLS").Value(Of String)
+                    Dim exchange = d.GetValue("MXN_to_DLLS").Value(Of String)
+
+                    Tv_Exchange.Text = CDbl(exchange).ToString("C4", New CultureInfo("es-MX"))
                 End If
 
                 If DDCliente.SelectedValue = "Seleccionar" Then
@@ -1235,7 +1238,7 @@ Public Class Estimacion
 
         ElseIf (e.Row.RowType = DataControlRowType.Footer) Then
 
-            margen_ganancia.InnerHtml = "<h4>Margen de Ganancia: " & SumaMargen.ToString("C2", New CultureInfo("es-MX")) & "</h4>"
+            margen_ganancia.InnerHtml = ""
             e.Row.Cells(9).Text = (SumaMargenPorcentaje * 100) / RowsCount & "%" '(Suma).ToString("C2", New CultureInfo("es-MX"))
             e.Row.Cells(10).Text = SumaMargen.ToString("C2", New CultureInfo("es-MX"))
             e.Row.Cells(11).Text = (Suma).ToString("C2", New CultureInfo("es-MX"))

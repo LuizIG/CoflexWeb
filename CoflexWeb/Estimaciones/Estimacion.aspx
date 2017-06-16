@@ -10,6 +10,10 @@
     </style>
 
     <script language="javascript" type="text/javascript">
+
+
+
+
         function CheckNumericNumeric(e) {
 
             if (window.event) // IE 
@@ -63,7 +67,7 @@
         function FilterItems(value) {
             ddl.options.length = 0;
             for (var i = 0; i < ddlText.length; i++) {
-                if (ddlText[i].toLowerCase().indexOf(value) == 0) {
+                if (ddlText[i].toLowerCase().indexOf(value.toLowerCase()) == 0) {
                     AddItem(ddlText[i], ddlValue[i]);
                 }
             }
@@ -143,6 +147,25 @@
         prm.add_endRequest(function () {
             // re-bind your jQuery events here
             ddl = document.getElementById("<%=DDComponente.ClientID %>");
+
+            $("#MainContent_Tv_Exchange").focusout(function () {
+                var amount = $(this).val().replace("$", "");
+                var n = amount;
+                var c = 4;
+                var d = ".";
+                var t = ",";
+                var s = n < 0 ? "-" : "";
+                var i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c)));
+                var j = (j = i.length) > 3 ? j % 3 : 0;
+                var result = "$" + s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+                $(this).val(result);
+                
+            });
+
+            Number.prototype.formatMoney = function (c, d, t) {
+
+            };
+
         });
 
         function clearCheckBox() {
@@ -150,6 +173,7 @@
                 $(this).attr('checked', false);
             });
         }
+
 
     </script>
     <h2><%--<%: Title %>.--%></h2>
@@ -518,9 +542,9 @@
                                         <table style="width: 100%">
                                             <tr>
                                                 <td>
-                                                    <asp:Label ID="Label10" runat="server" Text="Tipo de Cambio"></asp:Label></td>
+                                                    <asp:Label ID="Label10" runat="server" Text="Tipo de Cambio: "></asp:Label></td>
                                                 <td>
-                                                    <asp:TextBox ID="Tv_Exchange" runat="server">19.05</asp:TextBox>
+                                                    <asp:TextBox onkeypress="CheckNumeric(event);" ID="Tv_Exchange" runat="server">19.05</asp:TextBox>
                                                 </td>
                                             </tr>
                                         </table>
