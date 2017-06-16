@@ -4,6 +4,16 @@
 
     <link href="../Content/bootstrap-datepicker.css" rel="stylesheet" />
     <script src="../Scripts/bootstrap-datepicker.js"></script>
+
+    <style type="text/css" >
+
+        #MainContent_GridQuotations tr:hover {
+            background-color: #E0E0E0;
+            cursor: pointer;
+        }
+
+    </style>
+
     <script type="text/javascript">
 
         function CheckNumericNumeric(e) {

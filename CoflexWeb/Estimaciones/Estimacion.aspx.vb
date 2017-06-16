@@ -1008,7 +1008,7 @@ Public Class Estimacion
     Private Function CreateQuotationVersion() As JObject
         Dim QuotationVersion As New JObject
 
-        Dim exchange As Double = CDbl(Val(Tv_Exchange.Text))
+        Dim exchange As Double = CDbl(Val(Tv_Exchange.Text.Replace("$", "")))
 
         QuotationVersion.Add("ExchangeRate", exchange)
         QuotationVersion.Add("UseStndCost", True)
@@ -1211,6 +1211,8 @@ Public Class Estimacion
             Dim margen As Double = CDbl(txMargin.Text.Replace("$", "")) / 100
             Dim shipping As Double = CDbl(txShipping.Text.Replace("$", ""))
 
+            Dim costoTotal As Double = (costoUnitario + (costoUnitario * 0.01)) / (1 - margen)
+            Dim costoMargen As Double = (costoUnitario + (costoUnitario * 0.01)) * margen
 
             If (Session("Status") > 0) Then
                 txMargin.Enabled = False
@@ -1220,22 +1222,25 @@ Public Class Estimacion
 
 
             'Acumulando el monto
-            Suma += (costoUnitario + shipping) * cantidad * (1 + (margen))
-            SumaCotizacion += (costoUnitario + shipping) * cantidad
-            SumaMargen += ((costoUnitario + shipping) * cantidad * (1 + (margen)) - (costoUnitario + shipping) * cantidad)
+
+
+            Suma += costoTotal
+
+            SumaMargen += costoMargen
             SumaMargenPorcentaje += margen
             RowsCount = RowsCount + 1
-            e.Row.Cells(10).Text = ((costoUnitario + shipping) * margen).ToString("C2", New CultureInfo("es-MX"))
-            e.Row.Cells(11).Text = ((costoUnitario + shipping) * (1 + margen)).ToString("C2", New CultureInfo("es-MX"))
-            e.Row.Cells(12).Text = (((costoUnitario + shipping) * (1 + (margen))) / CDbl(Tv_Exchange.Text)).ToString("C2", New CultureInfo("es-MX"))
+
+            e.Row.Cells(10).Text = (costoMargen).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(11).Text = (costoTotal).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(12).Text = (costoTotal / CDbl(Tv_Exchange.Text.Replace("$", ""))).ToString("C2", New CultureInfo("es-MX"))
 
         ElseIf (e.Row.RowType = DataControlRowType.Footer) Then
-            e.Row.Cells(7).Text = FormatCurrency(SumaCotizacion)
+
             margen_ganancia.InnerHtml = "<h4>Margen de Ganancia: " & SumaMargen.ToString("C2", New CultureInfo("es-MX")) & "</h4>"
             e.Row.Cells(9).Text = ((SumaMargenPorcentaje * 100) / RowsCount).ToString("f2") & "%" '(Suma).ToString("C2", New CultureInfo("es-MX"))
             e.Row.Cells(10).Text = SumaMargen.ToString("C2", New CultureInfo("es-MX"))
             e.Row.Cells(11).Text = (Suma).ToString("C2", New CultureInfo("es-MX"))
-            e.Row.Cells(12).Text = (Suma / CDbl(Tv_Exchange.Text)).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(12).Text = (Suma / CDbl(Tv_Exchange.Text.Replace("$", ""))).ToString("C2", New CultureInfo("es-MX"))
         End If
     End Sub
 
