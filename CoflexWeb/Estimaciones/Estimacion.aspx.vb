@@ -136,7 +136,7 @@ Public Class Estimacion
 
                 End If
 
-                Dim ResponseVersions = CoflexWebServices.doGetRequest(CoflexWebServices.QUOTATIONS_VERSION & "/" & VersionId,, Session("access_token"))
+                Dim ResponseVersions = CoflexWebServices.getVersion(CoflexWebServices.QUOTATIONS_VERSION & "/" & VersionId, Session("access_token"))
                 o = JObject.Parse(ResponseVersions)
                 statusCode = o.GetValue("statusCode").Value(Of Integer)
                 If (statusCode >= 200 And statusCode < 400) Then
