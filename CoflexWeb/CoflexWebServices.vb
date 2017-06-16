@@ -59,6 +59,11 @@ Namespace CoflexWeb.Services.Web
             Return getData(request)
         End Function
 
+        Public Function getVersion(url As String, ByVal token As String) As String
+            Dim request = createRequest(SERVER_HOST & url, "GET", "application/json", token)
+            Return getData(request).Replace("StndCost", "STNDCOST").Replace("CurrCost", "CURRCOST").Replace("Result", "RESULT")
+        End Function
+
         Public Function doDeleteRequest(url As String, Optional ByVal contentType As String = "application/json", Optional token As String = "") As String
             Dim request = createRequest(SERVER_HOST & url, "DELETE", contentType, token)
             Return getData(request)
