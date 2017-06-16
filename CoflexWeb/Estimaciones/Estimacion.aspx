@@ -520,7 +520,7 @@
                                                 <td>
                                                     <asp:Label ID="Label10" runat="server" Text="Tipo de Cambio"></asp:Label></td>
                                                 <td>
-                                                    <asp:TextBox ID="Tv_Exchange" runat="server">19.05</asp:TextBox>
+                                                    <asp:TextBox ID="Tv_Exchange" runat="server"></asp:TextBox>
                                                 </td>
                                             </tr>
                                         </table>
