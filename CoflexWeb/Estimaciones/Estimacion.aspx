@@ -565,10 +565,17 @@
                         <br />
                         <asp:GridView class="table" ID="GridSummary" Width="100%" AutoGenerateColumns="False" runat="server" ShowFooter="True">
                             <Columns>
-                                <asp:BoundField ItemStyle-Width="20%" HeaderText="Sku" DataField="SkuComponente" />
-                                <asp:BoundField ItemStyle-Width="50%" HeaderText="Descripción" DataField="ITEMDESC" />
+                                <asp:BoundField ItemStyle-Width="15%" HeaderText="Sku" DataField="SkuComponente" />
 
-                                <asp:TemplateField ItemStyle-Width="50%" HeaderText="Descripción Alternativa" Visible="true">
+                                <asp:TemplateField ItemStyle-Width="15%" HeaderText="Sku Alternativo" Visible="true">
+                                    <ItemTemplate>
+                                        <asp:TextBox ID="TBSkuAlt" Width="100%" Text='<%# Bind("AltSku") %>' runat="server"></asp:TextBox>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+
+                                <asp:BoundField ItemStyle-Width="30%" HeaderText="Descripción" DataField="ITEMDESC" />
+
+                                <asp:TemplateField ItemStyle-Width="40%" HeaderText="Descripción Alternativa" Visible="true">
                                     <ItemTemplate>
                                         <asp:TextBox ID="TBDescAlt" Width="100%" Text='<%# Bind("AltDescription") %>' runat="server"></asp:TextBox>
                                     </ItemTemplate>
