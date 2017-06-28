@@ -68,6 +68,24 @@ Partial Public Class Estimacion
     Protected WithEvents View1 As Global.System.Web.UI.WebControls.View
     
     '''<summary>
+    '''Control DDUsers.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents DDUsers As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''Control Button11.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Button11 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''Control UpdateProgress1.
     '''</summary>
     '''<remarks>
@@ -498,6 +516,15 @@ Partial Public Class Estimacion
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents TextBox6 As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''Control BtnSaveProject.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents BtnSaveProject As Global.System.Web.UI.HtmlControls.HtmlButton
     
     '''<summary>
     '''Control ButtonBack.

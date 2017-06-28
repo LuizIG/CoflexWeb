@@ -668,6 +668,9 @@ Public Class Estimacion
             End If
 
             For Each reng As DataRowView In dv
+
+                BtnSaveProject.Visible = reng("Nivel1") = 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0
+
                 Me.TextBox1.Text = reng("SkuArticulo")
                 Me.TextBox2.Text = reng("SkuComponente")
                 Me.TextArea1.Value = reng("ITEMDESC")
