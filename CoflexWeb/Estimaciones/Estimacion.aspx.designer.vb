@@ -707,6 +707,24 @@ Partial Public Class Estimacion
     Protected WithEvents View3 As Global.System.Web.UI.WebControls.View
     
     '''<summary>
+    '''Control div_error_new_component.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents div_error_new_component As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''Control div_error_new_component_description.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents div_error_new_component_description As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''Control UpdateProgress3.
     '''</summary>
     '''<remarks>

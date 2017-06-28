@@ -1104,16 +1104,30 @@ Public Class Estimacion
 
     Protected Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
 
-        Try
-            Dim Elemento As New JObject
 
-            With Elemento
+        If (Me.txtSkuComponente.Text = "" Or Me.txtUofm.Text = "" Or Me.txtItemDesc.Value = "" Or Me.txtStndCost.Text = "") Then
+                div_error_new_component.Style.Add("display", "block")
+            Me.div_error_new_component_description.InnerText = "Ups! Todos los campos son requeridos."
+            Return
+            End If
+            Dim Elemento As New JObject
+        Dim Cost = 0
+        Try
+            Cost = CDbl(Me.txtStndCost.Text.Replace("$", "").Replace(",", ""))
+        Catch ex As Exception
+            div_error_new_component.Style.Add("display", "block")
+            Me.div_error_new_component_description.InnerText = "Ups! Por favor captura un costo válido para el componente."
+            Return
+        End Try
+
+
+        With Elemento
                 .Add("SkuComponente", Me.txtSkuComponente.Text)
                 .Add("IdQuotation", 0)
                 .Add("Uofm", Me.txtUofm.Text)
                 .Add("ItemDesc", Me.txtItemDesc.Value)
-                .Add("StndCost", CDbl(Me.txtStndCost.Text))
-            End With
+            .Add("StndCost", Cost)
+        End With
 
             Dim jsonResponse = CoflexWebServices.doPostRequest(CoflexWebServices.NEW_COMPONENTES, Elemento.ToString,, Session("access_token"))
             Dim o = JObject.Parse(jsonResponse)
@@ -1144,9 +1158,7 @@ Public Class Estimacion
             Me.MultiView1.ActiveViewIndex = 0
 
 
-        Catch ex As Exception
 
-        End Try
     End Sub
 
     Protected Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click

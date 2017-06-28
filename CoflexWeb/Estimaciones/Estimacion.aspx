@@ -626,6 +626,13 @@
 
                 </asp:View>
                 <asp:View ID="View3" runat="server">
+
+
+                    <div id="div_error_new_component" runat="server" style="display: none" class="alert alert-danger alert-dismissable fade in">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <div runat="server" id="div_error_new_component_description"></div>
+                    </div>
+
                     <div style="text-align: center; height: 8px; margin-top: 16px;">
                         <asp:UpdateProgress ID="UpdateProgress3" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DynamicLayout="true">
                             <ProgressTemplate>
