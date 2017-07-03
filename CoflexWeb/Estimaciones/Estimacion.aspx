@@ -339,6 +339,9 @@
                                                 <td>
                                                     <asp:Button ID="BtnDown" runat="server" class="btn btn-primary" Text="Bajar" />&nbsp;
                                                 </td>
+                                                <td>
+                                                    <asp:Button ID="BtnSplit" runat="server" class="btn btn-primary" Text="Separar" />&nbsp;
+                                                </td>
                                             </tr>
                                         </table>
                                     </div>

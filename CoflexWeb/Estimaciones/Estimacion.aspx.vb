@@ -1048,8 +1048,6 @@ Public Class Estimacion
 
             Next
 
-
-
             Dim TBMargin As TextBox = TryCast(row.FindControl("TVMargin"), TextBox)
             Dim TBDescAlt As TextBox = TryCast(row.FindControl("TBDescAlt"), TextBox)
 
@@ -2094,8 +2092,7 @@ Public Class Estimacion
 
 
                         Dim x = TreeView1.FindNode(finalPath.Substring(0, finalPath.Length - 1))
-
-
+                        x.Checked = True
                         Try
                             x.Parent.Expand()
                             x.Parent.Parent.Expand()
@@ -2109,7 +2106,7 @@ Public Class Estimacion
             End If
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            'MsgBox(ex.Message)
         End Try
 
     End Sub
@@ -2269,4 +2266,86 @@ Public Class Estimacion
 
     End Sub
 
+    Private Sub BtnSplit_Click(sender As Object, e As EventArgs) Handles BtnSplit.Click
+
+        If TreeView1.CheckedNodes.Count = 0 Then
+            'Tiene que seleccionar uno 
+        ElseIf (TreeView1.CheckedNodes.Count = 1) Then
+            Dim node As TreeNode = TreeView1.CheckedNodes(0)
+
+            Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
+
+            Dim IdComponent = node.Value.Split("|")(0)
+
+            dv.RowFilter = "Id = " & IdComponent
+
+            Dim NivelActual = GetNivel(dv)
+
+            For Each reng As DataRowView In dv
+
+                Dim Nivel1 = reng("Nivel1")
+                Dim Nivel2 = reng("Nivel2")
+                Dim Nivel3 = reng("Nivel3")
+
+                reng("QUANTITY_I") = reng("QUANTITY_I") / 2
+
+                Dim SkuArticulo = reng("SkuArticulo")
+
+                Dim NivelActualString As String = "Nivel" & NivelActual
+
+                'Valor del ultimo nivel
+                Dim UltimoNivelValue As Integer = reng(NivelActualString)
+
+                dv.RowFilter = "1=1"
+
+                dv.RowFilter = GetFiltro(NivelActual, Nivel1, Nivel2, SkuArticulo)
+
+                Dim lastrecord As Integer = dv.Count
+                Dim ultimovalor = dv.Item(lastrecord - 1)(NivelActualString)
+
+                dv.RowFilter = "1=1"
+
+                dv.RowFilter = GetFiltroChildren(NivelActual, Nivel1, Nivel2, Nivel3, SkuArticulo)
+
+                Dim otherTable = dv.ToTable
+
+                For Each row In otherTable.Rows
+
+                    row(NivelActualString) = ultimovalor + 1
+                    row("Id") = row("Id") * -1
+                Next
+
+                treeViewTable(otherTable)
+
+                dv = New DataView(DirectCast(Session("treeView"), DataTable))
+
+                dv.RowFilter = "1=1"
+
+                '-----------------------------------------------
+
+                dv.RowFilter = "Nivel1=0 and Nivel2=0 and Nivel3=0"
+                dv.Sort = "SkuArticulo"
+
+                Dim tableOrdered = dv.ToTable
+
+                TreeView1.Nodes.Clear()
+
+                For Each record In tableOrdered.Rows
+
+                    dv.RowFilter = "1=1"
+                    dv.RowFilter = "SkuArticulo = '" & record("SkuArticulo") & "'"
+                    dv.Sort = "Nivel1, Nivel2, Nivel3"
+
+                    FillTreeview(dv.ToTable)
+
+                Next
+
+
+            Next
+
+
+        End If
+
+
+    End Sub
 End Class

@@ -302,6 +302,15 @@ Partial Public Class Estimacion
     Protected WithEvents BtnDown As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
+    '''Control BtnSplit.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents BtnSplit As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''Control Panel1.
     '''</summary>
     '''<remarks>
