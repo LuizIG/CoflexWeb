@@ -226,7 +226,9 @@ Public Class Estimacion
                     TableMargin.Columns.Add("sku", GetType(String))
                     TableMargin.Columns.Add("margin", GetType(Double))
 
-                    For Each item As JObject In items
+                    Dim sorted As New JArray(items.OrderBy(Function(obj) obj("Sku")))
+
+                    For Each item As JObject In sorted
 
                         Dim rowMargin = TableMargin.NewRow
                         rowMargin("sku") = item.GetValue("Sku").Value(Of String)
@@ -1499,7 +1501,36 @@ Public Class Estimacion
                                 Next
                             Next
                         Next
+                        Table = Session("treeView")
+
+                        Dim dataview As New DataView(DirectCast(Table, DataTable))
+
+                        dataview.RowFilter = "Nivel1=0 and Nivel2=0 and Nivel3=0"
+                        dataview.Sort = "SkuArticulo"
+
+                        Dim tableOrdered = dataview.ToTable
+
+                        TreeView1.Nodes.Clear()
+
+                        For Each record In tableOrdered.Rows
+
+                            dataview.RowFilter = "1=1"
+                            dataview.RowFilter = "SkuArticulo = '" & record("SkuArticulo") & "'"
+                            dataview.Sort = "Nivel1, Nivel2, Nivel3"
+
+                            FillTreeview(dataview.ToTable)
+
+                        Next
+
+                        dataview.RowFilter = "1=1"
+                        dataview.Sort = "SkuArticulo, Nivel1, Nivel2, Nivel3"
+                        Session("treeView") = dataview.ToTable
+
+
                     End If
+
+
+
 
                 End If
                 Me.DDArticulo.SelectedIndex = 0
@@ -1937,4 +1968,305 @@ Public Class Estimacion
     Protected Sub btnEnglish_Click(sender As Object, e As EventArgs) Handles btnEnglish.Click
         ScriptManager.RegisterClientScriptBlock(UpdatePanel1, UpdatePanel1.GetType, "script", "PrintPanel3();", True)
     End Sub
+
+    Private Sub BtnUp_Click(sender As Object, e As EventArgs) Handles BtnUp.Click
+        ReorderTreeview(True)
+    End Sub
+
+    Private Sub BtnDown_Click(sender As Object, e As EventArgs) Handles BtnDown.Click
+        ReorderTreeview(False)
+    End Sub
+
+    Private Sub ReorderTreeview(ByVal up As Boolean)
+
+        Try
+
+            If TreeView1.CheckedNodes.Count = 0 Then
+                'Tiene que seleccionar uno 
+            ElseIf (TreeView1.CheckedNodes.Count = 1) Then
+                Dim node As TreeNode = TreeView1.CheckedNodes(0)
+
+
+                Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
+
+                Dim IdComponent = node.Value.Split("|")(0)
+                Dim path As String = node.ValuePath
+
+                dv.RowFilter = "Id = " & IdComponent
+
+                'Nivel en que se realizara la operacion (1,2 o 3)
+                Dim NivelActual = GetNivel(dv)
+
+                If (NivelActual = 0) Then
+                    Return
+                End If
+
+                For Each reng As DataRowView In dv
+
+                    Dim Nivel1 = reng("Nivel1")
+                    Dim Nivel2 = reng("Nivel2")
+                    Dim Nivel3 = reng("Nivel3")
+                    Dim SkuArticulo = reng("SkuArticulo")
+
+                    Dim NivelActualString As String = "Nivel" & NivelActual
+
+                    'Valor del ultimo nivel
+                    Dim UltimoNivelValue As Integer = reng(NivelActualString)
+
+                    dv.RowFilter = "1=1"
+
+                    dv.RowFilter = GetFiltro(NivelActual, Nivel1, Nivel2, SkuArticulo)
+
+                    'Posicion en la tabla dentro del nivel actual
+                    Dim position As Integer = GetPosition(dv, NivelActualString, UltimoNivelValue)
+
+                    If (PermitirMovimientos(dv.Count, position, up)) Then
+
+                        'Quitamos filtros al dv
+
+                        Const ProvicionalValue = 10000
+                        'Valor del ultimo nivel del registro con que se intercambiara posicion
+                        Dim UltimoNivelValueAlternativo As Integer = dv.Item(IIf(up, position - 2, position))(NivelActualString)
+
+                        dv.RowFilter = "1=1"
+
+                        dv.RowFilter = GetFiltroChildren(NivelActual, IIf(NivelActual = 1, UltimoNivelValue, Nivel1), IIf(NivelActual = 2, UltimoNivelValue, Nivel2), IIf(NivelActual = 3, UltimoNivelValue, Nivel3), SkuArticulo)
+
+                        For Each row In dv
+                            row(NivelActualString) = ProvicionalValue
+                        Next
+
+                        dv.RowFilter = "1=1"
+
+                        dv.RowFilter = GetFiltroChildren(NivelActual, IIf(NivelActual = 1, UltimoNivelValueAlternativo, Nivel1), IIf(NivelActual = 2, UltimoNivelValueAlternativo, Nivel2), IIf(NivelActual = 3, UltimoNivelValueAlternativo, Nivel3), SkuArticulo)
+
+                        For Each row In dv
+                            row(NivelActualString) = UltimoNivelValue
+                        Next
+
+                        dv.RowFilter = "1=1"
+
+                        dv.RowFilter = GetFiltroChildren(NivelActual, IIf(NivelActual = 1, ProvicionalValue, Nivel1), IIf(NivelActual = 2, ProvicionalValue, Nivel2), IIf(NivelActual = 3, ProvicionalValue, Nivel3), SkuArticulo)
+
+                        For Each row In dv
+                            row(NivelActualString) = UltimoNivelValueAlternativo
+                        Next
+
+                        dv.RowFilter = "1=1"
+
+                        '-----------------------------------------------
+
+                        dv.RowFilter = "Nivel1=0 and Nivel2=0 and Nivel3=0"
+                        dv.Sort = "SkuArticulo"
+
+                        Dim tableOrdered = dv.ToTable
+
+                        TreeView1.Nodes.Clear()
+
+                        For Each record In tableOrdered.Rows
+
+                            dv.RowFilter = "1=1"
+                            dv.RowFilter = "SkuArticulo = '" & record("SkuArticulo") & "'"
+                            dv.Sort = "Nivel1, Nivel2, Nivel3"
+
+                            FillTreeview(dv.ToTable)
+
+                        Next
+
+                        dv.RowFilter = "1=1"
+                        dv.Sort = "SkuArticulo, Nivel1, Nivel2, Nivel3"
+                        Session("treeView") = dv.ToTable
+
+                        Dim Pth = path.Split("/")
+                        Dim lenght = Pth.Count
+
+                        Dim pathEdit = Pth(lenght - 1).Split("|")
+                        pathEdit(1) = UltimoNivelValueAlternativo
+
+                        Dim pathEditado = pathEdit(0) & "|" & pathEdit(1) & "|" & pathEdit(2)
+
+                        Pth(lenght - 1) = pathEditado
+
+                        Dim finalPath As String = ""
+                        For val As Integer = 0 To lenght - 1
+                            finalPath = finalPath & Pth(val) & "/"
+                        Next
+
+
+                        Dim x = TreeView1.FindNode(finalPath.Substring(0, finalPath.Length - 1))
+
+
+                        Try
+                            x.Parent.Expand()
+                            x.Parent.Parent.Expand()
+                            x.Parent.Parent.Parent.Expand()
+                        Catch ex As Exception
+
+                        End Try
+
+                    End If
+                Next
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+    End Sub
+
+
+    ''' <summary>
+    ''' Obtiene los registros actuales del mismo nivel del elemento seleccionado
+    ''' </summary>
+    ''' <param name="NivelActual">Determina que nivel buscamos </param>
+    ''' <param name="Nivel1">Int nivel 1</param>
+    ''' <param name="Nivel2">Int nivel 2</param>
+    ''' <returns>Obtiene la cadena para el filtro dependiendo del nivel actual</returns>
+    Private Function GetFiltro(ByVal NivelActual As String, ByVal Nivel1 As Integer, ByVal Nivel2 As Integer, ByVal sku As String) As String
+
+        Select Case NivelActual
+            Case 3
+                Return "SkuArticulo = '" & sku & "' and Nivel1 = " & Nivel1 & " and Nivel2 = " & Nivel2 & " and Nivel3 > 0"
+            Case 2
+                Return "SkuArticulo = '" & sku & "' and Nivel1 = " & Nivel1 & " and Nivel2 > 0 and Nivel3 = 0"
+            Case 1
+                Return "SkuArticulo = '" & sku & "' and Nivel1 > 0 and Nivel2 = 0"
+
+        End Select
+
+        Return ""
+    End Function
+
+    Private Function GetFiltroChildren(ByVal NivelActual As String, ByVal Nivel1 As Integer, ByVal Nivel2 As Integer, ByVal Nivel3 As Integer, ByVal sku As String) As String
+
+        Select Case NivelActual
+            Case 3
+                Return "SkuArticulo = '" & sku & "' and Nivel1 = " & Nivel1 & " and Nivel2 = " & Nivel2 & " and Nivel3 = " & Nivel3
+            Case 2
+                Return "SkuArticulo = '" & sku & "' and Nivel1 = " & Nivel1 & " and Nivel2 = " & Nivel2
+            Case 1
+                Return "SkuArticulo = '" & sku & "' and Nivel1 = " & Nivel1
+
+        End Select
+
+        Return ""
+    End Function
+
+
+    ''' <summary>
+    ''' Determina si se permite realizar movimientos dada la cantidad de registros y la posicion del registro determinado
+    ''' </summary>
+    ''' <param name="cantidadRegistros">Cantidad de registros en el nivel</param>
+    ''' <param name="position">Posicion del registro dentro de la tabla</param>
+    ''' <param name="up">Determina si el registro sube o baja de posicion</param>
+    ''' <returns></returns>
+    Private Function PermitirMovimientos(ByVal cantidadRegistros As Integer, ByVal position As Integer, ByVal up As Boolean) As Boolean
+        If cantidadRegistros > 1 Then
+            If up Then
+                Return position > 1
+            Else
+                Return position < cantidadRegistros
+            End If
+        End If
+        Return False
+    End Function
+
+    ''' <summary>
+    ''' Determina en que nivel se realizará la operación
+    ''' </summary>
+    ''' <param name="dv">Data View</param>
+    ''' <returns></returns>
+    Private Function GetNivel(ByVal dv As DataView) As Integer
+        For Each reng As DataRowView In dv
+            If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") > 0 Then
+                Return 3
+            ElseIf reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") = 0 Then
+                Return 2
+            ElseIf reng("Nivel1") > 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
+                Return 1
+            End If
+        Next
+        Return 0
+    End Function
+
+
+    ''' <summary>
+    ''' Determina la posicion del registro en la DataTable 
+    ''' </summary>
+    ''' <param name="dv">DataView</param>
+    ''' <param name="Nivel">String del nivel que estamos buscando (Nivel1, Nivel2 etc)</param>
+    ''' <param name="NivelNumber">Valor del nivel para realizar la comparacion</param>
+    ''' <returns></returns>
+    Private Function GetPosition(ByVal dv As DataView, ByVal Nivel As String, ByVal NivelNumber As Integer) As Integer
+        Dim position As Integer = 0
+        For Each row In dv
+            position = position + 1
+            If (row(Nivel) = NivelNumber) Then
+                Return position
+            End If
+        Next
+        Return 0
+    End Function
+
+    Private Sub FillTreeview(ByVal Table As DataTable)
+
+
+        For Each reng As DataRow In Table.Rows
+            If reng("Nivel1") = 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
+                Dim innerI As New TreeNode()
+                innerI.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente")
+                innerI.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                TreeView1.Nodes.Add(innerI)
+            End If
+        Next
+        'Dim sqlDR As SqlDataAdapter
+        'sqlDR.Fill(Table)
+        For Each reng As DataRow In Table.Rows
+            If reng("Nivel1") > 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
+                Dim inner As New TreeNode()
+                inner.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente")
+                inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                ''TreeView1.Nodes.Add(inner)
+                If TreeView1.Nodes.Count > 1 Then
+                    TreeView1.Nodes(TreeView1.Nodes.Count - 1).ChildNodes.Add(inner)
+                Else
+                    TreeView1.Nodes(0).ChildNodes.Add(inner)
+                End If
+            End If
+        Next
+
+        Dim myNode As TreeNode = TreeView1.Nodes(TreeView1.Nodes.Count - 1)
+        ''For Each myNode In Me.TreeView1.Nodes
+        For Each childNodeA As TreeNode In myNode.ChildNodes
+            Dim dv As New DataView(Table)
+            dv.RowFilter = "Nivel1 = " & Split(childNodeA.Value, "|")(1)
+            For Each reng As DataRowView In dv
+                If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") = 0 Then
+                    Dim inner As New TreeNode()
+                    inner.Value = reng("Id") & "|" & reng("Nivel2") & "|" & reng("SkuComponente")
+                    inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                    childNodeA.ChildNodes.Add(inner)
+                End If
+            Next
+        Next
+        '' Next
+
+        ''For Each myNode In Me.TreeView1.Nodes
+        For Each childNodeA As TreeNode In myNode.ChildNodes
+            For Each childNodeB As TreeNode In childNodeA.ChildNodes
+                Dim dv As New DataView(Table)
+                dv.RowFilter = "Nivel1 = " & Split(childNodeA.Value, "|")(1) & " and Nivel2 = " & Split(childNodeB.Value, "|")(1)
+                For Each reng As DataRowView In dv
+                    If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") > 0 Then
+                        Dim inner As New TreeNode()
+                        inner.Value = reng("Id") & "|" & reng("Nivel3") & "|" & reng("SkuComponente")
+                        inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                        childNodeB.ChildNodes.Add(inner)
+                    End If
+                Next
+            Next
+        Next
+
+    End Sub
+
 End Class

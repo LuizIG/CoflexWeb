@@ -11,9 +11,6 @@
 
     <script language="javascript" type="text/javascript">
 
-
-
-
         function CheckNumericNumeric(e) {
 
             if (window.event) // IE 
@@ -335,6 +332,12 @@
                                                 </td>
                                                 <td>
                                                     <asp:Button ID="Button4" runat="server" class="btn btn-primary" Text="Remover" />&nbsp;
+                                                </td>
+                                                <td>
+                                                    <asp:Button ID="BtnUp" runat="server" class="btn btn-primary" Text="Subir" />&nbsp;
+                                                </td>
+                                                <td>
+                                                    <asp:Button ID="BtnDown" runat="server" class="btn btn-primary" Text="Bajar" />&nbsp;
                                                 </td>
                                             </tr>
                                         </table>

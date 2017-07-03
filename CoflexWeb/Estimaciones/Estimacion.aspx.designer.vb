@@ -284,6 +284,24 @@ Partial Public Class Estimacion
     Protected WithEvents Button4 As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
+    '''Control BtnUp.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents BtnUp As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''Control BtnDown.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents BtnDown As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''Control Panel1.
     '''</summary>
     '''<remarks>
