@@ -670,9 +670,6 @@ Public Class Estimacion
             End If
 
             For Each reng As DataRowView In dv
-
-                BtnSaveProject.Visible = reng("Nivel1") = 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0
-
                 Me.TextBox1.Text = reng("SkuArticulo")
                 Me.TextBox2.Text = reng("SkuComponente")
                 Me.TextArea1.Value = reng("ITEMDESC")
@@ -1053,7 +1050,6 @@ Public Class Estimacion
 
             Dim TBMargin As TextBox = TryCast(row.FindControl("TVMargin"), TextBox)
             Dim TBDescAlt As TextBox = TryCast(row.FindControl("TBDescAlt"), TextBox)
-            Dim TBSkuAlt As TextBox = TryCast(row.FindControl("TBSkuAlt"), TextBox)
 
             Item.Add("Sku", sku)
             Item.Add("ItemDescription", reng("ITEMDESC").ToString)
@@ -1061,13 +1057,13 @@ Public Class Estimacion
             Item.Add("UM", reng("UOFM").ToString)
             Item.Add("Status", 0)
             Item.Add("ProfitMargin", CDbl(TBMargin.Text) / 100)
-            Item.Add("ItemsComponents", CreateItemComponents(sku, "1.0", TBDescAlt.Text, TBSkuAlt.Text))
+            Item.Add("ItemsComponents", CreateItemComponents(sku, "1.0", TBDescAlt.Text))
             ItemArray.Add(Item)
         Next
         Return ItemArray
     End Function
 
-    Private Function CreateItemComponents(ByVal itemSku As String, ByVal cant As String, ByVal descAlt As String, ByVal altSku As String) As JArray
+    Private Function CreateItemComponents(ByVal itemSku As String, ByVal cant As String, ByVal descAlt As String) As JArray
         Dim ItemComponentsArray As New JArray
         Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
         dv.RowFilter = "SkuArticulo = '" & itemSku & "'"
@@ -1078,12 +1074,9 @@ Public Class Estimacion
                 Item.Add("Quantity", CDbl(cant))
                 Item.Add("AltDescription", descAlt)
                 reng("AltDescription") = descAlt
-                Item.Add("AltSku", altSku)
-                reng("AltSku") = altSku
             Else
                 Item.Add("Quantity", CDbl(reng("QUANTITY_I").ToString))
                 Item.Add("AltDescription", "")
-                Item.Add("AltSku", "")
             End If
 
             Item.Add("SkuComponent", reng("SkuComponente").ToString)
@@ -1113,11 +1106,11 @@ Public Class Estimacion
 
 
         If (Me.txtSkuComponente.Text = "" Or Me.txtUofm.Text = "" Or Me.txtItemDesc.Value = "" Or Me.txtStndCost.Text = "") Then
-                div_error_new_component.Style.Add("display", "block")
+            div_error_new_component.Style.Add("display", "block")
             Me.div_error_new_component_description.InnerText = "Ups! Todos los campos son requeridos."
             Return
-            End If
-            Dim Elemento As New JObject
+        End If
+        Dim Elemento As New JObject
         Dim Cost = 0
         Try
             Cost = CDbl(Me.txtStndCost.Text.Replace("$", "").Replace(",", ""))
@@ -1129,40 +1122,40 @@ Public Class Estimacion
 
 
         With Elemento
-                .Add("SkuComponente", Me.txtSkuComponente.Text)
-                .Add("IdQuotation", 0)
-                .Add("Uofm", Me.txtUofm.Text)
-                .Add("ItemDesc", Me.txtItemDesc.Value)
+            .Add("SkuComponente", Me.txtSkuComponente.Text)
+            .Add("IdQuotation", 0)
+            .Add("Uofm", Me.txtUofm.Text)
+            .Add("ItemDesc", Me.txtItemDesc.Value)
             .Add("StndCost", Cost)
         End With
 
-            Dim jsonResponse = CoflexWebServices.doPostRequest(CoflexWebServices.NEW_COMPONENTES, Elemento.ToString,, Session("access_token"))
-            Dim o = JObject.Parse(jsonResponse)
-            Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
-            If (statusCode >= 200 And statusCode < 400) Then
-                '' Me.ErrorMessage.Text = "Usuario Registrado"
-            Else
-                Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
-                ''Me.ErrorMessage.Text = errorMessage
-            End If
+        Dim jsonResponse = CoflexWebServices.doPostRequest(CoflexWebServices.NEW_COMPONENTES, Elemento.ToString,, Session("access_token"))
+        Dim o = JObject.Parse(jsonResponse)
+        Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+        If (statusCode >= 200 And statusCode < 400) Then
+            '' Me.ErrorMessage.Text = "Usuario Registrado"
+        Else
+            Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
+            ''Me.ErrorMessage.Text = errorMessage
+        End If
 
-            Me.DDElemento.Dispose()
+        Me.DDElemento.Dispose()
 
-            jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.NEW_COMPONENTES,, Session("access_token"))
-            o = JObject.Parse(jsonResponse)
-            statusCode = o.GetValue("statusCode").Value(Of Integer)
-            If (statusCode >= 200 And statusCode < 400) Then
-                Dim detail = o.GetValue("detail").Value(Of JArray)
-                Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
-                Me.DDElemento.DataSource = Table
-                Me.DDElemento.DataValueField = "Id"
-                Me.DDElemento.DataTextField = "SkuComponente"
-                Me.DDElemento.DataBind()
-            End If
+        jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.NEW_COMPONENTES,, Session("access_token"))
+        o = JObject.Parse(jsonResponse)
+        statusCode = o.GetValue("statusCode").Value(Of Integer)
+        If (statusCode >= 200 And statusCode < 400) Then
+            Dim detail = o.GetValue("detail").Value(Of JArray)
+            Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+            Me.DDElemento.DataSource = Table
+            Me.DDElemento.DataValueField = "Id"
+            Me.DDElemento.DataTextField = "SkuComponente"
+            Me.DDElemento.DataBind()
+        End If
 
-            Me.DDElemento.Items.Insert(0, "Seleccionar")
+        Me.DDElemento.Items.Insert(0, "Seleccionar")
 
-            Me.MultiView1.ActiveViewIndex = 0
+        Me.MultiView1.ActiveViewIndex = 0
 
 
 
@@ -1228,7 +1221,7 @@ Public Class Estimacion
             Dim txCantidad = TryCast(e.Row.FindControl("TBQuantity"), TextBox)
             Dim txMargin = TryCast(e.Row.FindControl("TVMargin"), TextBox)
             Dim txShipping = TryCast(e.Row.FindControl("TVShipping"), TextBox)
-            Dim costoUnitario As Double = CDbl(e.Row.Cells(5).Text.Replace("$", ""))
+            Dim costoUnitario As Double = CDbl(e.Row.Cells(4).Text.Replace("$", ""))
             Dim cantidad As Double = CDbl(txCantidad.Text.Replace("$", ""))
             Dim margen As Double = CDbl(txMargin.Text.Replace("$", "")) / 100
             Dim shipping As Double = CDbl(txShipping.Text.Replace("$", ""))
@@ -1242,22 +1235,32 @@ Public Class Estimacion
                 txMargin.Enabled = True
             End If
 
+
+            'Acumulando el monto
+
+
             Suma += costoTotal
 
             SumaMargen += costoMargen
             SumaMargenPorcentaje += margen
             RowsCount = RowsCount + 1
 
-            e.Row.Cells(11).Text = (costoMargen).ToString("C2", New CultureInfo("es-MX"))
-            e.Row.Cells(12).Text = (costoTotal).ToString("C2", New CultureInfo("es-MX"))
-            e.Row.Cells(13).Text = (costoTotal / CDbl(Tv_Exchange.Text.Replace("$", ""))).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(10).Text = (costoMargen).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(11).Text = (costoTotal).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(12).Text = (costoTotal / CDbl(Tv_Exchange.Text.Replace("$", ""))).ToString("C2", New CultureInfo("es-MX"))
 
         ElseIf (e.Row.RowType = DataControlRowType.Footer) Then
+
+            '<<<<<<< HEAD
             margen_ganancia.InnerHtml = ""
-            e.Row.Cells(10).Text = ((SumaMargenPorcentaje * 100) / RowsCount).ToString("f2") & "%"
-            e.Row.Cells(11).Text = SumaMargen.ToString("C2", New CultureInfo("es-MX"))
-            e.Row.Cells(12).Text = (Suma).ToString("C2", New CultureInfo("es-MX"))
-            e.Row.Cells(13).Text = (Suma / CDbl(Tv_Exchange.Text.Replace("$", ""))).ToString("C2", New CultureInfo("es-MX"))
+            'e.Row.Cells(9).Text = (SumaMargenPorcentaje * 100) / RowsCount & "%" '(Suma).ToString("C2", New CultureInfo("es-MX"))
+            '=======
+            '           margen_ganancia.InnerHtml = "<h4>Margen de Ganancia: " & SumaMargen.ToString("C2", New CultureInfo("es-MX")) & "</h4>"
+            e.Row.Cells(9).Text = ((SumaMargenPorcentaje * 100) / RowsCount).ToString("f2") & "%" '(Suma).ToString("C2", New CultureInfo("es-MX"))
+            '>>>>>>> bdd0d5ce898f81e71135d6214b1df2f286a35541
+            e.Row.Cells(10).Text = SumaMargen.ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(11).Text = (Suma).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(12).Text = (Suma / CDbl(Tv_Exchange.Text.Replace("$", ""))).ToString("C2", New CultureInfo("es-MX"))
         End If
     End Sub
 
@@ -1924,16 +1927,14 @@ Public Class Estimacion
             Dim rowView As DataRowView = DirectCast(e.Row.DataItem, DataRowView)
 
             ' Retrieve the EventTypeID value for the current row. 
-            Dim AlternativeSku As String = Convert.ToString(rowView("AltSku"))
-            Dim AlternativeDescription As String = Convert.ToString(rowView("AltDescription"))
+            Dim a As String = Convert.ToString(rowView("AltDescription"))
 
-            If (AlternativeSku IsNot Nothing And AlternativeSku <> "") Then
-                e.Row.Cells(0).Text = AlternativeSku
+            Dim textoAlterno = a
+
+            If (textoAlterno IsNot Nothing And textoAlterno <> "") Then
+                e.Row.Cells(1).Text = textoAlterno
             End If
 
-            If (AlternativeDescription IsNot Nothing And AlternativeDescription <> "") Then
-                e.Row.Cells(1).Text = AlternativeDescription
-            End If
         End If
     End Sub
 
