@@ -195,7 +195,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Estimaciones\Indicadores.aspx" />
-    <Content Include="Estimaciones\Indicadores4.aspx" />
     <Content Include="Estimaciones\ResumenEstimaciones.aspx" />
     <Content Include="Main.aspx" />
     <Content Include="Estimaciones\Cotizacion.aspx" />
@@ -324,13 +323,6 @@
     </Compile>
     <Compile Include="Estimaciones\Indicadores.aspx.vb">
       <DependentUpon>Indicadores.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Estimaciones\Indicadores4.aspx.designer.vb">
-      <DependentUpon>Indicadores4.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Estimaciones\Indicadores4.aspx.vb">
-      <DependentUpon>Indicadores4.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Estimaciones\ResumenEstimaciones.aspx.designer.vb">

@@ -8,9 +8,9 @@ Imports System.Configuration
 Namespace CoflexWeb.Services.Web
     Public Module CoflexWebServices
 
-        Private SERVER_HOST As String = ConfigurationManager.AppSettings("url").ToString
-        ''http://62.151.178.139/DM
-        'Private Const SERVER_HOST As String = "http://localhost/"
+        'Private SERVER_HOST As String = ConfigurationManager.AppSettings("url").ToString
+        'http://62.151.178.139/DM
+        Private Const SERVER_HOST As String = "http://localhost/"
 
         Public Const LOGIN As String = "CoflexAPI/Token"
         Public Const REGISTER As String = "CoflexAPI/api/Account/Register"
