@@ -484,7 +484,7 @@
                                                     <td ><asp:TextBox ID="TextBox6" Enabled="false" runat="server"></asp:TextBox>
                                                     </td>
                                                     <td colspan="2" style="text-align:right">
-                                                        <button ID="BtnSaveProject" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalProject" runat="server">Guardar Proyecto</button>
+                                                        <button ID="BtnSaveProject" type="button" visible="false" class="btn btn-success" data-toggle="modal" data-target="#myModalProject" runat="server">Guardar Proyecto</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
