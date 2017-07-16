@@ -1,13 +1,30 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="Estimacion.aspx.vb" Inherits="CoflexWeb.Estimacion" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
+    <link href="../Content/bootstrap-datepicker.css" rel="stylesheet" />
+    <script src="../Scripts/bootstrap-datepicker.js"></script>
     <style type="text/css">
      .hidden {
          display:none;
      }
+     #MainContent_txtQuotationDate {
+         padding: 0px !important;
+         -webkit-border-radius: 0px !important;
+     }
     </style>
 
     <script language="javascript" type="text/javascript">
+
+
+        $(document).ready(function () {
+            bindQuery();
+        });
+
+        function bindQuery() {
+            $('.datepicker').datepicker({});
+        }
+
 
         function CheckNumericNumeric(e) {
 
@@ -100,6 +117,7 @@
         prm.add_endRequest(function () {
             // re-bind your jQuery events here
             ddl = document.getElementById("<%=DDComponente.ClientID %>");
+            bindQuery();
         });
             function PrintPanel2() {
                 var panel = document.getElementById("<%=pnlContents2.ClientID %>");
@@ -151,7 +169,7 @@
             Number.prototype.formatMoney = function (c, d, t) {
 
             };
-
+            bindQuery();
         });
 
         function clearCheckBox() {
@@ -187,30 +205,6 @@
             </div>
             <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
                 <asp:View ID="View1" runat="server">
-
-
-                    <div id="myModalProject" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Guardar proyecto</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Selecciona un vendedor</p>
-                                    <asp:DropDownList ID="DDUsers" runat="server"></asp:DropDownList>
-                                </div>
-                                <div class="modal-footer">
-                                    <asp:Button Text="Cancelar" runat="server" type="button" class="btn btn-danger" data-dismiss="modal" />
-                                    <asp:Button ID="Button11" Text="Aceptar" runat="server" type="button" class="btn btn-success" />
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
                     <div style="text-align: center; height: 8px; margin-top: 16px;">
                         <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DynamicLayout="true">
                             <ProgressTemplate>
@@ -362,6 +356,12 @@
                                                 <td>
                                                     <asp:Button ID="BtnSplit" runat="server" class="btn btn-primary" Text="Separar" />&nbsp;
                                                 </td>
+                                                <td>
+                                                    <div id="div_error_reorder_grid" runat="server" style="display: none; width:650px; margin:auto" class="alert alert-danger alert-dismissable fade in">
+                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                        <div runat="server" id="div_error_reorder_grid_desc"></div>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         </table>
                                     </div>
@@ -484,7 +484,7 @@
                                                     <td ><asp:TextBox ID="TextBox6" Enabled="false" runat="server"></asp:TextBox>
                                                     </td>
                                                     <td colspan="2" style="text-align:right">
-                                                        <button ID="BtnSaveProject" type="button" visible="false" class="btn btn-success" data-toggle="modal" data-target="#myModalProject" runat="server">Guardar Proyecto</button>
+                                                        
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -597,9 +597,9 @@
                         <br />
                         <asp:GridView class="table" ID="GridSummary" Width="100%" AutoGenerateColumns="False" runat="server" ShowFooter="True">
                             <Columns>
-                                <asp:BoundField ItemStyle-Width="15%" HeaderText="Sku" DataField="SkuComponente" />
+                                <asp:BoundField ItemStyle-Width="15%" HeaderText="SKU" DataField="SkuComponente" />
 
-                                <asp:TemplateField ItemStyle-Width="15%" HeaderText="Sku Alternativo" Visible="true">
+                                <asp:TemplateField ItemStyle-Width="15%" HeaderText="SKU Alternativo" Visible="true">
                                     <ItemTemplate>
                                         <asp:TextBox ID="TBSkuAlt" Width="100%" Text='<%# Bind("AltSku") %>' runat="server"></asp:TextBox>
                                     </ItemTemplate>
@@ -617,7 +617,7 @@
                                 <asp:BoundField ItemStyle-Width="10%" HeaderText="Costo Unitario" DataField="UnitaryCost" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" />
                                 <asp:BoundField ItemStyle-Width="10%" HeaderText="Unidad de Medida" Visible="false" DataField="UOFM" />
 
-                                <asp:TemplateField ItemStyle-Width="10%" HeaderText="Cantidad" Visible="false">
+                                <asp:TemplateField ItemStyle-Width="10%" HeaderText="Proyección Anual" Visible="true">
                                     <ItemTemplate>
                                         <asp:TextBox ID="TBQuantity" Width="70px" Text='<%# Bind("QUANTITY_I") %>' runat="server"></asp:TextBox>
                                     </ItemTemplate>
@@ -636,9 +636,12 @@
                                         <asp:TextBox ID="TVMargin" Width="70px" Text='<%# Bind("Margin", "{0:###,###,##0.00}") %>' runat="server"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+
                                 <asp:BoundField ItemStyle-Width="10%" HeaderText="Margen" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" />
                                 <asp:BoundField ItemStyle-Width="10%" HeaderText="Precio de Venta (Pesos)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" />
                                 <asp:BoundField ItemStyle-Width="10%" HeaderText="Precio de Venta (Dólares)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" />
+                                <asp:BoundField ItemStyle-Width="10%" HeaderText="Margen Anual" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" />
+                                <asp:BoundField ItemStyle-Width="10%" HeaderText="Facturación Anual" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" />
                             </Columns>
                             <HeaderStyle BackColor="#C0C0C0" />
                             <FooterStyle BackColor="#C0C0C0" />
@@ -706,7 +709,7 @@
                                 <td colspan="4">
                                     <textarea id="txtItemDesc" style="width: 100%; height: 90%; max-width: 1000px !important" runat="server"></textarea></td>
                             </tr>
-                            <tr>
+                            <tr style="height: 30px; align-content: center; vertical-align: central">
                                 <td>
                                     <asp:Label ID="Label17" runat="server" Text="Unidad de Medida"></asp:Label>
                                 </td>
@@ -715,11 +718,47 @@
                                     <asp:TextBox ID="txtUofm" Enabled="true" runat="server"></asp:TextBox>
                                     &nbsp;</td>
                                 <td>
-                                    <asp:Label ID="Label18" runat="server" Text="Costo"></asp:Label>
+                                    <asp:Label ID="Label18" runat="server" Text="Costo en Pesos"></asp:Label>
                                 </td>
                                 <td>&nbsp;</td>
                                 <td>
                                     <asp:TextBox ID="txtStndCost" Enabled="true" runat="server"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr style="height: 30px; align-content: center; vertical-align: central">
+                                <td>
+                                    <asp:Label ID="Label44" runat="server" Text="Proveedor"></asp:Label>
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>
+                                    <asp:TextBox ID="txtSupplier" Enabled="true" runat="server"></asp:TextBox>
+                                    &nbsp;</td>
+                                <td>
+                                    <asp:Label ID="Label48" runat="server" Text="Fecha"></asp:Label>
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>
+                                    <asp:TextBox ID="txtQuotationDate"  CssClass="datepicker" Enabled="true" runat="server"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr style="height: 30px; align-content: center; vertical-align: central">
+                                <td>
+                                    <asp:Label ID="Label51" runat="server" Text="Costo original"></asp:Label>
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>
+                                    <asp:TextBox ID="txtOriginalCost" Enabled="true" runat="server"></asp:TextBox>
+                                    &nbsp;</td>
+                                <td>
+                                    <asp:Label ID="Label52" runat="server" Text="Moneda original"></asp:Label>
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>
+                                    <asp:DropDownList ID="ddOriginalCurrency" Enabled="true" runat="server">
+                                        <asp:ListItem Text="Pesos" Value="Pesos"></asp:ListItem>
+                                        <asp:ListItem Text="Dólares" Value="Dólares"></asp:ListItem>
+                                        <asp:ListItem Text="Euros" Value="Euros"></asp:ListItem>
+                                    </asp:DropDownList>
                                 </td>
                             </tr>
                         </table>
@@ -834,7 +873,7 @@
                                                 <asp:BoundField ItemStyle-Width="50%" HeaderText="Descripción alternativa" Visible="false" DataField="AltDescription">
                                                     <ItemStyle Width="60%" />
                                                 </asp:BoundField>
-                                                <asp:BoundField ItemStyle-Width="20%" DataField="UnitaryCost" HeaderText="Precio Unitario (Pesos)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" FooterText="Precios más IVA">
+                                                <asp:BoundField ItemStyle-Width="20%" DataField="FinalCost" HeaderText="Precio Unitario (Pesos)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" FooterText="Precios más IVA">
                                                     <ItemStyle CssClass="t-cost" Width="30%" />
                                                 </asp:BoundField>
                                             </Columns>
@@ -980,7 +1019,7 @@
                                                 <asp:BoundField ItemStyle-Width="50%" HeaderText="Description" Visible="false" DataField="AltDescription">
                                                     <ItemStyle Width="60%" />
                                                 </asp:BoundField>
-                                                <asp:BoundField ItemStyle-Width="20%" DataField="UnitaryCost" HeaderText="Unit Price (USD)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False">
+                                                <asp:BoundField ItemStyle-Width="20%" DataField="UnitaryCost" HeaderText="Unit Price (USD)" ItemStyle-CssClass="t-cost" DataFormatString="${0:###,###,###.00}" HtmlEncode="False" FooterText="All prices plus VAT">
                                                     <ItemStyle CssClass="t-cost" Width="30%" />
                                                 </asp:BoundField>
                                             </Columns>

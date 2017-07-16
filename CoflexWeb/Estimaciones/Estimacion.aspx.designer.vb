@@ -68,24 +68,6 @@ Partial Public Class Estimacion
     Protected WithEvents View1 As Global.System.Web.UI.WebControls.View
     
     '''<summary>
-    '''Control DDUsers.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents DDUsers As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
-    '''Control Button11.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents Button11 As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
     '''Control UpdateProgress1.
     '''</summary>
     '''<remarks>
@@ -329,6 +311,24 @@ Partial Public Class Estimacion
     Protected WithEvents BtnSplit As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
+    '''Control div_error_reorder_grid.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents div_error_reorder_grid As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''Control div_error_reorder_grid_desc.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents div_error_reorder_grid_desc As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''Control Panel1.
     '''</summary>
     '''<remarks>
@@ -543,15 +543,6 @@ Partial Public Class Estimacion
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents TextBox6 As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''Control BtnSaveProject.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents BtnSaveProject As Global.System.Web.UI.HtmlControls.HtmlButton
     
     '''<summary>
     '''Control ButtonBack.
@@ -867,6 +858,78 @@ Partial Public Class Estimacion
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents txtStndCost As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''Control Label44.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Label44 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''Control txtSupplier.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents txtSupplier As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''Control Label48.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Label48 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''Control txtQuotationDate.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents txtQuotationDate As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''Control Label51.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Label51 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''Control txtOriginalCost.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents txtOriginalCost As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''Control Label52.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Label52 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''Control ddOriginalCurrency.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents ddOriginalCurrency As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''Control Button9.

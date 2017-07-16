@@ -14,10 +14,16 @@ Public Class Estimacion
     Private SumaMargenPorcentaje As Double
     Private RowsCount As Integer
 
+    Private SumaAnual As Double
+    Private SumaMargenAnual As Double
+
     Private Status As Integer
 
     Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
         MyBase.Page_Load(sender, e)
+
+        div_error_reorder_grid.Style.Add("display", "none")
+
         If Not IsPostBack Then
 
             Session("Status") = 0
@@ -434,6 +440,8 @@ Public Class Estimacion
             SumaMargen = 0
             SumaMargenPorcentaje = 0
             RowsCount = 0
+            SumaAnual = 0
+            SumaMargenAnual = 0
 
             Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
             dv.RowFilter = "Nivel1 = 0 and Nivel2 = 0 and Nivel3 = 0"
@@ -460,7 +468,7 @@ Public Class Estimacion
                     Else
                         row("Margin") = System.Configuration.ConfigurationManager.AppSettings("Throughput") * 100
                     End If
-                    row("UnitaryCost") = CDbl(row("FinalCost")) / CDbl(row("QUANTITY_I"))
+                    row("UnitaryCost") = CDbl(row("FinalCost")) '/ CDbl(row("QUANTITY_I"))
                 Next
 
             Else
@@ -469,7 +477,7 @@ Public Class Estimacion
                 End If
                 For Each row In dv
                     row("Margin") = System.Configuration.ConfigurationManager.AppSettings("Throughput") * 100
-                    row("UnitaryCost") = CDbl(row("FinalCost")) / CDbl(row("QUANTITY_I"))
+                    row("UnitaryCost") = CDbl(row("FinalCost")) '/ CDbl(row("QUANTITY_I"))
                 Next
 
             End If
@@ -670,9 +678,6 @@ Public Class Estimacion
             End If
 
             For Each reng As DataRowView In dv
-
-                BtnSaveProject.Visible = reng("Nivel1") = 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0
-
                 Me.TextBox1.Text = reng("SkuArticulo")
                 Me.TextBox2.Text = reng("SkuComponente")
                 Me.TextArea1.Value = reng("ITEMDESC")
@@ -908,11 +913,8 @@ Public Class Estimacion
                     Dim o = JObject.Parse(ResponseServer)
                     Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
                     If (statusCode >= 200 And statusCode < 400) Then
-
                         Dim QuotationCreated = o.GetValue("detail").Value(Of JObject)
-
                         Dim QuotationVersionCreated = QuotationCreated.GetValue("QuotationVersions").Value(Of JArray)
-
                         Dim version As JObject = QuotationVersionCreated(0)
 
                         Dim quotationID As String = version.GetValue("QuotationsId").Value(Of Integer) & ""
@@ -942,9 +944,7 @@ Public Class Estimacion
     End Sub
 
     Private Sub Guardar_Click(sender As Object, e As EventArgs) Handles Guardar.Click
-
         Try
-
             If (Session("Status") = 0) Then 'Solo 0
                 Dim IdQuotaionVersion As String = Request.QueryString("v")
                 If IdQuotaionVersion IsNot Nothing Then
@@ -1054,7 +1054,7 @@ Public Class Estimacion
             Dim TBMargin As TextBox = TryCast(row.FindControl("TVMargin"), TextBox)
             Dim TBDescAlt As TextBox = TryCast(row.FindControl("TBDescAlt"), TextBox)
             Dim TBSkuAlt As TextBox = TryCast(row.FindControl("TBSkuAlt"), TextBox)
-
+            Dim TBCant As TextBox = TryCast(row.FindControl("TBQuantity"), TextBox)
 
             Item.Add("Sku", sku)
             Item.Add("ItemDescription", reng("ITEMDESC").ToString)
@@ -1062,7 +1062,7 @@ Public Class Estimacion
             Item.Add("UM", reng("UOFM").ToString)
             Item.Add("Status", 0)
             Item.Add("ProfitMargin", CDbl(TBMargin.Text) / 100)
-            Item.Add("ItemsComponents", CreateItemComponents(sku, "1.0", TBDescAlt.Text, TBSkuAlt.Text))
+            Item.Add("ItemsComponents", CreateItemComponents(sku, TBCant.Text, TBDescAlt.Text.Trim, TBSkuAlt.Text.Trim))
             ItemArray.Add(Item)
         Next
         Return ItemArray
@@ -1074,7 +1074,6 @@ Public Class Estimacion
         dv.RowFilter = "SkuArticulo = '" & itemSku & "'"
         For Each reng As DataRowView In dv
             Dim Item As New JObject
-
             If CInt(reng("Nivel1").ToString) = 0 And CInt(reng("Nivel2").ToString) = 0 And CInt(reng("Nivel3").ToString) = 0 Then
                 Item.Add("Quantity", CDbl(cant))
                 Item.Add("AltDescription", descAlt)
@@ -1113,13 +1112,15 @@ Public Class Estimacion
     Protected Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
 
 
-        If (Me.txtSkuComponente.Text = "" Or Me.txtUofm.Text = "" Or Me.txtItemDesc.Value = "" Or Me.txtStndCost.Text = "") Then
+        If (Me.txtSkuComponente.Text = "" Or Me.txtUofm.Text = "" Or Me.txtItemDesc.Value = "" Or Me.txtStndCost.Text = "" Or Me.txtSupplier.Text = "" Or Me.txtQuotationDate.Text = "" Or Me.txtOriginalCost.Text = "") Then
             div_error_new_component.Style.Add("display", "block")
             Me.div_error_new_component_description.InnerText = "Ups! Todos los campos son requeridos."
             Return
         End If
         Dim Elemento As New JObject
         Dim Cost = 0
+        Dim OriginalCost = 0
+
         Try
             Cost = CDbl(Me.txtStndCost.Text.Replace("$", "").Replace(",", ""))
         Catch ex As Exception
@@ -1128,6 +1129,22 @@ Public Class Estimacion
             Return
         End Try
 
+        Try
+            OriginalCost = CDbl(Me.txtOriginalCost.Text.Replace("$", "").Replace(",", ""))
+        Catch ex As Exception
+            div_error_new_component.Style.Add("display", "block")
+            Me.div_error_new_component_description.InnerText = "Ups! Por favor captura un costo válido para el componente."
+            Return
+        End Try
+
+        Dim dt As Date
+        Try
+            dt = Date.ParseExact(txtQuotationDate.Text, "mm/dd/yyyy", Nothing)
+        Catch ex As Exception
+            div_error_new_component.Style.Add("display", "block")
+            Me.div_error_new_component_description.InnerText = "Ups! Por favor captura una fecha válida."
+            Return
+        End Try
 
         With Elemento
             .Add("SkuComponente", Me.txtSkuComponente.Text)
@@ -1135,6 +1152,10 @@ Public Class Estimacion
             .Add("Uofm", Me.txtUofm.Text)
             .Add("ItemDesc", Me.txtItemDesc.Value)
             .Add("StndCost", Cost)
+            .Add("SupplierName", Me.txtSupplier.Text)
+            .Add("OriginCurrency", Me.ddOriginalCurrency.SelectedValue)
+            .Add("OriginalCost", OriginalCost)
+            .Add("QuotationDate", dt)
         End With
 
         Dim jsonResponse = CoflexWebServices.doPostRequest(CoflexWebServices.NEW_COMPONENTES, Elemento.ToString,, Session("access_token"))
@@ -1144,7 +1165,9 @@ Public Class Estimacion
             '' Me.ErrorMessage.Text = "Usuario Registrado"
         Else
             Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
-            ''Me.ErrorMessage.Text = errorMessage
+            div_error_new_component.Style.Add("display", "block")
+            Me.div_error_new_component_description.InnerText = "Ups! ocurrió un error. " & errorMessage
+            Return
         End If
 
         Me.DDElemento.Dispose()
@@ -1160,13 +1183,8 @@ Public Class Estimacion
             Me.DDElemento.DataTextField = "SkuComponente"
             Me.DDElemento.DataBind()
         End If
-
         Me.DDElemento.Items.Insert(0, "Seleccionar")
-
         Me.MultiView1.ActiveViewIndex = 0
-
-
-
     End Sub
 
     Protected Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
@@ -1237,6 +1255,9 @@ Public Class Estimacion
             Dim costoTotal As Double = (costoUnitario + (costoUnitario * 0.01)) / (1 - margen)
             Dim costoMargen As Double = (costoUnitario + (costoUnitario * 0.01)) * margen
 
+            Dim costoTotalAnual As Double = costoTotal * cantidad
+            Dim costoMargenAnual As Double = costoMargen * cantidad
+
             If (Session("Status") > 0) Then
                 txMargin.Enabled = False
             Else
@@ -1244,20 +1265,26 @@ Public Class Estimacion
             End If
             'Acumulando el monto
             Suma += costoTotal
-
             SumaMargen += costoMargen
             SumaMargenPorcentaje += margen
             RowsCount = RowsCount + 1
+            SumaAnual += costoTotalAnual
+            SumaMargenAnual += costoMargenAnual
 
             e.Row.Cells(11).Text = (costoMargen).ToString("C2", New CultureInfo("es-MX"))
             e.Row.Cells(12).Text = (costoTotal).ToString("C2", New CultureInfo("es-MX"))
             e.Row.Cells(13).Text = (costoTotal / CDbl(Tv_Exchange.Text.Replace("$", ""))).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(14).Text = (costoMargenAnual).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(15).Text = (costoTotalAnual).ToString("C2", New CultureInfo("es-MX"))
+
         ElseIf (e.Row.RowType = DataControlRowType.Footer) Then
             margen_ganancia.InnerHtml = ""
             e.Row.Cells(10).Text = ((SumaMargenPorcentaje * 100) / RowsCount).ToString("f2") & "%"
             e.Row.Cells(11).Text = SumaMargen.ToString("C2", New CultureInfo("es-MX"))
             e.Row.Cells(12).Text = (Suma).ToString("C2", New CultureInfo("es-MX"))
             e.Row.Cells(13).Text = (Suma / CDbl(Tv_Exchange.Text.Replace("$", ""))).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(14).Text = (SumaMargenAnual).ToString("C2", New CultureInfo("es-MX"))
+            e.Row.Cells(15).Text = (SumaAnual).ToString("C2", New CultureInfo("es-MX"))
         End If
     End Sub
 
@@ -1272,8 +1299,16 @@ Public Class Estimacion
                 If (reng("SkuArticulo") = renglon.Cells(0).Text) Then
                     Dim TBMargin As TextBox = TryCast(renglon.FindControl("TVMargin"), TextBox)
                     Dim TBShipping As TextBox = TryCast(renglon.FindControl("TVShipping"), TextBox)
-                    reng("QUANTITY_I") = CDbl(1)
+                    Dim TBCant As TextBox = TryCast(renglon.FindControl("TBQuantity"), TextBox)
+
+                    Dim TBSkuAlt As TextBox = TryCast(renglon.FindControl("TBSkuAlt"), TextBox)
+                    Dim TBDescAlt As TextBox = TryCast(renglon.FindControl("TBDescAlt"), TextBox)
+
+                    reng("QUANTITY_I") = CDbl(TBCant.Text)
                     reng("Margin") = CDbl(TBMargin.Text)
+
+                    reng("AltSku") = TBSkuAlt.Text.Trim
+                    reng("AltDescription") = TBDescAlt.Text.Trim
 
                     If (TBShipping.Text = "") Then
                         reng("Shipping") = CDbl("0")
@@ -1920,18 +1955,28 @@ Public Class Estimacion
     Private Sub GridViewCotiza_DataBinding(sender As Object, e As GridViewRowEventArgs) Handles GridViewCotiza.RowDataBound, GridViewCotizaENG.RowDataBound
         If e.Row.RowType = DataControlRowType.DataRow Then
 
+            Dim data = e.Row.DataItem
+
+            Dim margen = data("Margin") / 100
 
             Dim rowView As DataRowView = DirectCast(e.Row.DataItem, DataRowView)
-
             ' Retrieve the EventTypeID value for the current row. 
-            Dim a As String = Convert.ToString(rowView("AltDescription"))
+            Dim textoAlterno As String = Convert.ToString(rowView("AltDescription"))
+            Dim alternativeSku As String = Convert.ToString(rowView("AltSku"))
 
-            Dim textoAlterno = a
+            Dim costoUnitario = CDbl(e.Row.Cells(3).Text)
+
+            Dim costoTotal As Double = (costoUnitario + (costoUnitario * 0.01)) / (1 - margen)
 
             If (textoAlterno IsNot Nothing And textoAlterno <> "") Then
                 e.Row.Cells(1).Text = textoAlterno
             End If
 
+            If (alternativeSku IsNot Nothing And alternativeSku <> "") Then
+                e.Row.Cells(0).Text = alternativeSku
+            End If
+
+            e.Row.Cells(3).Text = costoTotal.ToString("C2", New CultureInfo("es-MX"))
         End If
     End Sub
 
@@ -1990,6 +2035,8 @@ Public Class Estimacion
 
             If TreeView1.CheckedNodes.Count = 0 Then
                 'Tiene que seleccionar uno 
+                div_error_reorder_grid.Style.Add("display", "block")
+                div_error_reorder_grid_desc.InnerText = "Selecciona un elemento."
             ElseIf (TreeView1.CheckedNodes.Count = 1) Then
                 Dim node As TreeNode = TreeView1.CheckedNodes(0)
 
@@ -2112,6 +2159,9 @@ Public Class Estimacion
 
                     End If
                 Next
+            Else
+                div_error_reorder_grid.Style.Add("display", "block")
+                div_error_reorder_grid_desc.InnerText = "Selecciona solamente un elemento."
             End If
 
         Catch ex As Exception
@@ -2279,6 +2329,9 @@ Public Class Estimacion
 
         If TreeView1.CheckedNodes.Count = 0 Then
             'Tiene que seleccionar uno 
+            div_error_reorder_grid.Style.Add("display", "block")
+            div_error_reorder_grid_desc.InnerText = "Selecciona un elemento."
+
         ElseIf (TreeView1.CheckedNodes.Count = 1) Then
             Dim node As TreeNode = TreeView1.CheckedNodes(0)
 
@@ -2340,21 +2393,16 @@ Public Class Estimacion
                 TreeView1.Nodes.Clear()
 
                 For Each record In tableOrdered.Rows
-
                     dv.RowFilter = "1=1"
                     dv.RowFilter = "SkuArticulo = '" & record("SkuArticulo") & "'"
                     dv.Sort = "Nivel1, Nivel2, Nivel3"
-
                     FillTreeview(dv.ToTable)
-
                 Next
-
-
             Next
 
-
+        Else
+            div_error_reorder_grid.Style.Add("display", "block")
+            div_error_reorder_grid_desc.InnerText = "Selecciona solamente un elemento."
         End If
-
-
     End Sub
 End Class
