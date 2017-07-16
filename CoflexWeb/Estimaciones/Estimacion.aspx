@@ -318,7 +318,7 @@
                                                     <asp:Label ID="Label12" runat="server" Text="Elemento"></asp:Label>&nbsp;
                                                 </td>
                                                 <td>
-                                                    <asp:DropDownList ID="DDElemento" Width="90%" runat="server">
+                                                    <asp:DropDownList ID="DDElemento" Width="90%" runat="server" AutoPostBack="True">
                                                     </asp:DropDownList>&nbsp;
                                                 </td>
                                                 <td style="vertical-align: central;">

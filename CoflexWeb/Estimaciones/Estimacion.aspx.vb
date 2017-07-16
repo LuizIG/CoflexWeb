@@ -1194,6 +1194,10 @@ Public Class Estimacion
         txtItemDesc.InnerText = ""
         txtUofm.Text = ""
         txtStndCost.Text = ""
+        txtOriginalCost.Text = ""
+        ddOriginalCurrency.SelectedIndex = 0
+        txtQuotationDate.Text = ""
+        txtSupplier.Text = ""
 
     End Sub
 
@@ -2405,4 +2409,15 @@ Public Class Estimacion
             div_error_reorder_grid_desc.InnerText = "Selecciona solamente un elemento."
         End If
     End Sub
+
+    Private Sub DDElemento_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDElemento.SelectedIndexChanged
+
+        If DDElemento.SelectedValue = "Seleccionar" Then
+            Button6.Text = "Nuevo"
+        Else
+            Button6.Text = "Ver"
+        End If
+
+    End Sub
+
 End Class
