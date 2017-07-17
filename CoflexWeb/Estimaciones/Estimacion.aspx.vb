@@ -1199,6 +1199,51 @@ Public Class Estimacion
         txtQuotationDate.Text = ""
         txtSupplier.Text = ""
 
+        txtSkuComponente.Enabled = False
+        txtUofm.Enabled = False
+        txtStndCost.Enabled = False
+        txtOriginalCost.Enabled = False
+        ddOriginalCurrency.Enabled = False
+        txtQuotationDate.Enabled = False
+        txtSupplier.Enabled = False
+
+        Dim value As String = DDElemento.SelectedValue
+
+        Dim enable As Boolean = value.Equals("Seleccionar")
+
+        txtSkuComponente.Enabled = enable
+        txtUofm.Enabled = enable
+        txtStndCost.Enabled = enable
+        txtOriginalCost.Enabled = enable
+        ddOriginalCurrency.Enabled = enable
+        txtQuotationDate.Enabled = enable
+        txtSupplier.Enabled = enable
+
+        Dim enableString = (Not enable).ToString
+
+        txtItemDesc.Attributes.Remove("readonly")
+        If (enable) Then
+            Return
+        End If
+        txtItemDesc.Attributes.Add("readonly", "True")
+
+        Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.NEW_COMPONENTES & "/" & value & "?x=True",, Session("access_token"))
+        Dim o = JObject.Parse(jsonResponse)
+        Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+        If (statusCode >= 200 And statusCode < 400) Then
+            Dim detailArray = o.GetValue("detail").Value(Of JObject)
+            MsgBox(detailArray.ToString)
+            With detailArray
+                txtSkuComponente.Text = .GetValue("SkuComponente").Value(Of String)
+                txtItemDesc.InnerText = .GetValue("ItemDesc").Value(Of String)
+                txtUofm.Text = .GetValue("Uofm").Value(Of String)
+                txtStndCost.Text = .GetValue("StndCost").Value(Of Double)
+                txtOriginalCost.Text = .GetValue("OriginalCost").Value(Of Double)
+                ddOriginalCurrency.SelectedIndex = GetSelectedCurrency(.GetValue("OriginCurrency").Value(Of String))
+                txtQuotationDate.Text = .GetValue("QuotationDate").Value(Of String).Split("T")(0)
+                txtSupplier.Text = .GetValue("SupplierName").Value(Of String)
+            End With
+        End If
     End Sub
 
     Private Sub DDCliente_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDCliente.SelectedIndexChanged
@@ -2420,4 +2465,17 @@ Public Class Estimacion
 
     End Sub
 
+
+    Private Function GetSelectedCurrency(ByVal Currency As String) As Integer
+        Select Case Currency
+            Case "Pesos"
+                Return 0
+            Case "Dólares"
+                Return 1
+            Case "Euros"
+                Return 2
+            Case Else
+                Return -1
+        End Select
+    End Function
 End Class
