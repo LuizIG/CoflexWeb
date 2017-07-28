@@ -102,6 +102,11 @@
             var panel = document.getElementById("<%=pnlContents.ClientID %>");
             var printWindow = window.open('', '', 'height=400,width=800');
             printWindow.document.write('<html><head><title></title>');
+            printWindow.document.write('<style type="text/css">');
+            printWindow.document.write('body {');
+            printWindow.document.write('font-family:arial;');
+            printWindow.document.write('}');
+            printWindow.document.write('</style>');
             printWindow.document.write('</head><body >');
             printWindow.document.write(panel.innerHTML);
             printWindow.document.write('</body></html>');
@@ -136,6 +141,11 @@
                 var panel = document.getElementById("<%=pnlContents3.ClientID %>");
             var printWindow = window.open('', '', 'height=400,width=800');
             printWindow.document.write('<html><head><title></title>');
+            printWindow.document.write('<style type="text/css">');
+            printWindow.document.write('body {');
+            printWindow.document.write('font-family:arial;');
+            printWindow.document.write('}');
+            printWindow.document.write('</style>');
             printWindow.document.write('</head><body >');
             printWindow.document.write(panel.innerHTML);
             printWindow.document.write('</body></html>');
