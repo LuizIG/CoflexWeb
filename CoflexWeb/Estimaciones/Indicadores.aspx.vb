@@ -151,7 +151,7 @@ Public Class Indicadores
             Chart7.DataSource = Table
             Chart7.DataBind()
 
-            '''Número de cotizaciones que están entre el 30% y el 40% de margen en el período;
+            'Número de cotizaciones que están entre el 30% y el 40% de margen en el período;
             'Me.Chart8.Series("Series1").XValueMember = "MesLetra"
             'Me.Chart8.Series("Series1").YValueMembers = "NCMPM3040"
             'Me.Chart8.Series("Series1").SmartLabelStyle.Enabled = True
@@ -159,7 +159,7 @@ Public Class Indicadores
             'Chart8.DataSource = Table
             'Chart8.DataBind()
 
-            '''Número de cotizaciones que están entre el 20% y el 30% de margen en el período;
+            'Número de cotizaciones que están entre el 20% y el 30% de margen en el período;
             'Me.Chart9.Series("Series1").XValueMember = "MesLetra"
             'Me.Chart9.Series("Series1").YValueMembers = "NCMPM2030"
             'Me.Chart9.Series("Series1").SmartLabelStyle.Enabled = True
@@ -167,7 +167,7 @@ Public Class Indicadores
             'Chart9.DataSource = Table
             'Chart9.DataBind()
 
-            '''Número de cotizaciones que están por debajo del 20% de margen en el período
+            'Número de cotizaciones que están por debajo del 20% de margen en el período
             'Me.Chart10.Series("Series1").XValueMember = "MesLetra"
             'Me.Chart10.Series("Series1").YValueMembers = "NCMPM20"
             'Me.Chart10.Series("Series1").SmartLabelStyle.Enabled = True

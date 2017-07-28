@@ -932,6 +932,15 @@ Partial Public Class Estimacion
     Protected WithEvents ddOriginalCurrency As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
+    '''Control BtnDeleteNewComponent.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents BtnDeleteNewComponent As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''Control Button9.
     '''</summary>
     '''<remarks>

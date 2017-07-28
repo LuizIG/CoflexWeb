@@ -21,8 +21,10 @@ Public Class Estimacion
 
     Protected Overrides Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
         MyBase.Page_Load(sender, e)
-
         div_error_reorder_grid.Style.Add("display", "none")
+        div_error_new_component.Style.Add("display", "none")
+        result_div_ok.Style.Add("display", "none")
+        result_div_error.Style.Add("display", "none")
 
         If Not IsPostBack Then
 
@@ -50,7 +52,9 @@ Public Class Estimacion
             If (statusCode >= 200 And statusCode < 400) Then
                 Dim detail = o.GetValue("detail").Value(Of JArray)
                 Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+
                 Table.DefaultView.Sort = "PPN_I asc"
+
                 Me.DDComponente.DataSource = Table
                 Me.DDComponente.DataValueField = "PPN_I"
                 Me.DDComponente.DataTextField = "PPN_I"
@@ -65,21 +69,20 @@ Public Class Estimacion
             If (statusCode >= 200 And statusCode < 400) Then
                 Dim detail = o.GetValue("detail").Value(Of JArray)
                 Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+                Table.DefaultView.Sort = "ClientName asc"
                 Me.DDCliente.DataSource = Table
                 Me.DDCliente.DataValueField = "Id"
                 Me.DDCliente.DataTextField = "ClientName"
                 Me.DDCliente.DataBind()
             End If
-
             Me.DDCliente.Items.Insert(0, "Seleccionar")
-
-
             jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.CLIENTS,, Session("access_token"))
             o = JObject.Parse(jsonResponse)
             statusCode = o.GetValue("statusCode").Value(Of Integer)
             If (statusCode >= 200 And statusCode < 400) Then
                 Dim detail = o.GetValue("detail").Value(Of JArray)
                 Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+                Table.DefaultView.Sort = "ClientName asc"
                 Me.DDClienteCotiza.DataSource = Table
                 Me.DDClienteCotiza.DataValueField = "Id"
                 Me.DDClienteCotiza.DataTextField = "ClientName"
@@ -714,7 +717,7 @@ Public Class Estimacion
         Try
             Dim scTreeView = TreeView1.SelectedNode.Value
             Dim Table As DataTable = DirectCast(Session("treeView"), DataTable)
-            Dim rows = Table.[Select]("id = " & Split(scTreeView, "|")(0) & " and SkuComponente = '" & Split(scTreeView, "|")(2) & "'")
+            Dim rows = Table.[Select]("id = " & Split(scTreeView, "|")(0) & " and SkuComponente = '" & Split(scTreeView, "|")(2) & "'" & " and SkuArticulo = '" & Me.TextBox1.Text & "'")
 
             For Each dr As DataRow In rows
                 If dr("Id") = Split(scTreeView, "|")(0) And dr("SkuComponente") = Split(scTreeView, "|")(2) Then
@@ -823,7 +826,7 @@ Public Class Estimacion
         Try
             Dim scTreeView = TreeView1.SelectedNode.Value
             Dim Table As DataTable = DirectCast(Session("treeView"), DataTable)
-            Dim rows = Table.[Select]("id = " & Split(scTreeView, "|")(0) & " and SkuComponente = '" & Split(scTreeView, "|")(2) & "'")
+            Dim rows = Table.[Select]("id = " & Split(scTreeView, "|")(0) & " and SkuComponente = '" & Split(scTreeView, "|")(2) & "'" & " and SkuArticulo = '" & Me.TextBox1.Text & "'")
 
             For Each dr As DataRow In rows
                 If dr("Nivel3") > 0 Then
@@ -1110,8 +1113,6 @@ Public Class Estimacion
     End Sub
 
     Protected Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
-
-
         If (Me.txtSkuComponente.Text = "" Or Me.txtUofm.Text = "" Or Me.txtItemDesc.Value = "" Or Me.txtStndCost.Text = "" Or Me.txtSupplier.Text = "" Or Me.txtQuotationDate.Text = "" Or Me.txtOriginalCost.Text = "") Then
             div_error_new_component.Style.Add("display", "block")
             Me.div_error_new_component_description.InnerText = "Ups! Todos los campos son requeridos."
@@ -1163,6 +1164,7 @@ Public Class Estimacion
         Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
         If (statusCode >= 200 And statusCode < 400) Then
             '' Me.ErrorMessage.Text = "Usuario Registrado"
+            ReloadElementCombo()
         Else
             Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
             div_error_new_component.Style.Add("display", "block")
@@ -1170,21 +1172,7 @@ Public Class Estimacion
             Return
         End If
 
-        Me.DDElemento.Dispose()
 
-        jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.NEW_COMPONENTES,, Session("access_token"))
-        o = JObject.Parse(jsonResponse)
-        statusCode = o.GetValue("statusCode").Value(Of Integer)
-        If (statusCode >= 200 And statusCode < 400) Then
-            Dim detail = o.GetValue("detail").Value(Of JArray)
-            Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
-            Me.DDElemento.DataSource = Table
-            Me.DDElemento.DataValueField = "Id"
-            Me.DDElemento.DataTextField = "SkuComponente"
-            Me.DDElemento.DataBind()
-        End If
-        Me.DDElemento.Items.Insert(0, "Seleccionar")
-        Me.MultiView1.ActiveViewIndex = 0
     End Sub
 
     Protected Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
@@ -1211,6 +1199,9 @@ Public Class Estimacion
 
         Dim enable As Boolean = value.Equals("Seleccionar")
 
+        BtnDeleteNewComponent.Visible = Not enable
+        Button8.Visible = enable
+
         txtSkuComponente.Enabled = enable
         txtUofm.Enabled = enable
         txtStndCost.Enabled = enable
@@ -1232,7 +1223,6 @@ Public Class Estimacion
         Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
         If (statusCode >= 200 And statusCode < 400) Then
             Dim detailArray = o.GetValue("detail").Value(Of JObject)
-            MsgBox(detailArray.ToString)
             With detailArray
                 txtSkuComponente.Text = .GetValue("SkuComponente").Value(Of String)
                 txtItemDesc.InnerText = .GetValue("ItemDesc").Value(Of String)
@@ -1240,7 +1230,7 @@ Public Class Estimacion
                 txtStndCost.Text = .GetValue("StndCost").Value(Of Double)
                 txtOriginalCost.Text = .GetValue("OriginalCost").Value(Of Double)
                 ddOriginalCurrency.SelectedIndex = GetSelectedCurrency(.GetValue("OriginCurrency").Value(Of String))
-                txtQuotationDate.Text = .GetValue("QuotationDate").Value(Of String).Split("T")(0)
+                txtQuotationDate.Text = .GetValue("QuotationDate").Value(Of String).Split(" ")(0)
                 txtSupplier.Text = .GetValue("SupplierName").Value(Of String)
             End With
         End If
@@ -1863,6 +1853,7 @@ Public Class Estimacion
                 End If
 
                 Me.DDElemento.SelectedIndex = 0
+                Me.Button6.Text = "Nuevo"
             End If
 
             ScriptManager.RegisterClientScriptBlock(UpdatePanel1, UpdatePanel1.GetType, "script", "clearCheckBox();", True)
@@ -2478,4 +2469,53 @@ Public Class Estimacion
                 Return -1
         End Select
     End Function
+
+    Private Sub BtnDeleteNewComponent_Click(sender As Object, e As EventArgs) Handles BtnDeleteNewComponent.Click
+
+
+        Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
+
+        dv.RowFilter = "SkuComponente = '" & txtSkuComponente.Text & "'"
+
+
+        If (dv.Count > 0) Then
+            div_error_new_component.Style.Add("display", "block")
+            Me.div_error_new_component_description.InnerText = "Ups! ocurrió un error. No se puede eliminar el componente, debido a que existe en una cotizacion."
+            Return
+        End If
+
+        Dim jsonResponse = CoflexWebServices.doDeleteRequest(CoflexWebServices.NEW_COMPONENTES & "/" & DDElemento.SelectedValue,, Session("access_token"))
+        Dim o = JObject.Parse(jsonResponse)
+        Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+        If (statusCode >= 200 And statusCode < 400) Then
+            '' Me.ErrorMessage.Text = "Usuario Registrado"
+            ReloadElementCombo()
+        Else
+            Dim errorMessage = o.GetValue("errorMessage").Value(Of String)
+            div_error_new_component.Style.Add("display", "block")
+            Me.div_error_new_component_description.InnerText = "Ups! ocurrió un error. " & errorMessage
+            Return
+        End If
+
+    End Sub
+
+    Private Sub ReloadElementCombo()
+        Me.DDElemento.Dispose()
+
+        Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.NEW_COMPONENTES,, Session("access_token"))
+        Dim o = JObject.Parse(jsonResponse)
+        Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+        If (statusCode >= 200 And statusCode < 400) Then
+            Dim detail = o.GetValue("detail").Value(Of JArray)
+            Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+            Me.DDElemento.DataSource = Table
+            Me.DDElemento.DataValueField = "Id"
+            Me.DDElemento.DataTextField = "SkuComponente"
+            Me.DDElemento.DataBind()
+        End If
+        Me.DDElemento.Items.Insert(0, "Seleccionar")
+        Me.MultiView1.ActiveViewIndex = 0
+        Me.Button6.Text = "Nuevo"
+    End Sub
+
 End Class

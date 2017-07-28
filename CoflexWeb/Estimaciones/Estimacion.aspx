@@ -322,7 +322,7 @@
                                                     </asp:DropDownList>&nbsp;
                                                 </td>
                                                 <td style="vertical-align: central;">
-                                                    <asp:Button ID="Button6" runat="server" class="btn btn-primary" Text="Nuevo" />&nbsp;
+                                                    <asp:Button ID="Button6" Width="66px" runat="server" class="btn btn-primary" Text="Nuevo" />&nbsp;
                                                 </td>
                                             </tr>
                                         </table>
@@ -769,6 +769,10 @@
                                     <div style="float: right">
                                         <table>
                                             <tr>
+                                                <td style="text-align: right">
+                                                    <asp:Button ID="BtnDeleteNewComponent" class="btn btn-danger" runat="server" Text="Eliminar" />
+                                                </td>
+                                                <td>&nbsp;
                                                 <td style="text-align: right">
                                                     <asp:Button ID="Button9" class="btn btn-primary" runat="server" Text="Regresar" />
                                                 </td>
