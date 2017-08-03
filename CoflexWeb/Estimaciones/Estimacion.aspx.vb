@@ -273,7 +273,7 @@ Public Class Estimacion
                         For Each reng As DataRow In Table.Rows
                             If reng("Nivel1") = 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
                                 Dim innerI As New TreeNode()
-                                innerI.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente") & "|" & reng("SkuArticulo")
+                                innerI.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente") & "|" & reng("Parent") & "|" & reng("Nivel1") & "|" & reng("Nivel2") & "|" & reng("Nivel3")
                                 innerI.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
                                 TreeView1.Nodes.Add(innerI)
                             End If
@@ -283,7 +283,7 @@ Public Class Estimacion
                         For Each reng As DataRow In Table.Rows
                             If reng("Nivel1") > 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
                                 Dim inner As New TreeNode()
-                                inner.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente") & "|" & reng("SkuArticulo")
+                                inner.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente") & "|" & reng("Parent") & "|" & reng("Nivel1") & "|" & reng("Nivel2") & "|" & reng("Nivel3")
                                 inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
                                 ''TreeView1.Nodes.Add(inner)
                                 If TreeView1.Nodes.Count > 1 Then
@@ -302,7 +302,7 @@ Public Class Estimacion
                             For Each reng As DataRowView In dv
                                 If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") = 0 Then
                                     Dim inner As New TreeNode()
-                                    inner.Value = reng("Id") & "|" & reng("Nivel2") & "|" & reng("SkuComponente") & "|" & reng("SkuArticulo")
+                                    inner.Value = reng("Id") & "|" & reng("Nivel2") & "|" & reng("SkuComponente") & "|" & reng("Parent") & "|" & reng("Nivel1") & "|" & reng("Nivel2") & "|" & reng("Nivel3")
                                     inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
                                     childNodeA.ChildNodes.Add(inner)
                                 End If
@@ -318,7 +318,7 @@ Public Class Estimacion
                                 For Each reng As DataRowView In dv
                                     If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") > 0 Then
                                         Dim inner As New TreeNode()
-                                        inner.Value = reng("Id") & "|" & reng("Nivel3") & "|" & reng("SkuComponente") & "|" & reng("SkuArticulo")
+                                        inner.Value = reng("Id") & "|" & reng("Nivel3") & "|" & reng("SkuComponente") & "|" & reng("Parent") & "|" & reng("Nivel1") & "|" & reng("Nivel2") & "|" & reng("Nivel3")
                                         inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
                                         childNodeB.ChildNodes.Add(inner)
                                     End If
@@ -1530,7 +1530,8 @@ Public Class Estimacion
                         For Each reng As DataRow In Table.Rows
                             If reng("Nivel1") = 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
                                 Dim innerI As New TreeNode()
-                                innerI.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente") & "|" & reng("SkuArticulo") & "|" & reng("Nivel1") & "|" & reng("Nivel2") & "|" & reng("Nivel3")
+                                innerI.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente") & "|" & reng("Parent") & "|" & reng("Nivel1") & "|" & reng("Nivel2") & "|" & reng("Nivel3")
+                                ''innerB.Value = Tabl("Id") & "|" & Tabl("Nivel3") & "|" & Tabl("SkuComponente") & "|" & Trim(Split(childNodeB.Text, ":")(0)) & "|" & Table.Rows(0)("Nivel1") & "|" & Table.Rows(0)("Nivel2") & "|" & Table.Rows(0)("Nivel3")
                                 innerI.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
                                 TreeView1.Nodes.Add(innerI)
                             End If
@@ -1540,8 +1541,9 @@ Public Class Estimacion
                         For Each reng As DataRow In Table.Rows
                             If reng("Nivel1") > 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
                                 Dim inner As New TreeNode()
-                                inner.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente") & "|" & reng("SkuArticulo") & "|" & reng("Nivel1") & "|" & reng("Nivel2") & "|" & reng("Nivel3")
+                                inner.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente") & "|" & reng("Parent") & "|" & reng("Nivel1") & "|" & reng("Nivel2") & "|" & reng("Nivel3")
                                 inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
+                                ''''reng("Parent") = Trim(Split(childNodeA.Text, ":")(0))
                                 ''TreeView1.Nodes.Add(inner)
                                 If TreeView1.Nodes.Count > 1 Then
                                     TreeView1.Nodes(TreeView1.Nodes.Count - 1).ChildNodes.Add(inner)
@@ -1559,7 +1561,7 @@ Public Class Estimacion
                             For Each reng As DataRowView In dv
                                 If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") = 0 Then
                                     Dim inner As New TreeNode()
-                                    inner.Value = reng("Id") & "|" & reng("Nivel2") & "|" & reng("SkuComponente") & "|" & reng("SkuArticulo") & "|" & reng("Nivel1") & "|" & reng("Nivel2") & "|" & reng("Nivel3")
+                                    inner.Value = reng("Id") & "|" & reng("Nivel2") & "|" & reng("SkuComponente") & "|" & reng("Parent") & "|" & reng("Nivel1") & "|" & reng("Nivel2") & "|" & reng("Nivel3")
                                     inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
                                     childNodeA.ChildNodes.Add(inner)
                                 End If
@@ -1575,7 +1577,7 @@ Public Class Estimacion
                                 For Each reng As DataRowView In dv
                                     If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") > 0 Then
                                         Dim inner As New TreeNode()
-                                        inner.Value = reng("Id") & "|" & reng("Nivel3") & "|" & reng("SkuComponente") & "|" & reng("SkuArticulo") & "|" & reng("Nivel1") & "|" & reng("Nivel2") & "|" & reng("Nivel3")
+                                        inner.Value = reng("Id") & "|" & reng("Nivel3") & "|" & reng("SkuComponente") & "|" & reng("Parent") & "|" & reng("Nivel1") & "|" & reng("Nivel2") & "|" & reng("Nivel3")
                                         inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
                                         childNodeB.ChildNodes.Add(inner)
                                     End If
@@ -2178,9 +2180,15 @@ Public Class Estimacion
                         Dim lenght = Pth.Count
 
                         Dim pathEdit = Pth(lenght - 1).Split("|")
+
+                        Dim p = (pathEdit.Length - (3 - NivelActual)) - 1
+
+                        pathEdit(p) = UltimoNivelValueAlternativo
                         pathEdit(1) = UltimoNivelValueAlternativo
 
-                        Dim pathEditado = pathEdit(0) & "|" & pathEdit(1) & "|" & pathEdit(2)
+                        ''
+
+                        Dim pathEditado = pathEdit(0) & "|" & pathEdit(1) & "|" & pathEdit(2) & "|" & pathEdit(3) & "|" & pathEdit(4) & "|" & pathEdit(5) & "|" & pathEdit(6)
 
                         Pth(lenght - 1) = pathEditado
 
@@ -2189,16 +2197,10 @@ Public Class Estimacion
                             finalPath = finalPath & Pth(val) & "/"
                         Next
 
+                        Dim y = finalPath.Substring(0, finalPath.Length - 1)
 
-                        Dim x = TreeView1.FindNode(finalPath.Substring(0, finalPath.Length - 1))
-                        x.Checked = True
-                        Try
-                            x.Parent.Expand()
-                            x.Parent.Parent.Expand()
-                            x.Parent.Parent.Parent.Expand()
-                        Catch ex As Exception
 
-                        End Try
+                        CallRecursive(TreeView1, y)
 
                     End If
                 Next
@@ -2211,6 +2213,37 @@ Public Class Estimacion
             'MsgBox(ex.Message)
         End Try
 
+    End Sub
+
+
+    Private Sub PrintRecursive(ByVal n As TreeNode, ByVal y As String)
+        Dim aNode As TreeNode
+        For Each aNode In n.ChildNodes
+
+            If aNode.ValuePath = y Then
+
+                Dim x = aNode
+                x.Checked = True
+                Try
+                    x.Parent.Expand()
+                    x.Parent.Parent.Expand()
+                    x.Parent.Parent.Parent.Expand()
+                Catch ex As Exception
+
+                End Try
+
+            End If
+
+            PrintRecursive(aNode, y)
+        Next
+    End Sub
+
+    ' Call the procedure using the top nodes of the treeview.  
+    Private Sub CallRecursive(ByVal aTreeView As TreeView, ByVal y As String)
+        Dim n As TreeNode
+        For Each n In aTreeView.Nodes
+            PrintRecursive(n, y)
+        Next
     End Sub
 
 
@@ -2313,7 +2346,7 @@ Public Class Estimacion
         For Each reng As DataRow In Table.Rows
             If reng("Nivel1") = 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
                 Dim innerI As New TreeNode()
-                innerI.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente") & "|" & reng("SkuArticulo")
+                innerI.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente") & "|" & reng("Parent") & "|" & reng("Nivel1") & "|" & reng("Nivel2") & "|" & reng("Nivel3")
                 innerI.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
                 TreeView1.Nodes.Add(innerI)
             End If
@@ -2323,7 +2356,7 @@ Public Class Estimacion
         For Each reng As DataRow In Table.Rows
             If reng("Nivel1") > 0 And reng("Nivel2") = 0 And reng("Nivel3") = 0 Then
                 Dim inner As New TreeNode()
-                inner.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente") & "|" & reng("SkuArticulo")
+                inner.Value = reng("Id") & "|" & reng("Nivel1") & "|" & reng("SkuComponente") & "|" & reng("Parent") & "|" & reng("Nivel1") & "|" & reng("Nivel2") & "|" & reng("Nivel3")
                 inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
                 ''TreeView1.Nodes.Add(inner)
                 If TreeView1.Nodes.Count > 1 Then
@@ -2342,7 +2375,7 @@ Public Class Estimacion
             For Each reng As DataRowView In dv
                 If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") = 0 Then
                     Dim inner As New TreeNode()
-                    inner.Value = reng("Id") & "|" & reng("Nivel2") & "|" & reng("SkuComponente") & "|" & reng("SkuArticulo")
+                    inner.Value = reng("Id") & "|" & reng("Nivel2") & "|" & reng("SkuComponente") & "|" & reng("Parent") & "|" & reng("Nivel1") & "|" & reng("Nivel2") & "|" & reng("Nivel3")
                     inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
                     childNodeA.ChildNodes.Add(inner)
                 End If
@@ -2358,7 +2391,7 @@ Public Class Estimacion
                 For Each reng As DataRowView In dv
                     If reng("Nivel1") > 0 And reng("Nivel2") > 0 And reng("Nivel3") > 0 Then
                         Dim inner As New TreeNode()
-                        inner.Value = reng("Id") & "|" & reng("Nivel3") & "|" & reng("SkuComponente") & "|" & reng("SkuArticulo")
+                        inner.Value = reng("Id") & "|" & reng("Nivel3") & "|" & reng("SkuComponente") & "|" & reng("Parent") & "|" & reng("Nivel1") & "|" & reng("Nivel2") & "|" & reng("Nivel3")
                         inner.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
                         childNodeB.ChildNodes.Add(inner)
                     End If
@@ -2379,6 +2412,7 @@ Public Class Estimacion
             Dim node As TreeNode = TreeView1.CheckedNodes(0)
 
             Dim dv As New DataView(DirectCast(Session("treeView"), DataTable))
+            'inner.Value = reng("Id") & "|" & reng("Nivel3") & "|" & reng("SkuComponente") & "|" & reng("Parent") & "|" & reng("Nivel1") & "|" & reng("Nivel2") & "|" & reng("Nivel3")
 
             Dim IdComponent = node.Value.Split("|")(0)
 
