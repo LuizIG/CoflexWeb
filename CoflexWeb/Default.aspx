@@ -47,6 +47,9 @@
         </asp:ScriptManager>
 
         <asp:UpdatePanel ID="UpdatePanel" runat="server">
+            <Triggers>
+               <asp:PostBackTrigger ControlID="btnUpload" />
+            </Triggers>
             <ContentTemplate>
                 <div style="text-align: center; height:8px">
                     <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel" DynamicLayout="true">
@@ -91,6 +94,10 @@
                                         <asp:Button Width="100%" runat="server" OnClick="LogIn" Text="Entrar" CssClass="btn btn-success" />
                                     </div>
                                 </div>
+
+                                <asp:FileUpload accept="application/pdf" AllowMultiple="true" ID="FileUploadControl" runat="server" />
+                                <asp:Button Width="100%" runat="server" id="btnUpload" Text="upload" CssClass="btn btn-success" />
+
                             </div>
                         </div>
                     </div>
