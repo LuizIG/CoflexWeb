@@ -12,6 +12,14 @@
          padding: 0px !important;
          -webkit-border-radius: 0px !important;
      }
+
+
+    #MainContent_GridAttachment tr:hover {
+        background-color: #E0E0E0;
+        cursor: pointer;
+    }
+
+
     </style>
 
     <script language="javascript" type="text/javascript">
@@ -23,6 +31,17 @@
 
         function bindQuery() {
             $('.datepicker').datepicker({});
+            $('#MainContent_GridAttachment tr td').on('click', function (event) {
+                if ($(this).index() == 0) {
+
+                } else {
+                    var idAttachment = $(this).parent().attr("id");
+                    var win = window.open("Adjunto.aspx?id=" + idAttachment, '_blank');
+                    if (win) {
+                        win.focus();
+                    }
+                }
+            });
         }
 
 
@@ -192,6 +211,9 @@
     </script>
     <h2><%--<%: Title %>.--%></h2>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <Triggers>
+            <asp:PostBackTrigger ControlID="btnUpload" />
+        </Triggers>
         <ContentTemplate>
             <div class="well well-sm">
                 <table>
@@ -215,6 +237,56 @@
             </div>
             <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
                 <asp:View ID="View1" runat="server">
+                    <div id="modalAttachment" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Archivos adjuntos</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div style="margin-bottom:16px">
+
+
+
+                                        
+                                        <div style="margin-top:16px">
+                                            <table style="width:100%">
+                                                <tr>
+                                                    <td><asp:FileUpload accept="application/pdf" AllowMultiple="true" ID="FileUploadControl" runat="server" /></td>
+                                                    <td style="padding-left:16px;">
+                                                        <div style="text-align:right;">
+                                                            <asp:Button Width="100%" runat="server" id="btnUpload" Text="Cargar" CssClass="btn btn-success" />
+                                                           
+                                                        </div>
+                                                    </td>
+                                                    <td style="padding-left:8px"><asp:Button Width="100%" runat="server" id="btnDeleteAttachment" Text="Eliminar" CssClass="btn btn-danger" /></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <asp:GridView ID="GridAttachment" AutoGenerateColumns="False" class="table" runat="server" DataKeyNames="Id">
+                                        <Columns>
+                                            <asp:TemplateField>
+                                                <ItemTemplate>
+                                                    <asp:CheckBox id="chGBQuot" runat="server"></asp:CheckBox>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:BoundField DataField="Id" HeaderText="Id"  />
+                                            <asp:BoundField DataField="FileName" HeaderText="Archivo" />
+                                            <asp:BoundField DataField="Date" HeaderText="Fecha" />
+                                            <asp:BoundField DataField="Name" HeaderText="Subido por" />
+                                        </Columns>
+                                        <HeaderStyle BackColor="#C0C0C0" />
+                                    </asp:GridView>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                     <div style="text-align: center; height: 8px; margin-top: 16px;">
                         <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DynamicLayout="true">
                             <ProgressTemplate>
@@ -365,6 +437,9 @@
                                                 </td>
                                                 <td>
                                                     <asp:Button ID="BtnSplit" runat="server" class="btn btn-primary" Text="Separar" />&nbsp;
+                                                </td>
+                                                <td>
+                                                    <a href="#" data-toggle="modal" data-target="#modalAttachment" class="btn btn-primary">Adjuntos</a>&nbsp;
                                                 </td>
                                                 <td>
                                                     <div id="div_error_reorder_grid" runat="server" style="display: none; width:650px; margin:auto" class="alert alert-danger alert-dismissable fade in">
@@ -567,6 +642,7 @@
 
                             </div>
                         </div>
+
                         <table style="width: 100%">
                             <tr>
                                 <td colspan="4">

@@ -176,9 +176,6 @@ Public Class ResumenEstimaciones
 
             Dim rowView As DataRowView = DirectCast(e.Row.DataItem, DataRowView)
 
-            ' Retrieve the EventTypeID value for the current row. 
-
-
             Dim q As Integer = Convert.ToInt32(rowView("Id"))
             Dim v As Integer = Convert.ToInt32(rowView("IdVersion"))
             e.Row.Attributes("id") = q & "," & v

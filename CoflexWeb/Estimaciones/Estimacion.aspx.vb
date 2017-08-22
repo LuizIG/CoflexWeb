@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Globalization
+Imports System.IO
 Imports CoflexWeb.CoflexWeb.Services.Web
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
@@ -374,6 +375,9 @@ Public Class Estimacion
                     End If
 
                 End If
+
+
+                LoadAttachments()
 
             Else
 
@@ -2555,4 +2559,103 @@ Public Class Estimacion
         Me.Button6.Text = "Nuevo"
     End Sub
 
+    Private Sub file_uploader_Load(sender As Object, e As EventArgs) Handles btnUpload.Click
+        If FileUploadControl.HasFile Then
+
+            Dim quotation As Integer = CInt(Request.QueryString("q"))
+
+            Try
+                For Each file As HttpPostedFile In FileUploadControl.PostedFiles
+
+                    If file.ContentType = "application/pdf" Then
+                        Dim filename As String = Path.GetFileName(file.FileName)
+
+                        Dim target As MemoryStream = New MemoryStream()
+                        file.InputStream.CopyTo(target)
+                        Dim data As Byte() = target.ToArray()
+
+                        Dim str = Convert.ToBase64String(data)
+
+                        Dim Elemento As New JObject
+                        With Elemento
+                            .Add("QuotationsId", quotation)
+                            .Add("FileName", filename)
+                            .Add("FileBinary", str)
+                            .Add("Comments", "")
+                        End With
+
+                        Dim Consulta = doPostRequest(ATTACHMENTS, Elemento.ToString,, Session("access_token"))
+                        Dim o = JObject.Parse(Consulta)
+                        Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+
+                        If (statusCode >= 200 And statusCode < 400) Then
+                        Else
+                        End If
+
+                    End If
+
+                Next
+                LoadAttachments()
+            Catch ex As Exception
+            End Try
+        End If
+
+    End Sub
+
+    Private Sub LoadAttachments()
+
+        Dim idQuotation As String = Request.QueryString("q")
+
+        Dim Consulta = CoflexWebServices.doGetRequest(CoflexWebServices.ATTACHMENTVIEWS & "/" & idQuotation,, Session("access_token"))
+        Dim o = JObject.Parse(Consulta)
+        Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+
+        If (statusCode >= 200 And statusCode < 400) Then
+            Dim detail = o.GetValue("detail").Value(Of JArray)
+
+            Dim Table = JsonConvert.DeserializeObject(Of DataTable)(detail.ToString)
+
+            GridAttachment.DataSource = Table
+            GridAttachment.DataBind()
+        Else
+
+        End If
+
+    End Sub
+
+
+    Private Sub GridQuotations_DataBound(sender As Object, e As GridViewRowEventArgs) Handles GridAttachment.RowDataBound
+        If e.Row.RowType = DataControlRowType.DataRow Then
+            Dim rowView As DataRowView = DirectCast(e.Row.DataItem, DataRowView)
+            ' Retrieve the EventTypeID value for the current row. 
+            Dim q As Integer = Convert.ToInt32(rowView("Id"))
+            e.Row.Attributes("id") = q
+        End If
+        e.Row.Cells(1).Style.Add("display", "none")
+    End Sub
+
+    Private Sub btnDeleteAttachment_Click(sender As Object, e As EventArgs) Handles btnDeleteAttachment.Click
+        For Each row In GridAttachment.Rows
+
+            If row.RowType = DataControlRowType.DataRow Then
+
+                Dim id = GridAttachment.DataKeys(0).Value.ToString()
+                Dim chkRow As CheckBox = TryCast(row.Cells(0).FindControl("chGBQuot"), CheckBox)
+                Dim x = row.Cells(1).Text
+                If chkRow IsNot Nothing And chkRow.Checked And x IsNot "" Then
+
+                    Dim response = CoflexWebServices.doDeleteRequest(ATTACHMENTS & "/" & x, , Session("access_token"))
+
+                    Dim o = JObject.Parse(response)
+                    Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
+                    If (statusCode >= 200 And statusCode < 400) Then
+
+
+                    End If
+                End If
+            End If
+        Next
+        LoadAttachments()
+        ScriptManager.RegisterClientScriptBlock(UpdatePanel1, UpdatePanel1.GetType, "script", "hideDiv();", True)
+    End Sub
 End Class

@@ -84,22 +84,4 @@ Partial Public Class Acceso
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents Password As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''Control FileUploadControl.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents FileUploadControl As Global.System.Web.UI.WebControls.FileUpload
-    
-    '''<summary>
-    '''Control btnUpload.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents btnUpload As Global.System.Web.UI.WebControls.Button
 End Class
