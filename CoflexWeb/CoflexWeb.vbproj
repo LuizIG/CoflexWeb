@@ -171,6 +171,8 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Configuraciones\Excepciones.aspx" />
+    <Content Include="Configuraciones\logo.png" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker.min.css" />
     <Content Include="Content\bootstrap-datepicker.standalone.css" />
@@ -258,7 +260,9 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Bundle.config" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
@@ -271,6 +275,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuraciones\Excepciones.aspx.designer.vb">
+      <DependentUpon>Excepciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Configuraciones\Excepciones.aspx.vb">
+      <DependentUpon>Excepciones.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Default.aspx.designer.vb">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>

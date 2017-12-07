@@ -32,6 +32,7 @@ Namespace CoflexWeb.Services.Web
         Public Const QUOTATION_COMMENTS As String = "CoflexAPI/api/Comments"
         Public Const ATTACHMENTS As String = "CoflexAPI/api/Attachments"
         Public Const ATTACHMENTVIEWS As String = "CoflexAPI/api/AttachmentViews"
+        Public Const CLIENTSNOTOEM_LOCAL As String = "CoflexAPI/api/ClientNotOEMSelecteds"
         ''api/Indicator?min={min}&max={max}
 
         'Enpoints Externos
@@ -42,6 +43,7 @@ Namespace CoflexWeb.Services.Web
         Public Const CLIENTS As String = "CoflexAPIExt/api/Clients"
         Public Const EXCHANGE_RATE As String = "CoflexAPIExt/api/ExchangeRate/"
         Public Const ITEMGROUP As String = "CoflexAPIExt/api/ItemsGroup/"
+        Public Const CLIENTSNOTOEM As String = "CoflexAPIExt/api/ClientsNotOEM"
 
         'Estatus
         Public Const ABIERTA As String = "Abierta"

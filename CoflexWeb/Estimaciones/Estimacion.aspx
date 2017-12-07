@@ -5,21 +5,20 @@
     <link href="../Content/bootstrap-datepicker.css" rel="stylesheet" />
     <script src="../Scripts/bootstrap-datepicker.js"></script>
     <style type="text/css">
-     .hidden {
-         display:none;
-     }
-     #MainContent_txtQuotationDate {
-         padding: 0px !important;
-         -webkit-border-radius: 0px !important;
-     }
+        .hidden {
+            display: none;
+        }
+
+        #MainContent_txtQuotationDate {
+            padding: 0px !important;
+            -webkit-border-radius: 0px !important;
+        }
 
 
-    #MainContent_GridAttachment tr:hover {
-        background-color: #E0E0E0;
-        cursor: pointer;
-    }
-
-
+        #MainContent_GridAttachment tr:hover {
+            background-color: #E0E0E0;
+            cursor: pointer;
+        }
     </style>
 
     <script language="javascript" type="text/javascript">
@@ -158,28 +157,28 @@
             }
             function PrintPanel3() {
                 var panel = document.getElementById("<%=pnlContents3.ClientID %>");
-            var printWindow = window.open('', '', 'height=400,width=800');
-            printWindow.document.write('<html><head><title></title>');
-            printWindow.document.write('<style type="text/css">');
-            printWindow.document.write('body {');
-            printWindow.document.write('font-family:arial;');
-            printWindow.document.write('}');
-            printWindow.document.write('</style>');
-            printWindow.document.write('</head><body >');
-            printWindow.document.write(panel.innerHTML);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            setTimeout(function () {
-                printWindow.print();
-            }, 500);
-            return false;
-        }
+                var printWindow = window.open('', '', 'height=400,width=800');
+                printWindow.document.write('<html><head><title></title>');
+                printWindow.document.write('<style type="text/css">');
+                printWindow.document.write('body {');
+                printWindow.document.write('font-family:arial;');
+                printWindow.document.write('}');
+                printWindow.document.write('</style>');
+                printWindow.document.write('</head><body >');
+                printWindow.document.write(panel.innerHTML);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+                setTimeout(function () {
+                    printWindow.print();
+                }, 500);
+                return false;
+            }
 
-        var prm = Sys.WebForms.PageRequestManager.getInstance();
+            var prm = Sys.WebForms.PageRequestManager.getInstance();
 
-        prm.add_endRequest(function () {
-            // re-bind your jQuery events here
-            ddl = document.getElementById("<%=DDComponente.ClientID %>");
+            prm.add_endRequest(function () {
+                // re-bind your jQuery events here
+                ddl = document.getElementById("<%=DDComponente.ClientID %>");
 
             $("#MainContent_Tv_Exchange").focusout(function () {
                 var amount = $(this).val().replace("$", "");
@@ -192,7 +191,7 @@
                 var j = (j = i.length) > 3 ? j % 3 : 0;
                 var result = "$" + s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
                 $(this).val(result);
-                
+
             });
 
             Number.prototype.formatMoney = function (c, d, t) {
@@ -201,11 +200,11 @@
             bindQuery();
         });
 
-        function clearCheckBox() {
-            $("[id*=TreeView1] input[type=checkbox]").each(function (index, value) {
-                $(this).attr('checked', false);
-            });
-        }
+            function clearCheckBox() {
+                $("[id*=TreeView1] input[type=checkbox]").each(function (index, value) {
+                    $(this).attr('checked', false);
+                });
+            }
 
 
     </script>
@@ -439,10 +438,17 @@
                                                     <asp:Button ID="BtnSplit" runat="server" class="btn btn-primary" Text="Separar" />&nbsp;
                                                 </td>
                                                 <td>
-                                                    <a href="#" data-toggle="modal" data-target="#modalAttachment" class="btn btn-primary">Adjuntos</a>&nbsp;
+
+
+                                                    <% If (Request.QueryString("q") IsNot Nothing) Then%>
+                                                        <a href="#" data-toggle="modal" data-target="#modalAttachment" class="btn btn-primary">Adjuntos</a>&nbsp;
+                                                    <% Else %>
+                                                        <a href="#" data-toggle="modal" data-target="#modalAttachment" class="btn btn-primary disabled">Adjuntos</a>&nbsp;
+                                                    <% End If %>
+                                                    
                                                 </td>
                                                 <td>
-                                                    <div id="div_error_reorder_grid" runat="server" style="display: none; width:650px; margin:auto" class="alert alert-danger alert-dismissable fade in">
+                                                    <div id="div_error_reorder_grid" runat="server" style="display: none; width:565px; margin:auto" class="alert alert-danger alert-dismissable fade in">
                                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                                         <div runat="server" id="div_error_reorder_grid_desc"></div>
                                                     </div>

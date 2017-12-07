@@ -664,6 +664,11 @@ Public Class Estimacion
     End Sub
 
     Private Sub TreeView1_SelectedNodeChanged(sender As Object, e As EventArgs) Handles TreeView1.SelectedNodeChanged
+        printData()
+    End Sub
+
+
+    Private Sub printData()
         Try
 
             Dim scTreeView = TreeView1.SelectedNode.Value
@@ -712,8 +717,6 @@ Public Class Estimacion
         Catch ex As Exception
 
         End Try
-
-
     End Sub
 
     Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -1514,14 +1517,9 @@ Public Class Estimacion
     End Sub
 
     Protected Sub ButtonAllAgregar_Click(sender As Object, e As EventArgs) Handles ButtonAllAgregar.Click
-
         Try
-
             If Me.DDArticulo.SelectedValue <> "Seleccionar" Then
-
                 If ExistProduct(Me.DDArticulo.SelectedValue) Then
-
-
                     Dim jsonResponse = CoflexWebServices.doGetRequest(CoflexWebServices.ITEM_COMPONENTS & "/" & Me.DDArticulo.SelectedValue,, Session("access_token"))
                     Dim o = JObject.Parse(jsonResponse)
                     Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
@@ -1538,6 +1536,11 @@ Public Class Estimacion
                                 ''innerB.Value = Tabl("Id") & "|" & Tabl("Nivel3") & "|" & Tabl("SkuComponente") & "|" & Trim(Split(childNodeB.Text, ":")(0)) & "|" & Table.Rows(0)("Nivel1") & "|" & Table.Rows(0)("Nivel2") & "|" & Table.Rows(0)("Nivel3")
                                 innerI.Text = reng("SkuComponente") & " : " & reng("ITEMDESC")
                                 TreeView1.Nodes.Add(innerI)
+                                innerI.Selected = True
+                                innerI.Select()
+
+                                printData()
+
                             End If
                         Next
                         'Dim sqlDR As SqlDataAdapter
@@ -1666,6 +1669,9 @@ Public Class Estimacion
                                                 inner.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
                                                 childNodeA.ChildNodes.Add(inner)
                                                 treeViewTable(Table)
+                                                inner.Selected = True
+                                                inner.Select()
+                                                printData()
 
                                             Else
                                                 If childNodeA.ChildNodes.Count > 0 Then
@@ -1693,7 +1699,9 @@ Public Class Estimacion
                                                             innerB.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
                                                             childNodeB.ChildNodes.Add(innerB)
                                                             treeViewTable(Table)
-
+                                                            innerB.Select()
+                                                            innerB.Selected = True
+                                                            printData()
                                                         End If
                                                     Next
                                                 End If
@@ -1723,7 +1731,9 @@ Public Class Estimacion
                                         inner.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
                                         myNode.ChildNodes.Add(inner)
                                         treeViewTable(Table)
-
+                                        inner.Select()
+                                        inner.Selected = True
+                                        printData()
                                     End If
                                 Next myNode
                             End If
@@ -1733,6 +1743,9 @@ Public Class Estimacion
                             inner.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
                             TreeView1.Nodes.Add(inner)
                             treeViewTable(Table)
+                            inner.Select()
+                            inner.Selected = True
+                            printData()
                         End If
                     End If
 
@@ -1790,7 +1803,9 @@ Public Class Estimacion
                                                 inner.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
                                                 childNodeA.ChildNodes.Add(inner)
                                                 treeViewTable(Table)
-
+                                                childNodeA.Select()
+                                                childNodeA.Selected = True
+                                                printData()
                                             Else
                                                 If childNodeA.ChildNodes.Count > 0 Then
                                                     For Each childNodeB As TreeNode In childNodeA.ChildNodes
@@ -1816,7 +1831,9 @@ Public Class Estimacion
                                                             innerB.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
                                                             childNodeB.ChildNodes.Add(innerB)
                                                             treeViewTable(Table)
-
+                                                            innerB.Select()
+                                                            innerB.Selected = True
+                                                            printData()
                                                         End If
                                                     Next
                                                 End If
@@ -1845,7 +1862,9 @@ Public Class Estimacion
                                         inner.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
                                         myNode.ChildNodes.Add(inner)
                                         treeViewTable(Table)
-
+                                        inner.Select()
+                                        inner.Selected = True
+                                        printData()
                                     End If
                                 Next myNode
                             End If
@@ -1855,6 +1874,9 @@ Public Class Estimacion
                             inner.Text = Table.Rows(0)("SkuComponente") & " : " & Table.Rows(0)("ITEMDESC")
                             TreeView1.Nodes.Add(inner)
                             treeViewTable(Table)
+                            inner.Select()
+                            inner.Selected = True
+                            printData()
                         End If
                     End If
 
@@ -2017,16 +2039,23 @@ Public Class Estimacion
 
             Dim costoTotal As Double = (costoUnitario + (costoUnitario * 0.01)) / (1 - margen)
 
+
+            If (sender.Equals(GridViewCotizaENG)) Then
+                costoTotal = costoTotal / CDbl(Tv_Exchange.Text.Replace("$", ""))
+            End If
+
             If (textoAlterno IsNot Nothing And textoAlterno <> "") Then
-                e.Row.Cells(1).Text = textoAlterno
-            End If
+                    e.Row.Cells(1).Text = textoAlterno
+                End If
 
-            If (alternativeSku IsNot Nothing And alternativeSku <> "") Then
-                e.Row.Cells(0).Text = alternativeSku
-            End If
+                If (alternativeSku IsNot Nothing And alternativeSku <> "") Then
+                    e.Row.Cells(0).Text = alternativeSku
+                End If
 
-            e.Row.Cells(3).Text = costoTotal.ToString("C2", New CultureInfo("es-MX"))
-        End If
+
+
+                e.Row.Cells(3).Text = costoTotal.ToString("C2", New CultureInfo("es-MX"))
+            End If
     End Sub
 
     Private Sub GridTreeView_RowDataBound(sender As Object, e As GridViewRowEventArgs) Handles GridTreeView.RowDataBound
@@ -2085,6 +2114,8 @@ Public Class Estimacion
             If TreeView1.CheckedNodes.Count = 0 Then
                 'Tiene que seleccionar uno 
                 div_error_reorder_grid.Style.Add("display", "block")
+                div_error_reorder_grid.Attributes.Remove("class")
+                div_error_reorder_grid.Attributes.Add("class", "alert alert-danger alert-dismissable fade in")
                 div_error_reorder_grid_desc.InnerText = "Selecciona un elemento."
             ElseIf (TreeView1.CheckedNodes.Count = 1) Then
                 Dim node As TreeNode = TreeView1.CheckedNodes(0)
@@ -2210,6 +2241,8 @@ Public Class Estimacion
                 Next
             Else
                 div_error_reorder_grid.Style.Add("display", "block")
+                div_error_reorder_grid.Attributes.Remove("class")
+                div_error_reorder_grid.Attributes.Add("class", "alert alert-danger alert-dismissable fade in")
                 div_error_reorder_grid_desc.InnerText = "Selecciona solamente un elemento."
             End If
 
@@ -2410,6 +2443,8 @@ Public Class Estimacion
         If TreeView1.CheckedNodes.Count = 0 Then
             'Tiene que seleccionar uno 
             div_error_reorder_grid.Style.Add("display", "block")
+            div_error_reorder_grid.Attributes.Remove("class")
+            div_error_reorder_grid.Attributes.Add("class", "alert alert-danger alert-dismissable fade in")
             div_error_reorder_grid_desc.InnerText = "Selecciona un elemento."
 
         ElseIf (TreeView1.CheckedNodes.Count = 1) Then
@@ -2483,6 +2518,8 @@ Public Class Estimacion
 
         Else
             div_error_reorder_grid.Style.Add("display", "block")
+            div_error_reorder_grid.Attributes.Remove("class")
+            div_error_reorder_grid.Attributes.Add("class", "alert alert-danger alert-dismissable fade in")
             div_error_reorder_grid_desc.InnerText = "Selecciona solamente un elemento."
         End If
     End Sub
@@ -2563,7 +2600,8 @@ Public Class Estimacion
         If FileUploadControl.HasFile Then
 
             Dim quotation As Integer = CInt(Request.QueryString("q"))
-
+            Dim skiped As Integer = 0
+            Dim uploaded As Integer = 0
             Try
                 For Each file As HttpPostedFile In FileUploadControl.PostedFiles
 
@@ -2589,15 +2627,49 @@ Public Class Estimacion
                         Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
 
                         If (statusCode >= 200 And statusCode < 400) Then
+                            uploaded = uploaded + 1
                         Else
                         End If
 
+                    Else
+                        skiped = skiped + 1
                     End If
 
                 Next
+
+                If uploaded > 0 Then
+                    div_error_reorder_grid.Style.Add("display", "block")
+                    div_error_reorder_grid.Attributes.Remove("class")
+                    div_error_reorder_grid.Attributes.Add("class", "alert alert-success alert-dismissable fade in")
+
+
+                    If (uploaded > 1) Then
+                        div_error_reorder_grid_desc.InnerText = "Se cargaron " & uploaded & " archivos exitosamente"
+                    Else
+                        div_error_reorder_grid_desc.InnerText = "Se cargó 1 archivo correctamente"
+                    End If
+
+                Else
+
+                End If
+
+                If (skiped > 0) Then
+                    div_error_reorder_grid.Style.Add("display", "block")
+                    div_error_reorder_grid.Attributes.Remove("class")
+                    div_error_reorder_grid.Attributes.Add("class", "alert alert-danger alert-dismissable fade in")
+                    div_error_reorder_grid_desc.InnerText = "Se omitieron " & skiped & " archivo (s) que no son PDF"
+                End If
+
                 LoadAttachments()
             Catch ex As Exception
             End Try
+
+        Else
+            div_error_reorder_grid.Style.Add("display", "block")
+            div_error_reorder_grid.Attributes.Remove("class")
+            div_error_reorder_grid.Attributes.Add("class", "alert alert-danger alert-dismissable fade in")
+            div_error_reorder_grid_desc.InnerText = "Selecciona un archivo"
+
         End If
 
     End Sub
@@ -2635,6 +2707,9 @@ Public Class Estimacion
     End Sub
 
     Private Sub btnDeleteAttachment_Click(sender As Object, e As EventArgs) Handles btnDeleteAttachment.Click
+
+        Dim count As Integer = 0
+
         For Each row In GridAttachment.Rows
 
             If row.RowType = DataControlRowType.DataRow Then
@@ -2649,12 +2724,32 @@ Public Class Estimacion
                     Dim o = JObject.Parse(response)
                     Dim statusCode = o.GetValue("statusCode").Value(Of Integer)
                     If (statusCode >= 200 And statusCode < 400) Then
-
+                        count = count + 1
 
                     End If
                 End If
             End If
         Next
+
+        If count > 0 Then
+            div_error_reorder_grid.Style.Add("display", "block")
+            div_error_reorder_grid.Attributes.Remove("class")
+            div_error_reorder_grid.Attributes.Add("class", "alert alert-success alert-dismissable fade in")
+
+            If (count > 1) Then
+                div_error_reorder_grid_desc.InnerText = "Se eliminaron correctamente " & count & " archivo"
+            Else
+                div_error_reorder_grid_desc.InnerText = "Se eliminó correctamente 1 archivo"
+            End If
+
+
+        Else
+                div_error_reorder_grid.Style.Add("display", "block")
+            div_error_reorder_grid.Attributes.Remove("class")
+            div_error_reorder_grid.Attributes.Add("class", "alert alert-danger alert-dismissable fade in")
+            div_error_reorder_grid_desc.InnerText = "Selecciona un archivo para eliminar"
+        End If
+
         LoadAttachments()
         ScriptManager.RegisterClientScriptBlock(UpdatePanel1, UpdatePanel1.GetType, "script", "hideDiv();", True)
     End Sub

@@ -79,11 +79,8 @@
                                 <li><a runat="server" href="~/Account/Usuarios">Usuarios</a></li>
                                 <%--<li><a runat="server" href="~/Account/Roles">Roles</a></li>--%>
                                 <li><a runat="server" href="~/Account/ResetPassword">Cambiar contraseña</a></li>
-                                <%If Session("access_token") = Nothing Then %>
-                                <li><a runat="server" id="LogInA" href="~/Acceso">Iniciar sesión</a></li>
-                                <%else %>
+                                <li><a runat="server" href="~/Configuraciones/Excepciones">Excepciones</a></li>
                                 <li><a runat="server" id="A1" href="~/Exit">Cerrar sesión</a></li>
-                                <% End IF %>
                             </ul>
                         </AnonymousTemplate>
                         <LoggedInTemplate>
@@ -100,6 +97,9 @@
                                     <ul class="nav navbar-nav navbar-right">
                                         <%--<li><a runat="server" href="~/Account/Register">Register</a></li>--%>
                                         <li><a runat="server" href="~/Account/Login">Log Administrador</a></li>
+                                    </ul>
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <%--<li><a runat="server" href="~/Account/Register">Register</a></li>--%>
                                     </ul>
                                 </ContentTemplate>
                             </asp:RoleGroup>
